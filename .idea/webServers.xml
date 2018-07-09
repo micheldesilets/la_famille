@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ee536a7c-b328-4fb9-875e-15839fab0d05" name="GoDaddy FTP" url="http://lesnormandeaudesilets.ca">
+        <fileTransfer host="lesnormandeaudesilets.ca" port="21" rootFolder="/public_html">
+          <advancedOptions>
+            <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

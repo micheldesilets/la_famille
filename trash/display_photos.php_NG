@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Famille Normandeau-Desilets - Archives Desilets</title>
+</head>
+<body>
+<?php
+include 'connection/connect.php';
+
+$sql = "SELECT
+  paths_pat.path_pat,
+  photos_pho.filename_pho,
+  photos_pho.title_pho,
+  photos_pho.keywords_pho,
+  photos_pho.height_pho,
+  photos_pho.width_pho,
+  photos_pho.caption_pho
+FROM paths_pat
+  INNER JOIN photos_pho
+    ON paths_pat.id_pat = photos_pho.idpat_pho
+WHERE paths_pat.id_pat = 1";
+
+if ( $result = mysqli_query( $con, $sql ) ) {
+  // Return the number of rows in result set
+  $rowcount = mysqli_num_rows( $result );
+  printf( "Result set has %d rows.\n", $rowcount );
+} else {
+  echo( "nothing" );
+};
+
+$l = 1;
+
+while ( $l <= $rowcount ):
+  // Associative array
+  $row = mysqli_fetch_array( $result, MYSQLI_ASSOC );
+
+  $l++;
+
+  $title = utf8_encode( $row[ "title_pho" ] );
+  $keywords = utf8_encode( $row[ "keywords_pho" ] );
+  $height = $row[ "height_pho" ];
+  $width = $row[ "width_pho" ];
+  $caption = utf8_encode( $row[ "caption_pho" ] );
+  $path = utf8_encode( $row[ "path_pat" ] );
+  $filename = utf8_encode( $row[ "filename_pho" ] );
+
+  ?>
+
+  <a href="<?php printf($path.$filename) ?>" target=""><img class="thumb" src="<?php printf($path.$filename) ?>" title="<?php printf($title) ?>" height="<?php printf($height) ?>" width="<?php printf($width) ?>"></a>
+
+<?php endwhile; ?>
+<?php
+
+// Free result set
+mysqli_free_result( $result );
+
+mysqli_close( $con );
+?>
+</body>
+</html>

@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+html, body {
+  min-height: 100%;
+}
+
+/* --- Containers --- */
+
+.page {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* --- See background.php for more on body --- */
+body {
+  font-family: raleway, sans-serif;
+  font-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100%;
+}
+
+header {
+  padding-left: 6em;
+}
+
+nav {
+  line-height: 1.7;
+}
+
+li {
+  display: inline-block;
+
+}
+
+
+
+h1 {
+  font-family: "Alex Brush", sans-serif;
+  font-size: 3.3em;
+  margin-bottom: .001em;
+  color: #e7a588;
+  text-shadow: 3px 2px 2px black;
+  margin-top: .5em;
+}
+
+.subhead {
+  font-size: 1.2em;
+  font-style: italic;
+  margin-top: -.5em;
+  padding-left: 14em;
+}
+
+img {
+  display: block;
+  border: 2px solid black;
+  margin-right: 12px;
+}
+
+img.thumb {
+  display: inherit
+}
+
+a:link {
+  color: red;
+  text-decoration: none;
+}
+
+a:visited {
+  color: orange;
+}
+
+a:focus {
+  color: purple;
+}
+
+a:hover {
+  color: green;
+}

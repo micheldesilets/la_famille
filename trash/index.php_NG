@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/background.php" media="screen">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Famille Normandeau-Desilets - Acceuil</title>
+</head>
+<body class="page">
+<header role=banner>
+  <h1 class="main-title">Les Normandeau-Desilets</h1>
+  <p class="subhead">Une courte histoire de Nous</p>
+  <nav role=navigation class="menu">
+    <ul>
+      <li><a href="lectures.php">Lectures</a>
+      </li>
+      <li><a href="#">Généalogie</a>
+      </li>
+      <li><a href="#">Objets de famille</a>
+      </li>
+      <li><a href="#">La famille en photos</a>
+      </li>
+      <li><a href="display_photos.php">Photos d'archives</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main role=main>
+
+</main>
+<footer>
+
+</footer>
+</body>
+</html>
