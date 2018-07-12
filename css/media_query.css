@@ -4,7 +4,7 @@
 /* 320+
 ------------------------------------------ */
 @media only screen and (min-width: 20em) {
-  /* Masthead */
+/*  !* Masthead *!
   .nav-main li {
     border-left: 1px solid #c8c8c8;
     display: inline-block;
@@ -25,17 +25,17 @@
     padding: .5em .9em .5em 1.15em;
   }
 
-  /* Sidebar */
+  !* Sidebar *!
   .links {
     width: 90%;
-  }
+  }*/
 }
 
 
 /* 480+
 ------------------------------------------ */
 @media only screen and (min-width: 30em) {
-  /* Masthead */
+/*  !* Masthead *!
   .masthead {
     position: relative;
   }
@@ -46,7 +46,7 @@
   }
 
   .nav-main a {
-    font-size: 1.125em; /* 18px/16px */
+    font-size: 1.125em; !* 18px/16px *!
     padding-left: 1.4em;
     padding-right: 1.15em;
   }
@@ -62,7 +62,7 @@
     margin-left: -1px;
   }
 
-  /* Main Content */
+  !* Main Content *!
   .post-photo {
     float: left;
     margin-bottom: 2px;
@@ -79,17 +79,17 @@
     content: '•  ';
   }
 
-  /* Sidebar */
+  !* Sidebar *!
   .links a {
     font-size: 1.125em;
-  }
+  }*/
 }
 
 
 /* 480-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {
-  /* Sidebar */
+/*  !* Sidebar *!
   .about {
     overflow: hidden;
   }
@@ -97,28 +97,29 @@
   .about img {
     float: left;
     margin-right: 15px;
-  }
+  }*/
 }
 
 
 /* 600-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 37.5em) and (max-width: 47.9375em) {
-  /* Sidebar */
+/*  !* Sidebar *!
   .about {
     padding-bottom: 1.4em;
-  }
+  }*/
 }
 
 
 /* 768+
 ------------------------------------------- */
 @media only screen and (min-width: 48em) {
+  /*
   h1 {
     font-size: 3.25em;
   }
 
-  /* Masthead */
+  !* Masthead *!
   .masthead {
     padding-top: 10px;
   }
@@ -127,7 +128,7 @@
     margin-bottom: 0;
   }
 
-  /* Main Content */
+  !* Main Content *!
   .container {
     background: url(../img/bg.png) repeat-y 65.938% 0;
     padding-bottom: 1.9375em;
@@ -160,7 +161,7 @@
     margin-top: 45px;
   }
 
-  /* Sidebar */
+  !* Sidebar *!
   .sidebar {
     float: right;
     margin-top: 1.875em;
@@ -171,9 +172,10 @@
     font-size: 0.813em;
   }
 
-  /* Page Footer */
+  !* Page Footer *!
   footer[role="contentinfo"] {
     border-top: 1px solid #cacbcb;
   }
+  */
 }
 /* --- end media queries ---- */

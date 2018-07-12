@@ -282,12 +282,12 @@ h1 {
 
 /* --- photo gallery --- */
 .thumb-arch {
-  float: left;
+/*  float: left; */
   border: none;
   margin-bottom: .5em;
-  /*max-width: 100%;*/
-  width: 12%;
-  height: auto;
+  max-width: 100%;
+  /*width: 12%;
+  height: auto; */
   border-radius: 8px;
   cursor: pointer;
   transition: 1.4s;

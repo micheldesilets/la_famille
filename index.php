@@ -5,18 +5,18 @@
   <title>Famille Normandeau-Desilets - Acceuil</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-<!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
+  <link rel="stylesheet" href="css/media_query.css" media="screen">
   <!--[if lt IE 9]>
   <!--<script src="js/html5shiv.js"></script>-->
   <![endif]-->
   <?php
-   require_once 'classes/database/cl_photosDB.php';
+  require_once 'classes/database/cl_photosDB.php';
 
-   $db = new photosBD();
-   $photo = $db->getHomePhoto();
-   $file = $photo->get_Filename();
-   $path = $photo->get_F_Path();
-   $loc = $path . $file;
+  $db = new photosBD();
+  $photo = $db->getHomePhoto();
+  $file = $photo->get_Filename();
+  $path = $photo->get_F_Path();
+  $loc = $path . $file;
   ?>
 
 </head>
