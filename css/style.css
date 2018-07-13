@@ -29,33 +29,29 @@ body {
 }
 
 h1 {
-  /* color: #212121;
-   font-family: 'Lato', sans-serif;
-   font-size: 3.25em;
-   font-weight: 300;
-   letter-spacing: -2px;
-   line-height: .975;*/
   font-family: "Alex Brush", sans-serif;
-  font-size: 3.3em;
-  margin-bottom: .001em;
-  color: #e7a588;
-  text-shadow: 3px 2px 2px black;
-  margin-top: .5em;
+  /* font-size: 3.3em;
+   margin-bottom: .001em;
+   color: #e7a588;
+   text-shadow: 3px 2px 2px black;
+   margin-top: .5em; */
 }
 
 .subhead {
+  /*
   font-size: 1.2em;
   font-style: italic;
   margin-top: -.5em;
   padding-left: 14em;
   margin-bottom: 1.4em;
+  */
 }
 
 .about h2,
 .mod h2,
 .nav-main a {
   /*font-family: 'Open Sans', sans-serif;*/
-  font-weight: 600;
+  /* font-weight: 600; */
   /*text-transform: uppercase;*/
 }
 
@@ -82,11 +78,13 @@ a:hover {
   content: ' »';
 }
 
+/*
 img {
   display: block;
   border: 2px solid black;
   margin-right: 12px;
 }
+*/
 
 /* CONTAINERS
 ------------------------------------------ */
@@ -114,11 +112,12 @@ main {
 
 /* MASTHEAD
 ------------------------------------------ */
+/*
 .masthead {
   padding-top: 10px;
   position: relative;
 }
-
+*/
 .logo {
   /*font-size: 10px;
   line-height: 1;
@@ -135,12 +134,14 @@ main {
   padding: .45em 0 .5em;
 }
 
+/*
 .nav-main li {
-  border-left: 1px solid #c8c8c8;
+  border-left: 1px solid #c8c8c8; (/
   /*display: inline-block;*/
-  text-align: left;
+/*  text-align: left;
   font-size: .9em;
 }
+*/
 
 .nav-main li:first-child {
   border-left: none;
@@ -152,10 +153,11 @@ main {
 
 .nav-main a {
   /*color: #292929;*/
+  /*
   display: inline-block;
   font-size: 1.125em;
   padding: .5em 1.15em .5em 1.4em;
-  color: orangered;
+  color: orangered; */
 }
 
 .nav-main a:hover {
@@ -231,8 +233,6 @@ h1 {
 }
 
 .home-pic {
-  position: absolute;
-  left: 10%;
   max-width: 100%;
 }
 

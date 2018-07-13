@@ -6,9 +6,9 @@
 @media only screen and (min-width: 20em) {
   /* Masthead */
   .nav-main li {
-    border-left: 1px solid #c8c8c8;
-    display: inline-block;
-    text-align: left;
+    /*    border-left: 1px solid #c8c8c8;
+        display: inline-block;
+        text-align: left;*/
   }
 
   .nav-main li:first-child {
@@ -20,9 +20,9 @@
   }
 
   .nav-main a {
-    display: inline-block;
-    font-size: 2em;
-    padding: .5em .9em .5em 1.15em;
+    /*    display: inline-block;
+        font-size: 2em;
+        padding: .5em .9em .5em 1.15em;*/
   }
 
   /* Sidebar */
@@ -109,9 +109,9 @@
     padding-bottom: 1.4em;
   }*/
   .nav-main a {
-    display: inline-block;
-    font-size: 1em;
-    padding: .5em .9em .5em 1.15em;
+    /*    display: inline-block;
+        font-size: 1em;
+        padding: .5em .9em .5em 1.15em;*/
   }
 }
 
