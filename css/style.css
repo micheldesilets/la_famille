@@ -31,16 +31,16 @@ body {
 h1 {
   font-family: "Alex Brush", sans-serif;
   margin-bottom: .001em;
-  color: #e7a588;
-  text-shadow: 3px 2px 2px black;
+  color: black;
+  /*text-shadow: 3px 2px 2px black;*/
   margin-top: .5em;
 }
 
 .subhead {
   font-style: italic;
   margin-top: -.5em;
-  padding-left: 14em;
-  margin-bottom: 1.4em;
+  /*padding-left: 14em;*/
+  /*margin-bottom: 1.4em;*/
 }
 
 .about h2,
@@ -125,7 +125,7 @@ main {
 /* ::: Main Navigation ::: */
 .nav-main {
   border-bottom: 1px solid #c7c7c8;
-  border-top: 5px solid #019443;
+  /*border-top: 5px solid #019443;*/
   margin-bottom: 1em;
   padding: .45em 0 .5em;
 }
@@ -148,11 +148,11 @@ main {
 
 .nav-main a {
   /*color: #292929;*/
-  /*
+
   display: inline-block;
-  font-size: 1.125em;
+  /*font-size: 1.125em;*/
   padding: .5em 1.15em .5em 1.4em;
-  color: orangered; */
+  color: black;
 }
 
 .nav-main a:hover {

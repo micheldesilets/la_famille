@@ -1,4 +1,3 @@
-
 /* ===================== MEDIA QUERIES ===================== */
 
 /* 320+
@@ -6,11 +5,19 @@
 @media only screen and (min-width: 20em) {
   /* Masthead */
   h1 {
-    font-size: 3.8em;
+    display: block;
+    font-size: 1.8em;
+    text-align: center;
   }
 
   .subhead {
-    font-size: 1.4em;
+    font-size: .7em;
+    text-align: center;
+    margin-bottom: -0.4em;
+  }
+
+  .nav-main {
+    border-top: 0.13em solid black;
   }
 
   .nav-main li {
@@ -26,9 +33,9 @@
   }
 
   .nav-main a {
-    /*    display: inline-block;
-        font-size: 2em;
-        padding: .5em .9em .5em 1.15em;*/
+    display: inline-block;
+    font-size: 2em;
+    padding: .5em .9em .5em 1.15em;
   }
 
   /* Sidebar */
@@ -37,90 +44,100 @@
   }
 }
 
+/* 375+
+------------------------------------------ */
+@media only screen and (min-width: 23em) {
+  /* Masthead */
+  h1 {
+    font-size: 2em;
+  }
+}
+
+.subhead {
+  font-size: .9em;
+  text-align: center;
+}
 
 /* 480+
 ------------------------------------------ */
 @media only screen and (min-width: 30em) {
-/*  !* Masthead *!
-  .masthead {
-    position: relative;
-  }
+  /*  !* Masthead *!
+    .masthead {
+      position: relative;
+    }
 
-  .logo {
-    margin-bottom: 8px;
-    text-align: left;
-  }
+    .logo {
+      margin-bottom: 8px;
+      text-align: left;
+    }
 
-  .nav-main a {
-    font-size: 1.125em; !* 18px/16px *!
-    padding-left: 1.4em;
-    padding-right: 1.15em;
-  }
+    .nav-main a {
+      font-size: 1.125em; !* 18px/16px *!
+      padding-left: 1.4em;
+      padding-right: 1.15em;
+    }
 
-  .social-sites {
-    margin: 0;
-    position: absolute;
-    right: -3px;
-    top: 41px;
-  }
+    .social-sites {
+      margin: 0;
+      position: absolute;
+      right: -3px;
+      top: 41px;
+    }
 
-  .social-sites li {
-    margin-left: -1px;
-  }
+    .social-sites li {
+      margin-left: -1px;
+    }
 
-  !* Main Content *!
-  .post-photo {
-    float: left;
-    margin-bottom: 2px;
-    margin-right: 3.67%;
-    max-width: 61.667%;
-  }
+    !* Main Content *!
+    .post-photo {
+      float: left;
+      margin-bottom: 2px;
+      margin-right: 3.67%;
+      max-width: 61.667%;
+    }
 
-  .post-footer time {
-    display: inline;
-    margin-top: 0;
-  }
+    .post-footer time {
+      display: inline;
+      margin-top: 0;
+    }
 
-  .post-footer time:before {
-    content: '•  ';
-  }
+    .post-footer time:before {
+      content: '•  ';
+    }
 
-  !* Sidebar *!
-  .links a {
-    font-size: 1.125em;
-  }*/
+    !* Sidebar *!
+    .links a {
+      font-size: 1.125em;
+    }*/
 }
-
 
 /* 480-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {
-/*  !* Sidebar *!
-  .about {
-    overflow: hidden;
-  }
+  /*  !* Sidebar *!
+    .about {
+      overflow: hidden;
+    }
 
-  .about img {
-    float: left;
-    margin-right: 15px;
-  }*/
+    .about img {
+      float: left;
+      margin-right: 15px;
+    }*/
 }
-
 
 /* 600-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 37.5em) and (max-width: 47.9375em) {
-/*  !* Sidebar *!
-  .about {
-    padding-bottom: 1.4em;
-  }*/
+  /*  !* Sidebar *!
+    .about {
+      padding-bottom: 1.4em;
+    }*/
   .nav-main a {
     /*    display: inline-block;
         font-size: 1em;
         padding: .5em .9em .5em 1.15em;*/
   }
 }
-
 
 /* 768+
 ------------------------------------------- */
@@ -187,4 +204,5 @@
      border-top: 1px solid #cacbcb;
    }*/
 }
+
 /* --- end media queries ---- */
