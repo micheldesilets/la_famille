@@ -5,10 +5,16 @@
 ------------------------------------------ */
 @media only screen and (min-width: 20em) {
   /* Masthead */
+  h1 {
+    font-size: 3.8em;
+  }
+
+  .subhead {
+    font-size: 1.4em;
+  }
+
   .nav-main li {
-    /*    border-left: 1px solid #c8c8c8;
-        display: inline-block;
-        text-align: left;*/
+    font-size: 1.2em;
   }
 
   .nav-main li:first-child {

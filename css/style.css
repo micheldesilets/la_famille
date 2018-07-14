@@ -30,21 +30,17 @@ body {
 
 h1 {
   font-family: "Alex Brush", sans-serif;
-  /* font-size: 3.3em;
-   margin-bottom: .001em;
-   color: #e7a588;
-   text-shadow: 3px 2px 2px black;
-   margin-top: .5em; */
+  margin-bottom: .001em;
+  color: #e7a588;
+  text-shadow: 3px 2px 2px black;
+  margin-top: .5em;
 }
 
 .subhead {
-  /*
-  font-size: 1.2em;
   font-style: italic;
   margin-top: -.5em;
   padding-left: 14em;
   margin-bottom: 1.4em;
-  */
 }
 
 .about h2,
@@ -134,14 +130,13 @@ main {
   padding: .45em 0 .5em;
 }
 
-/*
+
 .nav-main li {
-  border-left: 1px solid #c8c8c8; (/
-  /*display: inline-block;*/
-/*  text-align: left;
-  font-size: .9em;
+  /*border-left: 1px solid #c8c8c8;*/
+  display: inline-block;
+  text-align: left;
 }
-*/
+
 
 .nav-main li:first-child {
   border-left: none;
@@ -282,7 +277,7 @@ h1 {
 
 /* --- photo gallery --- */
 .thumb-arch {
-/*  float: left; */
+  /*  float: left; */
   border: none;
   margin-bottom: .5em;
   max-width: 100%;

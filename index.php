@@ -2,13 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Famille Normandeau-Desilets - Acceuil</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/media_query.css" media="screen">
-  <!--[if lt IE 9]>
-  <!--<script src="js/html5shiv.js"></script>-->
-  <![endif]-->
   <?php
   require_once 'classes/database/cl_photosDB.php';
 
