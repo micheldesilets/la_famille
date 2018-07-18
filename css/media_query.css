@@ -34,7 +34,7 @@
 
   .nav-main a {
     display: inline-block;
-    font-size: 2em;
+    font-size: .5em;
     padding: .5em .9em .5em 1.15em;
   }
 
@@ -142,11 +142,48 @@
 /* 768+
 ------------------------------------------- */
 @media only screen and (min-width: 48em) {
-  /* h1 {
-     font-size: 3.25em;
+  h1 {
+    font-size: 2.5em;
    }
 
-   !* Masthead *!
+  .subhead {
+    font-size: 0.97em;
+    text-align: center;
+    margin-bottom: -0.4em;
+  }
+
+  .nav-main {
+    border-top: 0.15em solid black;
+    text-align: center;
+  }
+
+  .nav-main li {
+    font-size: 1.2em;
+  }
+
+  .nav-main li:first-child {
+    border-left: none;
+  }
+
+  .nav-main li:last-child a {
+    padding-right: 0;
+  }
+
+  .nav-main a {
+    display: inline-block;
+    font-size: .7em;
+    padding: .5em .9em .5em 1.15em;
+  }
+
+  .home-pic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  /*
+     !* Masthead *!
    .masthead {
      padding-top: 10px;
    }

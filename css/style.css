@@ -21,7 +21,7 @@ html, body {
 /* GENERAL (APPLIED TO ELEMENTS)
 ------------------------------------------ */
 body {
-  font-family: raleway, sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 100%;
   background-repeat: no-repeat;
   background-position: top left;
@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-  font-family: "Alex Brush", sans-serif;
+  font-family: 'Alex Brush', cursive;
   margin-bottom: .001em;
   color: black;
   /*text-shadow: 3px 2px 2px black;*/
