@@ -134,7 +134,6 @@ main {
 .nav-main li {
   /*border-left: 1px solid #c8c8c8;*/
   display: inline-block;
-  text-align: left;
 }
 
 
@@ -228,6 +227,9 @@ h1 {
 }
 
 .home-pic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 100%;
 }
 

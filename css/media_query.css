@@ -16,12 +16,17 @@
     margin-bottom: -0.4em;
   }
 
+  .home-pic {
+    width: 80%;
+  }
+
   .nav-main {
     border-top: 0.13em solid black;
+    text-align: center;
   }
 
   .nav-main li {
-    font-size: 1.2em;
+    font-size: 1.0em;
   }
 
   .nav-main li:first-child {
@@ -35,7 +40,7 @@
   .nav-main a {
     display: inline-block;
     font-size: .5em;
-    padding: .5em .9em .5em 1.15em;
+    padding: .5em .5em .5em 1em;
   }
 
   /* Sidebar */
@@ -114,6 +119,30 @@
 /* 480-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {
+
+  .nav-main {
+    border-top: 0.15em solid black;
+    text-align: center;
+  }
+
+  .nav-main li {
+    font-size: 1.0em;
+  }
+
+  .nav-main li:first-child {
+    border-left: none;
+  }
+
+  .nav-main li:last-child a {
+    padding-right: 0;
+  }
+
+  .nav-main a {
+    display: inline-block;
+    font-size: .7em;
+    padding: .5em .9em .5em 1.15em;
+  }
+
   /*  !* Sidebar *!
     .about {
       overflow: hidden;
@@ -176,9 +205,6 @@
   }
 
   .home-pic {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 80%;
   }
 
