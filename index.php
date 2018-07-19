@@ -41,7 +41,7 @@
         </li>
         <li><a href="#">La famille en photos</a>
         </li>
-        <li><a href="photo_gallery_copy.php">Photos d'archives</a>
+        <li><a href="photo_arch_desilets.php">Photos d'archives</a>
         </li>
       </ul>
     </nav>
