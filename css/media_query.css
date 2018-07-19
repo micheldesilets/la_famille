@@ -6,14 +6,15 @@
   /* Masthead */
   h1 {
     display: block;
-    font-size: 1.8em;
+    font-size: 1.5em;
     text-align: center;
   }
 
   .subhead {
-    font-size: .7em;
+    font-size: 0.1em;
     text-align: center;
     margin-bottom: -0.4em;
+    margin-top: -0.1em;
   }
 
   .home-pic {
@@ -176,7 +177,7 @@
    }
 
   .subhead {
-    font-size: 0.97em;
+    font-size: .97em;
     text-align: center;
     margin-bottom: -0.4em;
   }
