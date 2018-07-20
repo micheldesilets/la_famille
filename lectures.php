@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/media_query.css" media="screen">
-  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">
+  <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <!--[if lt IE 9]>
   <!--<script src="js/html5shiv.js"></script>-->
   <![endif]-->
@@ -33,7 +33,7 @@
         </li>
         <li><a href="#">La famille en photos</a>
         </li>
-        <li><a href="photo_gallery.php">Photos d'archives</a>
+        <li><a href="photo_arch_desilets.php">Photos d'archives</a>
         </li>
       </ul>
     </nav>
