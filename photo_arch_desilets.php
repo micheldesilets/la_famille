@@ -83,7 +83,7 @@
           ?>
 
           <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
-            <img class="thumb-arch" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
+            <img class="thumb-arch" id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
                  alt="<?php echo $file; ?>"/>
           </a>
 

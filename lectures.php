@@ -2,10 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Famille Normandeau-Desilets - Acceuil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Famille Normandeau-Desilets - Lectures</title>
   <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/background.php" media="screen">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media_query.css" media="screen">
+  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">
   <!--[if lt IE 9]>
   <!--<script src="js/html5shiv.js"></script>-->
   <![endif]-->
