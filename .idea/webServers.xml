@@ -10,6 +10,9 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="4a7321da-4a49-49cb-a2fa-3bbf67122605" name="AMPPS Local Server" url="http://localhost/la_famille">
+        <fileTransfer port="0" mountedRoot="E:\Program Files (x86)\Ampps\www" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>
