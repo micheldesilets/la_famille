@@ -39,6 +39,13 @@ html, body {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/Raleway-SemiBold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

@@ -174,7 +174,7 @@
 @media only screen and (min-width: 48em) {
   h1 {
     font-size: 2.5em;
-   }
+  }
 
   .subhead {
     font-size: .97em;
@@ -210,9 +210,20 @@
   }
 
   main .readings {
-    color: red;
-    padding-bottom: 1em;
+    font-weight: bold;
   }
+
+  p.resume {
+    font-weight: normal;
+    font-size: .88em;
+  }
+
+  main .books {
+    width: 15%;
+    float: left;
+    padding-right: 1.5em;
+  }
+
   /*
      !* Masthead *!
    .masthead {
