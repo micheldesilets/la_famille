@@ -46,7 +46,7 @@
       <ul class="nav-main">
         <li><a href="index.php">Acceuil</a>
         </li>
-        <li><a href="lectures.php">Lectures</a>
+        <li><a href="readings.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
@@ -54,40 +54,41 @@
         </li>
         <li><a href="#">La famille en photos</a>
         </li>
-       </ul>
+      </ul>
     </nav>
   </header>
   <div class="page">
     <div class="container">
       <!-- ==== START MAIN ==== -->
       <main role="main" class="arch-photo">
-        <?php
-        $i = 0;
+        <section>
+          <?php
+          $i = 0;
 
-        while ($i <= count($photo) - 1):
-          // Associative array
-          $row = $photo[$i];
+          while ($i <= count($photo) - 1):
+            // Associative array
+            $row = $photo[$i];
 
-          $i++;
+            $i++;
 
-          $title = $row->get_Title();
-          $keywords = $row->get_Keywords();
-          $height = $row->get_Height();
-          $width = $row->get_Width();
-          $caption = $row->get_Caption();
-          $file = $row->get_Filename();
-          $f_path = $row->get_F_Path();
-          $p_path = $row->get_P_Path();
-          $thumb = $p_path . $file;
-          $imageURL = $f_path . $file;
-          ?>
+            $title = $row->get_Title();
+            $keywords = $row->get_Keywords();
+            $height = $row->get_Height();
+            $width = $row->get_Width();
+            $caption = $row->get_Caption();
+            $file = $row->get_Filename();
+            $f_path = $row->get_F_Path();
+            $p_path = $row->get_P_Path();
+            $thumb = $p_path . $file;
+            $imageURL = $f_path . $file;
+            ?>
 
-          <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
-            <img class="thumb-arch" id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
-                 alt="<?php echo $file; ?>"/>
-          </a>
+            <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
+              <img class="thumb-arch" id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
+                   alt="<?php echo $file; ?>"/>
+            </a>
 
-        <?php endwhile; ?>
+          <?php endwhile; ?>
 
         </section>
         <section class="post">

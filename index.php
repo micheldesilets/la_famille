@@ -33,7 +33,7 @@
 
     <nav role="navigation">
       <ul class="nav-main">
-        <li><a href="lectures.php">Lectures</a>
+        <li><a href="readings.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
