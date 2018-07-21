@@ -60,12 +60,16 @@
 
             $title = $row->get_Title();
             $address = $row->get_Address();
+            $resume = $row->get_Resume();
             ?>
-
-            <a href="<?php printf($address) ?>" target="_blank">
-              <?php printf($title) ?>
-            </a><br>
-
+            <div class="readings">
+              <a href="<?php printf($address) ?>" target="_blank">
+                <?php printf($title) ?>
+                <p class="resume">
+                  <?php printf($resume) ?>
+                </p>
+              </a><br>
+            </div>
           <?php endwhile; ?>
 
         </section>

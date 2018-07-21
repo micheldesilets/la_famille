@@ -902,10 +902,10 @@
     </collation>
     <table id="226" parent="3" name="parameters_par"/>
     <table id="227" parent="3" name="paths_pat"/>
-    <table id="228" parent="3" name="pdf_pdo">
+    <table id="228" parent="3" name="photos_pho"/>
+    <table id="229" parent="3" name="readings_rea">
       <Comment>Documents PDF logés sur Adobe Document Cloud</Comment>
     </table>
-    <table id="229" parent="3" name="photos_pho"/>
     <column id="230" parent="226" name="id_par">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
@@ -937,7 +937,7 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="227" name="prev_desi_path_pat">
+    <column id="235" parent="227" name="prev_path_pat">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -947,83 +947,88 @@
       <ColNames>id_pat</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="237" parent="228" name="id_pdo">
+    <column id="237" parent="228" name="id_pho">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="228" name="name_pdo">
-      <Position>2</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="239" parent="228" name="address_pdo">
-      <Position>3</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="240" parent="228" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_pdo</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="241" parent="229" name="id_pho">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="242" parent="229" name="title_pho">
+    <column id="238" parent="228" name="title_pho">
       <Position>2</Position>
       <Comment>attribut alt de img(html)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="229" name="keywords_pho">
+    <column id="239" parent="228" name="keywords_pho">
       <Position>3</Position>
       <DataType>varchar(120)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="244" parent="229" name="height_pho">
+    <column id="240" parent="228" name="height_pho">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;143&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="229" name="width_pho">
+    <column id="241" parent="228" name="width_pho">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;100&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="246" parent="229" name="caption_pho">
+    <column id="242" parent="228" name="caption_pho">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="229" name="idpat_pho">
+    <column id="243" parent="228" name="idpat_pho">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="229" name="filename_pho">
+    <column id="244" parent="228" name="filename_pho">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="249" parent="229" name="PRIMARY">
+    <key id="245" parent="228" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_pho</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="246" parent="229" name="id_rea">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="247" parent="229" name="title_rea">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="248" parent="229" name="address_rea">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="249" parent="229" name="resume_rea">
+      <Position>4</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="250" parent="229" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_rea</ColNames>
       <Primary>1</Primary>
     </key>
   </database-model>

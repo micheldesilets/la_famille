@@ -38,6 +38,7 @@ class readingsDB
 
       $reading->set_Title($row["title_rea"]);
       $reading->set_Address($row["address_rea"]);
+      $reading->set_Resume($row['resume_rea']);
       array_push($readingArray, $reading);
 
       $l++;

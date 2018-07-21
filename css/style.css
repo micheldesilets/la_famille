@@ -119,12 +119,12 @@ ol {
 }
 
 a {
-  color: #1162a4;
+  color: black;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .more:after {

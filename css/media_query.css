@@ -209,6 +209,10 @@
     width: 85%;
   }
 
+  main .readings {
+    color: red;
+    padding-bottom: 1em;
+  }
   /*
      !* Masthead *!
    .masthead {

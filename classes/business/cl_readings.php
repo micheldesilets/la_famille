@@ -6,6 +6,7 @@ class Readings
   private $m_idpdo;
   private $m_title;
   private $m_address;
+  private $m_resume;
 
   public function set_idpdo($idpdo)
   {
@@ -49,4 +50,19 @@ class Readings
     return $this->m_address;
   }
 
+  /**
+   * @param mixed $m_resume
+   */
+  public function set_Resume($m_resume)
+  {
+    $this->m_resume = utf8_encode($m_resume);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_Resume()
+  {
+    return $this->m_resume;
+  }
 }
