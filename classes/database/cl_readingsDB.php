@@ -16,7 +16,9 @@ class readingsDB
 
 //    $lectures = new Readings();
 
-    $sql = "SELECT * FROM readings_rea ";
+    $sql = "SELECT * FROM readings_rea
+  JOIN paths_pat pp1
+  ON pp1.id_pat = idpat_rea";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
@@ -39,6 +41,7 @@ class readingsDB
       $reading->set_Title($row["title_rea"]);
       $reading->set_Address($row["address_rea"]);
       $reading->set_Resume($row['resume_rea']);
+      $reading->set_File($row[path_pat] . '/' . $row['file_rea']);
       array_push($readingArray, $reading);
 
       $l++;

@@ -7,6 +7,7 @@ class Readings
   private $m_title;
   private $m_address;
   private $m_resume;
+  private $m_file;
 
   public function set_idpdo($idpdo)
   {
@@ -65,4 +66,21 @@ class Readings
   {
     return $this->m_resume;
   }
+
+  /**
+   * @param mixed $m_file
+   */
+  public function set_File($m_file): void
+  {
+    $this->m_file = $m_file;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_File()
+  {
+    return $this->m_file;
+  }
+
 }

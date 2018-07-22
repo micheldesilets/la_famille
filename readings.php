@@ -47,7 +47,6 @@
   <div class="page">
     <div class="container">
       <main role=main>
-        <img src="La_Madone.jpg" alt="" class="books">
         <!--The section element represents a generic section of a document or application. -->
         <section>
           <?php
@@ -62,15 +61,18 @@
             $title = $row->get_Title();
             $address = $row->get_Address();
             $resume = $row->get_Resume();
+            $file = $row->get_File();
 
             ?>
             <div class="readings">
+              <img src="<?php printf($file) ?>" alt="" class="books">
               <a href="<?php printf($address) ?>" target="_blank" class="readings">
                 <?php printf($title) ?>
-                <p class="resume">
-                  <?php printf($resume) ?>
-                </p>
-              </a><br>
+              </a>
+              <p class="resume">
+                <?php printf($resume) ?>
+              </p>
+              <br>
             </div>
           <?php endwhile; ?>
 
