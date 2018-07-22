@@ -64,10 +64,12 @@
             $file = $row->get_File();
 
             ?>
-            <div class="readings">
+            <div class="clearfix">
               <img src="<?php printf($file) ?>" alt="" class="books">
-              <a href="<?php printf($address) ?>" target="_blank" class="readings">
-                <?php printf($title) ?>
+              <a href="<?php printf($address) ?>" target="_blank">
+                <p class="title">
+                  <?php printf($title) ?>
+                </p>
               </a>
               <p class="resume">
                 <?php printf($resume) ?>

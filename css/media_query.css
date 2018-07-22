@@ -213,6 +213,10 @@
     font-weight: bold;
   }
 
+  main .title {
+    font-weight: bold;
+  }
+
   p.resume {
     font-weight: normal;
     font-size: .88em;
@@ -222,8 +226,12 @@
     width: 15%;
     float: left;
     padding-right: 1.5em;
+    padding-bottom: 1em;
   }
 
+  .clearfix {
+    overflow: auto;
+  }
   /*
      !* Masthead *!
    .masthead {
