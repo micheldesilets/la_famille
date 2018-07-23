@@ -59,7 +59,8 @@
   </header>
   <div class="page">
     <div class="container">
-      <a href="photo_arch_desilets.php" class="flip-archive">Vers les Marchand-Desilets</a>
+      <a href="photo_arch_desilets.php" class="flip-archive">
+        <p class="normal-flip-archive">Vers les </p> Marchand-Desilets</a>
       <!-- ==== START MAIN ==== -->
       <main role="main" class="arch-photo">
         <section>

@@ -59,7 +59,8 @@
   </header>
   <div class="page">
     <div class="container">
-      <a href="photo_arch_normandeau.php" class="flip-archive">Vers les Bernard-Normandeau</a>
+      <a href="photo_arch_normandeau.php" class="flip-archive">
+        <p class="normal-flip-archive">Vers les </p> Bernard-Normandeau</a>
       <!-- ==== START MAIN ==== -->
       <main role="main" class="arch-photo">
         <section>

@@ -188,7 +188,7 @@
   }
 
   .nav-main li {
-    font-size: 1.24em;
+    font-size: 1.28em;
   }
 
   .nav-main li:first-child {
@@ -201,7 +201,7 @@
 
   .nav-main a {
     display: inline-block;
-    font-size: .6em;
+    font-size: .65em;
     padding: .5em .9em .5em 1.15em;
   }
 
@@ -210,8 +210,16 @@
   }
 
   .flip-archive {
+    font-style: italic;
     font-weight: bold;
     font-size: .9em;
+    text-align: right;
+    display: block;
+  }
+
+  .normal-flip-archive {
+    font-weight: normal;
+    display: inline-block;
   }
 
   main .readings {
