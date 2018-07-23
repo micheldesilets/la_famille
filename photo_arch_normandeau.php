@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Famille Normandeau-Desilets - Archives</title>
+  <title>Famille Bernard-Normandeau - Archives</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/media_query.css" media="screen">
@@ -59,7 +59,7 @@
   </header>
   <div class="page">
     <div class="container">
-      <a href="photo_arch_normandeau.php" class="flip-archive">Vers les Bernard-Normandeau</a>
+      <a href="photo_arch_desilets.php" class="flip-archive">Vers les Marchand-Desilets</a>
       <!-- ==== START MAIN ==== -->
       <main role="main" class="arch-photo">
         <section>

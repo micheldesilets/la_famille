@@ -188,7 +188,7 @@
   }
 
   .nav-main li {
-    font-size: 1.21em;
+    font-size: 1.24em;
   }
 
   .nav-main li:first-child {
@@ -209,17 +209,23 @@
     width: 85%;
   }
 
+  .flip-archive {
+    font-weight: bold;
+    font-size: .9em;
+  }
+
   main .readings {
     font-weight: bold;
   }
 
   main .title {
     font-weight: bold;
+    margin-top: 0;
   }
 
   p.resume {
     font-weight: normal;
-    font-size: .88em;
+    font-size: 1.12em;
   }
 
   main .books {
