@@ -28,7 +28,7 @@
   <?php
   require_once 'classes/database/cl_photosDB.php';
   $db = new photosBD();
-  $photo = $db->getPhotos();
+  $photo = $db->getPhotos(1);
   ?>
 </head>
 <body>
@@ -86,7 +86,7 @@
 
             <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
               <img class="thumb-arch" id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
-                   alt="<?php echo $file; ?>"/>
+                   alt="<?php echo $title; ?>"/>
             </a>
 
           <?php endwhile; ?>

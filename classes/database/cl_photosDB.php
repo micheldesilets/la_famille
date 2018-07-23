@@ -38,7 +38,7 @@ FROM photos_pho
   }
 
   /* --- GETPHOTOS --- */
-  public function getPhotos()
+  public function getPhotos($path)
   {
     include 'connection/connect.php';
     require_once 'classes\business\cl_photos.php';
@@ -57,7 +57,7 @@ FROM photos_pho
 FROM paths_pat
   INNER JOIN photos_pho
     ON paths_pat.id_pat = photos_pho.idpat_pho
-WHERE paths_pat.id_pat = 1";
+WHERE paths_pat.id_pat = $path";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
