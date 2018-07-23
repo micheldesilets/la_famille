@@ -18,7 +18,8 @@ class readingsDB
 
     $sql = "SELECT * FROM readings_rea
   JOIN paths_pat pp1
-  ON pp1.id_pat = idpat_rea";
+  ON pp1.id_pat = idpat_rea
+  ORDER BY order_rea";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set

@@ -65,8 +65,8 @@
 
             ?>
             <div class="clearfix">
-              <img src="<?php printf($file) ?>" alt="" class="books">
               <a href="<?php printf($address) ?>" target="_blank">
+                <img src="<?php printf($file) ?>" alt="" class="books">
                 <p class="title">
                   <?php printf($title) ?>
                 </p>
