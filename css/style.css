@@ -92,14 +92,6 @@ body {
   background-size: 100%;
 }
 
-h1 {
-  font-family: 'Alex Brush';
-  margin-bottom: .001em;
-  color: black;
-  /*text-shadow: 3px 2px 2px black;*/
-  margin-top: .5em;
-}
-
 .subhead {
   font-style: italic;
   margin-top: -.5em;
@@ -167,6 +159,7 @@ a:hover {
   height: 100px;
   bottom: 0;
 }
+
 /*
 img {
   display: block;
@@ -185,9 +178,9 @@ img {
   -moz-animation: fadein .8s; /* Firefox */
   -webkit-animation: fadein .8s; /* Safari and Chrome */
   -o-animation: fadein .8s; /* Opera */
+
+  /*overflow: hidden;*/
 }
-
-
 
 .container {
   /*background: url(../img/bg.png) repeat-y 629px 0;
@@ -208,34 +201,37 @@ main {
 
 /* MASTHEAD
 ------------------------------------------ */
-/*
+
 .masthead {
-  padding-top: 10px;
-  position: relative;
+  font-family: 'Alex Brush';
+  font-size: 1em;
+  margin-top: .5em;
+  text-align: center;
 }
-*/
-.logo {
-  /*font-size: 10px;
-  line-height: 1;
-  margin-bottom: -8px;
-  margin-top: 0;
-  text-align: left;*/
+
+.subhead {
+  font-family: Raleway;
+  font-style: italic;
+  margin-top: -1.4em;
+  font-size: .9em;
+  text-align: center;
+  margin-bottom: -0.8em;
 }
 
 /* ::: Main Navigation ::: */
 .nav-main {
-  border-bottom: 1px solid #c7c7c8;
-  /*border-top: 5px solid #019443;*/
+  /*border-top: 0.15em solid black;*/
+  text-align: center;
+  border-bottom: 1px solid black;
   margin-bottom: 1em;
-  padding: .45em 0 .5em;
+  padding: .4em 0 .4em;
 }
 
-
 .nav-main li {
+  font-size: 1.28em;
   /*border-left: 1px solid #c8c8c8;*/
   display: inline-block;
 }
-
 
 .nav-main li:first-child {
   border-left: none;
@@ -246,12 +242,10 @@ main {
 }
 
 .nav-main a {
-  /*color: #292929;*/
-
   display: inline-block;
-  /*font-size: 1.125em;*/
-  padding: .5em 1.15em .5em 1.4em;
-  color: black;
+  font-size: 1em;
+  padding: .5em .9em .5em 1.15em;
+  /*color: #292929;*/
 }
 
 .nav-main a:hover {
@@ -263,32 +257,6 @@ main {
 .nav-main .current-page:hover {
   color: #747474;
   cursor: default;
-}
-
-/* ::: Social Sites Icons ::: */
-.social-sites {
-  /*margin: 0;
-  padding: 0;
-  position: absolute;
-  right: -3px;
-  top: 41px;*/
-}
-
-.social-sites li {
-  /*margin-left: -1px;*/
-}
-
-.social-sites a {
-  /*color: #019443;
-  font-family: 'Social Icons', sans-serif;
-  font-size: 46px;
-  line-height: .8;
-  vertical-align: middle;*/
-}
-
-.social-sites a:hover {
-  /* color: #1162a4;
-   text-decoration: none;*/
 }
 
 /* MAIN CONTENT
@@ -308,7 +276,6 @@ main > .post:first-child > h1 {
 }
 
 .gallery img {
-  width: 22%;
   height: auto;
   border-radius: 8px;
   cursor: pointer;
@@ -326,11 +293,9 @@ h1 {
   max-width: 61.667%;*/
 }
 
-.home-pic {
+.post img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
+  max-width: none
 }
 
 .post-blurb p {
@@ -400,22 +365,29 @@ h1 {
 
 /* ::: About Me ::: */
 .about {
-  /*background: #2b2b2b;
-  padding: 0.313em 0.625em 0.625em;*/
+  width: 18%;
+  float: left;
+  border: 1px solid black;;
+  /*background: #2b2b2b; */
+  padding: 0.313em 0.625em 0.625em;
+  margin-right: 0.5em;
 }
 
 .about img {
-  /*border: 5px solid #bebebe;*/
+  display: block;
+  margin: 0 auto;
+  border: 2px solid black;
 }
 
 .about h2,
 .about p {
-  /*color: #dadada;*/
+  color: black;
+  text-align: left;
 }
 
 .about p {
-  /* font-size: 0.813em;
-   line-height: 1.5;*/
+  font-size: 0.813em;
+  line-height: 1.4;
 }
 
 .map {
