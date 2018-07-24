@@ -6,7 +6,7 @@
   <title>Famille Bernard-Normandeau - Archives</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/media_query.css" media="screen">
+  <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>

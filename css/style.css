@@ -204,7 +204,7 @@ main {
 
 .masthead {
   font-family: 'Alex Brush';
-  font-size: 1em;
+  font-size: 1.1em;
   margin-top: .5em;
   text-align: center;
 }
@@ -213,7 +213,7 @@ main {
   font-family: Raleway;
   font-style: italic;
   margin-top: -1.4em;
-  font-size: .9em;
+  font-size: .8em;
   text-align: center;
   margin-bottom: -0.8em;
 }
@@ -228,7 +228,6 @@ main {
 }
 
 .nav-main li {
-  font-size: 1.28em;
   /*border-left: 1px solid #c8c8c8;*/
   display: inline-block;
 }
@@ -243,7 +242,8 @@ main {
 
 .nav-main a {
   display: inline-block;
-  font-size: 1em;
+  font-size: 1.1em;
+  /*font-weight: bold;*/
   padding: .5em .9em .5em 1.15em;
   /*color: #292929;*/
 }
@@ -353,6 +353,41 @@ h1 {
   border-radius: 8px;
   cursor: pointer;
   transition: 1.4s;
+}
+
+/* Reading page */
+.flip-archive {
+  font-style: italic;
+  font-weight: bold;
+  font-size: .9em;
+  text-align: right;
+  display: block;
+}
+
+.normal-flip-archive {
+  font-weight: normal;
+  display: inline-block;
+}
+
+main .readings {
+  font-weight: bold;
+}
+
+main .title {
+  font-weight: bold;
+  margin-top: 0;
+}
+
+p.resume {
+  font-weight: normal;
+  font-size: 1.12em;
+}
+
+main .books {
+  width: 15%;
+  float: left;
+  padding-right: 1.5em;
+  padding-bottom: 1em;
 }
 
 /* SIDEBAR
