@@ -47,6 +47,12 @@
   <div class="page">
     <div class="container">
       <main role=main>
+        <article class="clearfix,about">
+          <p>
+            Cette page contient un ensemble de documents (livres,lettres personnelles, etc.) que vous trouverez
+            surement intéressants de lire.
+          </p>
+        </article>
         <!--The section element represents a generic section of a document or application. -->
         <section>
           <?php

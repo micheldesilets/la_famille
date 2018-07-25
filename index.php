@@ -49,7 +49,7 @@
       <img src="img/archives/bernard-normandeau/preview/Chantal_Normandeau_1973-CEGEP.jpg" alt="Chantal Normandeau"
            class="myself">
       <p>En construisant ce site, j'ai voulu, tenté à tout le moins, conserver l'histoire de ma famille et
-        un peu de celles avec qui j'ai partagé ma vie.</p>
+        un peu celle avec qui j'ai partagé ma vie.</p>
       <!--        <h2>About Me</h2>-->
       <!--        ...-->
     </article>

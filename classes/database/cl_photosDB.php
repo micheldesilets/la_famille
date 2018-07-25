@@ -6,8 +6,8 @@ class photosBD
   /* --- GETHOMEPHOTO --- */
   public function getHomePhoto()
   {
-    include_once 'connection\connect.php';
-    require_once 'classes\business\cl_photos.php';
+    include_once 'connection/connect.php';
+    require_once 'classes/business/cl_photos.php';
 
     $photo = new Photos();
 
@@ -41,7 +41,7 @@ FROM photos_pho
   public function getPhotos($path)
   {
     include 'connection/connect.php';
-    require_once 'classes\business\cl_photos.php';
+    require_once 'classes/business/cl_photos.php';
 
     $photo = new Photos();
 

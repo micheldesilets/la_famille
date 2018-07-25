@@ -1,1 +1,4 @@
 
+Options +ExecCGI
+AddHandler fcgid-script .html
+FCGIWrapper /usr/local/cpanel/cgi-sys/php5 .html
