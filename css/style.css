@@ -244,7 +244,7 @@ main {
   display: inline-block;
   font-size: 1.1em;
   /*font-weight: bold;*/
-  padding: .5em .9em .5em 1.15em;
+  padding: .2em .9em .5em 1.15em;
   /*color: #292929;*/
 }
 
@@ -295,7 +295,8 @@ h1 {
 
 .post img {
   display: block;
-  max-width: none
+  max-width: none;
+  box-shadow: 6px 6px 10px grey;
 }
 
 .post-blurb p {
@@ -412,6 +413,7 @@ main .books {
   display: block;
   margin: 0 auto;
   border: 2px solid black;
+  border-radius: 50%;
 }
 
 .about h2,
