@@ -42,7 +42,7 @@ class readingsDB
       $reading->set_Title($row["title_rea"]);
       $reading->set_Address($row["address_rea"]);
       $reading->set_Resume($row['resume_rea']);
-      $reading->set_File($row[path_pat] . '/' . $row['file_rea']);
+      $reading->set_File($row[path_pat] . $row['file_rea']);
       array_push($readingArray, $reading);
 
       $l++;

@@ -209,9 +209,10 @@ main {
   text-align: center;
 }
 
-.subhead {
+.masthead h2 {
   font-family: Raleway;
   font-style: italic;
+  font-weight: normal;
   margin-top: -1.4em;
   font-size: .8em;
   text-align: center;

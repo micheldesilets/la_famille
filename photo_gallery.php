@@ -18,7 +18,7 @@
     </ul>
 
     <h1>Les Normandeau-Desilets</h1>
-    <p class="subhead">Une courte histoire de Nous</p>
+    <h2>Une courte histoire de Nous</h2>
 
     <nav role="navigation">
       <ul class="nav-main">

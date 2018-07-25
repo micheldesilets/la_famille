@@ -26,7 +26,7 @@
     </ul>
 
     <h1>Les Normandeau-Desilets</h1>
-    <p class="subhead">Une courte histoire de Nous</p>
+    <h2>Une courte histoire de Nous</h2>
 
     <nav role="navigation">
       <ul class="nav-main">
@@ -50,7 +50,7 @@
         <article class="clearfix,about">
           <p>
             Cette page contient un ensemble de documents (livres,lettres personnelles, etc.) que vous trouverez
-            surement intéressants de lire.
+            surement intéressants.
           </p>
         </article>
         <!--The section element represents a generic section of a document or application. -->

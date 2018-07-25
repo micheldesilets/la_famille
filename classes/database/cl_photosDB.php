@@ -34,7 +34,14 @@ FROM photos_pho
     $photo->set_F_Path($row["path_pat"]);
     $photo->set_Filename($row["filename_pho"]);
 
+    mysqli_close($con);
     return $photo;
+  }
+
+  /* --- GETSIDEBARPHOTO --- */
+  public function getSidebarPhoto()
+  {
+    return "";
   }
 
   /* --- GETPHOTOS --- */

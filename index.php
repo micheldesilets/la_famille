@@ -12,10 +12,20 @@
   require_once 'classes/database/cl_photosDB.php';
 
   $db = new photosBD();
+
+  /* main photo */
   $photo = $db->getHomePhoto();
   $file = $photo->get_Filename();
   $path = $photo->get_F_Path();
   $loc = $path . $file;
+
+  /* sidebar photo */
+  /*
+    $photoSb = $db->getSidebarPhoto();
+    $fileSb = $photo->get_Filename();
+    $pathSb = $photo->get_F_Path();
+    $locSb = $path . $file;
+    */
   ?>
 </head>
 <body>
@@ -25,7 +35,7 @@
     <!--    <p class="logo"><a href="/"><img .../></a></p>-->
     <h1>Les Normandeau-Desilets</h1>
 
-    <p class="subhead">Une courte histoire de Nous</p>
+    <h2>Une courte histoire de Nous</h2>
 
     <nav role="navigation">
       <ul class="nav-main">
