@@ -120,30 +120,6 @@
         </nav>
       </main>
       <!-- end main -->
-      <!-- ==== START SIDEBAR ==== -->
-      <div class="sidebar">
-        <article class="about">
-          <!--          <h2>About Me</h2>-->
-          <!--          ...-->
-        </article>
-        <div class="mod">
-          <!--          <h2>My Travels</h2>-->
-          <!--          ... [map image] ...-->
-        </div>
-        <aside class="mod">
-          <!--          <h2>Popular Posts</h2>-->
-          <ul class="links">
-            <!--            ... [links list items] ...-->
-          </ul>
-        </aside>
-        <aside class="mod">
-          <!--          <h2>Recently Shared</h2>-->
-          <ul class="links">
-            <!--            ... [links list items] ...-->
-          </ul>
-        </aside>
-      </div>
-      <!-- end sidebar -->
     </div>
     <!-- end container -->
     <!-- ==== START PAGE FOOTER ==== -->
