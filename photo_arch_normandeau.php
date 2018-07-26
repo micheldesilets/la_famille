@@ -60,9 +60,10 @@
   <div class="page">
     <div class="container">
       <a href="photo_arch_desilets.php" class="flip-archive">
+        <p class="archives-MD">Photos d'archives des Bernard-Normandeau</p>
         <p class="normal-flip-archive">Vers les </p> Marchand-Desilets</a>
       <!-- ==== START MAIN ==== -->
-      <main role="main" class="arch-photo">
+      <main role="main">
         <section>
           <?php
           $i = 0;
@@ -86,7 +87,7 @@
             ?>
 
             <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
-              <img class="thumb-arch" id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
+              <img id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
                    alt="<?php echo $title; ?>"/>
             </a>
 

@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  se
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Famille Normandeau-Desilets - Acceuil</title>
   <link rel="stylesheet" href="css/normalize.css">
