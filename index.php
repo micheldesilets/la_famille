@@ -11,21 +11,20 @@
   <?php
   require_once 'classes/database/cl_photosDB.php';
 
-  $db = new photosBD();
-
   /* main photo */
+  $db = new photosBD();
   $photo = $db->getHomePhoto();
   $file = $photo->get_Filename();
   $path = $photo->get_F_Path();
+  $title = $photo->get_Title();
   $loc = $path . $file;
 
   /* sidebar photo */
-  /*
-    $photoSb = $db->getSidebarPhoto();
-    $fileSb = $photo->get_Filename();
-    $pathSb = $photo->get_F_Path();
-    $locSb = $path . $file;
-    */
+  $dbSb = new photosBD();
+  $photoSb = $dbSb->getSidebarPhoto();
+  $fileSb = $photoSb->get_Filename();
+  $pathSb = $photoSb->get_P_Path();
+  $locSb = $pathSb . $fileSb;
   ?>
 </head>
 <body>
@@ -56,7 +55,7 @@
   <!-- ==== START SIDEBAR ==== -->
   <div class="sidebar">
     <article class="about">
-      <img src="img/archives/bernard-normandeau/preview/Chantal_Normandeau_1973-CEGEP.jpg" alt="Chantal Normandeau"
+      <img src="<?php echo($locSb); ?>" alt="Chantal Normandeau"
            class="myself">
       <p>En construisant ce site, j'ai voulu, tenté à tout le moins, conserver l'histoire de ma famille et
         un peu celle avec qui j'ai partagé ma vie.</p>
@@ -86,7 +85,7 @@
   <!-- ==== START MAIN ==== -->
   <main role="main">
     <section class="post">
-      <img src="<?php echo($loc); ?>" alt="Le Parc Lafontaine">
+      <img src="<?php echo($loc); ?>" alt="<?php echo($title) ?>">
       <!--        <img ... class="post-photo-full"/>-->
       <div class="post-blurb">
         <!--          <p>It is hard to believe ...</p>-->

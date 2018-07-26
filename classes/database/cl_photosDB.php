@@ -6,7 +6,7 @@ class photosBD
   /* --- GETHOMEPHOTO --- */
   public function getHomePhoto()
   {
-    include_once 'connection/connect.php';
+    include 'connection/connect.php';
     require_once 'classes/business/cl_photos.php';
 
     $photo = new Photos();
@@ -33,6 +33,7 @@ FROM photos_pho
 
     $photo->set_F_Path($row["path_pat"]);
     $photo->set_Filename($row["filename_pho"]);
+    $photo->set_Title($row["title_pho"]);
 
     mysqli_close($con);
     return $photo;
@@ -41,7 +42,35 @@ FROM photos_pho
   /* --- GETSIDEBARPHOTO --- */
   public function getSidebarPhoto()
   {
-    return "";
+    include 'connection/connect.php';
+
+    $photoSb = new Photos();
+
+    $sql = "
+SELECT pho.filename_pho, pp1.prev_path_pat
+FROM photos_pho pho
+  JOIN parameters_par pp
+  ON id_pho = pp.home_sidebar_par
+  JOIN paths_pat pp1
+  ON pp1.id_pat = idpat_pho
+  WHERE pp.id_par = 1";
+
+    if ($result = mysqli_query($con, $sql)) {
+// Return the number of rows in result set
+//$rowcount = mysqli_num_rows($result);
+//printf("Result set has %d rows.\n", $rowcount);
+    } else {
+      echo("nothing");
+    };
+
+// Associative array
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    $photoSb->set_P_Path($row["prev_path_pat"]);
+    $photoSb->set_Filename($row["filename_pho"]);
+
+    mysqli_close($con);
+    return $photoSb;
   }
 
   /* --- GETPHOTOS --- */
