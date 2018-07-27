@@ -396,6 +396,7 @@ main .books {
 
 .about img {
   display: block;
+  width: 75%;
   margin: 0 auto;
   border: 2px solid black;
   border-radius: 50%;
