@@ -60,6 +60,7 @@
            class="myself">
       <p>En construisant ce site, j'ai voulu, tenté à tout le moins, conserver l'histoire de ma famille et
         un peu celle avec qui j'ai partagé ma vie.</p>
+      <img src="img/Signature.jpg" alt="" class="signature">
       <!--        <h2>About Me</h2>-->
       <!--        ...-->
     </article>

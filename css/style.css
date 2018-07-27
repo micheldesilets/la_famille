@@ -399,6 +399,14 @@ main .books {
   margin: 0 auto;
   border: 2px solid black;
   border-radius: 50%;
+  box-shadow: 4px 4px 20px grey;
+}
+
+.about .signature {
+  box-shadow: none;
+  border-radius: unset;
+  border: none;
+  float: right;
 }
 
 .about h2,
