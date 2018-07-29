@@ -201,6 +201,13 @@ main {
 
 /* MASTHEAD
 ------------------------------------------ */
+/* To freeze the header
+.header-cont {
+   width:960px;
+   position:fixed;
+   top:0px;
+ }
+*/
 
 .masthead {
   font-family: 'Alex Brush';
@@ -243,7 +250,7 @@ main {
 
 .nav-main a {
   display: inline-block;
-  font-size: 1.1em;
+  font-size: 1.2em;
   /*font-weight: bold;*/
   padding: .2em .9em .5em 1.15em;
   /*color: #292929;*/
@@ -288,6 +295,7 @@ h1 {
   display: block;
   max-width: none;
   box-shadow: 6px 6px 10px grey;
+  opacity: 1;
 }
 
 .post-blurb p {
@@ -341,6 +349,8 @@ h1 {
   font-size: .9em;
   text-align: right;
   display: block;
+  margin-top: -1.5em;
+  margin-bottom: .7em;
 }
 
 .archives-MD {
@@ -369,6 +379,7 @@ p.resume {
 main .books {
   width: 15%;
   float: left;
+  height: auto;
   margin-right: 1.5em;
   margin-bottom: 1em;
   /*padding-right: 1.5em;*/
@@ -399,7 +410,7 @@ main .books {
   width: 75%;
   margin: 0 auto;
   border: 2px solid black;
-  border-radius: 50%;
+  border-radius: 18% 18% 7% 7%;
   box-shadow: 4px 4px 20px grey;
 }
 

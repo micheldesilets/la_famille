@@ -82,14 +82,7 @@ FROM photos_pho pho
     $photo = new Photos();
 
     $sql = "SELECT
-  paths_pat.path_pat,
-  paths_pat.prev_path_pat,
-  photos_pho.filename_pho,
-  photos_pho.title_pho,
-  photos_pho.keywords_pho,
-  photos_pho.height_pho,
-  photos_pho.width_pho,
-  photos_pho.caption_pho
+*
 FROM paths_pat
   INNER JOIN photos_pho
     ON paths_pat.id_pat = photos_pho.idpat_pho
@@ -121,6 +114,7 @@ WHERE paths_pat.id_pat = $path";
       $photo->set_F_Path($row["path_pat"]);
       $photo->set_P_Path($row["prev_path_pat"]);
       $photo->set_Filename($row["filename_pho"]);
+      $photo->set_Pdf($row['pdf_pho']);
       array_push($photoArray, $photo);
 
       $l++;

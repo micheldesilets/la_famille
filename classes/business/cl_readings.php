@@ -6,6 +6,7 @@ class Readings
   private $m_idpdo;
   private $m_title;
   private $m_address;
+  private $m_intro;
   private $m_resume;
   private $m_file;
 
@@ -51,6 +52,21 @@ class Readings
     return $this->m_address;
   }
 
+  /**
+   * @param mixed $m_intro
+   */
+  public function set_Intro($m_intro): void
+  {
+    $this->m_intro = utf8_encode($m_intro);
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_Intro()
+  {
+    return $this->m_intro;
+  }
   /**
    * @param mixed $m_resume
    */

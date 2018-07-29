@@ -9,7 +9,7 @@
 class readingsDB
 {
   /* Get readings */
-  public function getReadings()
+  public function getReadings($path)
   {
     include_once 'connection/connect.php';
     require_once 'classes/business/cl_readings.php';
@@ -17,9 +17,10 @@ class readingsDB
 //    $lectures = new Readings();
 
     $sql = "SELECT * FROM readings_rea
-  JOIN paths_pat pp1
-  ON pp1.id_pat = idpat_rea
-  ORDER BY order_rea";
+  JOIN paths_pat pat
+  ON pat.id_pat = idpat_rea
+  WHERE pat.id_pat = $path
+    ORDER BY order_rea";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
@@ -41,7 +42,12 @@ class readingsDB
 
       $reading->set_Title($row["title_rea"]);
       $reading->set_Address($row["address_rea"]);
-      $reading->set_Resume($row['resume_rea']);
+      if (!empty($row["intro_rea"])) {
+        $reading->set_Intro($row["intro_rea"]);
+      }
+      if (!empty($row['resume_rea'])) {
+        $reading->set_Resume($row['resume_rea']);
+      }
       $reading->set_File($row[path_pat] . $row['file_rea']);
       array_push($readingArray, $reading);
 

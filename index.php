@@ -39,7 +39,7 @@
 
     <nav role="navigation">
       <ul class="nav-main">
-        <li><a href="readings.php">Lectures</a>
+        <li><a href="readings_desilets.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
@@ -56,7 +56,7 @@
   <!-- ==== START SIDEBAR ==== -->
   <div class="sidebar">
     <article class="about">
-      <img src="<?php echo($locSb); ?>" alt="Chantal Normandeau"
+      <img src="<?php echo($locSb); ?>" alt="Michel Desilets"
            class="myself">
       <p>En construisant ce site, j'ai voulu, tenté à tout le moins, conserver l'histoire de ma famille et un peu celle
         de ceux avec qui j'ai partagé ma vie.</p>

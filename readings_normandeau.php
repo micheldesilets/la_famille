@@ -14,45 +14,50 @@
   <?php
   require_once 'classes/database/cl_readingsDB.php';
   $db = new readingsDB();
-  $reading = $db->getReadings();
+  $reading = $db->getReadings(5);
   ?>
 </head>
 <body>
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
-  <header class="masthead" role="banner">
-    <!--    <p class="logo"><a href="/"><img .../></a></p>-->
-    <ul class="social-sites">
-    </ul>
-
-    <h1>Les Normandeau-Desilets</h1>
-    <h2>Une courte histoire de Nous</h2>
-
-    <nav role="navigation">
-      <ul class="nav-main">
-        <li><a href="index.php">Acceuil </a>
-        </li>
-        <li><a href="#">Généalogie</a>
-        </li>
-        <li><a href="#">Objets de famille</a>
-        </li>
-        <li><a href="#">La famille en photos</a>
-        </li>
-        <li><a href="photo_arch_desilets.php">Photos d'archives</a>
-        </li>
+  <div class="header-cont">
+    <header class="masthead" role="banner">
+      <!--    <p class="logo"><a href="/"><img .../></a></p>-->
+      <ul class="social-sites">
       </ul>
-    </nav>
+
+      <h1>Les Normandeau-Desilets</h1>
+      <h2>Une courte histoire de Nous</h2>
+
+      <nav role="navigation">
+        <ul class="nav-main">
+          <li><a href="index.php">Acceuil </a>
+          </li>
+          <li><a href="#">Généalogie</a>
+          </li>
+          <li><a href="#">Objets de famille</a>
+          </li>
+          <li><a href="#">La famille en photos</a>
+          </li>
+          <li><a href="photo_arch_desilets.php">Photos d'archives</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
   </header>
   <!-- end masthead -->
   <div class="page">
     <div class="container">
+      <a href="readings_desilets.php" class="flip-archive">
+        <p class="archives-MD">Lectures des Bernard-Normandeau</p>
+        <p class="normal-flip-archive">Vers les </p> Normandeau-Desilets</a>
       <main role=main>
-        <article class="clearfix,about">
-          <p>
-            Cette page contient un ensemble de documents (livres,lettres personnelles, etc.) que vous trouverez
-            surement intéressants.
-          </p>
-        </article>
+        <!--        <article class="clearfix,about">
+                  <p>
+                    Cette page contient un ensemble de documents (livres,lettres personnelles, etc.) que vous trouverez
+                    surement intéressants.
+                  </p>
+                </article> -->
         <!--The section element represents a generic section of a document or application. -->
         <section>
           <?php
@@ -66,19 +71,23 @@
 
             $title = $row->get_Title();
             $address = $row->get_Address();
+            $intro = $row->get_Intro();
             $resume = $row->get_Resume();
             $file = $row->get_File();
 
             ?>
             <div class="clearfix">
-              <a href="<?php printf($address) ?>" target="_blank">
-                <img src="<?php printf($file) ?>" alt="" class="books">
+              <a href="<?php printf($address); ?>" target="_blank">
+                <img src="<?php printf($file); ?>" alt="" class="books">
                 <p class="title">
-                  <?php printf($title) ?>
+                  <?php printf($title); ?>
                 </p>
               </a>
               <p class="resume">
-                <?php printf($resume) ?>
+                <?php printf($intro); ?>
+              </p>
+              <p class="resume">
+                <?php printf($resume); ?>
               </p>
               <br>
             </div>

@@ -12,6 +12,7 @@ class Photos
   private $m_f_path;
   private $m_p_path;
   private $m_filename;
+  private $m_pdf;
 
   public function set_Idpho($idpho){
     $this->m_idpho = $idpho;
@@ -86,6 +87,22 @@ class Photos
 
   function get_Filename(){
     return $this->m_filename;
+  }
+
+  /**
+   * @param mixed $m_pdf
+   */
+  public function set_Pdf($m_pdf): void
+  {
+    $this->m_pdf = $m_pdf;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_Pdf()
+  {
+    return $this->m_pdf;
   }
 
 }

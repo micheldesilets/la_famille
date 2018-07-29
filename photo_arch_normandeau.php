@@ -46,7 +46,7 @@
       <ul class="nav-main">
         <li><a href="index.php">Acceuil</a>
         </li>
-        <li><a href="readings.php">Lectures</a>
+        <li><a href="readings_desilets.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
@@ -69,29 +69,36 @@
           $i = 0;
 
           while ($i <= count($photo) - 1):
-            // Associative array
-            $row = $photo[$i];
+          // Associative array
+          $row = $photo[$i];
 
-            $i++;
+          $i++;
 
-            $title = $row->get_Title();
-            $keywords = $row->get_Keywords();
-            $height = $row->get_Height();
-            $width = $row->get_Width();
-            $caption = $row->get_Caption();
-            $file = $row->get_Filename();
-            $f_path = $row->get_F_Path();
-            $p_path = $row->get_P_Path();
-            $thumb = $p_path . $file;
-            $imageURL = $f_path . $file;
-            ?>
+          $title = $row->get_Title();
+          $keywords = $row->get_Keywords();
+          $height = $row->get_Height();
+          $width = $row->get_Width();
+          $caption = $row->get_Caption();
+          $file = $row->get_Filename();
+          $f_path = $row->get_F_Path();
+          $p_path = $row->get_P_Path();
+          $pdf = $row->get_pdf();
+          $thumb = $p_path . $file;
+          $imageURL = $f_path . $file;
+          ?>
 
+          <?php if (empty($pdf)) { ?>
             <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
               <img id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
                    alt="<?php echo $title; ?>"/>
             </a>
+          <?php } else { ?>
+          <a href="<?php printf($pdf); ?>" target="_blank">
+            <img id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
+                 alt="<?php echo $title; ?>"/>
+            <?php } ?>
 
-          <?php endwhile; ?>
+            <?php endwhile; ?>
 
         </section>
         <section class="post">
