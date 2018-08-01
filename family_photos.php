@@ -35,212 +35,114 @@
   </header>
   <!-- end masthead -->
   <!-- ==== START SIDEBAR ==== -->
-  <div class="sidebar">
+  <div class="sidebar-family">
     <!--    <article class="about">-->
     <!--        <h2>About Me</h2>-->
     <!--        ...-->
     <!--    </article>-->
     <div class="drop-down">
       <input type="checkbox" id="menu"/>
+      <img src="img/arrow.png" class="arrow">
       <label for="menu" id="nav-icon">Photos Michel</label>
-
 
       <div class="multi-level">
         <div class="item">
           <input type="checkbox" id="A"/>
-          <img src="Code/images/Arrow.png" class="arrow"><label for="A">Services</label>
+          <img src="img/arrow.png" class="arrow">
+          <label for="A">1970-1979</label>
 
           <ul>
-            <li><a href="#">Branding</a></li>
-            <li><a href="#">Web/App Development</a></li>
-            <li><a href="#">Internet Marketing and SEO</a></li>
+
+            <li><a href="#">1975</a></li>
+            <li><a href="#">1976</a></li>
+            <li><a href="#">1977</a></li>
+            <li><a href="#">1978</a></li>
+            <li><a href="#">1979</a></li>
+
           </ul>
+
         </div>
         <div class="item">
           <input type="checkbox" id="B"/>
-          <img src="Code/images/Arrow.png" class="arrow"><label for="B">Jobs</label>
+          <img src="img/arrow.png" class="arrow"> <label for="B">1980-1989</label>
 
           <ul>
+
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-A"/>
-                <img src="Code/images/Arrow.png" class="arrow"><label for="B-A">UI/UX</label>
-
+                <img src="img/arrow.png" class="arrow"> <label for="B-A">1981</label>
                 <ul>
-                  <li><a href="#">UI/UX Designer</a></li>
-                  <li><a href="#">UI Designer</a></li>
-                  <li><a href="#">UX Designer</a></li>
+                  <li><a href="#">Été vacances</a></li>
+                  <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
+                  <li><a href="#">Temple avec Bigras, famille Provost </a></li>
+                  <li><a href="#">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
                 </ul>
               </div>
             </li>
+
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-B"/>
-                <img src="Code/images/Arrow.png" class="arrow"><label for="B-B">Development</label>
-
+                <img src="img/arrow.png" class="arrow"><label for="B-B">1982</label>
                 <ul>
-                  <li><a href="#">Front end Developer</a></li>
-                  <li><a href="#">Back end Developer</a></li>
+                  <li><a href="#">Printemps famille</a></li>
+                  <li><a href="#"> Anniversaire Ali, glissade Valleyfield</a></li>
+                  <li><a href="#">Bateaux, Anniversaire Do</a></li>
+                  <li><a href="#">Noel, Jour de l'An</a></li>
                 </ul>
-
               </div>
             </li>
-            <li><a href="#">Graphic Designer</a></li>
-            <li><a href="#">Logo Designer</a></li>
+
+            <li>
+              <div class="sub-item">
+                <input type="checkbox" id="B-C"/>
+                <img src="img/arrow.png" class="arrow"><label for="B-C">1983</label>
+                <ul>
+                  <li><a href="#">Fête Do et fraises</a></li>
+                </ul>
+              </div>
+            </li>
 
           </ul>
         </div>
+
         <div class="item">
           <input type="checkbox" id="C"/>
-          <img src="Code/images/Arrow.png" class="arrow"><label for="C">About Us</label>
-
+          <img src="img/arrow.png" class="arrow"><label for="C">1990-1999</label>
           <ul>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Clients</a></li>
-            <li><a href="#">Our Work</a></li>
+
+            <li>
+              <div class="sub-item">
+                <input type="checkbox" id="C-A"/>
+                <img src="img/arrow.png" class="arrow"><label for="C-A">1991</label>
+                <ul>
+                  <li><a href="#">Été Alberta</a></li>
+                </ul>
+              </div>
+            </li>
+
           </ul>
         </div>
       </div>
-      <div>
-        <input type="checkbox" id="menu-1"/>
-        <label for="menu-1" id="nav-icon">Photos Chantal</label>
-
-        <div class="multi-level">
-          <div class="item">
-            <input type="checkbox" id="AAA"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="AAA">ServicesAAA</label>
-
-            <ul>
-              <li><a href="#">Branding</a></li>
-              <li><a href="#">Web/App Development</a></li>
-              <li><a href="#">Internet Marketing and SEO</a></li>
-            </ul>
-          </div>
-          <div class="item">
-            <input type="checkbox" id="BB"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="BB">JobsBB</label>
-
-            <ul>
-              <li>
-                <div class="sub-item">
-                  <input type="checkbox" id="BB-A"/>
-                  <img src="Code/images/Arrow.png" class="arrow"><label for="BB-A">UI/UX</label>
-
-                  <ul>
-                    <li><a href="#">UI/UX Designer</a></li>
-                    <li><a href="#">UI Designer</a></li>
-                    <li><a href="#">UX Designer</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="sub-item">
-                  <input type="checkbox" id="BB-B"/>
-                  <img src="Code/images/Arrow.png" class="arrow"><label for="B-B">DevelopmentBB</label>
-
-                  <ul>
-                    <li><a href="#">Front end Developer</a></li>
-                    <li><a href="#">Back end Developer</a></li>
-                  </ul>
-
-                </div>
-              </li>
-              <li><a href="#">Graphic Designer</a></li>
-              <li><a href="#">Logo Designer</a></li>
-
-            </ul>
-          </div>
-          <div class="item">
-            <input type="checkbox" id="C"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="C">About UsCC</label>
-
-            <ul>
-              <li><a href="#">Our Team</a></li>
-              <li><a href="#">Clients</a></li>
-              <li><a href="#">Our Work</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div>
-        <input type="checkbox" id="menu-2"/>
-        <label for="menu-2" id="nav-icon">Photos Evelyne</label>
-
-        <div class="multi-level">
-          <div class="item">
-            <input type="checkbox" id="AAA"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="AAA">ServicesAAA</label>
-
-            <ul>
-              <li><a href="#">Branding</a></li>
-              <li><a href="#">Web/App Development</a></li>
-              <li><a href="#">Internet Marketing and SEO</a></li>
-            </ul>
-          </div>
-          <div class="item">
-            <input type="checkbox" id="BBB"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="BBB">JobsBBB</label>
-
-            <ul>
-              <li>
-                <div class="sub-item">
-                  <input type="checkbox" id="BBB-A"/>
-                  <img src="Code/images/Arrow.png" class="arrow"><label for="BBB-A">UI/UX</label>
-
-                  <ul>
-                    <li><a href="#">UI/UX Designer</a></li>
-                    <li><a href="#">UI Designer</a></li>
-                    <li><a href="#">UX Designer</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <div class="sub-item">
-                  <input type="checkbox" id="BBB-B"/>
-                  <img src="Code/images/Arrow.png" class="arrow"><label for="B-B">DevelopmentBBB</label>
-
-                  <ul>
-                    <li><a href="#">Front end Developer</a></li>
-                    <li><a href="#">Back end Developer</a></li>
-                  </ul>
-
-                </div>
-              </li>
-              <li><a href="#">Graphic Designer</a></li>
-              <li><a href="#">Logo Designer</a></li>
-
-            </ul>
-          </div>
-          <div class="item">
-            <input type="checkbox" id="CCC"/>
-            <img src="Code/images/Arrow.png" class="arrow"><label for="C">About UsCCC</label>
-
-            <ul>
-              <li><a href="#">Our Team</a></li>
-              <li><a href="#">Clients</a></li>
-              <li><a href="#">Our Work</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!--<h2>My Travels</h2>
-      ... [map image] ...-->
     </div>
-    <aside class="mod">
-      <!--<h2>Popular Posts</h2>
-      <ul class="links">
-        ... [links list items] ...
-      </ul>-->
-    </aside>
-    <aside class="mod">
-      <!--        <h2>Recently Shared</h2>-->
-      <ul class="links">
-        <!--          ... [links list items] ...-->
-      </ul>
-    </aside>
+    <!--<h2>My Travels</h2>
+    ... [map image] ...-->
   </div>
-  <!-- end sidebar -->
+  <aside class="mod">
+    <!--<h2>Popular Posts</h2>
+    <ul class="links">
+      ... [links list items] ...
+    </ul>-->
+  </aside>
+  <aside class="mod">
+    <!--        <h2>Recently Shared</h2>-->
+    <ul class="links">
+      <!--          ... [links list items] ...-->
+    </ul>
+  </aside>
+</div>
+<!-- end sidebar -->
 </div>
 <div class="container">
   <!-- ==== START MAIN ==== -->
