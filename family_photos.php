@@ -44,7 +44,7 @@
     <section class="drop-down">
       <input type="checkbox" id="menu"/>
       <!--  <img src="img/icons/arrow.png" class="arrow">-->
-      <label for="menu">Photos Michel</label>
+      <label for="menu" class="names">Photos Michel</label>
 
       <div class="multi-level">
         <div class="item">

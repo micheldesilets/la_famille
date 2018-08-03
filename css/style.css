@@ -492,6 +492,11 @@ label:hover {
   cursor: pointer;
 }
 
+.names:before {
+  content: "•";
+  margin-right: 0.5em;
+}
+
 label {
   width: 100%;
   display: block;
