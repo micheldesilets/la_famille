@@ -16,15 +16,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
-  <script type="text/javascript">
-    $("[data-fancybox]").fancybox({
-      idleTime: false,
-      buttons: [
-        'download',
-      ]
-    });
-  </script>
-
   <?php
   require_once 'classes/database/cl_photosDB.php';
   $db = new photosBD();
@@ -134,4 +125,14 @@
   <!-- end page -->
 
 </body>
+<script type="text/javascript">
+  $("[data-fancybox]").fancybox({
+    idleTime: false,
+    buttons: [
+      'download',
+      'thumbs',
+      'close',
+    ]
+  });
+</script>
 </html>
