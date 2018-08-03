@@ -495,6 +495,12 @@ label:hover {
 .names:before {
   content: "•";
   margin-right: 0.5em;
+
+}
+
+.names {
+  font-weight: bold;
+  font-style: italic;
 }
 
 label {
@@ -502,6 +508,10 @@ label {
   display: block;
   z-index: 3;
   position: relative;
+}
+
+.sub-item {
+  padding: 0 .2em;
 }
 
 .drop-down {
@@ -546,7 +556,7 @@ label {
 .drop-down li a {
   line-height: 20px;
   margin: 0;
-  padding: 0 2.6em;
+  padding: 0 2.7em;
   list-style: none;
   text-decoration: none;
   font-weight: 100;
