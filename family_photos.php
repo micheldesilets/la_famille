@@ -8,6 +8,22 @@
   <link rel="stylesheet" href="css/style.css">
   <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+  <script type="text/javascript">
+    $("[data-fancybox]").fancybox({
+      idleTime: false,
+      buttons: [
+        'download',
+      ]
+    });
+  </script>
+  <?php
+  require_once 'classes/database/cl_photosDB.php';
+  ?>
 </head>
 <body>
 <div class="page">
@@ -81,9 +97,13 @@
                 <label for="B-A">1981</label>
                 <ul>
                   <li><a href="#">Été vacances</a></li>
-                  <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
-                  <li><a href="#">Temple avec Bigras, famille Provost </a></li>
-                  <li><a href="#">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
+                  <li><a href="<?php $db = new photosBD();
+                    $photo = $db->getPhotos(1);
+                    $db->displayPhotos($photo) ?>">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
+                  <li><a href="<?php $db = new photosBD();
+                    $photo = $db->getPhotos(1); ?>">Temple avec Bigras, famille Provost </a></li>
+                  <li><a href="<?php $db = new photosBD();
+                    $photo = $db->getPhotos(1); ?>">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
                 </ul>
               </div>
             </li>

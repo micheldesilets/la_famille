@@ -130,6 +130,12 @@ WHERE paths_pat.id_pat = $path";
     return $photoArray;
 
   }
+
+  /* --- DISPLAYPHOTOS --- */
+  public function displayPhotos($result)
+  {
+
+  }
 }
 
 
