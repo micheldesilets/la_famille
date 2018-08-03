@@ -40,22 +40,23 @@
     <!--        <h2>About Me</h2>-->
     <!--        ...-->
     <!--    </article>-->
+
     <section class="drop-down">
       <input type="checkbox" id="menu"/>
-      <!--  <img src="arrow.png" class="arrow">-->
-      <label for="menu" id="nav-icon">Photos Michel</label>
+      <!--  <img src="img/icons/arrow.png" class="arrow">-->
+      <label for="menu">Photos Michel</label>
 
       <div class="multi-level">
         <div class="item">
           <input type="checkbox" id="A"/>
-          <img src="arrow.png" class="arrow">
+          <img src="img/icons/arrow.png" class="arrow">
           <label for="A">1970-1979</label>
 
           <ul>
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="A-A"/>
-                <img src="arrow.png" class="arrow">
+                <img src="img/icons/arrow.png" class="arrow">
                 <label for="A-A">1975</label>
 
                 <ul>
@@ -68,7 +69,7 @@
         </div>
         <div class="item">
           <input type="checkbox" id="B"/>
-          <img src="arrow.png" class="arrow">
+          <img src="img/icons/arrow.png" class="arrow">
           <label for="B">1980-1989</label>
 
           <ul>
@@ -76,7 +77,7 @@
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-A"/>
-                <img src="arrow.png" class="arrow">
+                <img src="img/icons/arrow.png" class="arrow">
                 <label for="B-A">1981</label>
                 <ul>
                   <li><a href="#">Été vacances</a></li>
@@ -90,7 +91,7 @@
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-B"/>
-                <img src="arrow.png" class="arrow">
+                <img src="img/icons/arrow.png" class="arrow">
                 <label for="B-B">1982</label>
                 <ul>
                   <li><a href="#">Printemps famille</a></li>
@@ -104,7 +105,7 @@
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-C"/>
-                <img src="arrow.png" class="arrow"><label for="B-C">1983</label>
+                <img src="img/icons/arrow.png" class="arrow"><label for="B-C">1983</label>
                 <ul>
                   <li><a href="#">Fête Do et fraises</a></li>
                 </ul>
@@ -116,13 +117,13 @@
 
         <div class="item">
           <input type="checkbox" id="C"/>
-          <img src="arrow.png" class="arrow"><label for="C">1990-1999</label>
+          <img src="img/icons/arrow.png" class="arrow"><label for="C">1990-1999</label>
           <ul>
 
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="C-A"/>
-                <img src="arrow.png" class="arrow"><label for="C-A">1991</label>
+                <img src="img/icons/arrow.png" class="arrow"><label for="C-A">1991</label>
                 <ul>
                   <li><a href="#">Été Alberta</a></li>
                 </ul>
