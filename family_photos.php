@@ -40,38 +40,44 @@
     <!--        <h2>About Me</h2>-->
     <!--        ...-->
     <!--    </article>-->
-    <div class="drop-down">
+    <section class="drop-down">
       <input type="checkbox" id="menu"/>
-      <img src="img/arrow.png" class="arrow">
+      <!--  <img src="arrow.png" class="arrow">-->
       <label for="menu" id="nav-icon">Photos Michel</label>
 
       <div class="multi-level">
         <div class="item">
           <input type="checkbox" id="A"/>
-          <img src="img/arrow.png" class="arrow">
+          <img src="arrow.png" class="arrow">
           <label for="A">1970-1979</label>
 
           <ul>
+            <li>
+              <div class="sub-item">
+                <input type="checkbox" id="A-A"/>
+                <img src="arrow.png" class="arrow">
+                <label for="A-A">1975</label>
 
-            <li><a href="#">1975</a></li>
-            <li><a href="#">1976</a></li>
-            <li><a href="#">1977</a></li>
-            <li><a href="#">1978</a></li>
-            <li><a href="#">1979</a></li>
-
+                <ul>
+                  <li><a href="#">Princeville Chantal et Micha</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
 
         </div>
         <div class="item">
           <input type="checkbox" id="B"/>
-          <img src="img/arrow.png" class="arrow"> <label for="B">1980-1989</label>
+          <img src="arrow.png" class="arrow">
+          <label for="B">1980-1989</label>
 
           <ul>
 
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-A"/>
-                <img src="img/arrow.png" class="arrow"> <label for="B-A">1981</label>
+                <img src="arrow.png" class="arrow">
+                <label for="B-A">1981</label>
                 <ul>
                   <li><a href="#">Été vacances</a></li>
                   <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
@@ -84,7 +90,8 @@
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-B"/>
-                <img src="img/arrow.png" class="arrow"><label for="B-B">1982</label>
+                <img src="arrow.png" class="arrow">
+                <label for="B-B">1982</label>
                 <ul>
                   <li><a href="#">Printemps famille</a></li>
                   <li><a href="#"> Anniversaire Ali, glissade Valleyfield</a></li>
@@ -97,7 +104,7 @@
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-C"/>
-                <img src="img/arrow.png" class="arrow"><label for="B-C">1983</label>
+                <img src="arrow.png" class="arrow"><label for="B-C">1983</label>
                 <ul>
                   <li><a href="#">Fête Do et fraises</a></li>
                 </ul>
@@ -109,13 +116,13 @@
 
         <div class="item">
           <input type="checkbox" id="C"/>
-          <img src="img/arrow.png" class="arrow"><label for="C">1990-1999</label>
+          <img src="arrow.png" class="arrow"><label for="C">1990-1999</label>
           <ul>
 
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="C-A"/>
-                <img src="img/arrow.png" class="arrow"><label for="C-A">1991</label>
+                <img src="arrow.png" class="arrow"><label for="C-A">1991</label>
                 <ul>
                   <li><a href="#">Été Alberta</a></li>
                 </ul>
@@ -125,7 +132,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
     <!--<h2>My Travels</h2>
     ... [map image] ...-->
   </div>
