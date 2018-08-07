@@ -13,17 +13,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
-  <script type="text/javascript">
-    $("[data-fancybox]").fancybox({
-      idleTime: false,
-      buttons: [
-        'download',
-      ]
-    });
-  </script>
-  <?php
-  require_once 'classes/database/cl_photosDB.php';
-  ?>
 </head>
 <body>
 <div class="page">
@@ -56,6 +45,67 @@
     <!--        <h2>About Me</h2>-->
     <!--        ...-->
     <!--    </article>-->
+    <section class="find-photos">
+      <form method="get" action="search-results.php" role="search">
+        <label for="search">Search:</label>
+        <input type="search" id="search" name="search" size="30" placeholder="e.g., a book or magazine"/>
+        <input type="submit" value="Find It!"/>
+      </form>
+      <form method="post" action="show-data.php">
+        <fieldset>
+          <label for="annee">Année</label>
+          <select id="annee" name="annee">
+            <option value="1970">1970</option>
+            <option value="1971">1971</option>
+            <option value="1971">1972</option>
+            <option value="1971">1973</option>
+            <option value="1971">1974</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <h2>Name</h2>
+          <div class="fields">
+            <p class="row">
+              <label for="first-name">First Name:</label>
+              <input type="text" id="first-name" name="first_name" class="field-large" required autofocus
+                     maxlength="30"/>
+            </p>
+            <p class="row">
+              <label for="last-name">Last Name:</label>
+              <input type="text" id="last-name" name="last_name" class="field-large" required/>
+            </p>
+            </p>
+            <p class="row">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" placeholder="yourname@example.com" class="field-large"/>
+            </p>
+
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2 class="hdr-public-profile">Public Profile</h2>
+          <div class="fields">
+            <fieldset class="radios">
+              <legend>Gender</legend>
+              <p class="row">
+                <input type="radio" id="gender-male" name="gender" value="male"/>
+                <label for="gender-male">Male</label>
+                <br>
+                <input type="radio" id="gender-female" name="gender" value="female"/>
+                <label for="gender-female">Female</label>
+              </p>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2 class="hdr-emails">Emails</h2>
+
+  </div>
+  </fieldset>
+  <div><input type="submit" value="Create Account" class="btn"/>
+    </section>
 
     <section class="drop-down">
       <input type="checkbox" id="menu"/>
@@ -97,13 +147,9 @@
                 <label for="B-A">1981</label>
                 <ul>
                   <li><a href="#">Été vacances</a></li>
-                  <li><a href="<?php $db = new photosBD();
-                    $photo = $db->getPhotos(1);
-                    $db->displayPhotos($photo) ?>">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
-                  <li><a href="<?php $db = new photosBD();
-                    $photo = $db->getPhotos(1); ?>">Temple avec Bigras, famille Provost </a></li>
-                  <li><a href="<?php $db = new photosBD();
-                    $photo = $db->getPhotos(1); ?>">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
+                  <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
+                  <li><a href="#">Temple avec Bigras, famille Provost </a></li>
+                  <li><a href="#">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
                 </ul>
               </div>
             </li>
@@ -212,5 +258,32 @@
   <!-- end page footer -->
 </div>
 <!-- end page -->
+<script type="text/javascript">
+  $("[data-fancybox]").fancybox({
+    idleTime: false,
+    buttons: [
+      'download',
+      'thumbs',
+      'close',
+    ]
+  });
+</script>
+<script>
+  var items = document.querySelectorAll("#B-A li"),
+    tab = [], index;
+
+  // add values to the array
+  for (var i = 0; i < items.length; i++) {
+    tab.push(items[i].innerHTML);
+  }
+
+  // get selected element index
+  for (var i = 0; i, items.length; i++) {
+    items[i].onclick = function () {
+      index = tab.indexOf(this.innerHTML);
+      console.log(this.innerHTML + " Index = " + index);
+    };
+  }
+</script>
 </body>
 </html>

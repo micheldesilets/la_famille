@@ -486,6 +486,8 @@ main .books {
    line-height: 1.195;*/
 }
 
+/* Family Photos */
+
 /*Dropdown List*/
 
 label:hover {
@@ -563,6 +565,88 @@ label {
 }
 
 /* End Dropdown List*/
+
+/* Search Photos */
+
+fieldset {
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 2px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  padding: 0 .625em;
+}
+
+.radios {
+  background-color: transparent;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.radios .row {
+  margin: 0 0 0 150px;
+}
+
+.radios legend {
+  left: 0;
+  padding: 0 6px;
+  position: absolute;
+  text-align: right;
+  top: 2px;
+  width: 148px;
+}
+
+.radios label {
+  padding-left: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  width: auto;
+}
+
+.fields {
+  background-color: #fff;
+  border: 1px solid #eaeaea;
+  margin: .75em;
+  padding: .75em;
+}
+
+.fields .row {
+  margin: 0.5em 0;
+}
+
+.find-photos h2 {
+  background-color: #0d95e8;
+}
+
+label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px 6px;
+  text-align: right;
+  width: 150px;
+  vertical-align: top;
+}
+
+input, select, button {
+  font-size: inherit;
+}
+
+/* Various form field widths */
+.field-small {
+  width: 75px;
+}
+
+.field-medium {
+  width: 150px;
+}
+
+.field-large {
+  width: 250px;
+}
+
+/* End Search Photos */
+
+/* End Family Photos */
 
 /* FOOTER
 ------------------------------------------ */
