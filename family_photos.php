@@ -54,13 +54,27 @@
       <form method="post" action="show-data.php">
         <fieldset>
           <label for="annee">Année</label>
-          <select id="annee" name="annee">
-            <option value="1970">1970</option>
-            <option value="1971">1971</option>
-            <option value="1971">1972</option>
-            <option value="1971">1973</option>
-            <option value="1971">1974</option>
+          <select id="annee" name="annee" size="4">
+            <optgroup label="1970-1979">
+              <option value="1970">1970</option>
+              <option value="1971">1971</option>
+              <option value="1971">1972</option>
+              <option value="1971">1973</option>
+              <option value="1971">1974</option>
+            </optgroup>
+            <optgroup label="1980-1989">
+              <option value="1970">1980</option>
+              <option value="1971">1981</option>
+              <option value="1971">1982</option>
+              <option value="1971">1983</option>
+              <option value="1971">1984</option>
+            </optgroup>
           </select>
+        </fieldset>
+        <fieldset>
+          <label for="picture">Picture:</label>
+          <input type="file" id="picture" name="picture"/>
+          <p class="instructions">Maximum size of 700k. JPG, GIF or PNG.</p>
         </fieldset>
         <fieldset>
           <h2>Name</h2>
@@ -146,7 +160,7 @@
                 <img src="img/icons/arrow.png" class="arrow">
                 <label for="B-A">1981</label>
                 <ul>
-                  <li><a href="#">Été vacances</a></li>
+                  <li><a href="#" onclick="show-data.php">Été vacances</a></li>
                   <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
                   <li><a href="#">Temple avec Bigras, famille Provost </a></li>
                   <li><a href="#">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
