@@ -6,6 +6,7 @@
   <title>Famille Normandeau-Desilets - Photos Famille</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
   <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -160,14 +161,13 @@
                 <img src="img/icons/arrow.png" class="arrow">
                 <label for="B-A">1981</label>
                 <ul>
-                  <li><a href="#" onclick="show-data.php">Été vacances</a></li>
+                  <li id="photos"><a href="javascript:getPhotos(4)">Été vacances</a></li>
                   <li><a href="#">Ail des bois, Evelyne dans le bain (6 mois)</a></li>
                   <li><a href="#">Temple avec Bigras, famille Provost </a></li>
                   <li><a href="#">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>
                 </ul>
               </div>
             </li>
-
             <li>
               <div class="sub-item">
                 <input type="checkbox" id="B-B"/>

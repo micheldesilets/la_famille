@@ -40,9 +40,9 @@
       <ul class="nav-main">
         <li><a href="readings_desilets.php">Lectures</a>
         </li>
-        <li><a href="#">Généalogie</a>
+        <li><a href="geneology.html">Généalogie</a>
         </li>
-        <li><a href="#">Objets de famille</a>
+        <li><a href="ajax.html">Objets de famille</a>
         </li>
         <li><a href="family_photos.php">La famille en photos</a>
         </li>

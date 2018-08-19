@@ -1,29 +1,21 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Famille Normandeau-Desilets - Archives</title>
+  <title>Famille Normandeau-Desilets - Geneology</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js"></script>
   <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <!--[if lt IE 9]>
-
+  <script src="js/html5shiv.js"></script>
   <![endif]-->
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-
-  <?php
-
-  require_once 'classes/database/cl_photosDB.php';
-  $db = new photosBD();
-  $photo = $db->getPhotos(1);
-
-  ?>
+  <script src="js/main.js"></script>
 </head>
 <body>
 <div class="page">
@@ -53,47 +45,24 @@
   </header>
   <div class="page">
     <div class="container">
-      <a href="photo_arch_normandeau.php" class="flip-archive">
-        <p class="archives-MD">Photos d'archives des Marchand-Desilets</p>
-        <p class="normal-flip-archive">Vers les </p> Bernard-Normandeau</a>
+
+      <!--     <a href="javascript:getArchives(1)" class="flip-archive">-->
+      <ul class="archives-MD">
+        <li onclick="javascript:getPhotos(1)">
+          Photos d'archives des Marchand-Desilets
+        </li>
+        <li class="normal-flip-archive" onclick="javascript:getPhotos(4)">
+          Vers les Bernard-Normandeau
+        </li>
+      </ul>
+      <!--        <p class="archives-MD">Photos d'archives des Marchand-Desilets</p>-->
+      <!--        <p class="normal-flip-archive">Vers les </p> Bernard-Normandeau</a>-->
+
       <!-- ==== START MAIN ==== -->
       <main role="main">
-        <section id="loadArch">
 
-          <?php
+        <section id="photos"></section>
 
-          $i = 0;
-
-          while ($i <= count($photo) - 1):
-            // Associative array
-            $row = $photo[$i];
-
-            $i++;
-
-            $title = $row->get_Title();
-            $keywords = $row->get_Keywords();
-            $height = $row->get_Height();
-            $width = $row->get_Width();
-            $caption = $row->get_Caption();
-            $file = $row->get_Filename();
-            $f_path = $row->get_F_Path();
-            $p_path = $row->get_P_Path();
-            $thumb = $p_path . $file;
-            $imageURL = $f_path . $file;
-            ?>
-
-            <a data-fancybox="images" data-caption="<?php echo $caption; ?>" href="<?php echo $imageURL; ?>">
-              <img id="boxshadow" src="<?php echo $thumb; ?>" title="<?php echo $title; ?>"
-                   alt="<?php echo $title; ?>"/>
-            </a>
-
-          <?php endwhile;
-          ?>
-
-          <!--  <script>getArchives()</script>
-            <a id="arch"></a>-->
-
-        </section>
         <section class="post">
           <!--          <h1>Sunny East Garden at the Getty Villa</h1>-->
           <!--          <img ... class="post-photo-full"/>-->
@@ -144,5 +113,6 @@
     ]
   });
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </html>
+

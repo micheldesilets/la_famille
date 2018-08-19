@@ -76,8 +76,8 @@ FROM photos_pho pho
   /* --- GETPHOTOS --- */
   public function getPhotos($path)
   {
-    include 'connection/connect.php';
-    require_once 'classes/business/cl_photos.php';
+    include '../connection/connect.php';
+    require_once '../classes/business/cl_photos.php';
 
     $photo = new Photos();
 
@@ -125,9 +125,27 @@ WHERE paths_pat.id_pat = $path";
 
     mysqli_close($con);
 
+//    header('Content-type: application/json');
 //    echo json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-    return $photoArray;
+
+    header("Content-Type: application/json");
+    $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+      // Avoid echo of empty string (which is invalid JSON), and
+      // JSONify the error message instead:
+      $json = json_encode(array("jsonError", json_last_error_msg()));
+      if ($json === false) {
+        // This should not happen, but we go all the way now:
+        $json = '{"jsonError": "unknown"}';
+      }
+      // Set HTTP response status code to: 500 - Internal Server Error
+      http_response_code(500);
+    }
+
+    echo $json;
+    return;
+//    return $photoArray;
   }
 
   /* --- DISPLAYPHOTOS --- */

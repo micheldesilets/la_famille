@@ -202,6 +202,11 @@ img {
 }
 */
 
+/* tests */
+button.hide-me {
+  display: none;
+}
+
 /* CONTAINERS
 ------------------------------------------ */
 .page {
