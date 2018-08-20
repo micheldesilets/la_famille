@@ -91,7 +91,6 @@ WHERE paths_pat.id_pat = $path";
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
       $rowcount = mysqli_num_rows($result);
-      /* printf("Result set has %d rows.\n", $rowcount); */
     } else {
       echo("nothing");
     };
@@ -125,10 +124,6 @@ WHERE paths_pat.id_pat = $path";
 
     mysqli_close($con);
 
-//    header('Content-type: application/json');
-//    echo json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-
     header("Content-Type: application/json");
     $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     if ($json === false) {
@@ -142,16 +137,7 @@ WHERE paths_pat.id_pat = $path";
       // Set HTTP response status code to: 500 - Internal Server Error
       http_response_code(500);
     }
-
     echo $json;
-    return;
-//    return $photoArray;
-  }
-
-  /* --- DISPLAYPHOTOS --- */
-  public function displayPhotos($result)
-  {
-
   }
 }
 
