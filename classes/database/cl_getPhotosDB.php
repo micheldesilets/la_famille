@@ -111,7 +111,11 @@ WHERE paths_pat.id_pat = $path";
       $photo->set_Width($row["width_pho"]);
       $photo->set_Caption($row["caption_pho"]);
       $photo->set_F_Path($row["path_pat"]);
-      $photo->set_P_Path($row["prev_path_pat"]);
+      if ($row["prev_path_pat"] == null) {
+        $photo->set_P_Path("");
+      } else {
+        $photo->set_P_Path($row["prev_path_pat"]);
+      }
       $photo->set_Filename($row["filename_pho"]);
       $photo->set_Pdf($row['pdf_pho']);
       array_push($photoArray, $photo);

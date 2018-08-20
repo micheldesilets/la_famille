@@ -8,12 +8,14 @@
   <link rel="stylesheet" href="css/style.css">
   <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
+  <script src="js/main.js"></script>
   <?php
-  require_once 'classes/database/cl_photosDB.php';
+  require_once 'classes/database/cl_getPhotosDB.php';
 
   /* main photo */
   $db = new photosBD();
   $photo = $db->getHomePhoto();
+
   $file = $photo->get_Filename();
   $path = $photo->get_F_Path();
   $title = $photo->get_Title();
@@ -86,7 +88,9 @@
   <!-- ==== START MAIN ==== -->
   <main role="main">
     <section class="post">
-      <img src="<?php echo($loc); ?>" alt="<?php echo($title) ?>">
+      <script>getPhotos(2)</script>
+      <div id="homePhoto"></div>
+      <!--      <img src="--><?php //echo($loc); ?><!--" alt="--><?php //echo($title) ?><!--">-->
       <!--        <img ... class="post-photo-full"/>-->
       <div class="post-blurb">
         <!--          <p>It is hard to believe ...</p>-->
