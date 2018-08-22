@@ -1,5 +1,6 @@
 function assignArchivesTitle() {
-
+  document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
+  document.getElementById("archives-right").innerHTML = "Photos d'archives des Bernard-Normandeau";
 }
 
 function getPhotos(path) {
