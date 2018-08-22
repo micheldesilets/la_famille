@@ -113,7 +113,6 @@ html, body {
   transition: 0.1s;
 }
 
-
 /* End dropdown list */
 
 /* GENERAL (APPLIED TO ELEMENTS)
@@ -381,7 +380,26 @@ h1 {
   margin-right: 0.25em;*/
 }
 
-/* Reading page */
+/* Archives */
+#archives-left, #archives-right {
+  display: block;
+  font-style: italic;
+  font-size: .9em;
+
+  margin-bottom: .7em;
+}
+
+#archives-left {
+  float: left;
+  margin-left: -3em;
+  font-weight: bold;
+}
+
+#archives-right {
+  text-align: right;
+  font-weight: normal;
+}
+
 .flip-archive {
   font-style: italic;
   font-weight: bold;
@@ -401,6 +419,7 @@ h1 {
   display: inline-block;
 }
 
+/* Reading page */
 main .readings {
   font-weight: bold;
 }
@@ -560,6 +579,7 @@ label {
 .item ul {
   padding: 0 0.25em;
 }
+
 .drop-down li a {
   line-height: 20px;
   margin: 0;

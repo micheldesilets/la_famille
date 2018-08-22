@@ -45,11 +45,11 @@
   </header>
   <div class="page">
     <div class="container">
-      <ul class="archives-MD">
-        <li onclick="javascript:getPhotos(1)">
+      <ul id="archives">
+        <li id="archives-left" onclick="javascript:getPhotos(1)">
           Photos d'archives des Marchand-Desilets
         </li>
-        <li class="normal-flip-archive" onclick="javascript:getPhotos(4)">
+        <li id="archives-right" onclick="javascript:getPhotos(4)">
           Vers les Bernard-Normandeau
         </li>
       </ul>
@@ -100,17 +100,20 @@
   </div>
   <!-- end page -->
 
+  <script type="text/javascript">
+    $("[data-fancybox]").fancybox({
+      idleTime: false,
+      buttons: [
+        'download',
+        'thumbs',
+        'close',
+      ]
+    });
+  </script>
 </body>
-<script type="text/javascript">
-  $("[data-fancybox]").fancybox({
-    idleTime: false,
-    buttons: [
-      'download',
-      'thumbs',
-      'close',
-    ]
-  });
-</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>getPhotos(1)</script>
 </html>
 

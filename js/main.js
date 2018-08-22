@@ -1,3 +1,7 @@
+function assignArchivesTitle() {
+
+}
+
 function getPhotos(path) {
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
@@ -10,19 +14,34 @@ function getPhotos(path) {
         break;
       case 1:
       case 4:
+        renderPhotos(myData, path);
+        break
       case 6:
-        renderPhotos(myData);
         break;
     }
   };
   myRequest.send();
 }
 
-function renderPhotos(data) {
+function renderPhotos(data, path) {
   var archivesContainer = document.getElementById("photos");
   var htmlString = "";
   var imageURL = "";
   var thumb = "";
+  /*
+    switch (path) {
+      case 1:
+        document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
+        document.getElementById("archives-right").innerHTML = "Photos d'archives des Bernard-Normandeau";
+        break
+      case 4:
+        document.getElementById("archives-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
+        document.getElementById("archives-right").innerHTML = "Photos d'archives des Marchand-Desilets";
+        break
+    }*/
+
+  document.getElementById("photos").innerHTML = "";
+
   for (i = 0; i < data.length; i++) {
     $imageURL = data[i].path + data[i].filename;
     $thumb = data[i].prev_path + data[i].filename;
