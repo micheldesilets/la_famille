@@ -3,7 +3,7 @@ function assignArchivesTitle() {
   document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
 }
 
-function getPhotos(path) {
+function getArchives() {
   var family = document.getElementById("archives-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
@@ -14,6 +14,12 @@ function getPhotos(path) {
     path = 1;
     assignArchivesTitle()
   }
+  ;
+  getPhotos(path)
+}
+
+function getPhotos(path) {
+
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
   myRequest.onload = function () {
@@ -62,7 +68,6 @@ function renderHomePhoto(data) {
     $thumb = data[i].prev_path + data[i].filename;
 
     htmlString = "<img src=\"" + $imageURL + "\" alt=\"" + data[i].title + "\">";
-    console.log(htmlString);
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
   }

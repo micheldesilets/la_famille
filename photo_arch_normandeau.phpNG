@@ -50,7 +50,7 @@
   </header>
   <div class="page">
     <div class="container">
-      <a href="photo_arch_desilets.php" class="flip-archive">
+      <a href="photo_arch_desilets.phpNG" class="flip-archive">
         <p class="archives-MD">Photos d'archives des Bernard-Normandeau</p>
         <p class="normal-flip-archive">Vers les </p> Marchand-Desilets</a>
       <!-- ==== START MAIN ==== -->

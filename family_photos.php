@@ -34,7 +34,7 @@
         </li>
         <li><a href="#">Objets de famille</a>
         </li>
-        <li><a href="photo_arch_desilets.php">Photos d'archives</a>
+        <li><a href="photo_arch_desilets.phpNG">Photos d'archives</a>
         </li>
       </ul>
     </nav>
