@@ -1,14 +1,23 @@
 function assignArchivesTitle() {
   document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
-  document.getElementById("archives-right").innerHTML = "Photos d'archives des Bernard-Normandeau";
+  document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
 }
 
 function getPhotos(path) {
+  var family = document.getElementById("archives-right").innerHTML;
+  n = family.search("Bernard-Normandeau");
+  if (n != -1) {
+    path = 4
+    document.getElementById("archives-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
+    document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Marchand-Desilets";
+  } else {
+    path = 1;
+    assignArchivesTitle()
+  }
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
   myRequest.onload = function () {
     var myData = JSON.parse(myRequest.responseText);
-    console.log(myData.length);
     switch (path) {
       case 2:
         renderHomePhoto(myData);
@@ -29,17 +38,6 @@ function renderPhotos(data, path) {
   var htmlString = "";
   var imageURL = "";
   var thumb = "";
-  /*
-    switch (path) {
-      case 1:
-        document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
-        document.getElementById("archives-right").innerHTML = "Photos d'archives des Bernard-Normandeau";
-        break
-      case 4:
-        document.getElementById("archives-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
-        document.getElementById("archives-right").innerHTML = "Photos d'archives des Marchand-Desilets";
-        break
-    }*/
 
   document.getElementById("photos").innerHTML = "";
 
