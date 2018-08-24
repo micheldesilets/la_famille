@@ -40,6 +40,8 @@
 
     <nav role="navigation">
       <ul class="nav-main">
+        <li><a href="#">Acceuil</a>
+        </li>
         <li><a href="readings.html">Lectures</a>
         </li>
         <li><a href="geneology.php">Généalogie</a>
