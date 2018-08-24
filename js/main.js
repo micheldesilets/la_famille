@@ -106,18 +106,19 @@ function getReadings() {
 function renderReadings(data) {
   var readingsContainer = document.getElementById("readings-list");
   var htmlString = "";
+  var intro = "";
 
   document.getElementById("readings-list").innerHTML = "";
 
   for (i = 0; i < data.length; i++) {
+    if (data[i].intro == null) {
+      intro = "";
+    }
 
-    htmlstring = "hello";
-
-    console.log(data[i].address);
-    /*    htmlstring = "<div class=\"clearfix\">" + "<a href=\"" + data[i].address + "\" target=\"_blank\">" +
-          "<img src=\"" + data[i].file + "\" alt=\"\" class=\"books\">" +
-          "<p class=\"title\"" + data[i].title + "\"></p></a>" +
-          "<p class=\"sumary\">" + data[i].intro + "</p>" + "<p class=\"summary\">" + data[i].sumary + "</p ><br></div>";*/
+    htmlString = "<div class=\"clearfix\">" + "<a href=\"" + data[i].address + "\" target=\"_blank\">" +
+      "<img src=\"" + data[i].file + "\" alt=\"\" class=\"books\">" +
+      "<p class=\"title\">" + data[i].title + "</p></a>" +
+      "<p class=\"sumary\">" + intro + "</p>" + "<p class=\"summary\">" + data[i].sumary + "</p ><br></div>";
 
     console.log(htmlString);
 
