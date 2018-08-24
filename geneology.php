@@ -6,16 +6,12 @@
   <title>Famille Normandeau-Desilets - Lectures</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js"></script>
   <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <!--[if lt IE 9]>
   <!--<script src="js/html5shiv.js"></script>-->
   <![endif]-->
-  <?php
-  require_once 'classes/database/cl_readingsDB.php';
-  $db = new readingsDB();
-  $reading = $db->getReadings(3);
-  ?>
 </head>
 <body>
 <div class="page">
@@ -49,9 +45,12 @@
   <!-- end masthead -->
   <div class="page">
     <div class="container">
-      <a href="readings_normandeau.php" class="flip-archive">
-        <p class="archives-MD">Lectures des Normandeau-Desilets</p>
-        <p class="normal-flip-archive">Vers les </p> Bermard-Normandeau</a>
+      <ul id="readings">
+        <li id="readings-left">
+        </li>
+        <li id="readings-right" onclick="javascript:getReadings()">
+        </li>
+      </ul>
       <main role=main>
         <!--        <article class="clearfix,about">
                   <p>
@@ -60,43 +59,10 @@
                   </p>
                 </article> -->
         <!--The section element represents a generic section of a document or application. -->
-        <section>
-          <?php
-          $i = 0;
-
-          while ($i <= count($reading) - 1):
-            // Associative array
-            $row = $reading[$i];
-
-            $i++;
-
-            $title = $row->get_Title();
-            $address = $row->get_Address();
-            $intro = $row->get_Intro();
-            $summary = $row->get_Summary();
-            $file = $row->get_File();
-
-            ?>
-            <div class="clearfix">
-              <a href="<?php printf($address); ?>" target="_blank">
-                <img src="<?php printf($file); ?>" alt="" class="books">
-                <p class="title">
-                  <?php printf($title); ?>
-                </p>
-              </a>
-              <p class="resume">
-                <?php printf($intro); ?>
-              </p>
-              <p class="resume">
-                <?php printf($summary); ?>
-              </p>
-              <br>
-            </div>
-          <?php endwhile; ?>
-
-        </section>
+        <section id="readings-list"></section>
       </main>
     </div>
   </div>
+  <script>assignReadingTitle()</script>
 </body>
 </html>

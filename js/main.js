@@ -1,3 +1,5 @@
+/*** Photos section ***/
+
 function assignArchivesTitle() {
   document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
   document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
@@ -14,7 +16,6 @@ function getArchives() {
     path = 1;
     assignArchivesTitle()
   }
-  ;
   getPhotos(path)
 }
 
@@ -31,7 +32,7 @@ function getPhotos(path) {
       case 1:
       case 4:
         renderPhotos(myData, path);
-        break
+        break;
       case 6:
         break;
     }
@@ -48,11 +49,11 @@ function renderPhotos(data, path) {
   document.getElementById("photos").innerHTML = "";
 
   for (i = 0; i < data.length; i++) {
-    $imageURL = data[i].path + data[i].filename;
-    $thumb = data[i].prev_path + data[i].filename;
+    imageURL = data[i].path + data[i].filename;
+    thumb = data[i].prev_path + data[i].filename;
 
-    htmlString = "<a data-fancybox=\"images\" data-caption=\"" + data[i].caption + "\" href=\"" + $imageURL + "\">" +
-      "<img id=\"boxshadow\" src=\"" + $thumb + "\" title=\"" + data[i].title + "\" alt=\"" + data[i].title + "\" / ></a>";
+    htmlString = "<a data-fancybox=\"images\" data-caption=\"" + data[i].caption + "\" href=\"" + imageURL + "\">" +
+      "<img id=\"boxshadow\" src=\"" + thumb + "\" title=\"" + data[i].title + "\" alt=\"" + data[i].title + "\" / ></a>";
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
   }
@@ -63,13 +64,64 @@ function renderHomePhoto(data) {
   var htmlString = "";
   var imageURL = "";
   var thumb = "";
-  for (i = 0; i < data.length; i++) {
-    $imageURL = data[i].path + data[i].filename;
-    $thumb = data[i].prev_path + data[i].filename;
 
-    htmlString = "<img src=\"" + $imageURL + "\" alt=\"" + data[i].title + "\">";
+  for (i = 0; i < data.length; i++) {
+    imageURL = data[i].path + data[i].filename;
+    thumb = data[i].prev_path + data[i].filename;
+
+    htmlString = "<img src=\"" + imageURL + "\" alt=\"" + data[i].title + "\">";
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+}
+
+/*** Reading section ***/
+
+function assignReadingTitle() {
+  document.getElementById("readings-left").innerHTML = "Lectures des Normandeau-Desilets";
+  document.getElementById("readings-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
+}
+
+function getReadings() {
+  var family = document.getElementById("readings-right").innerHTML;
+  n = family.search("Bernard-Normandeau");
+  if (n != -1) {
+    path = 3
+    document.getElementById("readings-left").innerHTML = "Lectures des Bernard-Normandeau";
+    document.getElementById("readings-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
+  } else {
+    path = 5;
+    assignReadingTitle();
+  }
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getReadings.php?path=' + path, true);
+  myRequest.onload = function () {
+    var myData = JSON.parse(myRequest.responseText);
+    renderReadings(myData);
+  };
+  myRequest.send();
+}
+
+function renderReadings(data) {
+  var readingsContainer = document.getElementById("readings-list");
+  var htmlString = "";
+
+  document.getElementById("readings-list").innerHTML = "";
+
+  for (i = 0; i < data.length; i++) {
+
+    htmlstring = "hello";
+
+    console.log(data[i].address);
+    /*    htmlstring = "<div class=\"clearfix\">" + "<a href=\"" + data[i].address + "\" target=\"_blank\">" +
+          "<img src=\"" + data[i].file + "\" alt=\"\" class=\"books\">" +
+          "<p class=\"title\"" + data[i].title + "\"></p></a>" +
+          "<p class=\"sumary\">" + data[i].intro + "</p>" + "<p class=\"summary\">" + data[i].sumary + "</p ><br></div>";*/
+
+    console.log(htmlString);
+
+    readingsContainer.insertAdjacentHTML('beforeend', htmlString)
   }
 }
 

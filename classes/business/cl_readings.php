@@ -1,13 +1,13 @@
 <?php
 
 declare(strict_types=1); // strict mode
-class Readings
+class Readings implements JsonSerializable
 {
   private $m_idpdo;
   private $m_title;
   private $m_address;
   private $m_intro;
-  private $m_resume;
+  private $m_sumary;
   private $m_file;
 
   public function set_idpdo($idpdo)
@@ -67,20 +67,21 @@ class Readings
   {
     return $this->m_intro;
   }
+
   /**
-   * @param mixed $m_resume
+   * @param mixed $m_sumary
    */
-  public function set_Resume($m_resume)
+  public function set_sumary($m_sumary)
   {
-    $this->m_resume = utf8_encode($m_resume);
+    $this->m_sumary = utf8_encode($m_sumary);
   }
 
   /**
    * @return mixed
    */
-  public function get_Resume()
+  public function get_sumary()
   {
-    return $this->m_resume;
+    return $this->m_sumary;
   }
 
   /**
@@ -99,4 +100,14 @@ class Readings
     return $this->m_file;
   }
 
+  public function jsonSerialize()
+  {
+    return [
+      'title' => $this->get_Title(),
+      'address' => $this->get_Address(),
+      'intro' => $this->get_Intro(),
+      'sumary' => $this->get_Sumary(),
+      'file' => $this->get_File()
+    ];
+  }
 }

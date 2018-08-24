@@ -42,7 +42,7 @@
       <ul class="nav-main">
         <li><a href="readings_desilets.php">Lectures</a>
         </li>
-        <li><a href="geneology.html">Généalogie</a>
+        <li><a href="geneology.php">Généalogie</a>
         </li>
         <li><a href="ajax.html">Objets de famille</a>
         </li>

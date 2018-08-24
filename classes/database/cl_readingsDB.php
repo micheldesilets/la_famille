@@ -11,8 +11,8 @@ class readingsDB
   /* Get readings */
   public function getReadings($path)
   {
-    include_once 'connection/connect.php';
-    require_once 'classes/business/cl_readings.php';
+    include_once '../connection/connect.php';
+    require_once '../classes/business/cl_readings.php';
 
 //    $lectures = new Readings();
 
@@ -46,7 +46,7 @@ class readingsDB
         $reading->set_Intro($row["intro_rea"]);
       }
       if (!empty($row['resume_rea'])) {
-        $reading->set_Resume($row['resume_rea']);
+        $reading->set_sumary($row['resume_rea']);
       }
       $reading->set_File($row[path_pat] . $row['file_rea']);
       array_push($readingArray, $reading);
@@ -58,10 +58,25 @@ class readingsDB
     mysqli_free_result($result);
 
     mysqli_close($con);
+
+    header("Content-Type: application/json");
+    $json = json_encode($readingArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+      // Avoid echo of empty string (which is invalid JSON), and
+      // JSONify the error message instead:
+      $json = json_encode(array("jsonError", json_last_error_msg()));
+      if ($json === false) {
+        // This should not happen, but we go all the way now:
+        $json = '{"jsonError": "unknown"}';
+      }
+      // Set HTTP response status code to: 500 - Internal Server Error
+      http_response_code(500);
+    }
+    echo $json;
 //    echo count($photoArray);
 
 
-    return $readingArray;
+//    return $readingArray;
 
   }
 }
