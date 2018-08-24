@@ -40,7 +40,7 @@
 
     <nav role="navigation">
       <ul class="nav-main">
-        <li><a href="readings_desilets.php">Lectures</a>
+        <li><a href="readings.html">Lectures</a>
         </li>
         <li><a href="geneology.php">Généalogie</a>
         </li>

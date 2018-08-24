@@ -24,7 +24,7 @@
       <ul class="nav-main">
         <li><a href="index.php">Acceuil</a>
         </li>
-        <li><a href="readings_desilets.php">Lectures</a>
+        <li><a href="trash/readings_desilets.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>

@@ -28,13 +28,13 @@
       <ul class="nav-main">
         <li><a href="index.php">Acceuil</a>
         </li>
-        <li><a href="readings_desilets.php">Lectures</a>
+        <li><a href="trash/readings_desilets.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
         <li><a href="#">Objets de famille</a>
         </li>
-        <li><a href="photo_arch_desilets.phpNG">Photos d'archives</a>
+        <li><a href="trash/photo_arch_desilets.phpNG">Photos d'archives</a>
         </li>
       </ul>
     </nav>

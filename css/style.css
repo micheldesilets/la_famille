@@ -380,8 +380,8 @@ h1 {
   margin-right: 0.25em;*/
 }
 
-/* Archives */
-#archives-left, #archives-right {
+/* Archives + Readings*/
+#family-left, #family-right {
   display: block;
   font-style: italic;
   font-size: .9em;
@@ -389,17 +389,19 @@ h1 {
   margin-bottom: .7em;
 }
 
-#archives-left {
+#family-left {
   float: left;
   margin-left: -3em;
   font-weight: bold;
+  text-decoration: underline;
 }
 
-#archives-right {
+#family-right {
   text-align: right;
   font-weight: normal;
 }
 
+/*
 .flip-archive {
   font-style: italic;
   font-weight: bold;
@@ -409,16 +411,18 @@ h1 {
   margin-top: -1.5em;
   margin-bottom: .7em;
 }
-
+*/
+/*
 .archives-MD {
   float: left;
 }
+
 
 .normal-flip-archive {
   font-weight: normal;
   display: inline-block;
 }
-
+*/
 /* Reading page */
 main .readings {
   font-weight: bold;

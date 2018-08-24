@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Famille Normandeau-Desilets - Lectures</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/style.css">
   <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
   <!--[if lt IE 9]>
@@ -31,13 +31,13 @@
 
       <nav role="navigation">
         <ul class="nav-main">
-          <li><a href="index.php">Acceuil </a>
+          <li><a href="../index.php">Acceuil </a>
           </li>
           <li><a href="#">Généalogie</a>
           </li>
           <li><a href="#">Objets de famille</a>
           </li>
-          <li><a href="family_photos.php">La famille en photos</a>
+          <li><a href="../family_photos.php">La famille en photos</a>
           </li>
           <li><a href="photo_arch_desilets.phpNG">Photos d'archives</a>
           </li>

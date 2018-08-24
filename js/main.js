@@ -1,17 +1,17 @@
 /*** Photos section ***/
 
 function assignArchivesTitle() {
-  document.getElementById("archives-left").innerHTML = "Photos d'archives des Marchand-Desilets";
-  document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
+  document.getElementById("family-left").innerHTML = "Photos d'archives des Marchand-Desilets";
+  document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
 }
 
 function getArchives() {
-  var family = document.getElementById("archives-right").innerHTML;
+  var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
     path = 4
-    document.getElementById("archives-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
-    document.getElementById("archives-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Marchand-Desilets";
+    document.getElementById("family-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
+    document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Marchand-Desilets";
   } else {
     path = 1;
     assignArchivesTitle()
@@ -78,19 +78,19 @@ function renderHomePhoto(data) {
 /*** Reading section ***/
 
 function assignReadingTitle() {
-  document.getElementById("readings-left").innerHTML = "Lectures des Normandeau-Desilets";
-  document.getElementById("readings-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
+  document.getElementById("family-left").innerHTML = "Lectures des Normandeau-Desilets";
+  document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
 }
 
 function getReadings() {
-  var family = document.getElementById("readings-right").innerHTML;
+  var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
-    path = 3
-    document.getElementById("readings-left").innerHTML = "Lectures des Bernard-Normandeau";
-    document.getElementById("readings-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
+    path = 5
+    document.getElementById("family-left").innerHTML = "Lectures des Bernard-Normandeau";
+    document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
   } else {
-    path = 5;
+    path = 3;
     assignReadingTitle();
   }
 
