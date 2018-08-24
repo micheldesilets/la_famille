@@ -6,7 +6,7 @@ function assignArchivesTitle() {
 }
 
 function getArchives() {
-  var family = document.getElementById("family-right").innerHTML;
+  var family = document.getElementById("family-left").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
     path = 4
@@ -83,7 +83,7 @@ function assignReadingTitle() {
 }
 
 function getReadings() {
-  var family = document.getElementById("family-right").innerHTML;
+  var family = document.getElementById("family-left").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
     path = 5
@@ -119,8 +119,6 @@ function renderReadings(data) {
       "<img src=\"" + data[i].file + "\" alt=\"\" class=\"books\">" +
       "<p class=\"title\">" + data[i].title + "</p></a>" +
       "<p class=\"sumary\">" + intro + "</p>" + "<p class=\"summary\">" + data[i].sumary + "</p ><br></div>";
-
-    console.log(htmlString);
 
     readingsContainer.insertAdjacentHTML('beforeend', htmlString)
   }
