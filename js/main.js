@@ -6,7 +6,7 @@ function assignArchivesTitle() {
 }
 
 function getArchives() {
-  var family = document.getElementById("family-left").innerHTML;
+  var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
     path = 4
@@ -83,7 +83,7 @@ function assignReadingTitle() {
 }
 
 function getReadings() {
-  var family = document.getElementById("family-left").innerHTML;
+  var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
     path = 5

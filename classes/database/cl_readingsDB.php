@@ -45,8 +45,8 @@ class readingsDB
       if (!empty($row["intro_rea"])) {
         $reading->set_Intro($row["intro_rea"]);
       }
-      if (!empty($row['resume_rea'])) {
-        $reading->set_sumary($row['resume_rea']);
+      if (!empty($row['summary_rea'])) {
+        $reading->set_sumary($row['summary_rea']);
       }
       $reading->set_File($row[path_pat] . $row['file_rea']);
       array_push($readingArray, $reading);
