@@ -44,7 +44,7 @@
         </li>
         <li><a href="readings.html">Lectures</a>
         </li>
-        <li><a href="geneology.php">Généalogie</a>
+        <li><a href="gallery.html">Généalogie</a>
         </li>
         <li><a href="ajax.html">Objets de famille</a>
         </li>
