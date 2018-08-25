@@ -17,7 +17,7 @@
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
   <div class="header-cont">
-    <header class="masthead" role="banner">
+    <header class="masthead" role="banner" id="myHeader">
       <!--    <p class="logo"><a href="/"><img .../></a></p>-->
       <ul class="social-sites">
       </ul>
@@ -67,5 +67,25 @@
   </div>
   <script>assignReadingTitle()</script>
   <script>getReadings()</script>
+
+  <script>
+    /*
+    window.onscroll = function () {
+      myFunction()
+    };
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    }
+    */
+  </script>
+
 </body>
 </html>

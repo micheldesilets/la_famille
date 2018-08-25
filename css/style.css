@@ -264,6 +264,12 @@ main {
   margin-bottom: -0.8em;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 /* ::: Main Navigation ::: */
 .nav-main {
   /*border-top: 0.15em solid black;*/

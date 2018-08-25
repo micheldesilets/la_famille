@@ -32,7 +32,7 @@
 <body>
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
-  <header class="masthead" role="banner">
+  <header class="masthead" role="banner" id="myHeader">
     <!--    <p class="logo"><a href="/"><img .../></a></p>-->
     <h1>Les Normandeau-Desilets</h1>
 
@@ -129,5 +129,21 @@
   <!-- end page footer -->
 </div>
 <!-- end page -->
+<script>
+  /*
+  window.onscroll = function() {myFunction()};
+
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+  */
+</script>
 </body>
 </html>
