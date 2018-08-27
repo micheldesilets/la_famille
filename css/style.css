@@ -526,13 +526,14 @@ main .books {
 }
 
 #imgs > div {
-  width: 169px; /* Declare your value. Can be in relative units. */
+  width: ; /* Declare your value. Can be in relative units. */
   display: inline-block;
   vertical-align: top;
-  margin-left: 5px;
-  margin-bottom: 6px;
-  padding: 2px;
+  margin-left: 17px;
+  margin-bottom: 10px;
+  padding: 10px;
 
+  box-shadow: 4px 4px 10px grey;
   /* IE fix. */
   *display: inline;
   zoom: 1;
