@@ -124,7 +124,7 @@ function getPhotos(path) {
         renderPhotos(myData, path);
         break;
       case 6:
-        renderFamilyPhotos(myData)
+        renderFamilyPhotos(myData);
         break;
     }
   };
@@ -176,7 +176,7 @@ function renderFamilyPhotos(data) {
     imageURL = data[i].path + data[i].filename;
     thumb = data[i].prev_path + data[i].filename;
 
-    htmlString = "<img src=\"" + thumb + "\" alt=\"" + data[i].title + "\">";
+    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + data[i].caption + "\" title=\"" + data[i].title + "\"></div>"
 
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
   }
@@ -195,9 +195,37 @@ function animatePhotos() {
 //Set first image opacity
 //   imgs[0].style.opacity = opacity;
 
-  imgs.forEach(img => img.addEventListener('click', imgClick));
+  imgs.forEach(img => img.addEventListener('click', imgModal));
 
 }
+
+/*** MODEL ***/
+var modal;
+
+function imgModal(e) {
+  modal = document.getElementById('myModal');
+
+  var prev = e.target.src;
+  var img = prev.replace('preview', 'full');
+
+  var modalImg = document.getElementById("img01");
+  var captionText = document.getElementById("caption");
+  // img.onclick = function () {
+  modal.style.display = "block";
+  modalImg.src = img;
+  captionText.innerHTML = this.alt;
+  // }
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+}
+
+/*** END MODAL ***/
 
 function imgClick(e) {
   // Reset opacity

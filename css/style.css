@@ -522,11 +522,38 @@ main .books {
 
 /*** Family Photos ***/
 #imgs {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 6px;
-  grid-auto-rows: minmax(100px, auto);
+  text-align: justify;
 }
+
+#imgs > div {
+  width: 169px; /* Declare your value. Can be in relative units. */
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 5px;
+  margin-bottom: 6px;
+  padding: 2px;
+
+  /* IE fix. */
+  *display: inline;
+  zoom: 1;
+}
+
+#imgs:after {
+  content: "";
+  width: 100%;
+  display: inline-block;
+}
+
+/*
+#imgs {
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-row-gap: 8px;
+  grid-auto-rows: minmax(100px, auto);
+
+
+}*/
 
 /*** ... Fade-in animation ***/
 @keyframes fadeIn {
