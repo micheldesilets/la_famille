@@ -1,5 +1,5 @@
 const current = document.querySelector('#current');
-const imgs = document.querySelectorAll('.imgs img');
+const imgs = document.querySelectorAll('#imgs img');
 const opacity = 0.5;
 
 //Set first image opacity

@@ -6,7 +6,7 @@ function assignArchivesTitle() {
 }
 
 function assignPhotosHierarchy() {
-  photosFamilyContainer = document.getElementById("photos");
+  photosFamilyContainer = document.getElementById("hierarchyPhotos");
 
   var htmlString =
     "<input type=\"checkbox\" id=\"menu\"/>" +
@@ -40,7 +40,7 @@ function assignPhotosHierarchy() {
     "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
     "                <label for=\"B-A\">1981</label>\n" +
     "                <ul>\n" +
-    "                  <li id=\"photos\"><a href=\"javascript:getFamilyPhotos(4)\">Été vacances</a></li>\n" +
+    "                  <li id=\"photos\"><a href=\"javascript:getFamilyPhotos(6)\">Été vacances</a></li>\n" +
     "                  <li><a href=\"#\">Ail des bois, Evelyne dans le bain (6 mois)</a></li>\n" +
     "                  <li><a href=\"#\">Temple avec Bigras, famille Provost </a></li>\n" +
     "                  <li><a href=\"#\">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>\n" +
@@ -106,9 +106,8 @@ function getArchives() {
 }
 
 function getFamilyPhotos(path) {
-  document.getElementById("photos").innerHTML = "";
+  document.getElementById("hierarchyPhotos").innerHTML = "";
   getPhotos(path);
-  assignPhotosHierarchy();
 }
 
 function getPhotos(path) {
@@ -125,6 +124,7 @@ function getPhotos(path) {
         renderPhotos(myData, path);
         break;
       case 6:
+        renderFamilyPhotos(myData)
         break;
     }
   };
@@ -164,6 +164,58 @@ function renderHomePhoto(data) {
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
   }
+}
+
+function renderFamilyPhotos(data) {
+  var familyContainer = document.getElementById("imgs");
+  var htmlString = "";
+  var imageURL = "";
+  var thumb = "";
+
+  for (i = 0; i < data.length; i++) {
+    imageURL = data[i].path + data[i].filename;
+    thumb = data[i].prev_path + data[i].filename;
+
+    htmlString = "<img src=\"" + thumb + "\" alt=\"" + data[i].title + "\">";
+
+    familyContainer.insertAdjacentHTML('beforeend', htmlString);
+  }
+  animatePhotos();
+}
+
+var current;
+var imgs;
+var opacity;
+
+function animatePhotos() {
+  current = document.querySelector('#current');
+  imgs = document.querySelectorAll('#imgs img');
+  opacity = 0.5;
+
+//Set first image opacity
+//   imgs[0].style.opacity = opacity;
+
+  imgs.forEach(img => img.addEventListener('click', imgClick));
+
+}
+
+function imgClick(e) {
+  // Reset opacity
+  imgs.forEach(img => (img.style.opacity = 1));
+
+  // Change current image to src of clicked image
+  var prev = e.target.src;
+  var full = prev.replace('preview', 'full');
+  current.src = full;
+
+  //Add fade0in class
+  current.classList.add('fade-in');
+
+  //Remove fade-in class after .5 sec
+  setTimeout(() => current.classList.remove('fade-in'), 500)
+
+  //Change the opacity to opacity variable
+  e.target.style.opacity = opacity;
 }
 
 /*** Reading section ***/

@@ -6,16 +6,17 @@
   <title>Famille Normandeau-Desilets - Photos Famille</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js"></script>
+  <link rel="stylesheet" href="tutorials/gallery.css">
+
+
+  <link rel="stylesheet" href="css/familyImages.css">
   <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
   <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 </head>
 <body>
+
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
   <header class="masthead" role="banner">
@@ -49,7 +50,18 @@
     <!--        ...-->
     <!--    </article>-->
 
-    <section class="drop-down" id="photos">
+    <section class="drop-down" id="hierarchyPhotos">
+
+
+      <!--       <img src="img/archives/marchand-desilets/preview/1938_Françoise_Desilets.jpg">
+             <img src="img/archives/marchand-desilets/preview/1944_Aout_Léon_et_Corinne_Marchand.jpg">
+             <img src="img/archives/marchand-desilets/preview/1947_mai_Inconnu.jpg">
+             <img src="img/archives/marchand-desilets/preview/1949_17_juillet_Amie_de_Jean_et_Jeanne_Desilets_02.jpg">
+             <img src="img/archives/marchand-desilets/preview/1949_30_juillet_Jeanne_Marchand-Desilets_et_ami.jpg">
+             <img src="img/archives/marchand-desilets/preview/1950_Mariage_Jean_et_Jeanne.jpg">
+             <img src="img/archives/marchand-desilets/preview/1956_Mars_Michel_Desilets.jpg">
+             <img src="img/archives/marchand-desilets/preview/Auguste_Desilets-1.jpg">
+           </div>-->
       <!-- <input type="checkbox" id="menu"/>
 
        <label for="menu" class="names">Photos Michel</label>
@@ -161,13 +173,11 @@
   <!-- ==== START MAIN ==== -->
   <main role="main">
     <section class="post">
-      <!--        <img ... class="post-photo-full"/>-->
-      <div class="post-blurb">
-        <!--          <p>It is hard to believe ...</p>-->
+      <div class="container">
+        <div class="main-img"></div>
+        <img src="" id="current">
+        <div id="imgs"></div>
       </div>
-      <footer class="footer">
-        <!--          ... [blog post snippet footer] ...-->
-      </footer>
     </section>
     <section class="post">
       <!--        <h1>The City Named After Queen Victoria</h1>-->
@@ -197,33 +207,8 @@
   <!-- end page footer -->
 </div>
 <!-- end page -->
-<script type="text/javascript">
-  $("[data-fancybox]").fancybox({
-    idleTime: false,
-    buttons: [
-      'download',
-      'thumbs',
-      'close',
-    ]
-  });
-</script>
-<script>
-  var items = document.querySelectorAll("#B-A li"),
-    tab = [], index;
-
-  // add values to the array
-  for (var i = 0; i < items.length; i++) {
-    tab.push(items[i].innerHTML);
-  }
-
-  // get selected element index
-  for (var i = 0; i, items.length; i++) {
-    items[i].onclick = function () {
-      index = tab.indexOf(this.innerHTML);
-      console.log(this.innerHTML + " Index = " + index);
-    };
-  }
-</script>
+<script src="js/main.js"></script>
 <script>assignPhotosHierarchy()</script>
+<!--<script src="js/gallery.js"></script>-->
 </body>
 </html>

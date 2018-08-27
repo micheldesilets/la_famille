@@ -1,11 +1,13 @@
 body {
+  /*
   margin: 20px;
   padding: 0;
   background: #333;
+  */
 }
 
 .container {
-  max-width: 760px;
+  max-width: 960px;
   margin: auto;
   border: #fff solid 3px;
   background: #fff;
@@ -15,10 +17,10 @@ body {
   width: 100%;
 }
 
-.imgs {
+#imgs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 6px;
   grid-auto-rows: minmax(100px, auto);
 }
 
