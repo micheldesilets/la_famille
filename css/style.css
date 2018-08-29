@@ -526,7 +526,7 @@ main .books {
 }
 
 #imgs > div {
-  width: ; /* Declare your value. Can be in relative units. */
+  /*width: ; !* Declare your value. Can be in relative units. *!*/
   display: inline-block;
   vertical-align: top;
   margin-left: 17px;

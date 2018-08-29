@@ -139,7 +139,16 @@ function renderPhotos(data, path) {
 
   document.getElementById("photos").innerHTML = "";
 
-  for (i = 0; i < data.length; i++) {
+  for (var obj of data) {
+    imageURL = obj.path + obj.filename;
+    thumb = obj.prev_path + obj.filename;
+
+    htmlString = "<a data-fancybox=\"images\" data-caption=\"" + obj.caption + "\" href=\"" + imageURL + "\">" +
+      "<img id=\"boxshadow\" src=\"" + thumb + "\" title=\"" + obj.title + "\" alt=\"" + obj.title + "\" / ></a>";
+
+    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+  /*for (i = 0; i < data.length; i++) {
     imageURL = data[i].path + data[i].filename;
     thumb = data[i].prev_path + data[i].filename;
 
@@ -147,7 +156,7 @@ function renderPhotos(data, path) {
       "<img id=\"boxshadow\" src=\"" + thumb + "\" title=\"" + data[i].title + "\" alt=\"" + data[i].title + "\" / ></a>";
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }
+  }*/
 }
 
 function renderHomePhoto(data) {
@@ -156,6 +165,16 @@ function renderHomePhoto(data) {
   var imageURL = "";
   var thumb = "";
 
+  for (var obj of data) {
+    // for (i = 0; i < data.length; i++) {
+    imageURL = obj.path + obj.filename;
+    thumb = data[0].prev_path + obj.filename;
+
+    htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
+
+    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+  /*
   for (i = 0; i < data.length; i++) {
     imageURL = data[i].path + data[i].filename;
     thumb = data[i].prev_path + data[i].filename;
@@ -163,7 +182,7 @@ function renderHomePhoto(data) {
     htmlString = "<img src=\"" + imageURL + "\" alt=\"" + data[i].title + "\">";
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }
+  }*/
 }
 
 function renderFamilyPhotos(data) {
@@ -172,6 +191,15 @@ function renderFamilyPhotos(data) {
   var imageURL = "";
   var thumb = "";
 
+  for (var obj of data) {
+    imageURL = obj.path + obj.filename;
+    thumb = obj.prev_path + obj.filename;
+
+    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\"></div>"
+
+    familyContainer.insertAdjacentHTML('beforeend', htmlString);
+  }
+  /*
   for (i = 0; i < data.length; i++) {
     imageURL = data[i].path + data[i].filename;
     thumb = data[i].prev_path + data[i].filename;
@@ -179,7 +207,7 @@ function renderFamilyPhotos(data) {
     htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + data[i].caption + "\" title=\"" + data[i].title + "\"></div>"
 
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
-  }
+  }*/
   animatePhotos();
 }
 
@@ -215,7 +243,7 @@ function imgModal(e) {
   modalImg.src = img;
   captionText.innerHTML = this.alt;
   // }
-}
+
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -223,6 +251,7 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
   modal.style.display = "none";
+}
 }
 
 /*** END MODAL ***/
