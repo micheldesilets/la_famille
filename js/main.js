@@ -139,7 +139,7 @@ function renderPhotos(data, path) {
 
   document.getElementById("photos").innerHTML = "";
 
-  for (var obj of data) {
+  for (const obj of data) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
@@ -148,15 +148,6 @@ function renderPhotos(data, path) {
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
   }
-  /*for (i = 0; i < data.length; i++) {
-    imageURL = data[i].path + data[i].filename;
-    thumb = data[i].prev_path + data[i].filename;
-
-    htmlString = "<a data-fancybox=\"images\" data-caption=\"" + data[i].caption + "\" href=\"" + imageURL + "\">" +
-      "<img id=\"boxshadow\" src=\"" + thumb + "\" title=\"" + data[i].title + "\" alt=\"" + data[i].title + "\" / ></a>";
-
-    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }*/
 }
 
 function renderHomePhoto(data) {
@@ -165,24 +156,15 @@ function renderHomePhoto(data) {
   var imageURL = "";
   var thumb = "";
 
-  for (var obj of data) {
+  for (const obj of data) {
     // for (i = 0; i < data.length; i++) {
     imageURL = obj.path + obj.filename;
-    thumb = data[0].prev_path + obj.filename;
+    thumb = obj.prev_path + obj.filename;
 
     htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
 
     archivesContainer.insertAdjacentHTML('beforeend', htmlString)
   }
-  /*
-  for (i = 0; i < data.length; i++) {
-    imageURL = data[i].path + data[i].filename;
-    thumb = data[i].prev_path + data[i].filename;
-
-    htmlString = "<img src=\"" + imageURL + "\" alt=\"" + data[i].title + "\">";
-
-    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }*/
 }
 
 function renderFamilyPhotos(data) {
@@ -191,7 +173,7 @@ function renderFamilyPhotos(data) {
   var imageURL = "";
   var thumb = "";
 
-  for (var obj of data) {
+  for (const obj of data) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
@@ -199,15 +181,7 @@ function renderFamilyPhotos(data) {
 
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
   }
-  /*
-  for (i = 0; i < data.length; i++) {
-    imageURL = data[i].path + data[i].filename;
-    thumb = data[i].prev_path + data[i].filename;
 
-    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + data[i].caption + "\" title=\"" + data[i].title + "\"></div>"
-
-    familyContainer.insertAdjacentHTML('beforeend', htmlString);
-  }*/
   animatePhotos();
 }
 
@@ -246,12 +220,12 @@ function imgModal(e) {
 
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+  var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-}
+  span.onclick = function () {
+    modal.style.display = "none";
+  }
 }
 
 /*** END MODAL ***/
@@ -310,15 +284,15 @@ function renderReadings(data) {
 
   document.getElementById("readings-list").innerHTML = "";
 
-  for (i = 0; i < data.length; i++) {
-    if (data[i].intro == null) {
+  for (const obj of data) {
+    if (obj.intro == null) {
       intro = "";
     }
 
-    htmlString = "<div class=\"clearfix\">" + "<a href=\"" + data[i].address + "\" target=\"_blank\">" +
-      "<img src=\"" + data[i].file + "\" alt=\"\" class=\"books\">" +
-      "<p class=\"title\">" + data[i].title + "</p></a>" +
-      "<p class=\"sumary\">" + intro + "</p>" + "<p class=\"summary\">" + data[i].sumary + "</p ><br></div>";
+    htmlString = "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
+      "<img src=\"" + obj.file + "\" alt=\"\" class=\"books\">" +
+      "<p class=\"title\">" + obj.title + "</p></a>" +
+      "<p class=\"sumary\">" + intro + "</p>" + "<p class=\"summary\">" + obj.sumary + "</p ><br></div>";
 
     readingsContainer.insertAdjacentHTML('beforeend', htmlString)
   }

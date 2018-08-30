@@ -587,15 +587,19 @@ main .books {
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  /*width: 100%; !* Full width *!
+  height: 100%; !* Full height *!*/
+  object-fit: fill;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
 }
 
 /*** ... Modal Content (image) ***/
 .modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 2px solid #888;
   margin: auto;
   display: block;
   width: 80%;
