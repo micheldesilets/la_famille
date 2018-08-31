@@ -201,7 +201,7 @@ function animatePhotos() {
 
 }
 
-/*** MODEL ***/
+/*** MODAL ***/
 var modal;
 
 function imgModal(e) {
@@ -298,3 +298,11 @@ function renderReadings(data) {
   }
 }
 
+/*** SEARCH ***/
+function getPhotosKeywords() {
+  const frm = document.getElementById("searchKw");
+  const kw = frm.elements["keywrds"].value;
+  console.log(kw);
+}
+
+/*** END SEARCH ***/

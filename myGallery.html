@@ -38,6 +38,18 @@
   <!-- end masthead -->
   <!-- ==== START SIDEBAR ==== -->
   <div class="sidebar-family">
+    <section class="search">
+      <h3>Recherche</h3>
+      <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
+        <fieldset>
+          <label>
+            Mots clefs
+          </label>
+          <input type="text" id="keywrds" placeholder="mot clefs séparés par une virgule" size="75">
+        </fieldset>
+        <input type="submit" value="submit">
+      </form>
+    </section>
 
     <section class="drop-down" id="hierarchyPhotos"></section>
 
@@ -50,7 +62,9 @@
 
       <!-- The Modal -->
       <div id="myModal" class="modal">
-        <span class="close">&times;</span>
+        <img src="img/icons/download-icon.png" alt="" class="downloadImage">
+        <!--       <span class="download">yy</span>-->
+        <span class="close">x</span>
         <img class="modal-content" id="img01">
         <div id="caption"></div>
       </div>

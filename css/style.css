@@ -587,9 +587,9 @@ main .books {
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
-  /*width: 100%; !* Full width *!
-  height: 100%; !* Full height *!*/
-  object-fit: fill;
+  /*  width: 100%;
+    height: auto;*/
+  object-fit: contain;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
@@ -645,7 +645,7 @@ main .books {
 }
 
 /*** ... The Close Button ***/
-.close {
+.close, .downloadImage {
   position: absolute;
   top: 15px;
   right: 35px;
@@ -655,8 +655,15 @@ main .books {
   transition: 0.3s;
 }
 
+.downloadImage {
+  top: 30px;
+  right: 75px;
+  width: 24px;
+  height: 24px;
+}
+
 .close:hover,
-.close:focus {
+.close:focus, .downloadImage:hover, .downloadImage:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
