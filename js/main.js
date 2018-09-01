@@ -173,6 +173,8 @@ function renderFamilyPhotos(data) {
   var imageURL = "";
   var thumb = "";
 
+  document.getElementById("imgs").innerHTML = "";
+
   for (const obj of data) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
@@ -303,6 +305,14 @@ function getPhotosKeywords() {
   const frm = document.getElementById("searchKw");
   const kw = frm.elements["keywrds"].value;
   console.log(kw);
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
+  myRequest.onload = function () {
+    var myData = JSON.parse(myRequest.responseText);
+    renderFamilyPhotos(myData);
+  };
+  myRequest.send();
 }
 
 /*** END SEARCH ***/
