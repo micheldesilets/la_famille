@@ -199,7 +199,7 @@ function animatePhotos() {
 //Set first image opacity
 //   imgs[0].style.opacity = opacity;
 
-  imgs.forEach(img => img.addEventListener('click', transformImage));
+  imgs.forEach(img => img.addEventListener('click', imgModal));
 
 }
 
