@@ -584,12 +584,12 @@ main .books {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 20px; /* Location of the box */
   left: 0;
   top: 0;
-  /*  width: 100%;
-    height: auto;*/
-  object-fit: contain;
+  width: 100vw;
+  height: 100vh;
+
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
@@ -599,11 +599,11 @@ main .books {
 .modal-content {
   background-color: #fefefe;
   padding: 20px;
-  border: 2px solid #888;
+  border: 1px solid #888;
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  max-width: 100%;
+  max-height: 80%;
 }
 
 /*** ... Caption of Modal Image ***/

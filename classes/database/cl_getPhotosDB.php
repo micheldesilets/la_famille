@@ -163,6 +163,7 @@ WHERE paths_pat.id_pat = $path";
         $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
       }
     }
+    $sql = $sql . " GROUP BY pho.filename_pho";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set

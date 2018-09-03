@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Famille Normandeau-Desilets - Photos Famille</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!--  <link rel="stylesheet" href="css/gallery.css">-->
+
+</head>
+<body>
+<div class="page">
+  <!-- ==== START MASTHEAD ==== -->
+  <header class="masthead" role="banner">
+    <!--    <p class="logo"><a href="/"><img .../></a></p>-->
+    <h1>Les Normandeau-Desilets</h1>
+
+    <h2>Une courte histoire de Nous</h2>
+
+    <nav role="navigation">
+      <ul class="nav-main">
+        <li><a href="index.php">Acceuil</a>
+        </li>
+        <li><a href="readings.html">Lectures</a>
+        </li>
+        <li><a href="geneology.html">Généalogie</a>
+        </li>
+        <li><a href="ajax.html">Objets de famille</a>
+        </li>
+        <li><a href="#">La famille en photos</a>
+        </li>
+        <li><a href="archive_photos.html">Photos d'archives</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- end masthead -->
+  <!-- ==== START SIDEBAR ==== -->
+  <div class="sidebar-family">
+    <section class="search">
+      <h3>Recherche</h3>
+      <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
+        <fieldset>
+          <label>
+            Mots clefs
+          </label>
+          <input type="text" id="keywrds" placeholder="mot clefs séparés par une virgule" size="75">
+        </fieldset>
+        <input type="submit" value="submit">
+      </form>
+    </section>
+
+    <section class="drop-down" id="hierarchyPhotos"></section>
+
+    <section class="container">
+      <!--     <div class="main-img">
+             <img src="" id="current">
+           </div>-->
+
+      <div id="imgs"></div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <img src="img/icons/download-icon.png" alt="" class="downloadImage">
+        <!--       <span class="download">yy</span>-->
+        <span class="close">x</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+      </div>
+    </section>
+  </div>
+
+  <!--      <script src="js/gallery.js"></script>-->
+
+</div>
+</div>
+<script src="js/main.js"></script>
+<script>assignPhotosHierarchy()</script>
+
+</body>
+</html>

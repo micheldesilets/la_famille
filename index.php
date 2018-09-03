@@ -44,13 +44,11 @@
         </li>
         <li><a href="readings.html">Lectures</a>
         </li>
-        <li><a href="geneology.html">Généalogie</a>
-        </li>
-        <li><a href="myGallery.html">My Gallery</a>
+        <li><a href="modal.html">Généalogie</a>
         </li>
         <li><a href="ajax.html">Objets de famille</a>
         </li>
-        <li><a href="family_photos.php">La famille en photos</a>
+        <li><a href="family_photos.html">La famille en photos</a>
         </li>
         <li><a href="archive_photos.html">Photos d'archives</a>
         </li>
