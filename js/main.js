@@ -199,13 +199,24 @@ function animatePhotos() {
 //Set first image opacity
 //   imgs[0].style.opacity = opacity;
 
-  imgs.forEach(img => img.addEventListener('click', imgModal));
+  imgs.forEach(img => img.addEventListener('click', transformImage));
 
 }
 
 /*** MODAL ***/
-var modal;
+function transformImage(e) {
+  var prev = e.target.src;
+  for (i = 0; i < imgs.length; i++) {
+    if (prev == imgs[i].src) {
+      imgs[i].style.transition = "all,1s";
+      imgs[i].style.transform = "scale(2,2)";
+      break;
+    }
+  }
+  imgModal(e)
+}
 
+var modal;
 function imgModal(e) {
   modal = document.getElementById('myModal');
 
@@ -229,7 +240,6 @@ function imgModal(e) {
     modal.style.display = "none";
   }
 }
-
 /*** END MODAL ***/
 
 function imgClick(e) {
