@@ -642,13 +642,25 @@ main .books {
   }
 }
 
+#previous {
+  position: relative;
+  float: left;
+  top: 40%;
+}
+
+#next {
+  position: relative;
+  float: right;
+  top: 40%;
+}
+
 /*** ... The Close Button ***/
 .close, .downloadImage {
   position: absolute;
-  top: 15px;
+  top: 22px;
   right: 35px;
   color: #f1f1f1;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   transition: 0.3s;
 }

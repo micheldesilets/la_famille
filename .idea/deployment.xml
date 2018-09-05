@@ -5,7 +5,14 @@
       <paths name="AMPPS Local Server">
         <serverdata>
           <mappings>
-            <mapping deploy="la_famille" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="lesnormandeaudesilets" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Beyond jQuery">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

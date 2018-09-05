@@ -7,7 +7,6 @@ function assignArchivesTitle() {
 
 function assignPhotosHierarchy() {
   photosFamilyContainer = document.getElementById("hierarchyPhotos");
-
   var htmlString =
     "<input type=\"checkbox\" id=\"menu\"/>" +
     "      <label for=\"menu\" class=\"names\">Photos Michel</label>" +
@@ -183,29 +182,38 @@ function renderFamilyPhotos(data) {
 
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
   }
-
   animatePhotos();
 }
 
 var current;
 var imgs;
 var opacity;
+var currentIdx;
+var maxLength;
+var prev;
+var img;
+var modalImg;
+var captionText;
+var forward;
+var backward;
 
 function animatePhotos() {
   current = document.querySelector('#current');
   imgs = document.querySelectorAll('#imgs img');
+  backward = document.getElementById('previous');
+  forward = document.getElementById('next');
+
   opacity = 0.5;
 
-//Set first image opacity
-//   imgs[0].style.opacity = opacity;
-
   imgs.forEach(img => img.addEventListener('click', imgModal));
+  backward.addEventListener('click', prevImage);
+  forward.addEventListener('click', nextImage);
 
 }
 
 /*** MODAL ***/
 function transformImage(e) {
-  var prev = e.target.src;
+  prev = e.target.src;
   for (i = 0; i < imgs.length; i++) {
     if (prev == imgs[i].src) {
       imgs[i].style.transition = "all,1s";
@@ -217,14 +225,35 @@ function transformImage(e) {
 }
 
 var modal;
+
 function imgModal(e) {
   modal = document.getElementById('myModal');
 
-  var prev = e.target.src;
-  var img = prev.replace('preview', 'full');
+  prev = e.target.src;
+  maxLength = imgs.length;
 
-  var modalImg = document.getElementById("img01");
-  var captionText = document.getElementById("caption");
+  for (i = 0; i < imgs.length; i++) {
+    if (prev == imgs[i].src) {
+      break;
+    }
+  }
+  currentIdx = i;
+
+  if (currentIdx == 0) {
+    backward.style.backgroundColor = 'red';
+  } else {
+    backward.style.backgroundColor = 'green';
+  }
+  if (currentIdx == maxLength - 1) {
+    forward.style.backgroundColor = 'red';
+  } else {
+    forward.style.backgroundColor = 'green';
+  }
+
+  img = prev.replace('preview', 'full');
+
+  modalImg = document.getElementById("img01");
+  captionText = document.getElementById("caption");
   // img.onclick = function () {
   modal.style.display = "block";
   modalImg.src = img;
@@ -240,6 +269,41 @@ function imgModal(e) {
     modal.style.display = "none";
   }
 }
+
+function prevImage() {
+  if (currentIdx > 0) {
+    img = imgs[currentIdx - 1].src;
+    img = img.replace('preview', 'full');
+    capt = imgs[currentIdx - 1].alt;
+    modalImg.src = img;
+    captionText.innerHTML = capt;
+    currentIdx--;
+    if (currentIdx == 0) {
+      backward.style.backgroundColor = "red";
+    }
+    if (currentIdx < maxLength - 1) {
+      forward.style.backgroundColor = "green";
+    }
+  }
+}
+
+function nextImage() {
+  if (currentIdx < maxLength - 1) {
+    img = imgs[currentIdx + 1].src;
+    img = img.replace('preview', 'full');
+    capt = imgs[currentIdx + 1].alt;
+    modalImg.src = img;
+    captionText.innerHTML = capt;
+    currentIdx++;
+    if (currentIdx == maxLength - 1) {
+      forward.style.backgroundColor = "red";
+    }
+    if (currentIdx > 0) {
+      backward.style.backgroundColor = "green";
+    }
+  }
+}
+
 /*** END MODAL ***/
 
 function imgClick(e) {
@@ -247,7 +311,7 @@ function imgClick(e) {
   imgs.forEach(img => (img.style.opacity = 1));
 
   // Change current image to src of clicked image
-  var prev = e.target.src;
+  prev = e.target.src;
   var full = prev.replace('preview', 'full');
   current.src = full;
 
@@ -260,6 +324,23 @@ function imgClick(e) {
   //Change the opacity to opacity variable
   e.target.style.opacity = opacity;
 }
+
+/*** SEARCH ***/
+function getPhotosKeywords() {
+  const frm = document.getElementById("searchKw");
+  const kw = frm.elements["keywrds"].value;
+  console.log(kw);
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
+  myRequest.onload = function () {
+    var myData = JSON.parse(myRequest.responseText);
+    renderFamilyPhotos(myData);
+  };
+  myRequest.send();
+}
+
+/*** END SEARCH ***/
 
 /*** Reading section ***/
 
@@ -310,19 +391,4 @@ function renderReadings(data) {
   }
 }
 
-/*** SEARCH ***/
-function getPhotosKeywords() {
-  const frm = document.getElementById("searchKw");
-  const kw = frm.elements["keywrds"].value;
-  console.log(kw);
 
-  var myRequest = new XMLHttpRequest();
-  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
-  myRequest.onload = function () {
-    var myData = JSON.parse(myRequest.responseText);
-    renderFamilyPhotos(myData);
-  };
-  myRequest.send();
-}
-
-/*** END SEARCH ***/
