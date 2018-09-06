@@ -36,8 +36,8 @@
     </nav>
   </header>
   <!-- end masthead -->
-  <!-- ==== START SIDEBAR ==== -->
-  <div class="sidebar-family">
+  <!-- ==== MAIN ==== -->
+  <div class="main-family">
     <section class="search">
       <h3>Recherche</h3>
       <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
@@ -54,12 +54,10 @@
     <section class="drop-down" id="hierarchyPhotos"></section>
 
     <section class="container">
-      <!--     <div class="main-img">
-             <img src="" id="current">
-           </div>-->
-
       <div id="imgs"></div>
+    </section>
 
+    <section class="modalContainer">
       <!-- The Modal -->
       <div id="myModal" class="modal">
 
@@ -67,8 +65,8 @@
         <button id="previous"><</button>
         <button id="next">></button>
 
-        <img src="img/icons/download-icon.png" alt="" class="downloadImage">
-        <!--       <span class="download">yy</span>-->
+        <!--        <img src="img/icons/download-icon.png" alt="" class="downloadImage">-->
+
         <span class="close">x</span>
         <img class="modal-content" id="img01">
         <div id="caption"></div>
@@ -76,10 +74,8 @@
     </section>
   </div>
 
-  <!--      <script src="js/gallery.js"></script>-->
+</div>
 
-</div>
-</div>
 <script src="js/main.js"></script>
 <script>assignPhotosHierarchy()</script>
 
