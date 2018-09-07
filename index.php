@@ -13,13 +13,14 @@
   require_once 'classes/database/cl_getPhotosDB.php';
 
   /* main photo */
-  $db = new photosBD();
-  $photo = $db->getHomePhoto();
+  /* $db = new photosBD();
+   $photo = $db->getHomePhoto();
 
-  $file = $photo->get_Filename();
-  $path = $photo->get_F_Path();
-  $title = $photo->get_Title();
-  $loc = $path . $file;
+   $file = $photo->get_Filename();
+   $path = $photo->get_F_Path();
+   $title = $photo->get_Title();
+   $loc = $path . $file;
+ */
 
   /* sidebar photo */
   $dbSb = new photosBD();
@@ -90,10 +91,9 @@
   <!-- ==== START MAIN ==== -->
   <main role="main">
     <section class="post">
-      <script>getPhotos(2)</script>
+      <script>getPhotos(5, 4)</script>
       <div id="homePhoto"></div>
-      <!--      <img src="--><?php //echo($loc); ?><!--" alt="--><?php //echo($title) ?><!--">-->
-      <!--        <img ... class="post-photo-full"/>-->
+
       <div class="post-blurb">
         <!--          <p>It is hard to believe ...</p>-->
       </div>

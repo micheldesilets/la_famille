@@ -39,7 +39,8 @@ function assignPhotosHierarchy() {
     "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
     "                <label for=\"B-A\">1981</label>\n" +
     "                <ul>\n" +
-    "                  <li id=\"photos\"><a href=\"javascript:getFamilyPhotos(6)\">Été vacances</a></li>\n" +
+    // "                  <li id=\"photos\"><a href=\"javascript:getFamilyPhotos(6)\">Été vacances</a></li>\n" +
+    "                  <li onclick='javascript:getFamilyPhotos(2,2)'>Été vacances</li>\n" +
     "                  <li><a href=\"#\">Ail des bois, Evelyne dans le bain (6 mois)</a></li>\n" +
     "                  <li><a href=\"#\">Temple avec Bigras, famille Provost </a></li>\n" +
     "                  <li><a href=\"#\">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>\n" +
@@ -98,31 +99,31 @@ function getArchives() {
     document.getElementById("family-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
     document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Marchand-Desilets";
   } else {
-    path = 1;
+    path = 3;
     assignArchivesTitle()
   }
-  getPhotos(path)
+  getPhotos(path, 1)
 }
 
-function getFamilyPhotos(path) {
+function getFamilyPhotos(path, type) {
   document.getElementById("hierarchyPhotos").innerHTML = "";
-  getPhotos(path);
+  getPhotos(path, type);
 }
 
-function getPhotos(path) {
+function getPhotos(path, type) {
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
   myRequest.onload = function () {
     var myData = JSON.parse(myRequest.responseText);
-    switch (path) {
-      case 2:
+    switch (type) {
+      case 4:
         renderHomePhoto(myData);
         break;
       case 1:
-      case 4:
+        /*** Archives ***/
         renderPhotos(myData, path);
         break;
-      case 6:
+      case 2:
         renderFamilyPhotos(myData);
         break;
     }
@@ -130,6 +131,7 @@ function getPhotos(path) {
   myRequest.send();
 }
 
+/*** Used only with FancyBox ***/
 function renderPhotos(data, path) {
   var archivesContainer = document.getElementById("photos");
   var htmlString = "";
@@ -156,7 +158,6 @@ function renderHomePhoto(data) {
   var thumb = "";
 
   for (const obj of data) {
-    // for (i = 0; i < data.length; i++) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 

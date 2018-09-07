@@ -7,17 +7,17 @@ class photosBD
   public function getHomePhoto()
   {
     include 'connection/connect.php';
-    require_once 'classes/business/cl_photos.php';
+//    require_once 'classes/business/cl_photos.php';
 
     $photo = new Photos();
 
     $sql = "
 SELECT *
-FROM photos_pho
+FROM photos_pho pho
   JOIN parameters_par pp
   ON id_pho = pp.home_idpho_par
-  JOIN paths_pat pp1
-  ON pp1.id_pat = idpat_pho
+  JOIN repository_titles_rpt rpt
+  ON rpt.id_rpt = pho.idrpt_pho
   WHERE pp.id_par = 1";
 
     if ($result = mysqli_query($con, $sql)) {
@@ -31,7 +31,7 @@ FROM photos_pho
 // Associative array
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    $photo->set_F_Path($row["path_pat"]);
+    $photo->set_F_Path($row["full_rpt"]);
     $photo->set_Filename($row["filename_pho"]);
     $photo->set_Title($row["title_pho"]);
 
@@ -42,17 +42,21 @@ FROM photos_pho
   /* --- GETSIDEBARPHOTO --- */
   public function getSidebarPhoto()
   {
+    // current directory
+    $wd = getcwd();
+    require_once 'classes/business/cl_photos.php';
     include 'connection/connect.php';
 
     $photoSb = new Photos();
 
     $sql = "
-SELECT pho.filename_pho, pp1.prev_path_pat
+SELECT pho.filename_pho, rpt.full_rpt
 FROM photos_pho pho
   JOIN parameters_par pp
-  ON id_pho = pp.home_sidebar_par
-  JOIN paths_pat pp1
-  ON pp1.id_pat = idpat_pho
+  ON id_pho = pp.home_sidebar_par   
+  JOIN repository_titles_rpt rpt
+  ON rpt.id_rpt = pho.idrpt_pho
+
   WHERE pp.id_par = 1";
 
     if ($result = mysqli_query($con, $sql)) {
@@ -66,7 +70,7 @@ FROM photos_pho pho
 // Associative array
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    $photoSb->set_P_Path($row["prev_path_pat"]);
+    $photoSb->set_P_Path($row["full_rpt"]);
     $photoSb->set_Filename($row["filename_pho"]);
 
     mysqli_close($con);
@@ -81,12 +85,11 @@ FROM photos_pho pho
 
     $photo = new Photos();
 
-    $sql = "SELECT
-*
-FROM paths_pat
-  INNER JOIN photos_pho
-    ON paths_pat.id_pat = photos_pho.idpat_pho
-WHERE paths_pat.id_pat = $path";
+    $sql = "SELECT *
+  FROM repository_titles_rpt rpt
+  INNER JOIN photos_pho pho
+  ON rpt.id_rpt = pho.idrpt_pho
+  WHERE rpt.id_rpt = $path";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
@@ -110,11 +113,11 @@ WHERE paths_pat.id_pat = $path";
       $photo->set_Height($row["height_pho"]);
       $photo->set_Width($row["width_pho"]);
       $photo->set_Caption($row["caption_pho"]);
-      $photo->set_F_Path($row["path_pat"]);
-      if ($row["prev_path_pat"] == null) {
+      $photo->set_F_Path($row["full_rpt"]);
+      if ($row["preview_rpt"] == null) {
         $photo->set_P_Path("");
       } else {
-        $photo->set_P_Path($row["prev_path_pat"]);
+        $photo->set_P_Path($row["preview_rpt"]);
       }
       $photo->set_Filename($row["filename_pho"]);
       $photo->set_Pdf($row['pdf_pho']);

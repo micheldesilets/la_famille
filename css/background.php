@@ -8,7 +8,7 @@ FROM parameters_par
   INNER JOIN photos_pho
     ON parameters_par.home_idpho_par = photos_pho.id_pho
   INNER JOIN paths_pat
-    ON photos_pho.idpat_pho = paths_pat.id_pat
+    ON photos_pho.idrpt_pho = paths_pat.id_pat
 WHERE photos_pho.id_pho = parameters_par.home_idpho_par";
 
 if ($result = mysqli_query($con, $sql)) {
