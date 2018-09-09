@@ -49,15 +49,13 @@ FROM photos_pho pho
 
     $photoSb = new Photos();
 
-    $sql = "
-SELECT pho.filename_pho, rpt.full_rpt
-FROM photos_pho pho
-  JOIN parameters_par pp
-  ON id_pho = pp.home_sidebar_par   
-  JOIN repository_titles_rpt rpt
-  ON rpt.id_rpt = pho.idrpt_pho
-
-  WHERE pp.id_par = 1";
+    $sql = "SELECT pho.filename_pho, pfo.full_pfo
+            FROM photos_pho pho
+            JOIN parameters_par pp
+            ON id_pho = pp.home_sidebar_par   
+            JOIN photosFolders_pfo pfo
+           ON pfo.idrpt_pfo = pho.idrpt_pho
+           WHERE pp.id_par = 1";
 
     if ($result = mysqli_query($con, $sql)) {
 // Return the number of rows in result set
@@ -70,7 +68,7 @@ FROM photos_pho pho
 // Associative array
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    $photoSb->set_P_Path($row["full_rpt"]);
+    $photoSb->set_P_Path($row["full_pfo"]);
     $photoSb->set_Filename($row["filename_pho"]);
 
     mysqli_close($con);
@@ -86,10 +84,10 @@ FROM photos_pho pho
     $photo = new Photos();
 
     $sql = "SELECT *
-  FROM repository_titles_rpt rpt
-  INNER JOIN photos_pho pho
-  ON rpt.id_rpt = pho.idrpt_pho
-  WHERE rpt.id_rpt = $path";
+            FROM photosFolders_pfo pfo
+            INNER JOIN photos_pho pho
+            ON pfo.idrpt_pfo = pho.idrpt_pho
+            WHERE pfo.idrpt_pfo = $path";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
@@ -107,20 +105,36 @@ FROM photos_pho pho
       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
       $photo = new Photos();
-
-      $photo->set_Title($row["title_pho"]);
-      $photo->set_Keywords($row["keywords_pho"]);
+      if ($row["title_pho"] == null) {
+        $photo->set_Title("");
+      } else {
+        $photo->set_Title($row["title_pho"]);
+      }
+      if ($row["keywords_pho"] == null) {
+        $photo->set_Keywords("");
+      } else {
+        $photo->set_Keywords($row["keywords_pho"]);
+      }
       $photo->set_Height($row["height_pho"]);
       $photo->set_Width($row["width_pho"]);
-      $photo->set_Caption($row["caption_pho"]);
-      $photo->set_F_Path($row["full_rpt"]);
-      if ($row["preview_rpt"] == null) {
+      if ($row["caption_pho"] == null) {
+        $photo->set_Caption("");
+      } else {
+        $photo->set_Caption($row["caption_pho"]);
+      }
+      $photo->set_F_Path($row["full_pfo"]);
+      if ($row["preview_pfo"] == null) {
         $photo->set_P_Path("");
       } else {
-        $photo->set_P_Path($row["preview_rpt"]);
+        $photo->set_P_Path($row["preview_pfo"]);
       }
       $photo->set_Filename($row["filename_pho"]);
-      $photo->set_Pdf($row['pdf_pho']);
+      if ($row["pdf_pho"] == null) {
+        $photo->set_Pdf("");
+      } else {
+        $photo->set_Pdf($row['pdf_pho']);
+      }
+
       array_push($photoArray, $photo);
 
       $l++;
@@ -224,6 +238,6 @@ FROM photos_pho pho
     echo $json;
   }
 
+//End of Class
 }
-
 

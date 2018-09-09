@@ -5,6 +5,64 @@ function assignArchivesTitle() {
   document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
 }
 
+function getFolderTree() {
+  var folderRequest = new XMLHttpRequest();
+  folderRequest.open('GET', 'php/getFolderTree.php', true);
+  folderRequest.onload = function () {
+    var folderData = JSON.parse(folderRequest.responseText);
+    buildFolderTree(folderData);
+  }
+  folderRequest.send();
+}
+
+function buildFolderTree(data) {
+  var folderContainer = document.getElementById("photosFolders");
+  var creator = "";
+  var decade = "";
+  var year = 0;
+  var itm = 0;
+  var sbitm = 0;
+  var htmlString = "";
+
+  for (const branch of data) {
+    if (creator == "") {
+      htmlString =
+        "<input type=\"checkbox\" id=\"menu\"/>" +
+        "      <label for=\"menu\" class=\"names\">" + "Photos de " + branch.creator + "</label>" +
+        "      <div class=\"multi-level\">" +
+        "        <div class=\"item\">" +
+        "          <input type=\"checkbox\" id=\"IT" + itm + "\"/>" +
+        "          <img src=\"img/icons/arrow.png\" class=\"arrow\">" +
+        "          <label for=\"IT" + itm + "\">" + branch.decade + "</label>" +
+        "          <ul>\n" +
+        "            <li>\n" +
+        "              <div class=\"sub-item\">\n" +
+        "                <input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
+        "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+        "                <label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
+        "                <ul>\n" +
+        "                  <li onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</a></li>\n";
+      creator = branch.creator;
+      decade = branch.decade;
+      year = branch.year;
+    } else {
+      if (year == branch.year && decade == branch.decade && creator == branch.creator) {
+        htmlString = htmlString +
+          "                  <li><a href=\"#\">" + branch.title + "</a></li>\n";
+      } else {
+        htmlString = htmlString +
+          "                </ul>\n" +
+          "              </div>\n" +
+          "            </li>\n" +
+          "          </ul>\n" +
+          "        </div>\n"
+      }
+    }
+
+  }
+  folderContainer.insertAdjacentHTML('beforeend', htmlString);
+}
+
 function assignPhotosHierarchy() {
   photosFamilyContainer = document.getElementById("hierarchyPhotos");
   var htmlString =
@@ -106,7 +164,7 @@ function getArchives() {
 }
 
 function getFamilyPhotos(path, type) {
-  document.getElementById("hierarchyPhotos").innerHTML = "";
+  document.getElementById("photosFolders").innerHTML = "";
   getPhotos(path, type);
 }
 
