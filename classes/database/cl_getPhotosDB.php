@@ -2,43 +2,6 @@
 
 class photosBD
 {
-
-  /* --- GETHOMEPHOTO --- */
-  public function getHomePhoto()
-  {
-    include 'connection/connect.php';
-//    require_once 'classes/business/cl_photos.php';
-
-    $photo = new Photos();
-
-    $sql = "
-SELECT *
-FROM photos_pho pho
-  JOIN parameters_par pp
-  ON id_pho = pp.home_idpho_par
-  JOIN repository_titles_rpt rpt
-  ON rpt.id_rpt = pho.idrpt_pho
-  WHERE pp.id_par = 1";
-
-    if ($result = mysqli_query($con, $sql)) {
-// Return the number of rows in result set
-//$rowcount = mysqli_num_rows($result);
-//printf("Result set has %d rows.\n", $rowcount);
-    } else {
-      echo("nothing");
-    };
-
-// Associative array
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-    $photo->set_F_Path($row["full_rpt"]);
-    $photo->set_Filename($row["filename_pho"]);
-    $photo->set_Title($row["title_pho"]);
-
-    mysqli_close($con);
-    return $photo;
-  }
-
   /* --- GETSIDEBARPHOTO --- */
   public function getSidebarPhoto()
   {
@@ -107,77 +70,6 @@ FROM photos_pho pho
 
     $json = $this->createJason($sql);
     echo $json;
-    /*
-        if ($result = mysqli_query($con, $sql)) {
-          // Return the number of rows in result set
-          $rowcount = mysqli_num_rows($result);
-        } else {
-          echo("nothing");
-        };
-
-
-        $photoArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-          // Associative array
-          $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-          $photo = new Photos();
-          if ($row["title_pho"] == null) {
-            $photo->set_Title("");
-          } else {
-            $photo->set_Title($row["title_pho"]);
-          }
-          if ($row["keywords_pho"] == null) {
-            $photo->set_Keywords("");
-          } else {
-            $photo->set_Keywords($row["keywords_pho"]);
-          }
-          $photo->set_Height($row["height_pho"]);
-          $photo->set_Width($row["width_pho"]);
-          if ($row["caption_pho"] == null) {
-            $photo->set_Caption("");
-          } else {
-            $photo->set_Caption($row["caption_pho"]);
-          }
-          $photo->set_F_Path($row["full_pfo"]);
-          if ($row["preview_pfo"] == null) {
-            $photo->set_P_Path("");
-          } else {
-            $photo->set_P_Path($row["preview_pfo"]);
-          }
-          $photo->set_Filename($row["filename_pho"]);
-          if ($row["pdf_pho"] == null) {
-            $photo->set_Pdf("");
-          } else {
-            $photo->set_Pdf($row['pdf_pho']);
-          }
-
-          array_push($photoArray, $photo);
-
-          $l++;
-        endwhile;
-
-        // Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        header("Content-Type: application/json");
-        $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        if ($json === false) {
-          // Avoid echo of empty string (which is invalid JSON), and
-          // JSONify the error message instead:
-          $json = json_encode(array("jsonError", json_last_error_msg()));
-          if ($json === false) {
-            // This should not happen, but we go all the way now:
-            $json = '{"jsonError": "unknown"}';
-          }
-          // Set HTTP response status code to: 500 - Internal Server Error
-          http_response_code(500);
-        }
-        echo $json;*/
   }
 
   private function createJason($sql)
