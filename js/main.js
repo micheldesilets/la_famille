@@ -17,53 +17,93 @@ function getFolderTree() {
 
 function buildFolderTree(data) {
   var folderContainer = document.getElementById("photosFolders");
-  var creator = "";
+  var author = "";
   var decade = "";
   var year = 0;
   var itm = 0;
+  var repoId = 0;
   var sbitm = 0;
   var htmlString = "";
 
   for (const branch of data) {
-    if (creator != branch.creator) {
-      htmlString =
-        "<input type=\"checkbox\" id=\"menu\"/>" +
-        "<label for=\"menu\" class=\"names\">" + "Photos de " + branch.creator + "</label>" +
-        "<div class=\"multi-level\">" +
-        "<div class=\"item\">" +
-        "<input type=\"checkbox\" id=\"IT" + itm + "\"/>" +
-        "<img src=\"img/icons/arrow.png\" class=\"arrow\">" +
-        "<label for=\"IT" + itm + "\">" + branch.decade + "</label>" +
-        "<ul>\n" +
-        "<li>\n" +
-        "<div class=\"sub-item\">\n" +
-        "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
-        "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-        "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
-        "<ul>\n" +
-        "<li onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</a></li>\n";
-    } else {
-      if (year == branch.year && decade == branch.decade && creator == branch.creator) {
+    if (author != branch.author && branch.author.length > 0) {
+      if (author != "") {
         htmlString = htmlString +
-          "<li onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</a></li>\n";
-      } else {
+          "</ul>\n" +
+          "</li>\n" +
+          "</ul>\n" +
+          "</div>\n" +
+          "</div>\n";
+      }
+      htmlString = htmlString +
+        "<input type=\"checkbox\" id=\"menu\"/>\n" +
+        "<label for=\"menu\" class=\"names\">" + "Photos de " + branch.author + "</label>\n" +
+        "<div class=\"multi-level\">\n";
+      author = branch.author;
+      decade = "";
+    }
+    if (decade != branch.decade && branch.decade.length > 0) {
+      if (decade != "") {
         htmlString = htmlString +
           "</ul>\n" +
           "</div>\n" +
           "</li>\n" +
           "</ul>\n" +
-          "</div>\n"
+          "</div>\n";
       }
+      itm++;
+      sbitm = 0;
+      htmlString = htmlString +
+        "<div class=\"item\">\n" +
+        "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
+        "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+        "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
+        "<ul>\n";
+      predecade = decade;
+      decade = branch.decade;
+      year = 0;
     }
-    creator = branch.creator;
-    decade = branch.decade;
-    year = branch.year;
+
+    if (year != branch.year && branch.year.length > 0) {
+      if (year != 0) {
+        htmlString = htmlString +
+          "</ul>\n" +
+          "</div>\n" +
+          "</li>\n";
+      }
+      sbitm++;
+      htmlString = htmlString +
+        "<li>\n" +
+        "<div class=\"sub-item\">\n" +
+        "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
+        "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+        "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
+        "<ul>\n";
+      year = branch.year;
+    }
+    if ((author == branch.author && branch.author.length > 0) &&
+      (decade == branch.decade && branch.decade.length > 0) &&
+      (year == branch.year && branch.year.length > 0) &&
+      (repoId != branch.repository)) {
+      htmlString = htmlString +
+        "<li onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+      repoId = branch.repository;
+    }
   }
+
+  htmlString = htmlString +
+    "</ul>\n" +
+    "</div>\n" +
+    "</li>\n" +
+    "</ul>\n" +
+    "</div>\n" +
+    "</div>\n";
+
   folderContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
 function assignPhotosHierarchy() {
-  photosFamilyContainer = document.getElementById("hierarchyPhotos");
+  photosFamilyContainer = document.getElementById("photosFolders");
   var htmlString =
     "<input type=\"checkbox\" id=\"menu\"/>" +
     "      <label for=\"menu\" class=\"names\">Photos Michel</label>" +

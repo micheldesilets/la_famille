@@ -4,7 +4,7 @@
   "version": "3.3.5",
   "homepage": "https://fancyapps.com/fancybox/3/",
   "main": "./dist/jquery.fancybox.js",
-  "author": "fancyApps",
+  "level1": "fancyApps",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",

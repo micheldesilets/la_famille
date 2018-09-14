@@ -15,19 +15,19 @@ class foldersDB
 
     $folder = new Folders();
 
-    $sql = "SELECT rpt.id_rpt,typ.id_typ,cre.first_name_cre,deca.decade_deca,
+    $sql = "SELECT rpt.id_rpt,typ.id_typ,aut.first_name_aut,deca.decade_deca,
                    yea.year_yea,rpt.title_rpt
             FROM repository_titles_rpt rpt
-                 INNER JOIN creator_cre cre
-                 ON rpt.idcre_rpt = cre.id_cre
+                 INNER JOIN author_aut aut
+                 ON rpt.idaut_rpt = aut.id_aut
                  INNER JOIN decade_deca deca
                  ON rpt.iddec_rpt = deca.id_deca
                  INNER JOIN year_yea yea
                  ON rpt.idyea_rpt = yea.id_yea
                  INNER JOIN type_typ typ
                  ON rpt.idtyp_rpt = typ.id_typ
-             WHERE yea.year_yea <> 0
-             ORDER BY typ.id_typ, cre.first_name_cre, deca.decade_deca, yea.year_yea";
+             WHERE typ.id_typ = 2
+             ORDER BY typ.id_typ, aut.first_name_aut, deca.decade_deca, yea.year_yea";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
@@ -48,7 +48,7 @@ class foldersDB
 
       $folder->setRepositoryId($row["id_rpt"]);
       $folder->setTypeId($row["id_typ"]);
-      $folder->setCreator($row["first_name_cre"]);
+      $folder->setAuthor($row["first_name_aut"]);
       $folder->setDecade($row["decade_deca"]);
       $folder->setYear($row["year_yea"]);
       $folder->setTitle($row["title_rpt"]);

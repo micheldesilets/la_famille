@@ -8,12 +8,23 @@
 
 class Folders implements JsonSerializable
 {
+  private $m_idpfo;
   private $m_idrpt;
   private $m_idtyp;
-  private $m_creator;
+  private $m_author;
   private $m_decade;
   private $m_year;
   private $m_title;
+
+  public function setIdpfo($m_idpfo): void
+  {
+    $this->m_idpfo = $m_idpfo;
+  }
+
+  public function getIdpfo()
+  {
+    return $this->m_idpfo;
+  }
 
   public function setRepositoryId($m_idrpt): void
   {
@@ -35,14 +46,14 @@ class Folders implements JsonSerializable
     return $this->m_idtyp;
   }
 
-  public function setCreator($m_creator): void
+  public function setAuthor($m_author): void
   {
-    $this->m_creator = utf8_encode($m_creator);
+    $this->m_author = utf8_encode($m_author);
   }
 
-  public function getCreator()
+  public function getAuthor()
   {
-    return $this->m_creator;
+    return $this->m_author;
   }
 
   public function setDecade($m_decade): void
@@ -78,9 +89,10 @@ class Folders implements JsonSerializable
   public function jsonSerialize()
   {
     return [
+      'folderId' => $this->getIdpfo(),
       'repository' => $this->getRepositoryId(),
       'type' => $this->getTypeId(),
-      'creator' => $this->getCreator(),
+      'author' => $this->getAuthor(),
       'decade' => $this->getDecade(),
       'year' => $this->getYear(),
       'title' => $this->getTitle(),

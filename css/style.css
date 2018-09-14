@@ -699,8 +699,10 @@ label:hover {
 }
 
 .names {
+  display: block;
   font-weight: bold;
   font-style: italic;
+  text-align: left;
 }
 
 label {

@@ -7,58 +7,59 @@
   <title>Title</title>
 </head>
 <body>
-<!--If different creator-->
+<!--If different level1-->
 <input type="checkbox" id="menu"/>
 <label for="menu" class="names">Photos de Michel</label>
 <div class="multi-level">
 
-  <!--If diff decade-->
+  <!--If diff level2-->
   <div class="item">
     <input type="checkbox" id="IT0"/>
     <img src="img/icons/arrow.png" class="arrow">
     <label for="IT0">1970-1979</label>
     <ul>
-      <!--If diff year-->
+      <!--If diff level3-->
       <li>
         <div class="sub-item">
           <input type="checkbox" id="SIT0-0"/>
           <img src="img/icons/arrow.png" class="arrow">
           <label for="SIT0-0">1974</label>
           <ul>
-            <!--List of all fordersof same year-->
+            <!--List of all fordersof same level3-->
             <li onclick='javascript:getFamilyPhotos(7,2)'>Explosion du Mont Wright</a></li>
             <li onclick='javascript:getFamilyPhotos(8,2)'>Trois-Rivières et Montréal (A)</a></li>
-            <!--Next 3 line if new year  -->
+
+
+            <!--Next 3 line if new level3  -->
           </ul>
         </div>
       </li>
-
-      <!--If diff year-->
+      <!--If diff level3-->
       <li>
         <div class="sub-item">
           <input type="checkbox" id="SIT0-1"/>
           <img src="img/icons/arrow.png" class="arrow">
           <label for="SIT0-1">1975</label>
           <ul>
-            <!--List of all forders of same year-->
+            <!--List of all forders of same level3-->
             <li onclick='javascript:getFamilyPhotos(7,2)'>Explosion du ...</a></li>
             <li onclick='javascript:getFamilyPhotos(8,2)'>Trois-Rivières</a></li>
-            <!--Next 3 line if new year  -->
+            <!--Next 3 line if new level3  -->
           </ul>
         </div>
       </li>
 
-      <!--next 2 lines if diff decade-->
+      <!--next 2 lines if diff level2-->
     </ul>
   </div>
 
-  <!--If diff decade-->
+  <!--If diff level2-->
   <div class="item">
     <input type="checkbox" id="IT1"/>
     <img src="img/icons/arrow.png" class="arrow">
     <label for="IT1">1980-1989</label>
     <ul>
-      <!--If diff year-->
+      <!--If diff level3-->
       <li>
         <div class="sub-item">
           <input type="checkbox" id="SIT1-0"/>
@@ -71,7 +72,7 @@
           </ul>
         </div>
       </li>
-      <!--If diff year-->
+      <!--If diff level3-->
       <li>
         <div class="sub-item">
           <input type="checkbox" id="SIT1-1"/>
@@ -87,8 +88,13 @@
 
     </ul>
   </div>
-  </ul>
-</div>
 
+  <!--Next line if new level1  -->
+</div>
+<!--Assign-->
+<!--level1-->
+<!--level2-->
+<!--level3-->
+<!--and go back to top-->
 </body>
 </html>

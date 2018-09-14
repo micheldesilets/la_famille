@@ -18,7 +18,7 @@ var banner = ['// ==================================================',
     '// or fancyBox Commercial License for commercial use',
     '//',
     '// http://fancyapps.com/fancybox/',
-    '// Copyright ${new Date().getFullYear()} fancyApps',
+  '// Copyright ${new Date().getFulllevel3()} fancyApps',
     '//',
     '// ==================================================',
     ''].join('\n');
