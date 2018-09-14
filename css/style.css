@@ -85,11 +85,35 @@ html, body {
 /* Dropdown List */
 
 /* Functionality */
-.multi-level, .item ul, .drop-down input[type="checkbox"] {
+/*.multi-level, .item ul, .drop-down input[type="checkbox"] {
+   display: none;
+ }
+
+#menu:checked ~ .multi-level, .item input:checked ~ ul {
+  display: block;
+}*/
+
+.multi-level0 {
   display: none;
 }
 
-#menu:checked ~ .multi-level, .item input:checked ~ ul {
+.multi-level1 {
+  display: none;
+}
+
+.item ul, input[type="checkbox"] {
+  display: none;
+}
+
+.item input:checked ~ ul {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level0 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level1 {
   display: block;
 }
 
@@ -103,12 +127,12 @@ html, body {
   margin: 8px .5em 0 2em;
 }
 
-.item input + .arrow {
+.item0 input + .arrow {
   transform: rotate(-90deg);
   transition: 0.1s;
 }
 
-.item input:checked + .arrow {
+.item0 input:checked + .arrow {
   transform: rotate(0deg);
   transition: 0.1s;
 }

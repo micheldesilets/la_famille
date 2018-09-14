@@ -24,6 +24,7 @@ function buildFolderTree(data) {
   var repoId = 0;
   var sbitm = 0;
   var htmlString = "";
+  var j = -1;
 
   for (const branch of data) {
     if (author != branch.author && branch.author.length > 0) {
@@ -35,10 +36,11 @@ function buildFolderTree(data) {
           "</div>\n" +
           "</div>\n";
       }
+      j++;
       htmlString = htmlString +
-        "<input type=\"checkbox\" id=\"menu\"/>\n" +
-        "<label for=\"menu\" class=\"names\">" + "Photos de " + branch.author + "</label>\n" +
-        "<div class=\"multi-level\">\n";
+        "<input type=\"checkbox\" id=\"menu" + j + "\"/>\n" +
+        "<label for=\"menu" + j + "\" class=\"names\">" + "Photos de " + branch.author + "</label>\n" +
+        "<div class=\"multi-level" + j + "\">\n";
       author = branch.author;
       decade = "";
     }
