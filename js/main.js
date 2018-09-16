@@ -119,12 +119,15 @@ function getArchives() {
 }
 
 function getFamilyPhotos(path, type) {
+  getPhotos(path, type);
+}
+
+function turnOffFolders() {
   // Hide search and tree and bring up back to tree button
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
-
-  getPhotos(path, type);
+  return;
 }
 
 function getPhotos(path, type) {
@@ -193,6 +196,7 @@ function renderHomePhoto(data) {
 }
 
 function renderFamilyPhotos(data) {
+  turnOffFolders();
   document.getElementById('imgs').style.display = 'block';
   var familyContainer = document.getElementById("imgs");
   var htmlString = "";
@@ -279,14 +283,13 @@ function imgModal(e) {
 
   img = prev.replace('preview', 'full');
 
+  // modalTital=document.getElementById('modalTitle');
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
-  // img.onclick = function () {
   modal.style.display = "block";
+  // modalTital.innerHTML=this.title;
   modalImg.src = img;
   captionText.innerHTML = this.alt;
-  // }
-
 
 // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -362,6 +365,7 @@ function getPhotosKeywords() {
   myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
   myRequest.onload = function () {
     var myData = JSON.parse(myRequest.responseText);
+    turnOffFolders();
     renderFamilyPhotos(myData);
   };
   myRequest.send();

@@ -183,12 +183,12 @@ html, body {
   margin: 8px .5em 0 2em;
 }
 
-.item0 input + .arrow {
+.item input + .arrow {
   transform: rotate(-90deg);
   transition: 0.1s;
 }
 
-.item0 input:checked + .arrow {
+.item input:checked + .arrow {
   transform: rotate(0deg);
   transition: 0.1s;
 }
@@ -611,6 +611,7 @@ main .books {
   vertical-align: top;
   margin-left: 17px;
   margin-bottom: 10px;
+  margin-top: -20px;
   padding: 10px;
 
   box-shadow: 4px 4px 10px grey;
@@ -624,17 +625,6 @@ main .books {
   width: 100%;
   display: inline-block;
 }
-
-/*
-#imgs {
-
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-row-gap: 8px;
-  grid-auto-rows: minmax(100px, auto);
-
-
-}*/
 
 /*** ... Fade-in animation ***/
 @keyframes fadeIn {
@@ -769,9 +759,7 @@ main .books {
 /*** Back to Tree ***/
 #backToTree {
   /*float: right;*/
-  position: absolute;
-  right: 155px;
-  top: 150px;
+  float: right;
   cursor: pointer;
   border: none;
   background: none;
@@ -788,6 +776,10 @@ label:hover {
   content: "•";
   margin-right: 0.5em;
 
+}
+
+#thumbContainer {
+  margin-top: -.2em;
 }
 
 .names {
@@ -856,6 +848,7 @@ label {
   text-decoration: none;
   font-weight: 100;
 }
+
 /* End Dropdown List*/
 
 /* Search Photos */
