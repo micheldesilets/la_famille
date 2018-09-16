@@ -227,6 +227,7 @@ var modalImg;
 var captionText;
 var forward;
 var backward;
+var modalTitle;
 
 function animatePhotos() {
   current = document.querySelector('#current');
@@ -283,11 +284,11 @@ function imgModal(e) {
 
   img = prev.replace('preview', 'full');
 
-  // modalTital=document.getElementById('modalTitle');
+  modalTitle = document.getElementById('modalTitle');
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
   modal.style.display = "block";
-  // modalTital.innerHTML=this.title;
+  modalTitle.innerHTML = this.title;
   modalImg.src = img;
   captionText.innerHTML = this.alt;
 
@@ -305,7 +306,9 @@ function prevImage() {
     img = imgs[currentIdx - 1].src;
     img = img.replace('preview', 'full');
     capt = imgs[currentIdx - 1].alt;
+    titl = imgs[currentIdx - 1].title;
     modalImg.src = img;
+    modalTitle.innerHTML = titl;
     captionText.innerHTML = capt;
     currentIdx--;
     if (currentIdx == 0) {
@@ -322,7 +325,9 @@ function nextImage() {
     img = imgs[currentIdx + 1].src;
     img = img.replace('preview', 'full');
     capt = imgs[currentIdx + 1].alt;
+    titl = imgs[currentIdx + 1].title;
     modalImg.src = img;
+    modalTitle.innerHTML = titl;
     captionText.innerHTML = capt;
     currentIdx++;
     if (currentIdx == maxLength - 1) {
