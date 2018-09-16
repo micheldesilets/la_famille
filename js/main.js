@@ -104,92 +104,6 @@ function buildFolderTree(data) {
   folderContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
-function assignPhotosHierarchy() {
-  photosFamilyContainer = document.getElementById("photosFolders");
-  var htmlString =
-    "<input type=\"checkbox\" id=\"menu\"/>" +
-    "      <label for=\"menu\" class=\"names\">Photos Michel</label>" +
-    "      <div class=\"multi-level\">" +
-    "        <div class=\"item\">" +
-    "          <input type=\"checkbox\" id=\"A\"/>" +
-    "          <img src=\"img/icons/arrow.png\" class=\"arrow\">" +
-    "          <label for=\"A\">1970-1979</label>" +
-    "          <ul>\n" +
-    "            <li>\n" +
-    "              <div class=\"sub-item\">\n" +
-    "                <input type=\"checkbox\" id=\"A-A\"/>\n" +
-    "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-    "                <label for=\"A-A\">1975</label>\n" +
-    "                <ul>\n" +
-    "                  <li><a href=\"#\">Princeville Chantal et Micha</a></li>\n" +
-    "                </ul>\n" +
-    "              </div>\n" +
-    "            </li>\n" +
-    "          </ul>\n" +
-    "        </div>\n" +
-    "        <div class=\"item\">\n" +
-    "          <input type=\"checkbox\" id=\"B\"/>\n" +
-    "          <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-    "          <label for=\"B\">1980-1989</label>\n" +
-    "          <ul>\n" +
-    "            <li>\n" +
-    "              <div class=\"sub-item\">\n" +
-    "                <input type=\"checkbox\" id=\"B-A\"/>\n" +
-    "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-    "                <label for=\"B-A\">1981</label>\n" +
-    "                <ul>\n" +
-    // "                  <li id=\"photos\"><a href=\"javascript:getFamilyPhotos(6)\">Été vacances</a></li>\n" +
-    "                  <li onclick='javascript:getFamilyPhotos(2,2)'>Été vacances</li>\n" +
-    "                  <li><a href=\"#\">Ail des bois, Evelyne dans le bain (6 mois)</a></li>\n" +
-    "                  <li><a href=\"#\">Temple avec Bigras, famille Provost </a></li>\n" +
-    "                  <li><a href=\"#\">Maquette Josette, enfants Centre d'Achat les Rivières</a></li>\n" +
-    "                </ul>\n" +
-    "              </div>\n" +
-    "            </li>\n" +
-    "            <li>\n" +
-    "              <div class=\"sub-item\">\n" +
-    "                <input type=\"checkbox\" id=\"B-B\"/>\n" +
-    "                <img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-    "                <label for=\"B-B\">1982</label>\n" +
-    "                <ul>\n" +
-    "                  <li><a href=\"#\">Printemps famille</a></li>\n" +
-    "                  <li><a href=\"#\"> Anniversaire Ali, glissade Valleyfield</a></li>\n" +
-    "                  <li><a href=\"#\">Bateaux, Anniversaire Do</a></li>\n" +
-    "                  <li><a href=\"#\">Noel, Jour de l'An</a></li>\n" +
-    "                </ul>\n" +
-    "              </div>\n" +
-    "            </li>\n" +
-    "            <li>\n" +
-    "              <div class=\"sub-item\">\n" +
-    "                <input type=\"checkbox\" id=\"B-C\"/>\n" +
-    "                <img src=\"img/icons/arrow.png\" class=\"arrow\"><label for=\"B-C\">1983</label>\n" +
-    "                <ul>\n" +
-    "                  <li><a href=\"#\">Fête Do et fraises</a></li>\n" +
-    "                </ul>\n" +
-    "              </div>\n" +
-    "            </li>\n" +
-    "          </ul>\n" +
-    "        </div>\n" +
-    "        <div class=\"item\">\n" +
-    "          <input type=\"checkbox\" id=\"C\"/>\n" +
-    "          <img src=\"img/icons/arrow.png\" class=\"arrow\"><label for=\"C\">1990-1999</label>\n" +
-    "          <ul>\n" +
-    "            <li>\n" +
-    "              <div class=\"sub-item\">\n" +
-    "                <input type=\"checkbox\" id=\"C-A\"/>\n" +
-    "                <img src=\"img/icons/arrow.png\" class=\"arrow\"><label for=\"C-A\">1991</label>\n" +
-    "                <ul>\n" +
-    "                  <li><a href=\"#\">Été Alberta</a></li>\n" +
-    "                </ul>\n" +
-    "              </div>\n" +
-    "            </li>\n" +
-    "          </ul>\n" +
-    "        </div>\n" +
-    "      </div>";
-
-  photosFamilyContainer.insertAdjacentHTML('beforeend', htmlString);
-}
-
 function getArchives() {
   var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
@@ -205,7 +119,11 @@ function getArchives() {
 }
 
 function getFamilyPhotos(path, type) {
-  document.getElementById("photosFolders").innerHTML = "";
+  // Hide search and tree and bring up back to tree button
+  document.getElementById('photosFolders').style.display = 'none';
+  document.getElementById('searchKw').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'block';
+
   getPhotos(path, type);
 }
 
@@ -228,6 +146,14 @@ function getPhotos(path, type) {
     }
   };
   myRequest.send();
+}
+
+function backToTree() {
+  // Bring back search and tree and hide 'back to tree' button
+  document.getElementById('photosFolders').style.display = 'block';
+  document.getElementById('searchKw').style.display = 'block';
+  document.getElementById('imgs').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'none';
 }
 
 /*** Used only with FancyBox ***/
@@ -267,6 +193,7 @@ function renderHomePhoto(data) {
 }
 
 function renderFamilyPhotos(data) {
+  document.getElementById('imgs').style.display = 'block';
   var familyContainer = document.getElementById("imgs");
   var htmlString = "";
   var imageURL = "";

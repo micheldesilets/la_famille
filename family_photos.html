@@ -36,25 +36,33 @@
     </nav>
   </header>
   <!-- end masthead -->
-  <!-- ==== MAIN ==== -->
-  <div class="main-family">
+
+  <div>
+    <button id="backToTree" onclick="javascript:backToTree()">
+      <small><strong> <- Retour aux choix</strong></small>
+      </p></button>
+  </div>
+
+  <!--  Search-->
+  <div class="searchPhotos">
     <section class="search">
-      <h3>Recherche</h3>
       <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
-        <fieldset>
-          <label>
-            Mots clefs
-          </label>
-          <input type="text" id="keywrds" placeholder="mot clefs séparés par une virgule" size="75">
-        </fieldset>
-        <input type="submit" value="submit">
+        <label>
+          Recherche
+        </label>
+        <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="65">
+        <input type="submit" value="GO">
       </form>
     </section>
+  </div>
 
-    <!--  <section class="drop-down" id="hierarchyPhotos"></section>-->
+  <!-- ==== MAIN ==== -->
+  <div class="main-family">
+    <!--  Drop down menu is here  -->
     <section class="drop-down" id="photosFolders"></section>
 
-    <section class="container">
+    <!--  Thumbnails  -->
+    <section id="thumbContainer">
       <div id="imgs"></div>
     </section>
 
@@ -65,8 +73,6 @@
         <!-- Previous and Next buttons -->
         <button id="previous"><</button>
         <button id="next">></button>
-
-        <!--        <img src="img/icons/download-icon.png" alt="" class="downloadImage">-->
 
         <span class="close">x</span>
         <img class="modal-content" id="img01">

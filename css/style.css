@@ -85,13 +85,13 @@ html, body {
 /* Dropdown List */
 
 /* Functionality */
-/*.multi-level, .item ul, .drop-down input[type="checkbox"] {
-   display: none;
- }
+.item ul, input[type="checkbox"] {
+  display: none;
+}
 
-#menu:checked ~ .multi-level, .item input:checked ~ ul {
+.item input:checked ~ ul {
   display: block;
-}*/
+}
 
 .multi-level0 {
   display: none;
@@ -101,12 +101,36 @@ html, body {
   display: none;
 }
 
-.item ul, input[type="checkbox"] {
+.multi-level2 {
   display: none;
 }
 
-.item input:checked ~ ul {
-  display: block;
+.multi-level3 {
+  display: none;
+}
+
+.multi-level4 {
+  display: none;
+}
+
+.multi-level5 {
+  display: none;
+}
+
+.multi-level6 {
+  display: none;
+}
+
+.multi-level7 {
+  display: none;
+}
+
+.multi-level8 {
+  display: none;
+}
+
+.multi-level9 {
+  display: none;
 }
 
 #menu0:checked ~ .multi-level0 {
@@ -114,6 +138,38 @@ html, body {
 }
 
 #menu1:checked ~ .multi-level1 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level2 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level3 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level4 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level5 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level6 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level7 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level8 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level9 {
   display: block;
 }
 
@@ -710,6 +766,18 @@ main .books {
   }
 }
 
+/*** Back to Tree ***/
+#backToTree {
+  /*float: right;*/
+  position: absolute;
+  right: 155px;
+  top: 150px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: none;
+}
+
 /*** Dropdown List ***/
 
 label:hover {
@@ -788,20 +856,36 @@ label {
   text-decoration: none;
   font-weight: 100;
 }
-
 /* End Dropdown List*/
 
 /* Search Photos */
+.searchPhotos {
+  padding-bottom: 1em;
+}
 
-fieldset {
+.search label {
+  /*float: left;*/
+  display: inline-block;
+  padding-right: 0.3em;
+  text-align: left;
+
+  width: auto;
+  /*vertical-align: top;*/
+}
+
+.search #keywrds {
+  padding-left: 0.4em;
+}
+
+/*fieldset {
   background-color: #f1f1f1;
   border: none;
   border-radius: 2px;
   margin-bottom: 12px;
   overflow: hidden;
   padding: 0 .625em;
-}
-
+}*/
+/*
 .radios {
   background-color: transparent;
   position: relative;
@@ -826,38 +910,29 @@ fieldset {
   margin-right: 5px;
   vertical-align: middle;
   width: auto;
-}
+}*/
 
-.fields {
+/*.fields {
   background-color: #fff;
   border: 1px solid #eaeaea;
   margin: .75em;
   padding: .75em;
-}
+}*/
 
-.fields .row {
+/*.fields .row {
   margin: 0.5em 0;
 }
 
 .find-photos h2 {
   background-color: #0d95e8;
-}
-
-label {
-  cursor: pointer;
-  display: inline-block;
-  padding: 3px 6px;
-  text-align: right;
-  width: 150px;
-  vertical-align: top;
-}
-
+}*/
+/*
 input, select, button {
   font-size: inherit;
-}
+}*/
 
 /* Various form field widths */
-.field-small {
+/*.field-small {
   width: 75px;
 }
 
@@ -867,7 +942,7 @@ input, select, button {
 
 .field-large {
   width: 250px;
-}
+}*/
 
 /* End Search Photos */
 
