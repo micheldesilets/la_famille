@@ -240,7 +240,6 @@ function animatePhotos() {
   imgs.forEach(img => img.addEventListener('click', imgModal));
   backward.addEventListener('click', prevImage);
   forward.addEventListener('click', nextImage);
-
 }
 
 /*** MODAL ***/
