@@ -21,9 +21,6 @@ class photosBD
            WHERE pp.id_par = 1";
 
     if ($result = mysqli_query($con, $sql)) {
-// Return the number of rows in result set
-//$rowcount = mysqli_num_rows($result);
-//printf("Result set has %d rows.\n", $rowcount);
     } else {
       echo("nothing");
     };
@@ -60,13 +57,18 @@ class photosBD
             ON pfo.idrpt_pfo = pho.idrpt_pho
             JOIN repository_titles_rpt rpt 
             ON pfo.idrpt_pfo = rpt.id_rpt
-            WHERE pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
+            WHERE (pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
     for ($i = 1; $i < count($kwords); $i++) {
       if (!empty($kwords[$i])) {
         $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
       }
     }
-    $sql = $sql . " AND rpt.idtyp_rpt = 2 GROUP BY pho.filename_pho";
+    for ($i = 0; $i < count($kwords); $i++) {
+      if (!empty($kwords[$i])) {
+        $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
+      }
+    }
+    $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) GROUP BY pho.filename_pho";
 
     $json = $this->createJason($sql);
     echo $json;
@@ -149,6 +151,5 @@ class photosBD
     }
     return $json;
   }
-//End of Class
 }
 

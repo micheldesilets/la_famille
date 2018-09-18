@@ -880,6 +880,11 @@ label {
   padding-left: 0.4em;
 }
 
+.goButton {
+  background-color: white;
+  border: none;
+}
+
 /*fieldset {
   background-color: #f1f1f1;
   border: none;
