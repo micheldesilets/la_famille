@@ -388,11 +388,11 @@ function getReadings() {
   var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
-    path = 5
+    path = 11
     document.getElementById("family-left").innerHTML = "Lectures des Bernard-Normandeau";
     document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
   } else {
-    path = 3;
+    path = 10;
     assignReadingTitle();
   }
 

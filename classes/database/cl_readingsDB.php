@@ -17,9 +17,9 @@ class readingsDB
 //    $lectures = new Readings();
 
     $sql = "SELECT * FROM readings_rea
-  JOIN paths_pat pat
-  ON pat.id_pat = idpat_rea
-  WHERE pat.id_pat = $path
+  JOIN photosFolders_pfo pfo
+  ON pfo.idrpt_pfo = idrpt_rea
+  WHERE pfo.idrpt_pfo = $path
     ORDER BY order_rea";
 
     if ($result = mysqli_query($con, $sql)) {
@@ -48,7 +48,7 @@ class readingsDB
       if (!empty($row['summary_rea'])) {
         $reading->set_sumary($row['summary_rea']);
       }
-      $reading->set_File($row[path_pat] . $row['file_rea']);
+      $reading->set_File($row[full_pfo] . $row['file_rea']);
       array_push($readingArray, $reading);
 
       $l++;
