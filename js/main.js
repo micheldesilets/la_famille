@@ -426,4 +426,29 @@ function renderReadings(data) {
   }
 }
 
+/*** OBJECT SECTION
+ ******************/
 
+function getObjects() {
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getObjects.php?path=' + 12, true);
+  myRequest.onload = function () {
+    var myData = JSON.parse(myRequest.responseText);
+    renderObjects(myData);
+  };
+  myRequest.send();
+}
+
+function renderObjects(data) {
+  var objectsContainer = document.getElementById("objects-list");
+  var htmlString = "";
+
+  for (const obj of data) {
+
+    htmlString = "<div class=\"clearfix\">" +
+      "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects\">" +
+      "<p class=\"description\" >" + obj.description + "</p ><br></div>";
+
+    objectsContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+}

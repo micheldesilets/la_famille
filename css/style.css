@@ -509,7 +509,8 @@ h1 {
   display: inline-block;
 }
 */
-/* Reading page */
+/* REAGINGS HTML AND A BIT OF OBJECTS
+ ************************************/
 main .readings {
   font-weight: bold;
 }
@@ -524,7 +525,7 @@ p.sumary {
   font-size: 1.12em;
 }
 
-main .books {
+main .books, .objects {
   width: 15%;
   float: left;
   height: auto;
@@ -533,6 +534,12 @@ main .books {
   /*padding-right: 1.5em;*/
   /*padding-bottom: 1em;*/
   box-shadow: 2px 2px 15px grey;
+}
+
+/* OBJECTS.HTML
+***************/
+main .description {
+  margin-top: 0;
 }
 
 /* SIDEBAR

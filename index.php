@@ -22,7 +22,8 @@
    $loc = $path . $file;
  */
 
-  /* sidebar photo */
+  /* sidebar photo
+  */
   $dbSb = new photosBD();
   $photoSb = $dbSb->getSidebarPhoto();
   $fileSb = $photoSb->get_Filename();

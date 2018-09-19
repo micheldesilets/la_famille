@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Famille Normandeau-Desilets - Archives</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/style.css">
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <![endif]-->
@@ -22,9 +22,9 @@
 
     <nav role="navigation">
       <ul class="nav-main">
-        <li><a href="index.php">Acceuil</a>
+        <li><a href="../index.php">Acceuil</a>
         </li>
-        <li><a href="trash/readings_desilets.php">Lectures</a>
+        <li><a href="readings_desilets.php">Lectures</a>
         </li>
         <li><a href="#">Généalogie</a>
         </li>
