@@ -440,15 +440,47 @@ function getObjects() {
 }
 
 function renderObjects(data) {
-  var objectsContainer = document.getElementById("objects-list");
+  var objectsContainer = document.getElementById("objContainer");
   var htmlString = "";
 
   for (const obj of data) {
 
-    htmlString = "<div class=\"clearfix\">" +
-      "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects\">" +
-      "<p class=\"description\" >" + obj.description + "</p ><br></div>";
+    htmlString = "<div class=\"clearfix\">\n" +
+      "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects\" title='Cliquer pour agrandir la photo'>\n" +
+      "<p class=\"description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
 
     objectsContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+  animateObjects()
+}
+
+function animateObjects() {
+  var objs = document.querySelectorAll('.objects');
+
+  opacity = 0.5;
+
+  objs.forEach(obj => obj.addEventListener('click', objModal));
+
+}
+
+var obj;
+var modalObj;
+
+function objModal(e) {
+  modal = document.getElementById('myObjModal');
+
+  prev = e.target.src;
+  obj = prev.replace('preview', 'full');
+
+  modalObj = document.getElementById("obj01");
+  modal.style.display = "block";
+  modalObj.src = obj;
+
+// Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
   }
 }
