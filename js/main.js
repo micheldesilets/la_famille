@@ -258,6 +258,8 @@ function transformImage(e) {
 var modal;
 
 function imgModal(e) {
+  bdy = document.getElementById('bdy');
+  bdy.style.overflow = 'hidden';
   modal = document.getElementById('myModal');
 
   prev = e.target.src;
@@ -297,6 +299,7 @@ function imgModal(e) {
 // When the user clicks on <span> (x), close the modal
   span.onclick = function () {
     modal.style.display = "none";
+    bdy.style.overflow = 'visible';
   }
 }
 
@@ -467,6 +470,7 @@ var obj;
 var modalObj;
 
 function objModal(e) {
+  bdy = document.getElementById('bdy');
   modal = document.getElementById('myObjModal');
 
   prev = e.target.src;
@@ -482,5 +486,6 @@ function objModal(e) {
 // When the user clicks on <span> (x), close the modal
   span.onclick = function () {
     modal.style.display = "none";
+    bdy.style.overflow = 'visible';
   }
 }
