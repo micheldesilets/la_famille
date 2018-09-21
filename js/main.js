@@ -88,7 +88,7 @@ function buildFolderTree(data) {
       (year == branch.year && branch.year.length > 0) &&
       (repoId != branch.repository)) {
       htmlString = htmlString +
-        "<li onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+        "<li class='photofolder' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
       repoId = branch.repository;
     }
   }

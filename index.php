@@ -46,7 +46,7 @@
         </li>
         <li><a href="readings.html">Lectures</a>
         </li>
-        <li><a href="#">Généalogie</a>
+        <li><a href="geneology.html">Généalogie</a>
         </li>
         <li><a href="objects.html">Objets de famille</a>
         </li>

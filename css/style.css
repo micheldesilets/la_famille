@@ -82,119 +82,6 @@ html, body {
   }
 }
 
-/* Dropdown List */
-
-/* Functionality */
-.item ul, input[type="checkbox"] {
-  display: none;
-}
-
-.item input:checked ~ ul {
-  display: block;
-}
-
-.multi-level0 {
-  display: none;
-}
-
-.multi-level1 {
-  display: none;
-}
-
-.multi-level2 {
-  display: none;
-}
-
-.multi-level3 {
-  display: none;
-}
-
-.multi-level4 {
-  display: none;
-}
-
-.multi-level5 {
-  display: none;
-}
-
-.multi-level6 {
-  display: none;
-}
-
-.multi-level7 {
-  display: none;
-}
-
-.multi-level8 {
-  display: none;
-}
-
-.multi-level9 {
-  display: none;
-}
-
-#menu0:checked ~ .multi-level0 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level1 {
-  display: block;
-}
-
-#menu0:checked ~ .multi-level2 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level3 {
-  display: block;
-}
-
-#menu0:checked ~ .multi-level4 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level5 {
-  display: block;
-}
-
-#menu0:checked ~ .multi-level6 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level7 {
-  display: block;
-}
-
-#menu0:checked ~ .multi-level8 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level9 {
-  display: block;
-}
-
-/* Arrow */
-.arrow {
-  width: 6px;
-  height: 6px;
-  vertical-align: middle;
-  float: left;
-  z-index: 0;
-  margin: 8px .5em 0 2em;
-}
-
-.item input + .arrow {
-  transform: rotate(-90deg);
-  transition: 0.1s;
-}
-
-.item input:checked + .arrow {
-  transform: rotate(0deg);
-  transition: 0.1s;
-}
-
-/* End dropdown list */
-
 /* GENERAL (APPLIED TO ELEMENTS)
 ------------------------------------------ */
 body {
@@ -536,6 +423,11 @@ main .books, .objects {
   box-shadow: 2px 2px 15px grey;
 }
 
+.summary a {
+  text-decoration: underline;
+  color: blue;
+}
+
 /* OBJECTS.HTML
 ***************/
 main .description {
@@ -645,7 +537,8 @@ main .description {
   animation: fadeIn 0.5s ease-in 1 forwards;
 }
 
-/*** ... Modal ***/
+/* THE MODAL
+**********************************/
 #myImg {
   border-radius: 5px;
   cursor: pointer;
@@ -656,7 +549,7 @@ main .description {
   opacity: 0.7;
 }
 
-/*** ... The Modal (background) ***/
+/* background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -670,7 +563,7 @@ main .description {
   background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
 }
 
-/*** ... Modal Content (image) ***/
+/* Content (image) */
 .modal-content {
   background-color: #fefefe;
   padding: 5px;
@@ -681,7 +574,11 @@ main .description {
   max-height: 80%;
 }
 
-/*** ... Caption of Modal Image ***/
+.modal a {
+  color: white;
+}
+
+/* Caption of Modal Image */
 #caption {
   margin: auto;
   display: block;
@@ -693,6 +590,7 @@ main .description {
   height: 150px;
 }
 
+/* Title of Modal Image */
 #modalTitle {
   margin: auto;
   display: block;
@@ -703,7 +601,7 @@ main .description {
   padding: 10px 0 0;
 }
 
-/*** ... Add Animation ***/
+/* Add Animation */
 .modal-content, #caption, #modalTitle {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
@@ -741,7 +639,7 @@ main .description {
   top: 40%;
 }
 
-/*** ... The Close Button ***/
+/* The Close Button */
 .close, .downloadImage {
   position: absolute;
   top: 22px;
@@ -766,16 +664,15 @@ main .description {
   cursor: pointer;
 }
 
-/*** ... 100% Image Width on Smaller Screens ***/
+/* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
   .modal-content {
     width: 100%;
   }
 }
 
-/*** Back to Tree ***/
+/* Back to Tree */
 #backToTree {
-  /*float: right;*/
   float: right;
   cursor: pointer;
   border: none;
@@ -783,7 +680,117 @@ main .description {
   display: none;
 }
 
-/*** Dropdown List ***/
+/* DROPDOWN LIST
+**********************************/
+
+/* Functionality */
+.item ul, input[type="checkbox"] {
+  display: none;
+}
+
+.item input:checked ~ ul {
+  display: block;
+}
+
+.multi-level0 {
+  display: none;
+}
+
+.multi-level1 {
+  display: none;
+}
+
+.multi-level2 {
+  display: none;
+}
+
+.multi-level3 {
+  display: none;
+}
+
+.multi-level4 {
+  display: none;
+}
+
+.multi-level5 {
+  display: none;
+}
+
+.multi-level6 {
+  display: none;
+}
+
+.multi-level7 {
+  display: none;
+}
+
+.multi-level8 {
+  display: none;
+}
+
+.multi-level9 {
+  display: none;
+}
+
+#menu0:checked ~ .multi-level0 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level1 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level2 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level3 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level4 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level5 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level6 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level7 {
+  display: block;
+}
+
+#menu0:checked ~ .multi-level8 {
+  display: block;
+}
+
+#menu1:checked ~ .multi-level9 {
+  display: block;
+}
+
+/* Arrow */
+.arrow {
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  float: left;
+  z-index: 0;
+  margin: 8px .5em 0 10em;
+}
+
+.item input + .arrow {
+  transform: rotate(-90deg);
+  transition: 0.1s;
+}
+
+.item input:checked + .arrow {
+  transform: rotate(0deg);
+  transition: 0.1s;
+}
 
 label:hover {
   cursor: pointer;
@@ -802,12 +809,12 @@ label:hover {
 
 .names {
   display: block;
-  font-weight: bold;
-  font-style: italic;
+  /*font-weight: bold;*/
+  /*font-style: italic;*/
   text-align: left;
 }
 
-label {
+.drop-down label {
   width: 100%;
   display: block;
   z-index: 3;
@@ -842,6 +849,13 @@ label {
   text-decoration: none;
   font-weight: 100;
   width: 100%;
+  padding-left: 5em;
+}
+
+.drop-down .photofolder {
+  margin: 0;
+  padding-left: 13em;
+  font-style: italic;
 }
 
 label {
@@ -852,11 +866,16 @@ label {
   text-decoration: none;
   font-weight: 100;
   width: 100%;
+  padding-bottom: .4em;
 }
 
 .item ul {
   padding: 0 0.25em;
 }
+
+/*.item label {
+  padding-left: 10em;
+}*/
 
 .drop-down li a {
   line-height: 20px;
@@ -867,9 +886,8 @@ label {
   font-weight: 100;
 }
 
-/* End Dropdown List*/
-
-/* Search Photos */
+/* SEARCH PHOTOS
+ *********************************/
 .searchPhotos {
   padding-bottom: 1em;
 }
@@ -891,6 +909,39 @@ label {
 .goButton {
   background-color: white;
   border: none;
+}
+
+/* LEGACY
+**********************************/
+.legacycontainerMichel, .legacycontainerChantal {
+  width: 50%;
+  float: left;
+}
+
+.legacycontainerMichel h3, .legacycontainerChantal h3 {
+  margin-left: 3em;
+  /*text-align: center;*/
+}
+
+.legacyItems {
+  display: list-item;
+  /*font-weight: bold;*/
+  font-style: italic;
+}
+
+.legacy a {
+  padding: 0;
+  margin: 0;
+}
+
+.legacyItems li {
+  padding: 0 0 7px;
+  margin-left: 1em;
+}
+
+.legacy li:hover {
+  background: #eee;
+  cursor: pointer;
 }
 
 /*fieldset {
