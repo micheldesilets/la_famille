@@ -78,6 +78,27 @@ function buildFolderTree(data) {
   folderContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
+function folderLevel2(branch) {
+  if (decade != branch.decade && branch.decade.length > 0) {
+    // itm++;
+    // sbitm = 0;
+    htmlString = htmlString +
+      "<div class=\"itemL2\">\n" +
+      "<ul>\n";
+    // predecade = decade;
+    decade = branch.decade;
+    // year = 0;
+  }
+
+  if ((author == branch.author && branch.author.length > 0) &&
+    (repoId != branch.repository)) {
+
+    htmlString = htmlString +
+      "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+    repoId = branch.repository;
+  }
+}
+
 function folderLevel4(branch) {
   if (decade != branch.decade && branch.decade.length > 0) {
     if (decade != "") {
@@ -128,24 +149,22 @@ function folderLevel4(branch) {
   }
 }
 
-function folderLevel2(branch) {
-  if (decade != branch.decade && branch.decade.length > 0) {
-    // itm++;
-    // sbitm = 0;
-    htmlString = htmlString +
-      "<div class=\"itemL2\">\n" +
-      "<ul>\n";
-    // predecade = decade;
-    decade = branch.decade;
-    // year = 0;
+function closeFolders() {
+  // var cFolder = document.getElementsByClassName('menu')[0].id
+  var i = 0;
+  var j = 0;
+  var checkedValue = null;
+  var inputElements = document.getElementsByClassName('menu');
+  for (i = 0; inputElements[i]; ++i) {
+    if (inputElements[i].checked) {
+      checkedValue = inputElements[i].value;
+      break;
+    }
   }
+  while (j < 10) {
+    if (document.getElementById("checkbox").checked = true) {
 
-  if ((author == branch.author && branch.author.length > 0) &&
-    (repoId != branch.repository)) {
-
-    htmlString = htmlString +
-      "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
-    repoId = branch.repository;
+    }
   }
 }
 

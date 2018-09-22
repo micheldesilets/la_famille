@@ -702,83 +702,14 @@ main .description {
   display: block;
 }
 
-.multi-level0 {
+.multi-level0, .multi-level1, .multi-level2, .multi-level3, .multi-level4, .multi-level5,
+.multi-level6, .multi-level7, .multi-level8, .multi-level9 {
   display: none;
 }
 
-.multi-level1 {
-  display: none;
-}
-
-.multi-level2 {
-  display: none;
-}
-
-.multi-level3 {
-  display: none;
-}
-
-.multi-level4 {
-  display: none;
-}
-
-.multi-level5 {
-  display: none;
-}
-
-.multi-level6 {
-  display: none;
-}
-
-.multi-level7 {
-  display: none;
-}
-
-.multi-level8 {
-  display: none;
-}
-
-.multi-level9 {
-  display: none;
-}
-
-#menu0:checked ~ .multi-level0 {
-  display: block;
-}
-
-#menu1:checked ~ .multi-level1 {
-  display: block;
-}
-
-#menu2:checked ~ .multi-level2 {
-  display: block;
-}
-
-#menu3:checked ~ .multi-level3 {
-  display: block;
-}
-
-#menu4:checked ~ .multi-level4 {
-  display: block;
-}
-
-#menu5:checked ~ .multi-level5 {
-  display: block;
-}
-
-#menu6:checked ~ .multi-level6 {
-  display: block;
-}
-
-#menu7:checked ~ .multi-level7 {
-  display: block;
-}
-
-#menu8:checked ~ .multi-level8 {
-  display: block;
-}
-
-#menu9:checked ~ .multi-level9 {
+#menu0:checked ~ .multi-level0, #menu1:checked ~ .multi-level1, #menu2:checked ~ .multi-level2, #menu3:checked ~ .multi-level3,
+#menu4:checked ~ .multi-level4, #menu5:checked ~ .multi-level5, #menu6:checked ~ .multi-level6, #menu7:checked ~ .multi-level7,
+#menu8:checked ~ .multi-level8, #menu9:checked ~ .multi-level9 {
   display: block;
 }
 
@@ -819,8 +750,6 @@ label:hover {
 
 .names {
   display: block;
-  /*font-weight: bold;*/
-  /*font-style: italic;*/
   text-align: left;
 }
 
@@ -854,12 +783,11 @@ label:hover {
 .drop-down li {
   line-height: 20px;
   margin: 0;
-  padding: 0 2em;
+  padding: 0 2em 0 5em;
   list-style: none;
   text-decoration: none;
   font-weight: 100;
   width: 100%;
-  padding-left: 5em;
 }
 
 .photofolder:before {
@@ -892,20 +820,6 @@ label {
   padding: 0 0.25em;
 }
 
-
-/*.item label {
-  padding-left: 10em;
-}*/
-
-/*.drop-down li a {
-  line-height: 20px;
-  margin: 0;
-  padding: 0 2.7em;
-  list-style: none;
-  text-decoration: none;
-  font-weight: 100;
-}*/
-
 /* SEARCH PHOTOS
  *********************************/
 .searchPhotos {
@@ -913,13 +827,10 @@ label {
 }
 
 .search label {
-  /*float: left;*/
   display: inline-block;
   padding-right: 0.3em;
   text-align: left;
-
   width: auto;
-  /*vertical-align: top;*/
 }
 
 .search #keywrds {
