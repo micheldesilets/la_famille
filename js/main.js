@@ -15,93 +15,138 @@ function getFolderTree() {
   folderRequest.send();
 }
 
+var author = "";
+var decade = "";
+var year = 0;
+var itm = 0;
+var repoId = 0;
+var sbitm = 0;
+var htmlString = "";
+var j = -1;
+var level = 0;
+
 function buildFolderTree(data) {
   var folderContainer = document.getElementById("photosFolders");
-  var author = "";
-  var decade = "";
-  var year = 0;
-  var itm = 0;
-  var repoId = 0;
-  var sbitm = 0;
-  var htmlString = "";
-  var j = -1;
 
   for (const branch of data) {
     if (author != branch.author && branch.author.length > 0) {
-      if (author != "") {
+      if (author != "" && level == 4) {
         htmlString = htmlString +
           "</ul>\n" +
           "</li>\n" +
+          "</ul>\n" +
+          "</div>\n" +
+          "</div>\n";
+      }
+      if (author != "" && level == 2) {
+        htmlString = htmlString +
           "</ul>\n" +
           "</div>\n" +
           "</div>\n";
       }
       j++;
+
       htmlString = htmlString +
         "<input type=\"checkbox\" id=\"menu" + j + "\"/>\n" +
-        "<label for=\"menu" + j + "\" class=\"names\">" + "Photos de " + branch.author + "</label>\n" +
+        "<label for=\"menu" + j + "\" class=\"names\">" + branch.author + "</label>\n" +
         "<div class=\"multi-level" + j + "\">\n";
       author = branch.author;
       decade = "";
     }
-    if (decade != branch.decade && branch.decade.length > 0) {
-      if (decade != "") {
-        htmlString = htmlString +
-          "</ul>\n" +
-          "</div>\n" +
-          "</li>\n" +
-          "</ul>\n" +
-          "</div>\n";
-      }
-      itm++;
-      sbitm = 0;
-      htmlString = htmlString +
-        "<div class=\"item\">\n" +
-        "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
-        "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-        "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
-        "<ul>\n";
-      predecade = decade;
-      decade = branch.decade;
-      year = 0;
-    }
 
-    if (year != branch.year && branch.year.length > 0) {
-      if (year != 0) {
-        htmlString = htmlString +
-          "</ul>\n" +
-          "</div>\n" +
-          "</li>\n";
-      }
-      sbitm++;
-      htmlString = htmlString +
-        "<li>\n" +
-        "<div class=\"sub-item\">\n" +
-        "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
-        "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
-        "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
-        "<ul>\n";
-      year = branch.year;
-    }
-    if ((author == branch.author && branch.author.length > 0) &&
-      (decade == branch.decade && branch.decade.length > 0) &&
-      (year == branch.year && branch.year.length > 0) &&
-      (repoId != branch.repository)) {
-      htmlString = htmlString +
-        "<li class='photofolder' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
-      repoId = branch.repository;
+    level = branch.levels;
+    switch (level) {
+      case '2':
+        folderLevel2(branch);
+        break;
+      case '4':
+        folderLevel4(branch);
+        break;
     }
   }
 
-  htmlString = htmlString +
-    "</ul>\n" +
-    "</div>\n" +
-    "</li>\n" +
-    "</ul>\n" +
-    "</div>\n" +
-    "</div>\n";
+  if (level == 4) {
+    htmlString = htmlString +
+      "</ul>\n" +
+      "</div>\n" +
+      "</li>\n" +
+      "</ul>\n" +
+      "</div>\n" +
+      "</div>\n";
+  }
 
   folderContainer.insertAdjacentHTML('beforeend', htmlString);
+}
+
+function folderLevel4(branch) {
+  if (decade != branch.decade && branch.decade.length > 0) {
+    if (decade != "") {
+      htmlString = htmlString +
+        "</ul>\n" +
+        "</div>\n" +
+        "</li>\n" +
+        "</ul>\n" +
+        "</div>\n";
+    }
+    itm++;
+    sbitm = 0;
+    htmlString = htmlString +
+      "<div class=\"item\">\n" +
+      "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
+      "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+      "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
+      "<ul>\n";
+    predecade = decade;
+    decade = branch.decade;
+    year = 0;
+  }
+
+  if (year != branch.year && branch.year.length > 0) {
+    if (year != 0) {
+      htmlString = htmlString +
+        "</ul>\n" +
+        "</div>\n" +
+        "</li>\n";
+    }
+    sbitm++;
+    htmlString = htmlString +
+      "<li>\n" +
+      "<div class=\"sub-item\">\n" +
+      "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
+      "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+      "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
+      "<ul>\n";
+    year = branch.year;
+  }
+  if ((author == branch.author && branch.author.length > 0) &&
+    (decade == branch.decade && branch.decade.length > 0) &&
+    (year == branch.year && branch.year.length > 0) &&
+    (repoId != branch.repository)) {
+    htmlString = htmlString +
+      "<li class='photofolder' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+    repoId = branch.repository;
+  }
+}
+
+function folderLevel2(branch) {
+  if (decade != branch.decade && branch.decade.length > 0) {
+    // itm++;
+    // sbitm = 0;
+    htmlString = htmlString +
+      "<div class=\"itemL2\">\n" +
+      "<ul>\n";
+    // predecade = decade;
+    decade = branch.decade;
+    // year = 0;
+  }
+
+  if ((author == branch.author && branch.author.length > 0) &&
+    (repoId != branch.repository)) {
+
+    htmlString = htmlString +
+      "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+    repoId = branch.repository;
+  }
 }
 
 function getArchives() {

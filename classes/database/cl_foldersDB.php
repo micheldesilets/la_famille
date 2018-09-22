@@ -16,7 +16,7 @@ class foldersDB
     $folder = new Folders();
 
     $sql = "SELECT rpt.id_rpt,typ.id_typ,aut.first_name_aut,deca.decade_deca,
-                   yea.year_yea,rpt.title_rpt
+                   yea.year_yea,rpt.title_rpt,rpt.levels_rpt,aut.prefix_aut
             FROM repository_titles_rpt rpt
                  INNER JOIN author_aut aut
                  ON rpt.idaut_rpt = aut.id_aut
@@ -48,10 +48,11 @@ class foldersDB
 
       $folder->setRepositoryId($row["id_rpt"]);
       $folder->setTypeId($row["id_typ"]);
-      $folder->setAuthor($row["first_name_aut"]);
+      $folder->setAuthor($row["prefix_aut"] . $row["first_name_aut"]);
       $folder->setDecade($row["decade_deca"]);
       $folder->setYear($row["year_yea"]);
       $folder->setTitle($row["title_rpt"]);
+      $folder->setLevels($row["levels_rpt"]);
 
       array_push($folderArray, $folder);
 

@@ -684,6 +684,16 @@ main .description {
 **********************************/
 
 /* Functionality */
+/* Level2 */
+/*.itemL2 ul, input[type="checkbox"] {
+  display: none;
+}
+
+.itemL2 input:checked ~ ul {
+  display: block;
+}*/
+
+/* Level 4 */
 .item ul, input[type="checkbox"] {
   display: none;
 }
@@ -740,35 +750,35 @@ main .description {
   display: block;
 }
 
-#menu0:checked ~ .multi-level2 {
+#menu2:checked ~ .multi-level2 {
   display: block;
 }
 
-#menu1:checked ~ .multi-level3 {
+#menu3:checked ~ .multi-level3 {
   display: block;
 }
 
-#menu0:checked ~ .multi-level4 {
+#menu4:checked ~ .multi-level4 {
   display: block;
 }
 
-#menu1:checked ~ .multi-level5 {
+#menu5:checked ~ .multi-level5 {
   display: block;
 }
 
-#menu0:checked ~ .multi-level6 {
+#menu6:checked ~ .multi-level6 {
   display: block;
 }
 
-#menu1:checked ~ .multi-level7 {
+#menu7:checked ~ .multi-level7 {
   display: block;
 }
 
-#menu0:checked ~ .multi-level8 {
+#menu8:checked ~ .multi-level8 {
   display: block;
 }
 
-#menu1:checked ~ .multi-level9 {
+#menu9:checked ~ .multi-level9 {
   display: block;
 }
 
@@ -852,16 +862,25 @@ label:hover {
   padding-left: 5em;
 }
 
+.photofolder:before {
+  content: "-";
+  margin-right: 0.5em;
+}
+
+.drop-down .photofolder.L2 {
+  padding-left: 8em;
+}
+
 .drop-down .photofolder {
   margin: 0;
   padding-left: 13em;
+  padding-bottom: 0.15em;
   font-style: italic;
 }
 
 label {
   line-height: 20px;
   margin: 0;
-  /*padding: 0 2em;*/
   list-style: none;
   text-decoration: none;
   font-weight: 100;
@@ -873,18 +892,19 @@ label {
   padding: 0 0.25em;
 }
 
+
 /*.item label {
   padding-left: 10em;
 }*/
 
-.drop-down li a {
+/*.drop-down li a {
   line-height: 20px;
   margin: 0;
   padding: 0 2.7em;
   list-style: none;
   text-decoration: none;
   font-weight: 100;
-}
+}*/
 
 /* SEARCH PHOTOS
  *********************************/

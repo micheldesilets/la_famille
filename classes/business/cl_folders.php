@@ -15,6 +15,7 @@ class Folders implements JsonSerializable
   private $m_decade;
   private $m_year;
   private $m_title;
+  private $m_levels;
 
   public function setIdpfo($m_idpfo): void
   {
@@ -86,6 +87,22 @@ class Folders implements JsonSerializable
     return $this->m_title;
   }
 
+  /**
+   * @param mixed $m_levels
+   */
+  public function setLevels($m_levels): void
+  {
+    $this->m_levels = $m_levels;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getLevels()
+  {
+    return $this->m_levels;
+  }
+
   public function jsonSerialize()
   {
     return [
@@ -96,6 +113,7 @@ class Folders implements JsonSerializable
       'decade' => $this->getDecade(),
       'year' => $this->getYear(),
       'title' => $this->getTitle(),
+      'levels' => $this->getLevels()
     ];
   }
 }
