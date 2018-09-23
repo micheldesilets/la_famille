@@ -42,7 +42,8 @@ class photosBD
             FROM photosFolders_pfo pfo
             INNER JOIN photos_pho pho
             ON pfo.idrpt_pfo = pho.idrpt_pho
-            WHERE pfo.idrpt_pfo = $path";
+            WHERE pfo.idrpt_pfo = $path
+            ORDER BY pho.year_pho";
 
     $json = $this->createJason($sql);
     echo $json;
@@ -68,7 +69,7 @@ class photosBD
         $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
       }
     }
-    $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) GROUP BY pho.filename_pho";
+    $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) ORDER BY pho.year_pho";
 
     $json = $this->createJason($sql);
     echo $json;
