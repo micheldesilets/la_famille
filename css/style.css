@@ -578,6 +578,10 @@ main .description {
   color: aqua;
 }
 
+#geneol p {
+  color: white;
+}
+
 .modal-content {
   background-color: #fefefe;
   padding: 5px;
