@@ -168,7 +168,7 @@ function closeFolders() {
   }
 }
 
-function getArchives() {
+/*function getArchives() {
   var family = document.getElementById("family-right").innerHTML;
   n = family.search("Bernard-Normandeau");
   if (n != -1) {
@@ -180,7 +180,7 @@ function getArchives() {
     assignArchivesTitle()
   }
   getPhotos(path, 1)
-}
+}*/
 
 function getFamilyPhotos(path, type) {
   getPhotos(path, type);
@@ -194,21 +194,23 @@ function turnOffFolders() {
   return;
 }
 
+var myData;
+
 function getPhotos(path, type) {
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
   myRequest.onload = function () {
-    var myData = JSON.parse(myRequest.responseText);
+    myData = JSON.parse(myRequest.responseText);
     switch (type) {
       case 4:
-        renderHomePhoto(myData);
+        renderHomePhoto();
         break;
       case 1:
         /*** Archives ***/
-        renderPhotos(myData, path);
+        renderPhotos(path);
         break;
       case 2:
-        renderFamilyPhotos(myData);
+        renderFamilyPhotos();
         break;
     }
   };
@@ -224,7 +226,7 @@ function backToTree() {
 }
 
 /*** Used only with FancyBox ***/
-function renderPhotos(data, path) {
+function renderPhotos(path) {
   var archivesContainer = document.getElementById("photos");
   var htmlString = "";
   var imageURL = "";
@@ -232,7 +234,7 @@ function renderPhotos(data, path) {
 
   document.getElementById("photos").innerHTML = "";
 
-  for (const obj of data) {
+  for (const obj of myData) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
@@ -243,13 +245,13 @@ function renderPhotos(data, path) {
   }
 }
 
-function renderHomePhoto(data) {
+function renderHomePhoto() {
   var archivesContainer = document.getElementById("homePhoto");
   var htmlString = "";
   var imageURL = "";
   var thumb = "";
 
-  for (const obj of data) {
+  for (const obj of myData) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
@@ -259,17 +261,18 @@ function renderHomePhoto(data) {
   }
 }
 
-function renderFamilyPhotos(data) {
+function renderFamilyPhotos() {
   turnOffFolders();
   document.getElementById('imgs').style.display = 'block';
   var familyContainer = document.getElementById("imgs");
   var htmlString = "";
   var imageURL = "";
   var thumb = "";
+  var geneology = [];
 
   document.getElementById("imgs").innerHTML = "";
 
-  for (const obj of data) {
+  for (const obj of myData) {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
@@ -292,12 +295,14 @@ var captionText;
 var forward;
 var backward;
 var modalTitle;
+var geneolCont;
 
 function animatePhotos() {
   current = document.querySelector('#current');
   imgs = document.querySelectorAll('#imgs img');
   backward = document.getElementById('previous');
   forward = document.getElementById('next');
+  geneolCont = document.getElementById('geneol');
 
   opacity = 0.5;
 
@@ -322,6 +327,7 @@ function transformImage(e) {
 var modal;
 
 function imgModal(e) {
+  var htmlGeneol = "";
   bdy = document.getElementById('bdy');
   bdy.style.overflow = 'hidden';
   modal = document.getElementById('myModal');
@@ -352,10 +358,18 @@ function imgModal(e) {
   modalTitle = document.getElementById('modalTitle');
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
+  geneolCont = document.getElementById("geneol");
   modal.style.display = "block";
   modalTitle.innerHTML = this.title;
   modalImg.src = img;
   captionText.innerHTML = this.alt;
+
+  var idxList = myData[currentIdx].geneolidx.split(',');
+  var namesList = myData[currentIdx].geneolnames.split(',');
+
+  htmlGeneol = buildGeneolLine(idxList, namesList);
+
+  geneolCont.innerHTML = htmlGeneol;
 
 // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -368,6 +382,7 @@ function imgModal(e) {
 }
 
 function prevImage() {
+  var htmlGeneol = "";
   if (currentIdx > 0) {
     img = imgs[currentIdx - 1].src;
     img = img.replace('preview', 'full');
@@ -376,6 +391,13 @@ function prevImage() {
     modalImg.src = img;
     modalTitle.innerHTML = titl;
     captionText.innerHTML = capt;
+
+    var idxList = myData[currentIdx - 1].geneolidx.split(',');
+    var namesList = myData[currentIdx - 1].geneolnames.split(',');
+
+    htmlGeneol = buildGeneolLine(idxList, namesList);
+
+    geneolCont.innerHTML = htmlGeneol;
     currentIdx--;
     if (currentIdx == 0) {
       backward.style.backgroundColor = "red";
@@ -387,6 +409,7 @@ function prevImage() {
 }
 
 function nextImage() {
+  var htmlGeneol = "";
   if (currentIdx < maxLength - 1) {
     img = imgs[currentIdx + 1].src;
     img = img.replace('preview', 'full');
@@ -395,6 +418,13 @@ function nextImage() {
     modalImg.src = img;
     modalTitle.innerHTML = titl;
     captionText.innerHTML = capt;
+
+    var idxList = myData[currentIdx + 1].geneolidx.split(',');
+    var namesList = myData[currentIdx + 1].geneolnames.split(',');
+
+    htmlGeneol = buildGeneolLine(idxList, namesList);
+
+    geneol.innerHTML = htmlGeneol;
     currentIdx++;
     if (currentIdx == maxLength - 1) {
       forward.style.backgroundColor = "red";
@@ -404,6 +434,26 @@ function nextImage() {
     }
   }
 }
+
+function buildGeneolLine(idxList, namesList) {
+  var htmlLine = '';
+  if (idxList != "") {
+    for (var i = 0; i < idxList.length; i++) {
+      /*      if (i > 0) {
+              htmlLine = htmlLine + " , ";
+            }*/
+      htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
+        namesList[i];
+      if (i + 1 < idxList.length) {
+        htmlLine = htmlLine + ",&nbsp </a>";
+      } else {
+        htmlLine = htmlLine + "</a>";
+      }
+    }
+  }
+  return htmlLine;
+}
+
 
 /*** END MODAL ***/
 

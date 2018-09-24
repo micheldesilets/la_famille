@@ -554,7 +554,7 @@ main .description {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 60px; /* Location of the box */
+  padding-top: 20px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100vw;
@@ -564,11 +564,26 @@ main .description {
 }
 
 /* Content (image) */
+#geneol {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  height: 150px;
+  font-size: .8em;
+}
+
+#geneol a {
+  color: aqua;
+}
+
 .modal-content {
   background-color: #fefefe;
   padding: 5px;
   border: 1px solid #888;
   margin: auto;
+  /*margin-left: 75px;*/
   display: block;
   max-width: 100%;
   max-height: 80%;
@@ -586,8 +601,8 @@ main .description {
   max-width: 700px;
   text-align: center;
   color: #ccc;
-  /*padding: 10px 0;*/
-  height: 150px;
+  padding-bottom: 12px;
+  /*height: 150px;*/
 }
 
 /* Title of Modal Image */

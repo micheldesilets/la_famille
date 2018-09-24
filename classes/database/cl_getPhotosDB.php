@@ -126,6 +126,13 @@ class photosBD
       } else {
         $photo->set_Pdf($row['pdf_pho']);
       }
+      if ($row["idgen_pho"] == null) {
+        $photo->set_GeneolIdx("");
+        $photo->set_GeneolNames("");
+      } else {
+        $photo->set_GeneolIdx($this->buildIdxList($row["idgen_pho"]));
+        $photo->set_GeneolNames($this->buildNamesList($row['idgen_pho']));
+      }
 
       array_push($photoArray, $photo);
 
@@ -151,6 +158,79 @@ class photosBD
       http_response_code(500);
     }
     return $json;
+  }
+
+  private function buildNamesList($idxs)
+  {
+    $namesList = "";
+    $array = explode(',', $idxs);
+    foreach ($array as $value) {
+      $sql = "SELECT name_gen
+            FROM geneologyIdx_gen gen
+            WHERE gen.id_gen = $value";
+
+      $name = $this->getName($sql);
+      if ($namesList == "") {
+        $namesList = $name;
+      } else {
+        $namesList = $namesList . ',' . $name;
+      }
+    }
+    return $namesList;
+  }
+
+  private function buildIdxList($idxs)
+  {
+    $idxList = "";
+    $array = explode(',', $idxs);
+    foreach ($array as $value) {
+      $sql = "SELECT index_gen
+            FROM geneologyIdx_gen gen
+            WHERE gen.id_gen = $value";
+
+      $ind = $this->getIndex($sql);
+      if ($idxList == "") {
+        $idxList = $ind;
+      } else {
+        $idxList = $idxList . ',' . $ind;
+      }
+    }
+    return $idxList;
+  }
+
+  private function getName($sql)
+  {
+    include '../connection/connect.php';
+    require_once '../classes/business/cl_photos.php';
+
+    if ($result = mysqli_query($con, $sql)) {
+      // Return the number of rows in result set
+      $rowcount = mysqli_num_rows($result);
+    } else {
+      echo("nothing");
+    };
+
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    return $row[name_gen];
+  }
+
+  private function getIndex($sql)
+  {
+    include '../connection/connect.php';
+    require_once '../classes/business/cl_photos.php';
+
+    if ($result = mysqli_query($con, $sql)) {
+      // Return the number of rows in result set
+      $rowcount = mysqli_num_rows($result);
+    } else {
+      echo("nothing");
+    };
+
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    return $row[index_gen];
+
   }
 }
 

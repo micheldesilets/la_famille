@@ -13,6 +13,8 @@ class Photos implements JsonSerializable
   private $m_p_path;
   private $m_filename;
   private $m_pdf;
+  private $m_geneolIdx;
+  private $m_geneolNames;
 
   public function set_Idpho($idpho)
   {
@@ -123,6 +125,38 @@ class Photos implements JsonSerializable
     return $this->m_pdf;
   }
 
+  /**
+   * @param mixed $m_geneol
+   */
+  public function set_GeneolIdx($m_geneolIdx): void
+  {
+    $this->m_geneolIdx = $m_geneolIdx;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_GeneolIdx()
+  {
+    return $this->m_geneolIdx;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function get_GeneolNames()
+  {
+    return $this->m_geneolNames;
+  }
+
+  /**
+   * @param mixed $m_geneolNames
+   */
+  public function set_GeneolNames($m_geneolNames): void
+  {
+    $this->m_geneolNames = utf8_encode($m_geneolNames);
+  }
+
   public function jsonSerialize()
   {
     return [
@@ -135,6 +169,8 @@ class Photos implements JsonSerializable
       'prev_path' => $this->get_P_Path(),
       'filename' => $this->get_Filename(),
       'pdf_pho' => $this->get_Pdf(),
+      'geneolidx' => $this->get_GeneolIdx(),
+      'geneolnames' => $this->get_GeneolNames()
     ];
   }
 
