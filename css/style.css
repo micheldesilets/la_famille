@@ -95,21 +95,6 @@ body {
 .subhead {
   font-style: italic;
   margin-top: -.5em;
-  /*padding-left: 14em;*/
-  /*margin-bottom: 1.4em;*/
-}
-
-.about h2,
-.mod h2,
-.nav-main a {
-  /*font-family: 'Open Sans', sans-serif;*/
-  /* font-weight: 600; */
-  /*text-transform: uppercase;*/
-}
-
-.about h2,
-.mod h2 {
-  /*font-size: .875em; !* 15px/16px *!*/
 }
 
 ul,
@@ -159,14 +144,6 @@ a:hover {
   height: 100px;
   bottom: 0;
 }
-
-/*
-img {
-  display: block;
-  border: 2px solid black;
-  margin-right: 12px;
-}
-*/
 
 /* tests */
 button.hide-me {
@@ -703,16 +680,6 @@ main .description {
 **********************************/
 
 /* Functionality */
-/* Level2 */
-/*.itemL2 ul, input[type="checkbox"] {
-  display: none;
-}
-
-.itemL2 input:checked ~ ul {
-  display: block;
-}*/
-
-/* Level 4 */
 .item ul, input[type="checkbox"] {
   display: none;
 }

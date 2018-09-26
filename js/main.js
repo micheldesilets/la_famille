@@ -436,15 +436,16 @@ function nextImage() {
 }
 
 function buildGeneolLine(idxList, namesList) {
-  var htmlLine = '<p>(Généalogie: ';
+  var htmlLine = '';
   if (idxList != "") {
+    htmlLine = '<p>Généalogie: ';
     for (var i = 0; i < idxList.length; i++) {
       htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
         namesList[i];
       if (i + 1 < idxList.length) {
         htmlLine = htmlLine + ",&nbsp </a>";
       } else {
-        htmlLine = htmlLine + "</a>)</p>";
+        htmlLine = htmlLine + "</a></p>";
       }
     }
   }
