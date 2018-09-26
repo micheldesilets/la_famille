@@ -168,20 +168,6 @@ function closeFolders() {
   }
 }
 
-/*function getArchives() {
-  var family = document.getElementById("family-right").innerHTML;
-  n = family.search("Bernard-Normandeau");
-  if (n != -1) {
-    path = 4
-    document.getElementById("family-left").innerHTML = "Photos d'archives des Bernard-Normandeau";
-    document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Marchand-Desilets";
-  } else {
-    path = 3;
-    assignArchivesTitle()
-  }
-  getPhotos(path, 1)
-}*/
-
 function getFamilyPhotos(path, type) {
   getPhotos(path, type);
 }
@@ -213,6 +199,22 @@ function getPhotos(path, type) {
         renderFamilyPhotos();
         break;
     }
+  };
+  myRequest.send();
+}
+
+/*** SEARCH ***/
+function getPhotosKeywords() {
+  const frm = document.getElementById("searchKw");
+  const kw = frm.elements["keywrds"].value;
+  console.log(kw);
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
+  myRequest.onload = function () {
+    myData = JSON.parse(myRequest.responseText);
+    turnOffFolders();
+    renderFamilyPhotos();
   };
   myRequest.send();
 }
@@ -473,24 +475,6 @@ function imgClick(e) {
   //Change the opacity to opacity variable
   e.target.style.opacity = opacity;
 }
-
-/*** SEARCH ***/
-function getPhotosKeywords() {
-  const frm = document.getElementById("searchKw");
-  const kw = frm.elements["keywrds"].value;
-  console.log(kw);
-
-  var myRequest = new XMLHttpRequest();
-  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
-  myRequest.onload = function () {
-    var myData = JSON.parse(myRequest.responseText);
-    turnOffFolders();
-    renderFamilyPhotos(myData);
-  };
-  myRequest.send();
-}
-
-/*** END SEARCH ***/
 
 /*** Reading section ***/
 
