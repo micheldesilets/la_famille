@@ -94,7 +94,7 @@ function folderLevel2(branch) {
     (repoId != branch.repository)) {
 
     htmlString = htmlString +
-      "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+      "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
     repoId = branch.repository;
   }
 }
@@ -144,7 +144,7 @@ function folderLevel4(branch) {
     (year == branch.year && branch.year.length > 0) &&
     (repoId != branch.repository)) {
     htmlString = htmlString +
-      "<li class='photofolder' onclick='javascript:getFamilyPhotos(" + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+      "<li class='photofolder' value='0' onclick='javascript:getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
     repoId = branch.repository;
   }
 }
@@ -168,15 +168,21 @@ function closeFolders() {
   }
 }
 
-function getFamilyPhotos(path, type) {
+var folderTitle;
+
+function getFamilyPhotos(obj, path, type) {
+  folderTitle = obj.innerHTML;
   getPhotos(path, type);
 }
 
 function turnOffFolders() {
+  var titleContainer = document.getElementById('thumbTitle');
   // Hide search and tree and bring up back to tree button
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
+  document.getElementById('thumbTitle').style.display = 'block';
+  titleContainer.innerText = folderTitle;
   return;
 }
 
@@ -191,10 +197,6 @@ function getPhotos(path, type) {
       case 4:
         renderHomePhoto();
         break;
-      case 1:
-        /*** Archives ***/
-        renderPhotos(path);
-        break;
       case 2:
         renderFamilyPhotos();
         break;
@@ -203,6 +205,7 @@ function getPhotos(path, type) {
   myRequest.send();
 }
 
+// TODO add directory title to the left of the window
 /*** SEARCH ***/
 function getPhotosKeywords() {
   const frm = document.getElementById("searchKw");
@@ -225,26 +228,7 @@ function backToTree() {
   document.getElementById('searchKw').style.display = 'block';
   document.getElementById('imgs').style.display = 'none';
   document.getElementById('backToTree').style.display = 'none';
-}
-
-/*** Used only with FancyBox ***/
-function renderPhotos(path) {
-  var archivesContainer = document.getElementById("photos");
-  var htmlString = "";
-  var imageURL = "";
-  var thumb = "";
-
-  document.getElementById("photos").innerHTML = "";
-
-  for (const obj of myData) {
-    imageURL = obj.path + obj.filename;
-    thumb = obj.prev_path + obj.filename;
-
-    htmlString = "<a data-fancybox=\"images\" data-caption=\"" + obj.caption + "\" href=\"" + imageURL + "\">" +
-      "<img id=\"boxshadow\" src=\"" + thumb + "\" title=\"" + obj.title + "\" alt=\"" + obj.title + "\" / ></a>";
-
-    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }
+  document.getElementById('thumbTitle').style.display = 'none';
 }
 
 function renderHomePhoto() {
@@ -278,7 +262,7 @@ function renderFamilyPhotos() {
     imageURL = obj.path + obj.filename;
     thumb = obj.prev_path + obj.filename;
 
-    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\"></div>"
+    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
 
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
   }

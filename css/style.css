@@ -164,11 +164,6 @@ button.hide-me {
   /*overflow: hidden;*/
 }
 
-.container {
-  /*background: url(../img/bg.png) repeat-y 629px 0;
-  padding-bottom: 1.9375em;*/
-}
-
 main {
   /*
   float: left;
@@ -183,14 +178,6 @@ main {
 
 /* MASTHEAD
 ------------------------------------------ */
-/* To freeze the header
-.header-cont {
-   width:960px;
-   position:fixed;
-   top:0px;
- }
-*/
-
 .masthead {
   font-family: 'Alex Brush';
   font-size: 1.1em;
@@ -216,7 +203,6 @@ main {
 
 /* ::: Main Navigation ::: */
 .nav-main {
-  /*border-top: 0.15em solid black;*/
   text-align: center;
   border-bottom: 1px solid black;
   margin-bottom: 1em;
@@ -476,19 +462,14 @@ main .description {
    line-height: 1.195;*/
 }
 
-/*** Family Photos ***/
-#imgs {
-  text-align: justify;
-}
-
 #imgs > div {
   /*width: ; !* Declare your value. Can be in relative units. *!*/
   display: inline-block;
   vertical-align: top;
-  margin-left: 17px;
+  margin-left: 16px;
   margin-bottom: 10px;
   /*margin-top: -20px;*/
-  padding: 10px;
+  padding: 7px;
 
   box-shadow: 4px 4px 10px grey;
   /* IE fix. */
@@ -674,6 +655,15 @@ main .description {
   border: none;
   background: none;
   display: none;
+  margin: 0;
+}
+
+#thumbTitle {
+  float: left;
+  display: none;
+  font-weight: bold;
+  border: none;
+  margin: 0;
 }
 
 /* DROPDOWN LIST
@@ -732,6 +722,15 @@ label:hover {
 #thumbContainer {
   margin-top: -.2em;
   overflow: hidden;
+}
+
+/*** Family Photos ***/
+#thumbContainer #imgs {
+  text-align: justify;
+}
+
+#imgs .thumbimg {
+  margin: 1px;
 }
 
 .names {
