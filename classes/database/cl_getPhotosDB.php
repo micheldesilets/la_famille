@@ -38,12 +38,7 @@ class photosBD
   /* --- GETPHOTOS --- */
   public function getPhotos($path)
   {
-    $sql = "SELECT *
-            FROM photosFolders_pfo pfo
-            INNER JOIN photos_pho pho
-            ON pfo.idrpt_pfo = pho.idrpt_pho
-            WHERE pfo.idrpt_pfo = $path
-            ORDER BY pho.year_pho";
+    $sql = "CALL getPhotos($path)";
 
     $json = $this->createJason($sql);
     echo $json;
@@ -97,6 +92,7 @@ class photosBD
 
       $photo = new Photos();
 
+      $photo->set_Idpho($row["id_pho"]);
       if ($row["title_pho"] == null) {
         $photo->set_Title("");
       } else {

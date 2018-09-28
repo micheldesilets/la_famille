@@ -269,6 +269,28 @@ function renderFamilyPhotos() {
   animatePhotos();
 }
 
+/* Controle of right and left keys
+**********************************/
+document.onkeydown = function (e) {
+  switch (e.keyCode) {
+    case 37:
+      // alert('left');
+      prevImage();
+      break;
+    case 38:
+      // alert('up');
+      break;
+    case 39:
+      // alert('right');
+      nextImage();
+      break;
+    case 40:
+      // alert('down');
+      break;
+  }
+}
+/*********************************/
+
 var current;
 var imgs;
 var opacity;
@@ -282,6 +304,7 @@ var forward;
 var backward;
 var modalTitle;
 var geneolCont;
+var photoId;
 
 function animatePhotos() {
   current = document.querySelector('#current');
@@ -314,6 +337,7 @@ var modal;
 
 function imgModal(e) {
   var htmlGeneol = "";
+  var htmlPhotoId = "";
   bdy = document.getElementById('bdy');
   bdy.style.overflow = 'hidden';
   modal = document.getElementById('myModal');
@@ -345,8 +369,10 @@ function imgModal(e) {
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
   geneolCont = document.getElementById("geneol");
+  photoId = document.getElementById("photoId");
   modal.style.display = "block";
   modalTitle.innerHTML = this.title;
+  photoId.innerHTML = this.idpho;
   modalImg.src = img;
   captionText.innerHTML = this.alt;
 
@@ -356,6 +382,7 @@ function imgModal(e) {
   htmlGeneol = buildGeneolLine(idxList, namesList);
 
   geneolCont.innerHTML = htmlGeneol;
+  photoId.innerHTML = htmlPhotoId;
 
 // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
