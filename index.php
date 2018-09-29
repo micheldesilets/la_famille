@@ -42,6 +42,8 @@
         </li>
         <li><a href="family_photos.html">La famille en photos</a>
         </li>
+        <li><a href="folderAssist.html">Create Folder</a>
+        </li>
       </ul>
     </nav>
   </header>

@@ -369,10 +369,8 @@ function imgModal(e) {
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
   geneolCont = document.getElementById("geneol");
-  photoId = document.getElementById("photoId");
   modal.style.display = "block";
   modalTitle.innerHTML = this.title;
-  photoId.innerHTML = this.idpho;
   modalImg.src = img;
   captionText.innerHTML = this.alt;
 
@@ -382,7 +380,7 @@ function imgModal(e) {
   htmlGeneol = buildGeneolLine(idxList, namesList);
 
   geneolCont.innerHTML = htmlGeneol;
-  photoId.innerHTML = htmlPhotoId;
+  // photoId.innerHTML = htmlPhotoId;
 
 // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
