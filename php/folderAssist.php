@@ -8,8 +8,8 @@
 /*function createFolders($title, $levels)
 {*/
 $levels = 4;
-$full = 'img/family/Michel/1970-1979/1974/Explosion du Mont Wright/full';
-$prev = 'img/family/Michel/1970-1979/1974/Explosion du Mont Wright/preview';
+$full = 'img/family/Michel/1970-1979/1975/Princeville Chantal et Micha/full';
+$prev = 'img/family/Michel/1970-1979/1975/Princeville Chantal et Micha/preview';
 $fullDirs = explode('/', $full);
 $prevDirs = explode('/', $prev);
 $dir = '';

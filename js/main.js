@@ -304,7 +304,7 @@ var forward;
 var backward;
 var modalTitle;
 var geneolCont;
-var photoId;
+var photoIdCont;
 
 function animatePhotos() {
   current = document.querySelector('#current');
@@ -312,6 +312,7 @@ function animatePhotos() {
   backward = document.getElementById('previous');
   forward = document.getElementById('next');
   geneolCont = document.getElementById('geneol');
+  photoIdCont = document.getElementById('photoId');
 
   opacity = 0.5;
 
@@ -368,7 +369,7 @@ function imgModal(e) {
   modalTitle = document.getElementById('modalTitle');
   modalImg = document.getElementById("img01");
   captionText = document.getElementById("caption");
-  geneolCont = document.getElementById("geneol");
+  // geneolCont = document.getElementById("geneol");
   modal.style.display = "block";
   modalTitle.innerHTML = this.title;
   modalImg.src = img;
@@ -380,7 +381,7 @@ function imgModal(e) {
   htmlGeneol = buildGeneolLine(idxList, namesList);
 
   geneolCont.innerHTML = htmlGeneol;
-  // photoId.innerHTML = htmlPhotoId;
+  photoId.innerHTML = '<p>(pid-' + myData[currentIdx].idpho + ')</p>';
 
 // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -409,6 +410,7 @@ function prevImage() {
     htmlGeneol = buildGeneolLine(idxList, namesList);
 
     geneolCont.innerHTML = htmlGeneol;
+    photoId.innerHTML = '<p>(pid-' + myData[currentIdx - 1].idpho + ')</p>';
     currentIdx--;
     if (currentIdx == 0) {
       backward.style.backgroundColor = "red";
@@ -436,6 +438,7 @@ function nextImage() {
     htmlGeneol = buildGeneolLine(idxList, namesList);
 
     geneol.innerHTML = htmlGeneol;
+    photoId.innerHTML = '<p>(pid-' + myData[currentIdx + 1].idpho + ')</p>';
     currentIdx++;
     if (currentIdx == maxLength - 1) {
       forward.style.backgroundColor = "red";

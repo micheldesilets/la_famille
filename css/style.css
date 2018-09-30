@@ -523,30 +523,15 @@ main .description {
 
 /* Content (image) */
 
-#idGeneol {
+#idGeneolCont {
   width: 80%;
-  /*height: 200px;*/
-  /*background: aqua;*/
   margin: auto;
-  /*padding: 10px;*/
 }
 
-/*#photoId {
-  width: 15%;
-  height: 200px;
-  background: red;
-  float: left;
-}
-#geneol  {
-  margin-left: 15%;
-  height: 200px;
-  background: black;
-}*/
-#photoId {
-  display: inline-block;
-  width: 10%;
-  float: left;
-  padding: 0 0 0 15px;
+#photoId p {
+  position: fixed;
+  bottom: 30px;
+  left: 45px;
   margin: 0;
   font-size: small;
   color: #bbbbbb;
@@ -568,7 +553,6 @@ main .description {
 
 #geneol p {
   color: white;
-
 }
 
 .modal-content {
