@@ -693,7 +693,7 @@ main .description {
   border: none;
   background: none;
   display: none;
-  margin: 0;
+  margin-bottom: .5em;
 }
 
 /* Back to Search */
@@ -866,13 +866,66 @@ label {
   width: auto;
 }
 
-.search #keywrds {
+.search {
   padding-left: 0.4em;
 }
 
-.goButton {
+/*.yearCont{
+  width: 100%;
+  clear: both;
+}*/
+
+/*.yearCont select{
+  width: 100%;
+  clear: both;
+}*/
+
+/*.yearChoiceStart{*/
+/*margin: 0;*/
+/*}*/
+
+.yearChoiceEnd {
+  /*margin: 0;*/
+  margin-right: .6em;
+}
+
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 1px groove;
+}
+
+#keywrds {
+  margin: .5em 0 1.4em 0;
+}
+
+.searchCb input[type="checkbox"] {
+  display: inline-block;
+}
+
+.radio {
+  margin-bottom: 0;
+}
+
+.searchCb {
+  margin-bottom: 1.3em;
+  text-align: left
+}
+
+.searchCb input {
+  margin: 0 0 .6em 1px;
+}
+
+#goButton {
+  width: 100%;
   background-color: white;
   border: none;
+  text-align: right;
 }
 
 /* LEGACY

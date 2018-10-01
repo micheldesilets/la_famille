@@ -339,6 +339,15 @@ document.onkeydown = function (e) {
   }
 }
 
+var input = document.getElementById("goButton");
+input.addEventListener("keyup", function (event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    getPhotosKeywords();
+    // document.getElementById("myBtn").click();
+  }
+});
+
 /*********************************/
 
 function animatePhotos() {
