@@ -182,7 +182,11 @@ main {
   font-family: 'Alex Brush';
   font-size: 1.1em;
   margin-top: .5em;
+}
+
+.masthead h1 {
   text-align: center;
+  padding-left: 85px;
 }
 
 .masthead h2 {
@@ -199,6 +203,24 @@ main {
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+#searchKw {
+  display: none;
+}
+
+#myAccount, #searchFormButton {
+  float: right;
+  background-color: white;
+  border: none;
+  font-family: Raleway;
+  font-style: normal;
+  font-size: small;
+  text-decoration: none;
+}
+
+#searchFormButton {
+  font-weight: bold;
 }
 
 /* ::: Main Navigation ::: */
@@ -243,6 +265,7 @@ main {
 
 /* MAIN CONTENT
 ------------------------------------------ */
+
 main > .post:first-child > h1 {
   /* margin-top: 0.904em;*/
 }
@@ -665,6 +688,16 @@ main .description {
 
 /* Back to Tree */
 #backToTree {
+  float: right;
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: none;
+  margin: 0;
+}
+
+/* Back to Search */
+#backToSearch {
   float: right;
   cursor: pointer;
   border: none;

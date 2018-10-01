@@ -25,6 +25,8 @@
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
   <header class="masthead" role="banner" id="myHeader">
+    <input type="button" id="myAccount" value="Mon compte" onclick="#">
+    <!--    <label for="myAccount">Mon compte</label>-->
     <!--    <p class="logo"><a href="/"><img .../></a></p>-->
     <h1>Les Normandeau-Desilets</h1>
 
@@ -40,10 +42,10 @@
         </li>
         <li><a href="objects.html">Objets de famille</a>
         </li>
-        <li><a href="family_photos.html">La famille en photos</a>
+        <li><a href="family_photos_temp.html">La famille en photos</a>
         </li>
-        <li><a href="folderAssist.html">Create Folder</a>
-        </li>
+        <!--        <li><a href="folderAssist.html">Create Folder</a>
+                </li>-->
       </ul>
     </nav>
   </header>

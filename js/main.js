@@ -15,6 +15,25 @@ function getFolderTree() {
   folderRequest.send();
 }
 
+var searchChoice = false;
+var searchItmCont;
+var folderTitle;
+
+var current;
+var imgs;
+var opacity;
+var currentIdx;
+var maxLength;
+var prev;
+var img;
+var modalImg;
+var captionText;
+var forward;
+var backward;
+var modalTitle;
+var geneolCont;
+var photoIdCont;
+
 var author = "";
 var decade = "";
 var year = 0;
@@ -99,6 +118,8 @@ function folderLevel2(branch) {
   }
 }
 
+// TODO Add folder level 3
+
 function folderLevel4(branch) {
   if (decade != branch.decade && branch.decade.length > 0) {
     if (decade != "") {
@@ -168,8 +189,6 @@ function closeFolders() {
   }
 }
 
-var folderTitle;
-
 function getFamilyPhotos(obj, path, type) {
   folderTitle = obj.innerHTML;
   getPhotos(path, type);
@@ -180,15 +199,22 @@ function turnOffFolders() {
   // Hide search and tree and bring up back to tree button
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('searchKw').style.display = 'none';
+  document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
   document.getElementById('thumbTitle').style.display = 'block';
-  titleContainer.innerText = folderTitle;
+  if (!searchChoice) {
+    titleContainer.innerText = folderTitle;
+  } else {
+    titleContainer.innerText = "";
+  }
+
   return;
 }
 
 var myData;
 
 function getPhotos(path, type) {
+  searchChoice = false;
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
   myRequest.onload = function () {
@@ -205,9 +231,22 @@ function getPhotos(path, type) {
   myRequest.send();
 }
 
-// TODO add directory title to the left of the window
-/*** SEARCH ***/
+/*** SEARCH
+ **********************************/
+function searchForm() {
+  prepareSearchScreen();
+}
+
+function prepareSearchScreen() {
+  document.getElementById('searchFormButton').style.display = 'none';
+  document.getElementById('photosFolders').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'block';
+  document.getElementById('searchKw').style.display = 'block';
+}
+
 function getPhotosKeywords() {
+  searchChoice = true;
+  folderTitle = "";
   const frm = document.getElementById("searchKw");
   const kw = frm.elements["keywrds"].value;
   console.log(kw);
@@ -223,7 +262,17 @@ function getPhotosKeywords() {
 }
 
 function backToTree() {
-  // Bring back search and tree and hide 'back to tree' button
+  // Bring back search and tree and hide 'back to tree(X)' button
+  document.getElementById('imgs').style.display = 'none';
+  document.getElementById('searchKw').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'none';
+  document.getElementById('thumbTitle').style.display = 'none';
+  document.getElementById('photosFolders').style.display = 'block';
+  document.getElementById('searchFormButton').style.display = 'block';
+}
+
+function backToSearch() {
+  // Bring back search and tree and hide 'back to tree(X)' button
   document.getElementById('photosFolders').style.display = 'block';
   document.getElementById('searchKw').style.display = 'block';
   document.getElementById('imgs').style.display = 'none';
@@ -289,22 +338,8 @@ document.onkeydown = function (e) {
       break;
   }
 }
-/*********************************/
 
-var current;
-var imgs;
-var opacity;
-var currentIdx;
-var maxLength;
-var prev;
-var img;
-var modalImg;
-var captionText;
-var forward;
-var backward;
-var modalTitle;
-var geneolCont;
-var photoIdCont;
+/*********************************/
 
 function animatePhotos() {
   current = document.querySelector('#current');
