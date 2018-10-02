@@ -45,26 +45,65 @@ class photosBD
   }
 
   /* --- GETSEARCHPHOTOS --- */
-  public function getSearchPhotos($kwords)
+  public function getSearchPhotos($searchData)
   {
+    $kwords = $searchData[0];
+    $startYear = $searchData[1];
+    $endYear = $searchData[2];
+    $wExact = $searchData[3];
+    $wPart = $searchData[4];
+    $searchKw = $searchData[5];
+    $searchTitles = $searchData[6];
+    $searchComments = $searchData[7];
+    $photoPid = $searchData[8];
+    $idUnique = $searchData[9];
+    $idContext = $searchData[10];
+
     $sql = "SELECT *
             FROM photos_pho pho
             INNER JOIN photosFolders_pfo pfo
             ON pfo.idrpt_pfo = pho.idrpt_pho
             JOIN repository_titles_rpt rpt 
-            ON pfo.idrpt_pfo = rpt.id_rpt
-            WHERE (pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
-    for ($i = 1; $i < count($kwords); $i++) {
-      if (!empty($kwords[$i])) {
-        $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
+            ON pfo.idrpt_pfo = rpt.id_rpt ";
+
+    /*    if ($photoPid != ""){
+          $sql = "SELECT *
+                FROM photos_pho pho
+                INNER JOIN photosFolders_pfo pfo
+                ON pfo.idrpt_pfo = pho.idrpt_pho
+                JOIN repository_titles_rpt rpt
+                ON pfo.idrpt_pfo = rpt.id_rpt
+                WHERE pho.id_pho = $photoPid";
+        };*/
+
+    if ($photoPid != "") {
+      if ($idContext == "true") {
+        $sql .= "WHERE rpt.idtyp_rpt = 2 AND pho.idrpt_pho = (SELECT idrpt_pho FROM photos_pho pp WHERE pp.id_pho= $photoPid)";
+      } else {
+        $sql .= "WHERE rpt.idtyp_rpt = 2 AND pho.id_pho = $photoPid";
       }
     }
-    for ($i = 0; $i < count($kwords); $i++) {
-      if (!empty($kwords[$i])) {
-        $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
-      }
-    }
-    $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) ORDER BY pho.year_pho";
+
+    /*
+        $sql = "SELECT *
+                FROM photos_pho pho
+                INNER JOIN photosFolders_pfo pfo
+                ON pfo.idrpt_pfo = pho.idrpt_pho
+                JOIN repository_titles_rpt rpt
+                ON pfo.idrpt_pfo = rpt.id_rpt
+                WHERE (pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
+        for ($i = 1; $i < count($kwords); $i++) {
+          if (!empty($kwords[$i])) {
+            $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
+          }
+        }
+        for ($i = 0; $i < count($kwords); $i++) {
+          if (!empty($kwords[$i])) {
+            $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
+          }
+        }
+        $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) ORDER BY pho.year_pho";
+        */
 
     $json = $this->createJason($sql);
     echo $json;

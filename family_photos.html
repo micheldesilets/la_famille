@@ -51,68 +51,81 @@
   <!--  Search-->
   <div class="searchPhotos">
     <section class="search">
-      <input autofocus="autofocus" type="button" id="searchFormButton" value="Recherche" onclick="javascript:searchForm()">
+      <input autofocus="autofocus" type="button" id="searchFormButton" value="Recherche"
+             onclick="javascript:searchForm()">
 
-      <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
+      <form action="javascript:searchInputs()" id="searchKw">
         <fieldset>
           <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="110"><br>
           <input type="submit" value="Soumettre" id="goButton"><br>
 
-          <label for="anneeDeb" class="yearChoiceStart">De l'année </label>
+          <label for="anneeDeb" class="yearChoiceStart">De </label>
           <select id="anneeDeb">
-            <optgroup label="1970-1979">
-              <option value="1970" selected>1970</option>
-              <option value="1971">1971</option>
-              <option value="1971">1972</option>
-              <option value="1971">1973</option>
-              <option value="1971">1974</option>
-            </optgroup>
-            <optgroup label="1980-1989">
-              <option value="1970">1980</option>
-              <option value="1971">1981</option>
-              <option value="1971">1982</option>
-              <option value="1971">1983</option>
-              <option value="1971">1984</option>
-            </optgroup>
-          </select><br>
-
-          <label for="anneeFin" class="yearChoiceEnd">À l'année </label>
-          <select id="anneeFin">
+            <option value="debut" selected>Première année</option>
             <optgroup label="1970-1979">
               <option value="1970">1970</option>
               <option value="1971">1971</option>
-              <option value="1971">1972</option>
-              <option value="1971">1973</option>
-              <option value="1971">1974</option>
+              <option value="1972">1972</option>
+              <option value="1973">1973</option>
+              <option value="1974">1974</option>
             </optgroup>
             <optgroup label="1980-1989">
-              <option value="1970">1980</option>
-              <option value="1971">1981</option>
-              <option value="1971">1982</option>
-              <option value="1971">1983</option>
-              <option value="1971" selected>1984</option>
+              <option value="1980">1980</option>
+              <option value="1981">1981</option>
+              <option value="1982">1982</option>
+              <option value="1983">1983</option>
+              <option value="1984">1984</option>
+            </optgroup>
+          </select><br>
+
+          <label for="anneeFin" class="yearChoiceEnd">À </label>
+          <select id="anneeFin">
+            <option value="fin" selected>Dernière année</option>
+            <optgroup label="1970-1979">
+              <option value="1970">1970</option>
+              <option value="1971">1971</option>
+              <option value="1972">1972</option>
+              <option value="1973">1973</option>
+              <option value="1974">1974</option>
+            </optgroup>
+            <optgroup label="1980-1989">
+              <option value="1980">1980</option>
+              <option value="1981">1981</option>
+              <option value="1981">1982</option>
+              <option value="1981">1983</option>
+              <option value="1981">1984</option>
             </optgroup>
           </select><br>
 
           <p class="radio">
-            <input type="radio" id="gender-male" name="gender" value="male"/>
-            <label for="gender-male">Contient le/les mots exacts</label>
+            <input type="radio" id="wExact" name="wordLen" value="wExact"/>
+            <label for="wExact">Contient le/les mots exacts</label>
             <br>
-            <input type="radio" id="gender-female" name="gender" value="female" checked/>
-            <label for="gender-female">Contient une partie du/des mot(s)</label>
+            <input type="radio" id="wPart" name="wordLen" value="wPart" checked/>
+            <label for="wPart">Contient une partie du/des mot(s)</label>
           </p><br>
 
-          <div class="searchCb">
-            <input type="checkbox" name="vehicle1" value="clefs" checked>Recherche des mots clefs<br>
-            <input type="checkbox" name="vehicle2" value="titres" checked>Recherche des titres<br>
-            <input type="checkbox" name="vehicle3" value="commentaires" checked>Recherche des commentaires<br>
+          <div id="searchCb">
+            <input type="checkbox" id="clefs" name="clefs" value="clefs" checked>Recherche des mots clefs<br>
+            <input type="checkbox" id="titres" name="titres" value="titres" checked>Recherche des titres<br>
+            <input type="checkbox" id="commentaires" name="commentaires" value="commentaires" checked>Recherche des
+            commentaires<br>
           </div>
 
-          <label>
-            PID-
-          </label>
-          <input type="text"  placeholder="Le numéro de la photo" size="24"><br>
+          <fieldset class="pidContext">
+            <label>
+              PID-
+            </label>
+            <input id="pid" type="text" placeholder="Le numéro de la photo" size="24">
 
+            <p class="context">
+              <input type="radio" id="idUnique" name="Context" value="idUnique" checked/>
+              <label for="idUniquew">Unique</label>
+              <br>
+              <input type="radio" id="idContext" name="Context" value="idContext"/>
+              <label for="idContext">Contextuel</label>
+            </p><br>
+          </fieldset>
         </fieldset>
       </form>
     </section>

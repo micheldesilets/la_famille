@@ -251,9 +251,7 @@ main {
 .nav-main a {
   display: inline-block;
   font-size: 1.2em;
-  /*font-weight: bold;*/
   padding: .2em .9em .5em 1.15em;
-  /*color: #292929;*/
 }
 
 .nav-main a:hover {
@@ -281,66 +279,11 @@ main > .post:first-child > h1 {
   transition: .4s;
 }
 
-h1 {
-  /*margin-bottom: .4125em;*/
-}
-
-.post-photo {
-  /*float: left;
-  margin-bottom: 2px;
-  margin-right: 22px;
-  max-width: 61.667%;*/
-}
-
 .post img {
   display: block;
   max-width: none;
   box-shadow: 6px 6px 10px grey;
   opacity: 1;
-}
-
-.post-blurb p {
-  /*color: #363636;
-  font-size: 1em;
-  line-height: 1.4;*/
-}
-
-/* ::: Blog Post Footer ::: */
-.post-footer {
-  /*border-bottom: 1px solid #dbdbdb;
-  border-top: 1px solid #dbdbdb;
-  padding-bottom: .7em;
-  padding-top: .7em;*/
-}
-
-.post-footer time:before {
-  /*content: '•  ';*/
-}
-
-.post-footer a {
-  /*font-weight: bold;*/
-}
-
-.footer p {
-  /* color: #3a3a3a;
-   font-family: arial, helvetica, sans-serif;
-   font-size: 0.688em;*/
-}
-
-.footer p small {
-  /*font-size: inherit;*/
-}
-
-/* ::: Pagination Links Below Blog Posts ::: */
-.pagination {
-  /*margin: 45px 0 0;
-  padding: 0;*/
-}
-
-.pagination li {
-  /*display: inline-block;
-  font: 0.875em arial, helvetica, sans-serif;
-  margin-right: 0.25em;*/
 }
 
 /* Archives + Readings*/
@@ -364,28 +307,6 @@ h1 {
   font-weight: normal;
 }
 
-/*
-.flip-archive {
-  font-style: italic;
-  font-weight: bold;
-  font-size: .9em;
-  text-align: right;
-  display: block;
-  margin-top: -1.5em;
-  margin-bottom: .7em;
-}
-*/
-/*
-.archives-MD {
-  float: left;
-}
-
-
-.normal-flip-archive {
-  font-weight: normal;
-  display: inline-block;
-}
-*/
 /* REAGINGS HTML AND A BIT OF OBJECTS
  ************************************/
 main .readings {
@@ -408,8 +329,6 @@ main .books, .objects {
   height: auto;
   margin-right: 1.5em;
   margin-bottom: 1em;
-  /*padding-right: 1.5em;*/
-  /*padding-bottom: 1em;*/
   box-shadow: 2px 2px 15px grey;
 }
 
@@ -875,28 +794,13 @@ label {
   padding-left: 0.4em;
 }
 
-/*.yearCont{
-  width: 100%;
-  clear: both;
-}*/
-
-/*.yearCont select{
-  width: 100%;
-  clear: both;
-}*/
-
-/*.yearChoiceStart{*/
-/*margin: 0;*/
-/*}*/
-
 .yearChoiceStart {
   width: 100%;
   margin-top: 1.4em;
 }
 
 .yearChoiceEnd {
-  /*margin: 0;*/
-  margin-right: .6em;
+  margin-right: .6em; /* to align boxes */
 }
 
 fieldset {
@@ -916,21 +820,25 @@ fieldset {
   float: left;
 }
 
-.radio, .radio label {
+.radio, .radio label, .context, .context label {
   margin-bottom: 0;
   padding: 0;
 }
 
-.searchCb input[type="checkbox"] {
+.pidContext {
+  width: 50%;
+}
+
+#searchCb input[type="checkbox"] {
   display: inline-block;
 }
 
-.searchCb {
+#searchCb {
   margin-bottom: 1.3em;
   text-align: left
 }
 
-.searchCb input {
+#searchCb input {
   margin: 0 0 .6em 1px;
 }
 
@@ -941,7 +849,7 @@ fieldset {
   float: right;
   padding: 5px;
   margin-top: -8px;
-  border: 3px solid #FFEFD5;
+  border: 1px solid lightgrey;
 }
 
 /* LEGACY

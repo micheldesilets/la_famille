@@ -244,21 +244,42 @@ function prepareSearchScreen() {
   document.getElementById('searchKw').style.display = 'block';
 }
 
-function getPhotosKeywords() {
+function searchInputs() {
   searchChoice = true;
   folderTitle = "";
-  const frm = document.getElementById("searchKw");
-  const kw = frm.elements["keywrds"].value;
-  console.log(kw);
+  var searchFormData = [];
+  searchFormData = getSearchInputs();
+  /*  const frm = document.getElementById("searchKw");
+    const kw = frm.elements["keywrds"].value;*/
 
   var myRequest = new XMLHttpRequest();
-  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + kw, true);
+  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
+    '&wExact=' + searchFormData.wExact.toString() + '&wPart=' + searchFormData.wPart.toString() +
+    '&searchKw=' + searchFormData.searchClefs.toString() + '&searchTitles=' + searchFormData.searchTitres.toString() + '&searchComments=' + searchFormData.searchComment.toString() + '&photoId=' + searchFormData.photoId +
+    '&idUnique=' + searchFormData.idUnique.toString() + '&idContext=' + searchFormData.idContext.toString(), true);
   myRequest.onload = function () {
     myData = JSON.parse(myRequest.responseText);
     turnOffFolders();
     renderFamilyPhotos();
   };
   myRequest.send();
+}
+
+function getSearchInputs() {
+  var searchData = [];
+  var searchDoc = document.getElementById('searchKw');
+  searchData['kwords'] = searchDoc.elements["keywrds"].value;
+  searchData['startYear'] = searchDoc.elements['anneeDeb'].value;
+  searchData['endYear'] = searchDoc.elements['anneeFin'].value;
+  searchData['wExact'] = searchDoc.elements['wExact'].checked;
+  searchData['wPart'] = searchDoc.elements['wPart'].checked;
+  searchData['searchClefs'] = searchDoc.elements['clefs'].checked;
+  searchData['searchTitres'] = searchDoc.elements['titres'].checked;
+  searchData['searchComment'] = searchDoc.elements['commentaires'].checked;
+  searchData['photoId'] = searchDoc.elements['pid'].value;
+  searchData['idUnique'] = searchDoc.elements['idUnique'].checked;
+  searchData['idContext'] = searchDoc.elements['idContext'].checked;
+  return searchData;
 }
 
 function backToTree() {
