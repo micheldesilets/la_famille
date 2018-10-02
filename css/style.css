@@ -178,7 +178,7 @@ main {
 
 /* MASTHEAD
 ------------------------------------------ */
-.masthead {
+.masthead, .masthead-1 {
   font-family: 'Alex Brush';
   font-size: 1.1em;
   margin-top: .5em;
@@ -186,10 +186,14 @@ main {
 
 .masthead h1 {
   text-align: center;
+}
+
+.masthead-1 h1 {
+  text-align: center;
   padding-left: 85px;
 }
 
-.masthead h2 {
+.masthead h2, .masthead-1 h2 {
   font-family: Raleway;
   font-style: italic;
   font-weight: normal;
@@ -857,6 +861,7 @@ label {
  *********************************/
 .searchPhotos {
   padding-bottom: 1em;
+  font-size: small;
 }
 
 .search label {
@@ -884,6 +889,11 @@ label {
 /*margin: 0;*/
 /*}*/
 
+.yearChoiceStart {
+  width: 100%;
+  margin-top: 1.4em;
+}
+
 .yearChoiceEnd {
   /*margin: 0;*/
   margin-right: .6em;
@@ -901,15 +911,18 @@ fieldset {
 }
 
 #keywrds {
-  margin: .5em 0 1.4em 0;
+  margin: .5em 0 0 0;
+  width: 70%;
+  float: left;
+}
+
+.radio, .radio label {
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .searchCb input[type="checkbox"] {
   display: inline-block;
-}
-
-.radio {
-  margin-bottom: 0;
 }
 
 .searchCb {
@@ -922,10 +935,13 @@ fieldset {
 }
 
 #goButton {
-  width: 100%;
+  width: auto;
   background-color: white;
   border: none;
-  text-align: right;
+  float: right;
+  padding: 5px;
+  margin-top: -8px;
+  border: 3px solid #FFEFD5;
 }
 
 /* LEGACY

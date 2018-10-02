@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Famille Normandeau-Desilets - Photos Famille</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!--  <link rel="stylesheet" href="css/gallery.css">-->
+
+</head>
+<body id="bdy">
+<div class="page">
+  <!-- ==== START MASTHEAD ==== -->
+  <header class="masthead" role="banner">
+
+    <h1>Les Normandeau-Desilets</h1>
+
+    <h2>Une courte histoire de Nous</h2>
+
+    <nav role="navigation">
+      <ul class="nav-main">
+        <li><a href="index.php">Acceuil</a>
+        </li>
+        <li><a href="readings.html">Lectures</a>
+        </li>
+        <li><a href="geneology.html">Généalogie</a>
+        </li>
+        <li><a href="objects.html">Objets de famille</a>
+        </li>
+        <li><a href="#">La famille en photos</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- end masthead -->
+
+  <div class="clearfix">
+    <div><p id="thumbTitle"></p></div>
+    <button id="backToTree" onclick="javascript:backToTree()">
+      <strong>X</strong>
+    </button>
+  </div>
+
+  <!--  Search-->
+  <div class="searchPhotos">
+    <section class="search">
+      <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
+        <label>
+          Recherche
+        </label>
+        <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="65">
+        <input type="submit" value="GO" class="goButton">
+      </form>
+    </section>
+  </div>
+
+  <!-- ==== MAIN ==== -->
+  <div class="main-family">
+    <!--  Drop down menu is here  -->
+    <section class="drop-down" id="photosFolders"></section>
+
+    <!--  Thumbnails  -->
+    <section id="thumbContainer">
+      <div id="imgs"></div>
+    </section>
+
+    <section class="modalContainer">
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Previous and Next buttons -->
+        <button id="previous"><</button>
+        <button id="next">></button>
+
+        <span class="close">x</span>
+
+
+        <img class="modal-content" id="img01">
+        <div id="modalTitle"></div>
+        <div id="caption"></div>
+        <div id="idGeneolCont">
+          <div id="photoId"></div>
+          <div id="geneol"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+<!--<script src="js/mainext.js"></script>-->
+<!--<script>assignPhotosHierarchy()</script>-->
+<script>getFolderTree()</script>
+
+</body>
+</html>

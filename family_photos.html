@@ -42,15 +42,78 @@
     </button>
   </div>
 
+  <!--  <div class="clearfix">
+      <button id="backToSearch" onclick="javascript:backToSearch()">
+        <strong>X</strong>
+      </button>
+    </div>-->
+
   <!--  Search-->
   <div class="searchPhotos">
     <section class="search">
+      <input autofocus="autofocus" type="button" id="searchFormButton" value="Recherche" onclick="javascript:searchForm()">
+
       <form action="javascript:getPhotosKeywords()" method="post" id="searchKw">
-        <label>
-          Recherche
-        </label>
-        <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="65">
-        <input type="submit" value="GO" class="goButton">
+        <fieldset>
+          <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="110"><br>
+          <input type="submit" value="Soumettre" id="goButton"><br>
+
+          <label for="anneeDeb" class="yearChoiceStart">De l'année </label>
+          <select id="anneeDeb">
+            <optgroup label="1970-1979">
+              <option value="1970" selected>1970</option>
+              <option value="1971">1971</option>
+              <option value="1971">1972</option>
+              <option value="1971">1973</option>
+              <option value="1971">1974</option>
+            </optgroup>
+            <optgroup label="1980-1989">
+              <option value="1970">1980</option>
+              <option value="1971">1981</option>
+              <option value="1971">1982</option>
+              <option value="1971">1983</option>
+              <option value="1971">1984</option>
+            </optgroup>
+          </select><br>
+
+          <label for="anneeFin" class="yearChoiceEnd">À l'année </label>
+          <select id="anneeFin">
+            <optgroup label="1970-1979">
+              <option value="1970">1970</option>
+              <option value="1971">1971</option>
+              <option value="1971">1972</option>
+              <option value="1971">1973</option>
+              <option value="1971">1974</option>
+            </optgroup>
+            <optgroup label="1980-1989">
+              <option value="1970">1980</option>
+              <option value="1971">1981</option>
+              <option value="1971">1982</option>
+              <option value="1971">1983</option>
+              <option value="1971" selected>1984</option>
+            </optgroup>
+          </select><br>
+
+          <p class="radio">
+            <input type="radio" id="gender-male" name="gender" value="male"/>
+            <label for="gender-male">Contient le/les mots exacts</label>
+            <br>
+            <input type="radio" id="gender-female" name="gender" value="female" checked/>
+            <label for="gender-female">Contient une partie du/des mot(s)</label>
+          </p><br>
+
+          <div class="searchCb">
+            <input type="checkbox" name="vehicle1" value="clefs" checked>Recherche des mots clefs<br>
+            <input type="checkbox" name="vehicle2" value="titres" checked>Recherche des titres<br>
+            <input type="checkbox" name="vehicle3" value="commentaires" checked>Recherche des commentaires<br>
+          </div>
+
+          <label>
+            PID-
+          </label>
+          <input type="text"  placeholder="Le numéro de la photo" size="24"><br>
+
+        </fieldset>
       </form>
     </section>
   </div>
