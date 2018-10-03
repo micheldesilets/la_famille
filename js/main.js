@@ -200,7 +200,8 @@ function turnOffFolders() {
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('searchFormButton').style.display = 'none';
-  document.getElementById('backToTree').style.display = 'block';
+  document.getElementById('backToTree').style.display = 'none';
+  document.getElementById('backToSearch').style.display = 'block';
   document.getElementById('thumbTitle').style.display = 'block';
   if (!searchChoice) {
     titleContainer.innerText = folderTitle;
@@ -241,6 +242,7 @@ function prepareSearchScreen() {
   document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
+  // document.getElementById('backToSearch').style.display = 'block';
   document.getElementById('searchKw').style.display = 'block';
 }
 
@@ -249,8 +251,6 @@ function searchInputs() {
   folderTitle = "";
   var searchFormData = [];
   searchFormData = getSearchInputs();
-  /*  const frm = document.getElementById("searchKw");
-    const kw = frm.elements["keywrds"].value;*/
 
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
@@ -294,11 +294,13 @@ function backToTree() {
 
 function backToSearch() {
   // Bring back search and tree and hide 'back to tree(X)' button
-  document.getElementById('photosFolders').style.display = 'block';
-  document.getElementById('searchKw').style.display = 'block';
+  // document.getElementById('photosFolders').style.display = 'block';
+  // document.getElementById('searchKw').style.display = 'block';
   document.getElementById('imgs').style.display = 'none';
-  document.getElementById('backToTree').style.display = 'none';
+  document.getElementById('backToSearch').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'block';
   document.getElementById('thumbTitle').style.display = 'none';
+  searchForm();
 }
 
 function renderHomePhoto() {
