@@ -323,7 +323,11 @@ function prepareSearchScreen() {
 function getSearchInputs() {
   var searchData = [];
   var searchDoc = document.getElementById('searchKw');
-  searchData['kwords'] = searchDoc.elements["keywrds"].value;
+  if (searchDoc.elements["keywrds"].value == "") {
+    searchData['kwords'] = "nothingness";
+  } else {
+    searchData['kwords'] = searchDoc.elements["keywrds"].value;
+  }
   searchData['startYear'] = searchDoc.elements['anneeDeb'].value;
   searchData['endYear'] = searchDoc.elements['anneeFin'].value;
   searchData['wExact'] = searchDoc.elements['wExact'].checked;
@@ -331,7 +335,11 @@ function getSearchInputs() {
   searchData['searchClefs'] = searchDoc.elements['clefs'].checked;
   searchData['searchTitres'] = searchDoc.elements['titres'].checked;
   searchData['searchComment'] = searchDoc.elements['commentaires'].checked;
-  searchData['photoId'] = searchDoc.elements['pid'].value;
+  if (searchDoc.elements['pid'].value == "") {
+    searchData['photoId'] = "nothing";
+  } else {
+    searchData['photoId'] = searchDoc.elements['pid'].value;
+  }
   searchData['idUnique'] = searchDoc.elements['idUnique'].checked;
   searchData['idContext'] = searchDoc.elements['idContext'].checked;
   return searchData;
@@ -379,14 +387,14 @@ document.onkeydown = function (e) {
   }
 }
 
-var input = document.getElementById("goButton");
+/*var input = document.getElementById("goButton");
 input.addEventListener("keyup", function (event) {
   event.preventDefault();
   if (event.keyCode === 13) {
-    getPhotosKeywords();
+    getFamilyPhotos();
     // document.getElementById("myBtn").click();
   }
-});
+});*/
 
 /*********************************/
 

@@ -163,7 +163,7 @@ class Photos implements JsonSerializable
    */
   public function set_rptTitle($m_rptTitle): void
   {
-    $this->m_rptTitle = $m_rptTitle;
+    $this->m_rptTitle = utf8_encode($m_rptTitle);
   }
 
   /**
