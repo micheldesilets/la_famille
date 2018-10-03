@@ -18,6 +18,7 @@ function getFolderTree() {
 var searchChoice = false;
 var searchItmCont;
 var folderTitle;
+var myData;
 
 var current;
 var imgs;
@@ -170,6 +171,87 @@ function folderLevel4(branch) {
   }
 }
 
+function getFamilyPhotos(obj, path, type) {
+  folderTitle = obj.innerHTML;
+  getPhotos(path, type);
+}
+
+
+function getPhotos(path, type) {
+  searchChoice = false;
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
+  myRequest.onload = function () {
+    myData = JSON.parse(myRequest.responseText);
+    switch (type) {
+      case 4:
+        renderHomePhoto();
+        break;
+      case 2:
+        turnOffFolders();
+        renderFamilyPhotos();
+        break;
+    }
+  };
+  myRequest.send();
+}
+
+function searchInputs() {
+  searchChoice = true;
+  folderTitle = "";
+  var searchFormData = [];
+  searchFormData = getSearchInputs();
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
+    '&wExact=' + searchFormData.wExact.toString() + '&wPart=' + searchFormData.wPart.toString() +
+    '&searchKw=' + searchFormData.searchClefs.toString() + '&searchTitles=' + searchFormData.searchTitres.toString() + '&searchComments=' + searchFormData.searchComment.toString() + '&photoId=' + searchFormData.photoId +
+    '&idUnique=' + searchFormData.idUnique.toString() + '&idContext=' + searchFormData.idContext.toString(), true);
+  myRequest.onload = function () {
+    myData = JSON.parse(myRequest.responseText);
+    turnOffSearchFolders();
+    renderFamilyPhotos();
+  };
+  myRequest.send();
+}
+
+function renderHomePhoto() {
+  var archivesContainer = document.getElementById("homePhoto");
+  var htmlString = "";
+  var imageURL = "";
+  var thumb = "";
+
+  for (const obj of myData) {
+    imageURL = obj.path + obj.filename;
+    thumb = obj.prev_path + obj.filename;
+
+    htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
+
+    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
+  }
+}
+
+function renderFamilyPhotos() {
+  document.getElementById('imgs').style.display = 'block';
+  var familyContainer = document.getElementById("imgs");
+  var htmlString = "";
+  var imageURL = "";
+  var thumb = "";
+  var geneology = [];
+
+  document.getElementById("imgs").innerHTML = "";
+
+  for (const obj of myData) {
+    imageURL = obj.path + obj.filename;
+    thumb = obj.prev_path + obj.filename;
+
+    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
+
+    familyContainer.insertAdjacentHTML('beforeend', htmlString);
+  }
+  animatePhotos();
+}
+
 function closeFolders() {
   // var cFolder = document.getElementsByClassName('menu')[0].id
   var i = 0;
@@ -189,12 +271,24 @@ function closeFolders() {
   }
 }
 
-function getFamilyPhotos(obj, path, type) {
-  folderTitle = obj.innerHTML;
-  getPhotos(path, type);
+function turnOffFolders() {
+  var titleContainer = document.getElementById('thumbTitle');
+  // Hide search and tree and bring up back to tree button
+  document.getElementById('photosFolders').style.display = 'none';
+  document.getElementById('searchKw').style.display = 'none';
+  document.getElementById('searchFormButton').style.display = 'none';
+  document.getElementById('backToTree').style.display = 'block';
+  document.getElementById('backToSearch').style.display = 'none';
+  document.getElementById('thumbTitle').style.display = 'block';
+  if (!searchChoice) {
+    titleContainer.innerText = folderTitle;
+  } else {
+    titleContainer.innerText = "";
+  }
+  return;
 }
 
-function turnOffFolders() {
+function turnOffSearchFolders() {
   var titleContainer = document.getElementById('thumbTitle');
   // Hide search and tree and bring up back to tree button
   document.getElementById('photosFolders').style.display = 'none';
@@ -208,29 +302,9 @@ function turnOffFolders() {
   } else {
     titleContainer.innerText = "";
   }
-
   return;
 }
 
-var myData;
-
-function getPhotos(path, type) {
-  searchChoice = false;
-  var myRequest = new XMLHttpRequest();
-  myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
-  myRequest.onload = function () {
-    myData = JSON.parse(myRequest.responseText);
-    switch (type) {
-      case 4:
-        renderHomePhoto();
-        break;
-      case 2:
-        renderFamilyPhotos();
-        break;
-    }
-  };
-  myRequest.send();
-}
 
 /*** SEARCH
  **********************************/
@@ -242,27 +316,8 @@ function prepareSearchScreen() {
   document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
-  // document.getElementById('backToSearch').style.display = 'block';
+  document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('searchKw').style.display = 'block';
-}
-
-function searchInputs() {
-  searchChoice = true;
-  folderTitle = "";
-  var searchFormData = [];
-  searchFormData = getSearchInputs();
-
-  var myRequest = new XMLHttpRequest();
-  myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
-    '&wExact=' + searchFormData.wExact.toString() + '&wPart=' + searchFormData.wPart.toString() +
-    '&searchKw=' + searchFormData.searchClefs.toString() + '&searchTitles=' + searchFormData.searchTitres.toString() + '&searchComments=' + searchFormData.searchComment.toString() + '&photoId=' + searchFormData.photoId +
-    '&idUnique=' + searchFormData.idUnique.toString() + '&idContext=' + searchFormData.idContext.toString(), true);
-  myRequest.onload = function () {
-    myData = JSON.parse(myRequest.responseText);
-    turnOffFolders();
-    renderFamilyPhotos();
-  };
-  myRequest.send();
 }
 
 function getSearchInputs() {
@@ -297,48 +352,10 @@ function backToSearch() {
   // document.getElementById('photosFolders').style.display = 'block';
   // document.getElementById('searchKw').style.display = 'block';
   document.getElementById('imgs').style.display = 'none';
-  document.getElementById('backToSearch').style.display = 'none';
-  document.getElementById('backToTree').style.display = 'block';
+  document.getElementById('backToSearch').style.display = 'block';
+  document.getElementById('backToTree').style.display = 'none';
   document.getElementById('thumbTitle').style.display = 'none';
   searchForm();
-}
-
-function renderHomePhoto() {
-  var archivesContainer = document.getElementById("homePhoto");
-  var htmlString = "";
-  var imageURL = "";
-  var thumb = "";
-
-  for (const obj of myData) {
-    imageURL = obj.path + obj.filename;
-    thumb = obj.prev_path + obj.filename;
-
-    htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
-
-    archivesContainer.insertAdjacentHTML('beforeend', htmlString)
-  }
-}
-
-function renderFamilyPhotos() {
-  turnOffFolders();
-  document.getElementById('imgs').style.display = 'block';
-  var familyContainer = document.getElementById("imgs");
-  var htmlString = "";
-  var imageURL = "";
-  var thumb = "";
-  var geneology = [];
-
-  document.getElementById("imgs").innerHTML = "";
-
-  for (const obj of myData) {
-    imageURL = obj.path + obj.filename;
-    thumb = obj.prev_path + obj.filename;
-
-    htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
-
-    familyContainer.insertAdjacentHTML('beforeend', htmlString);
-  }
-  animatePhotos();
 }
 
 /* Controle of right and left keys

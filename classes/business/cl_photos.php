@@ -15,6 +15,7 @@ class Photos implements JsonSerializable
   private $m_pdf;
   private $m_geneolIdx;
   private $m_geneolNames;
+  private $m_rptTitle;
 
   public function set_Idpho($idpho)
   {
@@ -157,6 +158,25 @@ class Photos implements JsonSerializable
     $this->m_geneolNames = utf8_encode($m_geneolNames);
   }
 
+  /**
+   * @param mixed $m_rptTitle
+   */
+  public function set_rptTitle($m_rptTitle): void
+  {
+    $this->m_rptTitle = $m_rptTitle;
+  }
+
+  /**
+   * @return mixed
+   */
+  /**
+   * @return mixed
+   */
+  public function get_rptTitle()
+  {
+    return $this->m_rptTitle;
+  }
+
   public function jsonSerialize()
   {
     return [
@@ -171,7 +191,8 @@ class Photos implements JsonSerializable
       'filename' => $this->get_Filename(),
       'pdf_pho' => $this->get_Pdf(),
       'geneolidx' => $this->get_GeneolIdx(),
-      'geneolnames' => $this->get_GeneolNames()
+      'geneolnames' => $this->get_GeneolNames(),
+      'rptTitle' => $this->get_rptTitle()
     ];
   }
 

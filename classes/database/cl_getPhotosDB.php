@@ -224,6 +224,7 @@ class photosBD
         $photo->set_GeneolIdx($this->buildIdxList($row["idgen_pho"]));
         $photo->set_GeneolNames($this->buildNamesList($row['idgen_pho']));
       }
+      $photo->set_rptTitle($row['title_rpt']);
 
       array_push($photoArray, $photo);
 

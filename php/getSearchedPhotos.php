@@ -19,9 +19,10 @@ $photoPid = $_GET['photoId'];
 $idUnique = $_GET['idUnique'];
 $idContext = $_GET['idContext'];
 
-$kwArr = explode(',', $kwords);
-array_walk($kwArr, trimValue);
-
+if ($kwords != "nothingness") {
+  $kwArr = explode(',', $kwords);
+  array_walk($kwArr, trimValue);
+}
 $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
 require_once '../classes/database/cl_getPhotosDB.php';
