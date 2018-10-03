@@ -22,7 +22,7 @@ $idContext = $_GET['idContext'];
 $kwArr = explode(',', $kwords);
 array_walk($kwArr, trimValue);
 
-$searchData = array($kwords, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
+$searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
 require_once '../classes/database/cl_getPhotosDB.php';
 $db = new photosBD();

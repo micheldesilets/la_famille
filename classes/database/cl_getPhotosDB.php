@@ -59,57 +59,113 @@ class photosBD
     $idUnique = $searchData[9];
     $idContext = $searchData[10];
 
+    if ($startYear == "debut") {
+      $startYear = "1900";
+    }
+    if ($endYear == "fin") {
+      $endYear = "2050";
+    }
+
     $sql = "SELECT *
             FROM photos_pho pho
             INNER JOIN photosFolders_pfo pfo
             ON pfo.idrpt_pfo = pho.idrpt_pho
             JOIN repository_titles_rpt rpt 
-            ON pfo.idrpt_pfo = rpt.id_rpt ";
-
-    /*    if ($photoPid != ""){
-          $sql = "SELECT *
-                FROM photos_pho pho
-                INNER JOIN photosFolders_pfo pfo
-                ON pfo.idrpt_pfo = pho.idrpt_pho
-                JOIN repository_titles_rpt rpt
-                ON pfo.idrpt_pfo = rpt.id_rpt
-                WHERE pho.id_pho = $photoPid";
-        };*/
+            ON pfo.idrpt_pfo = rpt.id_rpt
+            WHERE  ";
 
     if ($photoPid != "") {
       if ($idContext == "true") {
-        $sql .= "WHERE rpt.idtyp_rpt = 2 AND pho.idrpt_pho = (SELECT idrpt_pho FROM photos_pho pp WHERE pp.id_pho= $photoPid)";
+        $sql .= "rpt.idtyp_rpt = 2 AND pho.idrpt_pho = (SELECT idrpt_pho FROM photos_pho pp WHERE pp.id_pho= $photoPid)";
       } else {
-        $sql .= "WHERE rpt.idtyp_rpt = 2 AND pho.id_pho = $photoPid";
+        $sql .= "rpt.idtyp_rpt = 2 AND pho.id_pho = $photoPid";
       }
-    }
+    } else {
+      if (count($kwords) > 0) {
+        if ($wPart == "true") {
+          if ($searchKw == "true") {
+            $sql .= "(pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
+          } else {
+            if ($searchComments == "true") {
+              $sql .= "(pho.caption_pho LIKE '%" . $kwords[0] . "%'";
+            } else {
+              if ($searchTitles == "true") {
+                $sql .= "(pho.title_pho LIKE '%" . $kwords[0] . "%'";
+              }
+            }
+          }
+          if ($searchKw == "true") {
+            for ($i = 1; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
+              }
+            }
+          }
+          if ($searchComments == "true") {
+            for ($i = 0; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
+              }
+            }
+          }
+          if ($searchTitles == "true") {
+            for ($i = 0; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.title_pho LIKE '%" . $kwords[$i] . "%'";
+              }
+            }
+          }
+          $sql .= ")";
+        } else {
+          if ($searchKw == "true") {
+            $sql .= "(pho.keywords_pho REGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
+          } else {
+            if ($searchComments == "true") {
+              $sql .= "(pho.caption_pho LREGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
+            } else {
+              if ($searchTitles == "true") {
+                $sql .= "(pho.title_pho REGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
+              }
+            }
+          }
+          if ($searchKw == "true") {
+            for ($i = 1; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.keywords_pho REGEXP '[[:<:]]" . $kwords[$i] . "[[:>:]]'";
+              }
+            }
+          }
+          if ($searchComments == "true") {
+            for ($i = 0; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.caption_pho REGEXP '[[:<:]]" . $kwords[$i] . "[[:>:]]'";
+              }
+            }
+          }
+          if ($searchTitles == "true") {
+            for ($i = 0; $i < count($kwords); $i++) {
+              if (!empty($kwords[$i])) {
+                $sql .= " OR pho.title_pho REGEXP '[[:<:]]" . $kwords[$i] . "[[:>:]]'";
+              }
+            }
+          }
+          $sql .= ")";
+        }
+      }
+      if (count($kwords) > 0) {
+        $sql .= " AND ";
+      }
+      $sql .= "(year_pho >= '" . $startYear . "' AND year_pho <= '" . $endYear . "')";
 
-    /*
-        $sql = "SELECT *
-                FROM photos_pho pho
-                INNER JOIN photosFolders_pfo pfo
-                ON pfo.idrpt_pfo = pho.idrpt_pho
-                JOIN repository_titles_rpt rpt
-                ON pfo.idrpt_pfo = rpt.id_rpt
-                WHERE (pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
-        for ($i = 1; $i < count($kwords); $i++) {
-          if (!empty($kwords[$i])) {
-            $sql .= " OR pho.keywords_pho LIKE '%" . $kwords[$i] . "%'";
-          }
-        }
-        for ($i = 0; $i < count($kwords); $i++) {
-          if (!empty($kwords[$i])) {
-            $sql .= " OR pho.caption_pho LIKE '%" . $kwords[$i] . "%'";
-          }
-        }
-        $sql = $sql . ") AND (rpt.idtyp_rpt = 1 OR rpt.idtyp_rpt = 2) ORDER BY pho.year_pho";
-        */
+    }
+    $sql .= " AND rpt.idtyp_rpt = 2 ORDER BY pho.year_pho";
 
     $json = $this->createJason($sql);
     echo $json;
   }
 
-  private function createJason($sql)
+  private
+  function createJason($sql)
   {
     include '../connection/connect.php';
     require_once '../classes/business/cl_photos.php';
@@ -195,7 +251,8 @@ class photosBD
     return $json;
   }
 
-  private function buildNamesList($idxs)
+  private
+  function buildNamesList($idxs)
   {
     $namesList = "";
     $array = explode(',', $idxs);
@@ -214,7 +271,8 @@ class photosBD
     return $namesList;
   }
 
-  private function buildIdxList($idxs)
+  private
+  function buildIdxList($idxs)
   {
     $idxList = "";
     $array = explode(',', $idxs);
@@ -233,7 +291,8 @@ class photosBD
     return $idxList;
   }
 
-  private function getName($sql)
+  private
+  function getName($sql)
   {
     include '../connection/connect.php';
     require_once '../classes/business/cl_photos.php';
@@ -250,7 +309,8 @@ class photosBD
     return $row[name_gen];
   }
 
-  private function getIndex($sql)
+  private
+  function getIndex($sql)
   {
     include '../connection/connect.php';
     require_once '../classes/business/cl_photos.php';
