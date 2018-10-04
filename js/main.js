@@ -297,10 +297,10 @@ function turnOffSearchFolders() {
   document.getElementById('backToTree').style.display = 'block';
   // document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('thumbTitle').style.display = 'block';
-  if (!searchChoice) {
-    titleContainer.innerText = folderTitle;
+  if (document.getElementById('searchKw').elements['idContext'].checked != true) {
+    titleContainer.innerText = '';
   } else {
-    titleContainer.innerText = "";
+    titleContainer.innerText = myData[0].rptTitle;
   }
   document.getElementById("backToTree").onclick = function () {
     backToSearch()
