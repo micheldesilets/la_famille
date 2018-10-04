@@ -278,7 +278,7 @@ function turnOffFolders() {
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
-  document.getElementById('backToSearch').style.display = 'none';
+  // document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('thumbTitle').style.display = 'block';
   if (!searchChoice) {
     titleContainer.innerText = folderTitle;
@@ -294,14 +294,17 @@ function turnOffSearchFolders() {
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('searchFormButton').style.display = 'none';
-  document.getElementById('backToTree').style.display = 'none';
-  document.getElementById('backToSearch').style.display = 'block';
+  document.getElementById('backToTree').style.display = 'block';
+  // document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('thumbTitle').style.display = 'block';
   if (!searchChoice) {
     titleContainer.innerText = folderTitle;
   } else {
     titleContainer.innerText = "";
   }
+  document.getElementById("backToTree").onclick = function () {
+    backToSearch()
+  };
   return;
 }
 
@@ -316,8 +319,11 @@ function prepareSearchScreen() {
   document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('photosFolders').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
-  document.getElementById('backToSearch').style.display = 'none';
+  // document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('searchKw').style.display = 'block';
+  document.getElementById("backToTree").onclick = function () {
+    backToTree()
+  };
 }
 
 function getSearchInputs() {
@@ -360,8 +366,8 @@ function backToSearch() {
   // document.getElementById('photosFolders').style.display = 'block';
   // document.getElementById('searchKw').style.display = 'block';
   document.getElementById('imgs').style.display = 'none';
-  document.getElementById('backToSearch').style.display = 'block';
-  document.getElementById('backToTree').style.display = 'none';
+  // document.getElementById('backToSearch').style.display = 'block';
+  document.getElementById('backToTree').style.display = 'block';
   document.getElementById('thumbTitle').style.display = 'none';
   searchForm();
 }
