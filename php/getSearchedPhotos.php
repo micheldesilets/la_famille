@@ -27,6 +27,15 @@ if ($kwords != "nothingness") {
 if ($photoPid == "nothing") {
   $photoPid = "";
 }
+
+if ($startYear == "debut") {
+  $startYear = '1900';
+}
+
+if ($endYear == 'fin') {
+  $endYear = '2050';
+}
+
 $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
 require_once '../classes/database/cl_getPhotosDB.php';

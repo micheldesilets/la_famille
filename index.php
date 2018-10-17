@@ -25,6 +25,13 @@
 <div class="page">
   <!-- ==== START MASTHEAD ==== -->
   <header class="masthead-1" role="banner" id="myHeader">
+    <div class="dropdown">
+      <button class="dropbtn">Administration</button>
+      <div class="dropdown-content">
+        <a href="#">Ajout d'un répertoire</a>
+        <a href="#">Importation de métadata</a>
+      </div>
+    </div>
     <input type="button" id="myAccount" value="Mon compte" onclick="#">
     <!--    <label for="myAccount">Mon compte</label>-->
     <!--    <p class="logo"><a href="/"><img .../></a></p>-->

@@ -278,7 +278,6 @@ function turnOffFolders() {
   document.getElementById('searchKw').style.display = 'none';
   document.getElementById('searchFormButton').style.display = 'none';
   document.getElementById('backToTree').style.display = 'block';
-  // document.getElementById('backToSearch').style.display = 'none';
   document.getElementById('thumbTitle').style.display = 'block';
   if (!searchChoice) {
     titleContainer.innerText = folderTitle;
@@ -388,9 +387,27 @@ document.onkeydown = function (e) {
       nextImage();
       break;
     case 40:
-      // alert('down');
+      alert('down');
+      break;
+    case 45:
+      alert('down');
       break;
   }
+}
+
+function cancelPid() {
+  document.getElementById('pid').value = "";
+  document.getElementById('idUnique').checked = true;
+}
+
+function cancelKeywords() {
+  document.getElementById('keywrds').value = "";
+  document.getElementById('debut').value = "debut";
+  document.getElementById('fin').value = "fin";
+  document.getElementById('wPart').checked = true;
+  document.getElementById('clefs').checked = true;
+  document.getElementById('titres').checked = true;
+  document.getElementById('commentaires').checked = true;
 }
 
 /*var input = document.getElementById("goButton");

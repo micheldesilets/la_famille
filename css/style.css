@@ -190,7 +190,7 @@ main {
 
 .masthead-1 h1 {
   text-align: center;
-  padding-left: 85px;
+  margin-top: 0;
 }
 
 .masthead h2, .masthead-1 h2 {
@@ -211,6 +211,59 @@ main {
 
 #searchKw {
   display: none;
+}
+
+.dropbtn {
+  /*background-color: #4CAF50;*/
+  color: white;
+  /*padding: 16px;*/
+  /*font-size: 16px;*/
+  border: none;
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: Raleway;
+  font-style: normal;
+  font-size: small;
+  /*  text-decoration: none;
+    background-color: white;*/
+}
+
+.dropbtn {
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 5px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #F8F8F8;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #F0F0F0;
 }
 
 #myAccount, #searchFormButton {
@@ -658,6 +711,11 @@ main .description {
 #menu4:checked ~ .multi-level4, #menu5:checked ~ .multi-level5, #menu6:checked ~ .multi-level6, #menu7:checked ~ .multi-level7,
 #menu8:checked ~ .multi-level8, #menu9:checked ~ .multi-level9 {
   display: block;
+}
+
+.sub-item ul li:hover, .itemL2 li:hover {
+  background-color: #F8F8F8;
+  cursor: pointer;
 }
 
 /* Arrow */
