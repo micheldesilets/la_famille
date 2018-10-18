@@ -90,6 +90,8 @@ body {
   background-repeat: no-repeat;
   background-position: top left;
   background-size: 100%;
+  /*background-color: #fdf7f2;*/
+  background-color: #fdfaf6;
 }
 
 .subhead {
@@ -214,29 +216,18 @@ main {
   display: none;
 }
 
-.dropbtn {
-  /*background-color: #4CAF50;*/
-  color: white;
-  /*padding: 16px;*/
-  /*font-size: 16px;*/
-  border: none;
-
-}
-
 .dropdown {
   position: relative;
   display: inline-block;
   font-family: Raleway;
   font-style: normal;
   font-size: small;
-  /*  text-decoration: none;
-    background-color: white;*/
 }
 
 .dropbtn {
-  background-color: white;
   border: none;
   color: black;
+  background-color: #fdfaf6;
 }
 
 .dropdown-content {
@@ -269,7 +260,7 @@ main {
 
 #myAccount, #searchFormButton {
   float: right;
-  background-color: white;
+  background-color: #fdfaf6;
   border: none;
   font-family: Raleway;
   font-style: normal;
@@ -325,20 +316,24 @@ main {
 
 .repositH1 {
   font-size: x-large;
-  text-align: center;
+  text-align: right;
   float: left;
-  width: 75%;
-  padding-left: 89px;
+  width: 63%;
 }
 
 #repositX {
   font-weight: bold;
-  width: 10%;
+  width: 15%;
   float: right;
   text-align: right;
   cursor: pointer;
   padding-top: 25px;
-  padding-right: 5px;
+
+}
+
+.repositFieldset {
+  width: 97.3%;
+  height: 400px;
 }
 
 main > .post:first-child > h1 {
@@ -734,7 +729,7 @@ main .description {
 }
 
 .sub-item ul li:hover, .itemL2 li:hover {
-  background-color: #F8F8F8;
+  background-color: lightgrey;
   cursor: pointer;
 }
 
@@ -800,8 +795,8 @@ label:hover {
 
 .drop-down {
   width: 100%;
-  background-color: white;
   overflow-x: hidden;
+  background-color: #fdfaf6;
 }
 
 .drop-down ul {

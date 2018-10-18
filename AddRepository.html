@@ -14,25 +14,19 @@
 <body>
 <div class="page">
 
-
-  <h1 class="repositH1">Ajout d'un répertoire</h1>
-
-  <div class="clearfix">
+  <div class="repositHeader">
+    <h1 class="repositH1">Ajout d'un répertoire</h1>
     <div>
       <a href="index.php" id="repositX">X</a>
-      <!--      <button id="repositX" onclick="index.html">
-      <!--        <button id="repositX" onclick="index.html">-->
-      <!--          <button id="backToSearch" onclick="index.html">-->
-      <!--<strong>X</strong>
-    </button>-->
     </div>
   </div>
-  <div class="container">
-    <!-- ==== START MAIN ==== -->
+
+  <!-- ==== START MAIN ==== -->
+  <div class="repositContainer">
     <main role="main">
       <section class="repository">
         <form action="javascript:addRepository()" id="addReposit">
-          <fieldset>
+          <fieldset class="repositFieldset">
             <label for="repositTitle">Nom du répertoire</label>
             <input type="text" id="repositTitle" size="50"
                    onkeypress="javascript:cancelPid()"><br>
