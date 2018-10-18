@@ -28,7 +28,7 @@
     <div class="dropdown">
       <button class="dropbtn">Administration</button>
       <div class="dropdown-content">
-        <a href="#">Ajout d'un répertoire</a>
+        <a href="addRepository.html">Ajout d'un répertoire</a>
         <a href="#">Importation de métadata</a>
       </div>
     </div>
