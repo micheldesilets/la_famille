@@ -386,12 +386,12 @@ document.onkeydown = function (e) {
       // alert('right');
       nextImage();
       break;
-    case 40:
-      alert('down');
-      break;
-    case 45:
-      alert('down');
-      break;
+    /*    case 40:
+          alert('down');
+          break;
+        case 45:
+          alert('down');
+          break;*/
   }
 }
 
@@ -712,3 +712,39 @@ function objModal(e) {
     bdy.style.overflow = 'visible';
   }
 }
+
+/*** ADD REPOSITORY
+ ********************************/
+
+function addRepository() {
+  repositoryChoice = true;
+  folderTitle = "";
+  var repositoryFormData = [];
+  repositoryData = getRepositInputs();
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+    '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+    '&title=' + repositoryData.title, true);
+  /*
+      myRequest.onload = function () {
+        myData = JSON.parse(myRequest.responseText);
+        turnOffSearchFolders();
+        renderFamilyPhotos();
+      };*/
+  myRequest.send();
+}
+
+function getRepositInputs() {
+  var repositoryData = [];
+  var repositoryDoc = document.getElementById('addReposit');
+
+  repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
+  repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
+  repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
+  repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
+  repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
+
+  return repositoryData;
+}
+

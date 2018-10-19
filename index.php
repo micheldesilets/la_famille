@@ -129,7 +129,5 @@
   <!-- end page footer -->
 </div>
 <!-- end page -->
-<script>
-</script>
 </body>
 </html>
