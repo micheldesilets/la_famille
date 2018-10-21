@@ -725,13 +725,8 @@ function addRepository() {
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
     '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-    '&title=' + repositoryData.title, true);
-  /*
-      myRequest.onload = function () {
-        myData = JSON.parse(myRequest.responseText);
-        turnOffSearchFolders();
-        renderFamilyPhotos();
-      };*/
+    '&title=' + repositoryData.title + '&function=addRepository', true);
+
   myRequest.send();
 }
 
@@ -748,3 +743,34 @@ function getRepositInputs() {
   return repositoryData;
 }
 
+function getYearsSelected() {
+  var myYearsData;
+  var decade = document.getElementById("repositSelectDecade").value;
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/addRepository.php?decade=' + decade + '&function=getYearsSelected');
+  myRequest.onload = function () {
+    myYearsData = JSON.parse(myRequest.responseText);
+    renderYears(myYearsData);
+  };
+
+  myRequest.send();
+}
+
+function renderYears(data) {
+  var yearContainer = document.getElementById('repositSelectYear');
+  var htmlString = "";
+
+  document.getElementById("repositSelectYear").innerHTML = "";
+
+  for (const obj of data) {
+
+    // htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
+    htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
+    yearContainer.insertAdjacentHTML('beforeend', htmlString);
+  }
+  htmlString = "<option value=\"1\">NA</option>";
+  yearContainer.insertAdjacentHTML('beforeend', htmlString);
+  /*<option value="46">2018</option>
+      <option value="1">NA</option>*/
+}

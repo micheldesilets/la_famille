@@ -10,7 +10,7 @@
   <!--[if lt IE 9]>
   <![endif]-->
 </head>
-<body>
+<body onload="javascript:getYearsSelected();">
 <div class="page">
 
   <div class="repositHeader">
@@ -59,8 +59,9 @@
 
             <div class="repositDecade">
               <label for="repositSelectDecade" class="repositDecadeLabel">Décennie</label>
-              <select id="repositSelectDecade">
-                <option value="2">1970-1979</option>
+              <select id="repositSelectDecade" onchange="javascript:getYearsSelected();"
+                      onfocus="this.selectedIndex = -1;">
+                <option value="2" selected>1970-1979</option>
                 <option value="3">1980-1989</option>
                 <option value="4">1990-1999</option>
                 <option value="5">2000-2009</option>
@@ -72,10 +73,6 @@
             <div class="repositYear">
               <label for="repositSelectYear" class="repositYearLabel">Année</label>
               <select id="repositSelectYear">
-                <option value="2">1970</option>
-                <option value="3">1971</option>
-                <option value="4">1972</option>
-                <option value="1">NA</option>
               </select><br>
             </div>
 
