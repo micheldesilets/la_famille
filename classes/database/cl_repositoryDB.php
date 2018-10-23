@@ -7,6 +7,7 @@
  */
 class repository
 {
+
   function addRepository($repositData)
   {
     // current directory
@@ -19,6 +20,7 @@ class repository
     $decade = $repositData[2];
     $year = $repositData[3];
     $title = $repositData[4];
+    $levels = $repositData[5];
 
     $repositArray = array();
     $repository = new cl_repository();
@@ -49,6 +51,7 @@ class repository
     $repository->set_Decade(mysqli_fetch_array($result, MYSQLI_ASSOC));
     $repository->set_Year(mysqli_fetch_array($result, MYSQLI_ASSOC));
     $repository->set_Title($title);
+    $repository->set_Levels($levels);
 
     mysqli_close($con);
 
@@ -101,7 +104,6 @@ class repository
     };
   }
 
-
   function getYearsSelected($decade)
   {
     $wd = getcwd();
@@ -114,7 +116,7 @@ class repository
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set
       $rowcount = mysqli_num_rows($result);
-      /* printf("Result set has %d rows.\n", $rowcount); */
+      /* printf("Result set has % d rows . \n", $rowcount); */
     } else {
       echo("nothing");
     };
@@ -148,6 +150,7 @@ class repository
       // Avoid echo of empty string (which is invalid JSON), and
       // JSONify the error message instead:
       $json = json_encode(array("jsonError", json_last_error_msg()));
+
       if ($json === false) {
         // This should not happen, but we go all the way now:
         $json = '{"jsonError": "unknown"}';

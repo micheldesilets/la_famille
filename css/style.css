@@ -222,6 +222,11 @@ main {
   font-family: Raleway;
   font-style: normal;
   font-size: small;
+
+}
+
+.dropdown a {
+  background-color: #fdfaf6;
 }
 
 .dropbtn {

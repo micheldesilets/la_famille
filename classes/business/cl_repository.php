@@ -8,11 +8,28 @@
 
 class cl_repository implements JsonSerializable
 {
+  private $m_levels;
   private $m_type;
   private $m_author;
   private $m_decade;
   private $m_year;
   private $m_title;
+
+  /**
+   * @return mixed
+   */
+  public function get_Levels()
+  {
+    return $this->m_levels;
+  }
+
+  /**
+   * @param mixed $m_levels
+   */
+  public function set_Levels($m_levels): void
+  {
+    $this->m_levels = $m_levels;
+  }
 
   /**
    * @param mixed $m_type

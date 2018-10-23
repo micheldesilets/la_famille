@@ -6,28 +6,29 @@
  * Time: 10:07
  */
 header('content-type: text/javascript');
-require_once '../classes/database/cl_repositoryDB.php';
 
 $function = $_GET['function'];
 
 if ($function == addRepository) {
+  require_once '../classes/database/cl_repositoryDB.php';
   $type = $_GET['type'];
   $author = $_GET['author'];
   $decade = $_GET['decade'];
   $year = $_GET['year'];
   $title = $_GET['title'];
+  $levels = $_GET['levels'];
 
-  $repositData = array($type, $author, $decade, $year, $title);
+  $repositData = array($type, $author, $decade, $year, $title, $levels);
 
   $db = new repository();
-  $repository = $db->addRepository($repositData);
+  $db->addRepository($repositData);
 }
 
 if ($function == getYearsSelected) {
+  require_once '../classes/database/cl_repositoryDB.php';
   $decade = $_GET['decade'];
 
-//  require_once '../classes/database/cl_repositoryDB.php';
   $db = new repository();
-  $repository = $db->getYearsSelected($decade);
+  $db->getYearsSelected($decade);
 }
 

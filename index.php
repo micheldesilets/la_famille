@@ -61,10 +61,10 @@
   <div class="sidebar">
     <article class="about">
       <img src="<?php echo($locSb); ?>" alt="Michel Desilets"
-           class="myself">
+           class="" myself" >
       <p>En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu celle
         de ceux avec qui j'ai partagé ma vie.</p>
-      <img src="img/home/Signature.jpg" alt="" class="signature">
+      <img src="img/home/TransparantSignature02.jpg" alt="" class="signature">
       <!--        <h2>About Me</h2>-->
       <!--        ...-->
     </article>

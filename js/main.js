@@ -725,7 +725,23 @@ function addRepository() {
   var myRequest = new XMLHttpRequest();
   myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
     '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-    '&title=' + repositoryData.title + '&function=addRepository', true);
+    '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
+
+  myRequest.send();
+
+  addRepositoryMysql();
+}
+
+function addRepositoryMysql() {
+  repositoryChoice = true;
+  folderTitle = "";
+  var repositoryFormData = [];
+  repositoryData = getRepositInputs();
+
+  var myRequest = new XMLHttpRequest();
+  myRequest.open('GET', 'php/addRepositoryMysql.php?type=' + repositoryData.type +
+    '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+    '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
 
   myRequest.send();
 }
@@ -734,6 +750,7 @@ function getRepositInputs() {
   var repositoryData = [];
   var repositoryDoc = document.getElementById('addReposit');
 
+  repositoryData['levels'] = repositoryDoc.elements['repositSelectLevel'].value;
   repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
   repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
   repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
@@ -765,12 +782,10 @@ function renderYears(data) {
 
   for (const obj of data) {
 
-    // htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
     htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
     yearContainer.insertAdjacentHTML('beforeend', htmlString);
   }
   htmlString = "<option value=\"1\">NA</option>";
   yearContainer.insertAdjacentHTML('beforeend', htmlString);
-  /*<option value="46">2018</option>
-      <option value="1">NA</option>*/
+
 }
