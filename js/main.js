@@ -770,6 +770,12 @@ function getRepositInputs() {
     return repositoryData;
 }
 
+/*** Add Lightroom data to database
+ *********************************/
+function addMetadataToDB() {
+
+}
+
 function getYearsSelected() {
     var myYearsData;
     var decade = document.getElementById("repositSelectDecade").value;

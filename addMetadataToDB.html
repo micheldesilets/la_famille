@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media_query.css" media="screen">
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body onload="#">
+<div class="page">
+
+    <div class="repositHeader">
+        <h1 class="repositH1">Ajout de métadonnées</h1>
+        <div>
+            <a href="index.php" id="repositX">X</a>
+        </div>
+    </div>
+
+    <!-- ==== START MAIN ==== -->
+    <div class="repositContainer">
+        <main role="main">
+            <section class="repository">
+                <form action="javascript:addRepository()" id="addReposit">
+                    <fieldset class="repositFieldset">
+                        <input type="submit" value="Soumettre" class="repositGoButton"><br>
+
+                        <div class="repositLevel">
+                            <label for="repositSelectLevel" class="repositLevelLabel">Nombre de niveaux</label>
+                            <select id="repositSelectLevel">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4" selected>4</option>
+                            </select><br>
+                        </div>
+
+                        <div class="repositType">
+                            <label for="repositSelectType" class="repositTypeLabel">Type de regroupement</label>
+                            <select id="repositSelectType">
+                                <option value="2" selected>Famille</option>
+                                <option value="3">Livres</option>
+                                <option value="6">Objets</option>
+                            </select><br>
+                        </div>
+
+                        <div class="repositAuthor">
+                            <label for="RepositSelectAuthor" class="repositAuthorLabel">Auteur</label>
+                            <select id="repositSelectAuthor">
+                                <option value="2" selected>Michel</option>
+                                <option value="3">Amélie</option>
+                                <option value="4">Chantal</option>
+                                <option value="5">Archives</option>
+                                <option value="1">NA</option>
+                            </select><br>
+                        </div>
+
+                        <div class="repositDecade">
+                            <label for="repositSelectDecade" class="repositDecadeLabel">Décennie</label>
+                            <select id="repositSelectDecade" onchange="javascript:getYearsSelected();">
+                                <option value="2" selected>1970-1979</option>
+                                <option value="3">1980-1989</option>
+                                <option value="4">1990-1999</option>
+                                <option value="5">2000-2009</option>
+                                <option value="6">2010-2019</option>
+                                <option value="1">NA</option>
+                            </select><br>
+                        </div>
+
+                        <div class="repositYear">
+                            <label for="repositSelectYear" class="repositYearLabel">Année</label>
+                            <select id="repositSelectYear">
+                            </select><br>
+                        </div>
+
+                        <div class="repositName">
+                            <label for="repositTitle" class="repositNameLabel">Nom du répertoire</label>
+                            <input type="text" id="repositTitle" size="50"><br>
+                        </div>
+                    </fieldset>
+                </form>
+
+
+            </section>
+
+        </main>
+        <!-- end main -->
+    </div>
+    <!-- end container -->
+</div>
+<!-- end page -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
