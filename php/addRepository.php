@@ -32,3 +32,18 @@ if ($function == getYearsSelected) {
   $db->getYearsSelected($decade);
 }
 
+if ($function == addRepositoryMysql) {
+    require_once '../classes/database/cl_repositoryDB.php';
+    $type = $_GET['type'];
+    $author = $_GET['author'];
+    $decade = $_GET['decade'];
+    $year = $_GET['year'];
+    $title = $_GET['title'];
+    $levels = $_GET['levels'];
+
+    $repositData = array($type, $author, $decade, $year, $title, $levels);
+
+    $db = new repository();
+    $db->addRepositoryMysql($repositData);
+}
+

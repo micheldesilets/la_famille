@@ -183,8 +183,8 @@ class Photos implements JsonSerializable
       'idpho' => $this->get_idpho(),
       'title' => $this->get_Title(),
       'keywords' => $this->get_Keywords(),
-      'height' => $this->get_Height(),
-      'width' => $this->get_Width(),
+        /*      'height' => $this->get_Height(),
+              'width' => $this->get_Width(),*/
       'caption' => $this->get_Caption(),
       'path' => $this->get_F_Path(),
       'prev_path' => $this->get_P_Path(),
@@ -197,5 +197,3 @@ class Photos implements JsonSerializable
   }
 
 }
-
-

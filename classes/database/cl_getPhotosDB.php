@@ -198,8 +198,8 @@ class photosBD
       } else {
         $photo->set_Keywords($row["keywords_pho"]);
       }
-      $photo->set_Height($row["height_pho"]);
-      $photo->set_Width($row["width_pho"]);
+        /*      $photo->set_Height($row["height_pho"]);
+              $photo->set_Width($row["width_pho"]);*/
       if ($row["caption_pho"] == null) {
         $photo->set_Caption("");
       } else {
@@ -232,9 +232,9 @@ class photosBD
     endwhile;
 
     // Free result set
-    mysqli_free_result($result);
+      mysqli_free_result($result);
 
-    mysqli_close($con);
+      mysqli_close($con);
 
     header("Content-Type: application/json");
     $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -307,7 +307,7 @@ class photosBD
 
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    return $row[name_gen];
+      return $row['name_gen'];
   }
 
   private
@@ -325,7 +325,7 @@ class photosBD
 
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    return $row[index_gen];
+      return $row['index_gen'];
 
   }
 }

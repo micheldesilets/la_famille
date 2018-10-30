@@ -160,4 +160,28 @@ class repository
     }
     echo $json;
   }
+
+    function addRepositoryMysql($repositData)
+    {
+        $curr = getcwd();
+        include '../connection/connect.php';
+
+        $typePhoto = $repositData[0];
+        $author = $repositData[1];
+        $decade = $repositData[2];
+        $year = $repositData[3];
+        $title = $repositData[4];
+        $levels = $repositData[5];
+
+        $sql = "CALL addRepository($typePhoto,'" . $title . "',$author,$decade,$year,$levels)";
+
+        if (mysqli_query($con, $sql)) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . " < br>" . mysqli_error($con);
+        }
+
+        mysqli_close($con);
+        return;
+    }
 }

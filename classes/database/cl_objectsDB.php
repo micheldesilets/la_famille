@@ -40,7 +40,7 @@ class objectsDB
       $object = new Objects();
 
       $object->set_description($row["description_obj"]);
-      $object->set_File($row[preview_pfo] . $row['file_obj']);
+        $object->set_File($row['preview_pfo'] . $row['file_obj']);
       array_push($objectArray, $object);
 
       $l++;

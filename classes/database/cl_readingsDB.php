@@ -48,7 +48,7 @@ class readingsDB
       if (!empty($row['summary_rea'])) {
         $reading->set_sumary($row['summary_rea']);
       }
-      $reading->set_File($row[full_pfo] . $row['file_rea']);
+        $reading->set_File($row['full_pfo'] . $row['file_rea']);
       array_push($readingArray, $reading);
 
       $l++;

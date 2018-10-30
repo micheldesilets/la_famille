@@ -10,8 +10,11 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
-      <webServer id="4a7321da-4a49-49cb-a2fa-3bbf67122605" name="AMPPS Local Server" url="http://localhost/lesnormandeaudesilets">
-        <fileTransfer port="0" mountedRoot="E:\Program Files (x86)\Ampps\www" accessType="MOUNT" />
+      <webServer id="4a7321da-4a49-49cb-a2fa-3bbf67122605" name="Xampp Local Server" url="http://localhost/lesnormandeaudesilets">
+        <fileTransfer port="0" mountedRoot="E:\Xampp\htdocs" accessType="MOUNT" />
+      </webServer>
+      <webServer id="53e2f8ea-08a3-4a24-8b3a-f452d4fdbc86" name="lesnormandesdesilets" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="M:\WebSites\lesnormandeaudesilets" accessType="MOUNT" />
       </webServer>
     </option>
   </component>
