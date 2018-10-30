@@ -8,24 +8,24 @@
 class repository
 {
 
-  function addRepository($repositData)
-  {
-    // current directory
-    $wd = getcwd();
-    require_once '../classes/business/cl_repository.php';
-    include '../connection/connect.php';
+    function addRepository($repositData)
+    {
+        // current directory
+        $wd = getcwd();
+        require_once '../classes/business/cl_repository.php';
+        include '../connection/connect.php';
 
-    $type = $repositData[0];
-    $author = $repositData[1];
-    $decade = $repositData[2];
-    $year = $repositData[3];
-    $title = $repositData[4];
-    $levels = $repositData[5];
+        $type = $repositData[0];
+        $author = $repositData[1];
+        $decade = $repositData[2];
+        $year = $repositData[3];
+        $title = $repositData[4];
+        $levels = $repositData[5];
 
-    $repositArray = array();
-    $repository = new cl_repository();
+        $repositArray = array();
+        $repository = new cl_repository();
 
-    $sql = "SELECT typ.type_typ 
+        $sql = "SELECT typ.type_typ 
             FROM type_typ typ 
             WHERE typ.id_typ = $type
             UNION ALL
@@ -41,125 +41,124 @@ class repository
             FROM year_yea yea
             WHERE yea.id_yea = $year";
 
-    if ($result = mysqli_query($con, $sql)) {
-    } else {
-      echo("nothing");
-    };
+        if ($result = mysqli_query($con, $sql)) {
+        } else {
+            echo("nothing");
+        };
 
-    $repository->set_Type(mysqli_fetch_array($result, MYSQLI_ASSOC));
-    $repository->set_Author(mysqli_fetch_array($result, MYSQLI_ASSOC));
-    $repository->set_Decade(mysqli_fetch_array($result, MYSQLI_ASSOC));
-    $repository->set_Year(mysqli_fetch_array($result, MYSQLI_ASSOC));
-    $repository->set_Title($title);
-    $repository->set_Levels($levels);
+        $repository->set_Type(mysqli_fetch_array($result, MYSQLI_ASSOC));
+        $repository->set_Author(mysqli_fetch_array($result, MYSQLI_ASSOC));
+        $repository->set_Decade(mysqli_fetch_array($result, MYSQLI_ASSOC));
+        $repository->set_Year(mysqli_fetch_array($result, MYSQLI_ASSOC));
+        $repository->set_Title($title);
+        $repository->set_Levels($levels);
 
-    mysqli_close($con);
+        mysqli_close($con);
 
-    $this->createRepositoryFolder($repository);
+        $this->createRepositoryFolder($repository);
 
-    return;
-  }
-
-  /**
-   * @param $repository
-   */
-  function createRepositoryFolder($repository)
-  {
-    chdir('../');
-    $curr = getcwd();
-    $typePhoto = $repository->get_Type();
-    $author = $repository->get_Author();
-    $decade = $repository->get_Decade();
-    $year = $repository->get_Year();
-    $title = $repository->get_Title();
-
-    $path = $curr . '/img';
-
-    $path = $path . "/" . $typePhoto[type_typ];
-    if (!file_exists($path)) {
-      mkdir($path);
-    };
-
-    $path = $path . '/' . $author[type_typ];
-    if (!file_exists($path)) {
-      mkdir($path);
-    };
-
-    $path = $path . '/' . $decade[type_typ];
-    if (!file_exists($path)) {
-      mkdir($path);
-    };
-
-    $path = $path . '/' . $year[type_typ];
-    if (!file_exists($path)) {
-      mkdir($path);
-    };
-
-    $path = $path . '/' . $title;
-    if (!file_exists($path)) {
-      mkdir($path);
-      chdir($path);
-      mkdir('full');
-      mkdir('preview');
-    };
-  }
-
-  function getYearsSelected($decade)
-  {
-    $wd = getcwd();
-
-    require_once '../classes/business/cl_year.php';
-    include '../connection/connect.php';
-
-    $sql = "CALL getYearsSelected($decade)";
-
-    if ($result = mysqli_query($con, $sql)) {
-      // Return the number of rows in result set
-      $rowcount = mysqli_num_rows($result);
-      /* printf("Result set has % d rows . \n", $rowcount); */
-    } else {
-      echo("nothing");
-    };
-
-    $yearArray = array();
-    $l = 1;
-
-    while ($l <= $rowcount):
-      // Associative array
-      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-      $year = new cl_year();
-
-      $year->set_Idyea($row["id_yea"]);
-      $year->set_Decade($row["decade_deca"]);
-      $year->set_Year($row["year_yea"]);
-
-      array_push($yearArray, $year);
-
-      $l++;
-    endwhile;
-
-    // Free result set
-    mysqli_free_result($result);
-
-    mysqli_close($con);
-
-    header("Content-Type: application/json");
-    $json = json_encode($yearArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-      // Avoid echo of empty string (which is invalid JSON), and
-      // JSONify the error message instead:
-      $json = json_encode(array("jsonError", json_last_error_msg()));
-
-      if ($json === false) {
-        // This should not happen, but we go all the way now:
-        $json = '{"jsonError": "unknown"}';
-      }
-      // Set HTTP response status code to: 500 - Internal Server Error
-      http_response_code(500);
+        return;
     }
-    echo $json;
-  }
+
+    /**
+     * @param $repository
+     */
+    function createRepositoryFolder($repository)
+    {
+        chdir('../');
+        $curr = getcwd();
+        $typePhoto = $repository->get_Type();
+        $author = $repository->get_Author();
+        $decade = $repository->get_Decade();
+        $year = $repository->get_Year();
+        $title = $repository->get_Title();
+
+        $path = $curr . '/img';
+
+        $path = $path . "/" . $typePhoto[type_typ];
+        if (!file_exists($path)) {
+            mkdir($path);
+        };
+
+        $path = $path . '/' . $author[type_typ];
+        if (!file_exists($path)) {
+            mkdir($path);
+        };
+
+        $path = $path . '/' . $decade[type_typ];
+        if (!file_exists($path)) {
+            mkdir($path);
+        };
+
+        $path = $path . '/' . $year[type_typ];
+        if (!file_exists($path)) {
+            mkdir($path);
+        };
+
+        $path = $path . '/' . $title;
+        if (!file_exists($path)) {
+            mkdir($path);
+            chdir($path);
+            mkdir('full');
+            mkdir('preview');
+        };
+    }
+
+    function getYearsSelected($decade)
+    {
+        $wd = getcwd();
+
+        require_once '../classes/business/cl_year.php';
+        include '../connection/connect.php';
+
+        $sql = "CALL getYearsSelected($decade)";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+            /* printf("Result set has % d rows . \n", $rowcount); */
+        } else {
+            echo("nothing");
+        };
+
+        $yearArray = array();
+        $l = 1;
+
+        while ($l <= $rowcount):
+            // Associative array
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $year = new cl_year();
+
+            $year->set_Idyea($row["id_yea"]);
+            $year->set_Decade($row["decade_deca"]);
+            $year->set_Year($row["year_yea"]);
+
+            array_push($yearArray, $year);
+
+            $l++;
+        endwhile;
+
+        // Free result set
+        mysqli_free_result($result);
+
+        mysqli_close($con);
+
+        header("Content-Type: application/json");
+        $json = json_encode($yearArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        if ($json === false) {
+            // Avoid echo of empty string (which is invalid JSON), and
+            // JSONify the error message instead:
+            $json = json_encode(array("jsonError", json_last_error_msg()));
+            if ($json === false) {
+                // This should not happen, but we go all the way now:
+                $json = '{"jsonError": "unknown"}';
+            }
+            // Set HTTP response status code to: 500 - Internal Server Error
+            http_response_code(500);
+        }
+        echo $json;
+    }
 
     function addRepositoryMysql($repositData)
     {

@@ -338,7 +338,7 @@ main {
 
 .repositFieldset {
   width: 97.3%;
-  height: 400px;
+  height: 600px;
 }
 
 .repositGoButton {
@@ -346,7 +346,12 @@ main {
   float: right;
 }
 
-.repositLevelLabel, .repositTypeLabel, .repositAuthorLabel, .repositDecadeLabel, .repositYearLabel, .repositNameLabel {
+.repositName {
+  margin-bottom: 55px;
+}
+
+.repositLevelLabel, .repositTypeLabel, .repositAuthorLabel, .repositDecadeLabel, .repositYearLabel, .repositNameLabel,
+.repositPreviewLabel, .repositFullLabel, .repositOrigLabel, .repositMetaLabel {
   color: black;
   background-color: #fdfaf6;
   width: 20%;
@@ -356,9 +361,43 @@ main {
   margin-right: 10px;
 }
 
-#repositSelectType, #repositSelectLevel, #repositSelectAuthor, #repositSelectDecade, #repositSelectYear, #repositTitle {
+.repositPreviewLabel, .repositFullLabel, .repositOrigLabel, .repositMetaLabel {
+  width: 32%;
+  cursor: pointer;
+}
+
+#repositSelectType, #repositSelectLevel, #repositSelectAuthor, #repositSelectDecade, #repositSelectYear, #repositTitle,
+#repositPreview, #repositFull, #repositMeta, #repositOrig, #repositMetaText {
   display: block;
   background-color: #F8F8F8;
+}
+
+#repositMetaInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+#repositMetaInput + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#repositMetaInput:focus + label,
+#repositMetaInput + label:hover {
+  background-color: red;
+}
+
+#repositMetaText {
+  position: relative;
+  top: -19px;
 }
 
 main > .post:first-child > h1 {

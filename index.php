@@ -29,7 +29,7 @@
       <button class="dropbtn">Administration</button>
       <div class="dropdown-content">
         <a href="addRepository.html">Ajout d'un répertoire</a>
-          <a href="addMetadataToDB.html">Importation de métadata</a>
+          <a href="#">Importation de métadata</a>
       </div>
     </div>
     <input type="button" id="myAccount" value="Mon compte" onclick="#">

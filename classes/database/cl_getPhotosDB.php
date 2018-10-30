@@ -236,7 +236,7 @@ class photosBD
 
       mysqli_close($con);
 
-    header("Content-Type: application/json");
+      header("Content-Type: application/json");
     $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     if ($json === false) {
       // Avoid echo of empty string (which is invalid JSON), and

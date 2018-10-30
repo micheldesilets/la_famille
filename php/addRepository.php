@@ -5,6 +5,7 @@
  * Date: 2018-09-01
  * Time: 10:07
  */
+
 header('content-type: text/javascript');
 
 $function = $_GET['function'];
@@ -24,13 +25,17 @@ if ($function == addRepository) {
   $db->addRepository($repositData);
 }
 
-if ($function == getYearsSelected) {
+/*if ($function == getYearsSelected) {
   require_once '../classes/database/cl_repositoryDB.php';
   $decade = $_GET['decade'];
 
-  $db = new repository();
-  $db->getYearsSelected($decade);
-}
+//  $db = new repository();
+//  $years = $db->getYearsSelected($decade);
+    $data = [ 'a', 'b', 'c' ];
+    header('Content-type: application/json');
+    echo json_encode( $data );
+
+}*/
 
 if ($function == addRepositoryMysql) {
     require_once '../classes/database/cl_repositoryDB.php';

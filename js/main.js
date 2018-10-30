@@ -756,6 +756,12 @@ function addRepositoryMysql() {
     alert("Success");
 }
 
+/*** Add Lightroom data to database
+ *********************************/
+function addMetadataToDB() {
+
+}
+
 function getRepositInputs() {
     var repositoryData = [];
     var repositoryDoc = document.getElementById('addReposit');
@@ -766,14 +772,12 @@ function getRepositInputs() {
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
+    repositoryData['preview'] = repositoryDoc.elements['repositPreview'].value;
+    repositoryData['full'] = repositoryDoc.elements['repositFull'].value;
+    repositoryData['orig'] = repositoryDoc.elements['repositOrig'].value;
+    repositoryData['meta'] = repositoryDoc.elements['repositMeta'].value;
 
     return repositoryData;
-}
-
-/*** Add Lightroom data to database
- *********************************/
-function addMetadataToDB() {
-
 }
 
 function getYearsSelected() {
@@ -781,8 +785,10 @@ function getYearsSelected() {
     var decade = document.getElementById("repositSelectDecade").value;
 
     var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?decade=' + decade + '&function=getYearsSelected');
+    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
+    // myRequest.open('GET', 'php/addRepository.php?decade=' + decade + '&function=getYearsSelected',true);
     myRequest.onload = function () {
+        // console.log((myRequest.responseText));
         myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
     };
@@ -804,4 +810,20 @@ function renderYears(data) {
     htmlString = "<option value=\"1\">NA</option>";
     yearContainer.insertAdjacentHTML('beforeend', htmlString);
 
+}
+
+function renderMetadataText() {
+    $file = document.getElementById('repositMetaInput').files;
+
+    $fileList = "";
+    i = 0
+    while (i < $file.length) {
+        if ($fileList.length === 0) {
+            $fileList = $file[i].name;
+        } else {
+            $fileList = $fileList + ':' + $file[i].name;
+        }
+        i++;
+    }
+    document.getElementById("repositMetaText").value = $fileList;
 }
