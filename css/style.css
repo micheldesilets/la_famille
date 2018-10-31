@@ -404,16 +404,19 @@ main {
     top: -19px;
 }*/
 
-#repositPreviewText {
+#repositMetaText, #repositFullText, #repositPreviewText, #repositOrigText {
     position: relative;
     top: -19px;
+    font-size: small;
 }
 
+/*
 #repositFullText {
     position: relative;
     top: -19px;
-}
+}*/
 
+/*
 #repositOrigText {
     position: relative;
     top: -19px;
@@ -423,6 +426,7 @@ main {
     position: relative;
     top: -19px;
 }
+*/
 
 
 main > .post:first-child > h1 {
