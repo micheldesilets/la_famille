@@ -81,18 +81,26 @@
                         </div>
 
                         <div class="repositPreview">
-                            <label for="repositPreview" class="repositPreviewLabel">Sélection des miniatures</label>
-                            <input type="text" multiple id="repositPreview" size="50"><br>
+                            <label for="repositPreviewInput" class="repositPreviewLabel">Sélection des
+                                miniatures</label>
+                            <input type="file" multiple id="repositPreviewInput" name="repositPreviewData"
+                                   onchange="javascript:renderPreviewText()"><br>
+                            <input type="text" multiple id="repositPreviewText" size="75"><br>
                         </div>
 
                         <div class="repositFull">
-                            <label for="repositFull" class="repositFullLabel">Sélection des photos web</label>
-                            <input type="text" multiple id="repositFull" size="50"><br>
+                            <label for="repositFullInput" class="repositFullLabel">Sélection des photos web</label>
+                            <input type="file" multiple id="repositFullInput" name="repositFullData"
+                                   onchange="javascript:renderFullText()"><br>
+                            <input type="text" multiple id="repositFullText" size="75"><br>
                         </div>
 
                         <div class="repositOrig">
-                            <label for="repositOrig" class="repositOrigLabel">Sélection des photos originales</label>
-                            <input type="text" multiple id="repositOrig" size="50"><br>
+                            <label for="repositOrigInput" class="repositOrigLabel">Sélection des photos
+                                originales</label>
+                            <input type="file" multiple id="repositOrigInput" name="repositOrigData"
+                                   onchange="javascript:renderOrigText()"><br>
+                            <input type="text" id="repositOrigText" size="75"><br>
                         </div>
 
                         <div class="repositMeta">
@@ -100,7 +108,7 @@
                                 métadonnées</label>
                             <input type="file" id="repositMetaInput" name="repositMetaData"
                                    onchange="javascript:renderMetadataText()"><br>
-                            <input type="text" id="repositMetaText" size="50">
+                            <input type="text" id="repositMetaText" size="30">
                         </div>
                     </fieldset>
                 </form>

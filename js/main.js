@@ -812,18 +812,40 @@ function renderYears(data) {
 
 }
 
-function renderMetadataText() {
-    $file = document.getElementById('repositMetaInput').files;
+function renderPreviewText() {
+    var files = document.getElementById('repositPreviewInput').files;
+    var fileList = createFileList(files);
+    document.getElementById("repositPreviewText").value = fileList;
+}
 
-    $fileList = "";
+function renderFullText() {
+    var files = document.getElementById('repositFullInput').files;
+    var fileList = createFileList(files);
+    document.getElementById("repositFullText").value = fileList;
+}
+
+function renderOrigText() {
+    var files = document.getElementById('repositOrigInput').files;
+    var fileList = createFileList(files);
+    document.getElementById("repositOrigText").value = fileList;
+}
+
+function renderMetadataText() {
+    var files = document.getElementById('repositMetaInput').files;
+    var fileList = createFileList(files);
+    document.getElementById("repositMetaText").value = fileList;
+}
+
+function createFileList(files) {
+    var fileList = "";
     i = 0
-    while (i < $file.length) {
-        if ($fileList.length === 0) {
-            $fileList = $file[i].name;
+    while (i < files.length) {
+        if (fileList.length === 0) {
+            fileList = files[i].name;
         } else {
-            $fileList = $fileList + ':' + $file[i].name;
+            fileList = fileList + ' , ' + files[i].name;
         }
         i++;
     }
-    document.getElementById("repositMetaText").value = $fileList;
+    return fileList;
 }
