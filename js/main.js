@@ -779,6 +779,7 @@ function addMetadataToDB() {
 function getYearsSelected() {
     var myYearsData;
     var firstYear;
+
     var decade = document.getElementById("repositSelectDecade").value;
 
     var myRequest = new XMLHttpRequest();
@@ -786,6 +787,23 @@ function getYearsSelected() {
     myRequest.onload = function () {
         myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
+    };
+
+    myRequest.send();
+}
+
+function getYearsSelectedPhotos() {
+    var myYearsData;
+    var firstYear;
+
+    var decade = document.getElementById("repositSelectDecade").value;
+
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
+    myRequest.onload = function () {
+        myYearsData = JSON.parse(myRequest.responseText);
+        renderYears(myYearsData);
+
         firstYear = myYearsData[0].idxvalue;
         getReposits(firstYear);
     };
@@ -800,13 +818,11 @@ function renderYears(data) {
     document.getElementById("repositSelectYear").innerHTML = "";
 
     for (const obj of data) {
-
         htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
         yearContainer.insertAdjacentHTML('beforeend', htmlString);
     }
     htmlString = "<option value=\"1\">NA</option>";
     yearContainer.insertAdjacentHTML('beforeend', htmlString);
-
 }
 
 function getReposits(fisrtYear) {
@@ -820,7 +836,7 @@ function getReposits(fisrtYear) {
     var myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
     myRequest.onload = function () {
-        // console.log(myRequest.responseText);
+        console.log(myRequest.responseText);
         myRepositData = JSON.parse(myRequest.responseText);
         renderReposits(myRepositData);
     };

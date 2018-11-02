@@ -117,7 +117,7 @@ class cl_repository implements JsonSerializable
      */
     public function set_Title($m_title): void
     {
-        $this->m_title = $m_title;
+        $this->m_title = utf8_encode($m_title);
     }
 
     /**
