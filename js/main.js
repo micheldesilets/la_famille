@@ -715,55 +715,9 @@ function objModal(e) {
 
 /*** ADD REPOSITORY
  ********************************/
-
-function addRepository() {
-    /*    repositoryChoice = true;
-        folderTitle = "";
-        var repositoryFormData = [];*/
-    repositoryData = getRepositInputs();
-
-    var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
-
-    myRequest.send();
-
-    addRepositoryMysql();
-}
-
-function addRepositoryMysql() {
-    repositoryData = getRepositInputs();
-
-    var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
-
-    myRequest.send();
-}
-
-function addRepositoryMysql() {
-    repositoryData = getRepositInputs();
-
-    var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
-
-    myRequest.send();
-
-    alert("Success");
-}
-
-/*** Add Lightroom data to database
- *********************************/
-function addMetadataToDB() {
-
-}
+var repositoryData = [];
 
 function getRepositInputs() {
-    var repositoryData = [];
     var repositoryDoc = document.getElementById('addReposit');
 
     repositoryData['levels'] = repositoryDoc.elements['repositSelectLevel'].value;
@@ -772,25 +726,68 @@ function getRepositInputs() {
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
-    repositoryData['preview'] = repositoryDoc.elements['repositPreview'].value;
-    repositoryData['full'] = repositoryDoc.elements['repositFull'].value;
-    repositoryData['orig'] = repositoryDoc.elements['repositOrig'].value;
-    repositoryData['meta'] = repositoryDoc.elements['repositMeta'].value;
+    repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
+    repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
+    repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
+    repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
+}
 
-    return repositoryData;
+function addRepository() {
+    /***************** TEMPORARILY IN COMMENT **************/
+    getRepositInputs();
+    /*    var myRequest = new XMLHttpRequest();
+        myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+            '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+            '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
+
+        myRequest.send();
+    */
+    addRepositoryMysql();
+}
+
+function addRepositoryMysql() {
+    /***************** TEMPORARILY IN COMMENT **************/
+    /*    var myRequest = new XMLHttpRequest();
+        myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+            '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+            '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
+
+        myRequest.send();
+
+        alert("Success");*/
+    addMetadataToDB();
+}
+
+/*** Add Lightroom data to database
+ *********************************/
+function addMetadataToDB() {
+    var fList = [];
+    for (var i = 0; i < repositoryData.meta.length; i++) {
+        if (fList.length === 0) {
+            fList = repositoryData.meta[i].name;
+        } else {
+            fList = fList + ',' + repositoryData.meta[i].name;
+        }
+    }
+    jList = JSON.stringify(fList);
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/addRepository.php?meta=' + jList + '&function=addMetadataToMysql', true);
+
+    myRequest.send();
 }
 
 function getYearsSelected() {
     var myYearsData;
+    var firstYear;
     var decade = document.getElementById("repositSelectDecade").value;
 
     var myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
-    // myRequest.open('GET', 'php/addRepository.php?decade=' + decade + '&function=getYearsSelected',true);
     myRequest.onload = function () {
-        // console.log((myRequest.responseText));
         myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
+        firstYear = myYearsData[0].idxvalue;
+        getReposits(firstYear);
     };
 
     myRequest.send();
@@ -810,6 +807,37 @@ function renderYears(data) {
     htmlString = "<option value=\"1\">NA</option>";
     yearContainer.insertAdjacentHTML('beforeend', htmlString);
 
+}
+
+function getReposits(fisrtYear) {
+    var myRepositData;
+    if (fisrtYear === undefined) {
+        var year = document.getElementById("repositSelectYear").value;
+    } else {
+        year = fisrtYear;
+    }
+
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
+    myRequest.onload = function () {
+        // console.log(myRequest.responseText);
+        myRepositData = JSON.parse(myRequest.responseText);
+        renderReposits(myRepositData);
+    };
+
+    myRequest.send();
+}
+
+function renderReposits(myData) {
+    var repositContainer = document.getElementById('repositSelectTitle');
+    var htmlString = "";
+
+    document.getElementById("repositSelectTitle").innerHTML = "";
+
+    for (const obj of myData) {
+        htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
+        repositContainer.insertAdjacentHTML('beforeend', htmlString);
+    }
 }
 
 function renderPreviewText() {

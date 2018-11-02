@@ -16,7 +16,7 @@
 <div class="page">
 
     <div class="repositHeader">
-        <h1 class="repositH1">Ajout d'un répertoire</h1>
+        <h1 class="photoAddH1">Ajout de photos</h1>
         <div>
             <a href="index.php" id="repositX">X</a>
         </div>
@@ -27,17 +27,8 @@
         <main role="main">
             <section class="repository">
                 <form action="javascript:addRepository()" id="addReposit">
-                    <fieldset class="repositFieldset">
+                    <fieldset class="photoAddFieldset">
                         <input type="submit" value="Soumettre" class="repositGoButton"><br>
-
-                        <div class="repositLevel">
-                            <label for="repositSelectLevel" class="repositLevelLabel">Nombre de niveaux</label>
-                            <select id="repositSelectLevel">
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4" selected>4</option>
-                            </select><br>
-                        </div>
 
                         <div class="repositType">
                             <label for="repositSelectType" class="repositTypeLabel">Type de regroupement</label>
@@ -73,13 +64,46 @@
 
                         <div class="repositYear">
                             <label for="repositSelectYear" class="repositYearLabel">Année</label>
-                            <select id="repositSelectYear">
+                            <select id="repositSelectYear" onchange="javascript:getReposits()">
                             </select><br>
                         </div>
 
                         <div class="repositName">
-                            <label for="repositTitle" class="repositNameLabel">Nom du répertoire</label>
-                            <input type="text" id="repositTitle" size="50"><br>
+                            <label for="repositSelectTitle" class="repositNameLabel">Nom du répertoire</label>
+                            <select id="repositSelectTitle">
+                            </select><br>
+                            <!--                            <input type="text" id="repositTitle" size="50"><br>-->
+                        </div>
+
+                        <div class="repositPreview">
+                            <label for="repositPreviewInput" class="repositPreviewLabel">Sélection des
+                                miniatures</label>
+                            <input type="file" multiple id="repositPreviewInput" name="repositPreviewData"
+                                   onchange="javascript:renderPreviewText()"><br>
+                            <input type="text" multiple id="repositPreviewText" size="75"><br>
+                        </div>
+
+                        <div class="repositFull">
+                            <label for="repositFullInput" class="repositFullLabel">Sélection des photos web</label>
+                            <input type="file" multiple id="repositFullInput" name="repositFullData"
+                                   onchange="javascript:renderFullText()"><br>
+                            <input type="text" multiple id="repositFullText" size="75"><br>
+                        </div>
+
+                        <div class="repositOrig">
+                            <label for="repositOrigInput" class="repositOrigLabel">Sélection des photos
+                                originales</label>
+                            <input type="file" multiple id="repositOrigInput" name="repositOrigData"
+                                   onchange="javascript:renderOrigText()"><br>
+                            <input type="text" id="repositOrigText" size="75"><br>
+                        </div>
+
+                        <div class="repositMeta">
+                            <label for="repositMetaInput" class="repositMetaLabel">Sélection du fichier des
+                                métadonnées</label>
+                            <input type="file" multiple id="repositMetaInput" name="repositMetaData"
+                                   onchange="javascript:renderMetadataText()"><br>
+                            <input type="text" id="repositMetaText" size="30">
                         </div>
                     </fieldset>
                 </form>

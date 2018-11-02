@@ -144,19 +144,7 @@ class repository
 
         mysqli_close($con);
 
-        header("Content-Type: application/json");
-        $json = json_encode($yearArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        if ($json === false) {
-            // Avoid echo of empty string (which is invalid JSON), and
-            // JSONify the error message instead:
-            $json = json_encode(array("jsonError", json_last_error_msg()));
-            if ($json === false) {
-                // This should not happen, but we go all the way now:
-                $json = '{"jsonError": "unknown"}';
-            }
-            // Set HTTP response status code to: 500 - Internal Server Error
-            http_response_code(500);
-        }
+        $json = createJson($yearArray);
         echo $json;
     }
 
@@ -183,4 +171,75 @@ class repository
         mysqli_close($con);
         return;
     }
+
+    function getReposits($year)
+    {
+        $wd = getcwd();
+
+        require_once '../classes/business/cl_repository.php';
+        include '../connection/connect.php';
+
+        $sql = "CALL getRepositories($year)";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+            /* printf("Result set has % d rows . \n", $rowcount); */
+        } else {
+            echo("nothing");
+        };
+
+        $repositArray = array();
+        $l = 1;
+
+        while ($l <= $rowcount):
+            // Associative array
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $reposit = new cl_repository();
+
+            $reposit->set_Idrpt($row['id_rpt']);
+            $reposit->set_Title($row["title_rpt"]);
+
+            array_push($repositArray, $reposit);
+
+            $l++;
+        endwhile;
+
+        // Free result set
+        mysqli_free_result($result);
+
+        mysqli_close($con);
+
+        $json = createJson($repositArray);
+        echo $json;
+    }
+
+    function addMetadataToMysql($meta)
+    {
+        $curr = getcwd();
+        include '../connection/connect.php';
+
+        $myfile = fopen($meta, "r") or die("Unable to open file!");
+        echo fread($myfile, filesize($meta));
+        fclose($myfile);
+    }
+}
+
+function createJson($rawData)
+{
+    header("Content-Type: application/json");
+    $json = json_encode($rawData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+        // Avoid echo of empty string (which is invalid JSON), and
+        // JSONify the error message instead:
+        $json = json_encode(array("jsonError", json_last_error_msg()));
+        if ($json === false) {
+            // This should not happen, but we go all the way now:
+            $json = '{"jsonError": "unknown"}';
+        }
+        // Set HTTP response status code to: 500 - Internal Server Error
+        http_response_code(500);
+    }
+    return $json;
 }
