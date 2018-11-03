@@ -26,7 +26,7 @@
     <div class="repositContainer">
         <main role="main">
             <section class="repository">
-                <form action="javascript:addRepository()" id="addReposit">
+                <form method="post" enctype="multipart/form-data" id="addReposit" action="javascript:uploadPreview()">
                     <fieldset class="photoAddFieldset">
                         <input type="submit" value="Soumettre" class="repositGoButton"><br>
 
@@ -72,13 +72,12 @@
                             <label for="repositSelectTitle" class="repositNameLabel">Nom du répertoire</label>
                             <select id="repositSelectTitle">
                             </select><br>
-                            <!--                            <input type="text" id="repositTitle" size="50"><br>-->
                         </div>
 
                         <div class="repositPreview">
                             <label for="repositPreviewInput" class="repositPreviewLabel">Sélection des
                                 miniatures</label>
-                            <input type="file" multiple id="repositPreviewInput" name="repositPreviewData"
+                            <input type="file" multiple id="repositPreviewInput" name="repositPreviewData[]"
                                    onchange="javascript:renderPreviewText()"><br>
                             <input type="text" multiple id="repositPreviewText" size="75"><br>
                         </div>

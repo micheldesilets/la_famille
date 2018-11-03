@@ -732,48 +732,88 @@ function getRepositInputs() {
     repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
 }
 
-function addRepository() {
-    /***************** TEMPORARILY IN COMMENT **************/
-    getRepositInputs();
-    /*    var myRequest = new XMLHttpRequest();
-        myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-            '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-            '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
+function getRepositInputsPhotos() {
+    var repositoryDoc = document.getElementById('addReposit');
 
-        myRequest.send();
-    */
+    repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
+    repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
+    repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
+    repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
+    repositoryData['title'] = repositoryDoc.elements['repositSelectTitle'].value;
+    repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
+    repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
+    repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
+    repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
+}
+
+function addRepository() {
+    getRepositInputs();
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
+
+    myRequest.send();
+
     addRepositoryMysql();
 }
 
 function addRepositoryMysql() {
-    /***************** TEMPORARILY IN COMMENT **************/
-    /*    var myRequest = new XMLHttpRequest();
-        myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-            '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-            '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
+        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
 
-        myRequest.send();
+    myRequest.send();
 
-        alert("Success");*/
+    alert("Success");
     addMetadataToDB();
 }
 
 /*** Add Lightroom data to database
  *********************************/
 function addMetadataToDB() {
-    var fList = [];
-    for (var i = 0; i < repositoryData.meta.length; i++) {
-        if (fList.length === 0) {
-            fList = repositoryData.meta[i].name;
-        } else {
-            fList = fList + ',' + repositoryData.meta[i].name;
+    /*    var fList = [];
+        for (var i = 0; i < repositoryData.meta.length; i++) {
+            if (fList.length === 0) {
+                fList = repositoryData.meta[i].name;
+            } else {
+                fList = fList + ',' + repositoryData.meta[i].name;
+            }
         }
-    }
-    jList = JSON.stringify(fList);
-    var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?meta=' + jList + '&function=addMetadataToMysql', true);
+        jList = JSON.stringify(fList);
+        var myRequest = new XMLHttpRequest();
+        myRequest.open('GET', 'php/addRepository.php?meta=' + jList + '&function=addMetadataToMysql', true);
 
-    myRequest.send();
+        myRequest.send();*/
+}
+
+function uploadPreview() {
+    getRepositInputsPhotos();
+
+    const url = 'php/upload.php';
+    const files = document.getElementById('repositPreviewInput').files;
+    /*    const path = {type:repositoryData['type'][0], author:repositoryData['author'][0], decade:repositoryData['decade'][0],
+            year:repositoryData['year'][0], title:repositoryData['title']};*/
+    const formData = new FormData();
+
+    for (let i = 0; i < repositoryData['preview'].length; i++) {
+        let file = repositoryData['preview'][i];
+        formData.append('files[]', file);
+    }
+
+    formData.append('type', repositoryData['type'][0]);
+    formData.append('author', repositoryData['author'][0]);
+    formData.append('decade', repositoryData['decade'][0]);
+    formData.append('year', repositoryData['year'][0]);
+    formData.append('title', repositoryData['title'][0]);
+
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        console.log(response);
+    });
 }
 
 function getYearsSelected() {
@@ -836,7 +876,7 @@ function getReposits(fisrtYear) {
     var myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
     myRequest.onload = function () {
-        console.log(myRequest.responseText);
+        // console.log(myRequest.responseText);
         myRepositData = JSON.parse(myRequest.responseText);
         renderReposits(myRepositData);
     };

@@ -184,7 +184,6 @@ class repository
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
             $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has % d rows . \n", $rowcount); */
         } else {
             echo("nothing");
         };
@@ -223,6 +222,34 @@ class repository
         $myfile = fopen($meta, "r") or die("Unable to open file!");
         echo fread($myfile, filesize($meta));
         fclose($myfile);
+    }
+
+    function getPath($path)
+    {
+        $typePhoto = $path[0];
+        $author = $path[1];
+        $decade = $path[2];
+        $year = $path[3];
+        $title = $path[4];
+
+        include '../connection/connect.php';
+
+        $sql = "CALL getPath($typePhoto,$author,$decade,$year,$title)";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+        } else {
+            echo("nothing");
+        };
+
+        IF ($rowcount > 0) {
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $current = getcwd() . "\n";
+            $path = '../img/' . utf8_encode($row['type_typ']) . '/' . utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
+                $row['year_yea'] . '/' . utf8_encode($row['title_rpt']) . '/preview/';
+            return $path;
+        }
     }
 }
 
