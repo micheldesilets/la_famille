@@ -726,10 +726,10 @@ function getRepositInputs() {
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
-    repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
-    repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
-    repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
-    repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
+    /*  repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
+      repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
+      repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
+      repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;*/
 }
 
 function getRepositInputsPhotos() {

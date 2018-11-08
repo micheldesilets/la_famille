@@ -214,14 +214,21 @@ class repository
         echo $json;
     }
 
-    function addMetadataToMysql($meta)
+    function addMetadataToMysql($idRpt, $file_name)
     {
         $curr = getcwd();
         include '../connection/connect.php';
 
-        $myfile = fopen($meta, "r") or die("Unable to open file!");
-        echo fread($myfile, filesize($meta));
-        fclose($myfile);
+        $sql = "CALL addPhotoToDB($idRpt,'" . utf8_encode($file_name) . "')";
+
+        if (mysqli_query($con, $sql)) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . " < br>" . mysqli_error($con);
+        }
+
+        mysqli_close($con);
+        return;
     }
 
     function getPath($path)
@@ -247,8 +254,9 @@ class repository
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $current = getcwd() . "\n";
             $path = '../img/' . utf8_encode($row['type_typ']) . '/' . utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
-                $row['year_yea'] . '/' . utf8_encode($row['title_rpt']) . '/preview/';
-            return $path;
+                $row['year_yea'] . '/' . utf8_encode($row['title_rpt']) . '/';
+            $info = [$path, $row['id_rpt']];
+            return $info;
         }
     }
 }
