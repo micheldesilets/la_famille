@@ -34,6 +34,7 @@ var backward;
 var modalTitle;
 var geneolCont;
 var photoIdCont;
+var ctrlPressed = false;
 
 var author = "";
 var decade = "";
@@ -361,11 +362,7 @@ function backToTree() {
 }
 
 function backToSearch() {
-    // Bring back search and tree and hide 'back to tree(X)' button
-    // document.getElementById('photosFolders').style.display = 'block';
-    // document.getElementById('searchKw').style.display = 'block';
     document.getElementById('imgs').style.display = 'none';
-    // document.getElementById('backToSearch').style.display = 'block';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('thumbTitle').style.display = 'none';
     searchForm();
@@ -374,7 +371,13 @@ function backToSearch() {
 /* Controle of right and left keys
 **********************************/
 document.onkeydown = function (e) {
+    var evt = e ? e : window.event;
+    if (evt.ctrlKey) {
+        ctrlPressed = true;
+    }
     switch (e.keyCode) {
+        case 17:
+            ctrlPressed = true;
         case 37:
             // alert('left');
             prevImage();
@@ -386,12 +389,6 @@ document.onkeydown = function (e) {
             // alert('right');
             nextImage();
             break;
-        /*    case 40:
-              alert('down');
-              break;
-            case 45:
-              alert('down');
-              break;*/
     }
 }
 
@@ -410,15 +407,6 @@ function cancelKeywords() {
     document.getElementById('commentaires').checked = true;
 }
 
-/*var input = document.getElementById("goButton");
-input.addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    getFamilyPhotos();
-    // document.getElementById("myBtn").click();
-  }
-});*/
-
 /*********************************/
 
 function animatePhotos() {
@@ -432,6 +420,7 @@ function animatePhotos() {
     opacity = 0.5;
 
     imgs.forEach(img => img.addEventListener('click', imgModal));
+    // imgs.forEach(img => img.addEventListener('click', testClick));
     backward.addEventListener('click', prevImage);
     forward.addEventListener('click', nextImage);
 }
@@ -452,6 +441,12 @@ function transformImage(e) {
 var modal;
 
 function imgModal(e) {
+    if (ctrlPressed) {
+        ctrlPressed = false;
+        window.open("photoInfo.html?pid=" + 9);
+        // window.location.href = "photoInfo.html";
+        return;
+    }
     var htmlGeneol = "";
     var htmlPhotoId = "";
     bdy = document.getElementById('bdy');
@@ -726,10 +721,6 @@ function getRepositInputs() {
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
-    /*  repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
-      repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
-      repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
-      repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;*/
 }
 
 function getRepositInputsPhotos() {
@@ -767,7 +758,7 @@ function addRepositoryMysql() {
     myRequest.send();
 
     alert("Success");
-    addMetadataToDB();
+    // addMetadataToDB();
 }
 
 /*** Add Lightroom data to database
@@ -802,11 +793,11 @@ function uploadPreview() {
         formData.append('files[]', file);
     }
 
-    formData.append('type', repositoryData['type'][0]);
-    formData.append('author', repositoryData['author'][0]);
-    formData.append('decade', repositoryData['decade'][0]);
-    formData.append('year', repositoryData['year'][0]);
-    formData.append('title', repositoryData['title'][0]);
+    formData.append('type', repositoryData['type']);
+    formData.append('author', repositoryData['author']);
+    formData.append('decade', repositoryData['decade']);
+    formData.append('year', repositoryData['year']);
+    formData.append('title', repositoryData['title']);
 
     fetch(url, {
         method: 'POST',
@@ -932,4 +923,8 @@ function createFileList(files) {
         i++;
     }
     return fileList;
+}
+
+function closeWindow() {
+    window.close(window.location.href);
 }

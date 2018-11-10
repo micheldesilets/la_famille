@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Infos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media_query.css" media="screen">
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body>
+<div class="page">
+
+    <div class="infoHeader">
+        <h1 class="infoHeader__h1">Informations sur la photo</h1>
+        <button onclick="javascript:closeWindow()" id="infoHeader__X">
+            <strong>X</strong>
+        </button>
+    </div>
+
+    <!-- ==== START MAIN ==== -->
+    <div class="infoContainer">
+        <main role="main">
+            <section class="info">
+                <form method="post" enctype="multipart/form-data" id="addReposit" action="javascript:uploadPreview()">
+                    <fieldset class="photoAddFieldset">
+                        <input type="submit" value="Soumettre" class="repositGoButton"><br>
+
+                        <div>
+                            <label class="info__title_label">Titre de la photo</label>
+                            <br>
+                            <input type="text" class="info__title_input"
+                                   placeholder="ex.: Louis chez les grands-parents"
+                                   size="75">
+                        </div>
+
+                        <div>
+                            <label class="info__keys_label">Mots-clefs</label>
+                            <br>
+                            <input type="text" class="info__keys_input" size="75"
+                                   placeholder="Série de mots-clefs permettant une recherche">
+                        </div>
+
+                        <div>
+                            <label class="info__legend_label">Légende</label>
+                            <br>
+                            <input type="text" class="info__legend_input" size="118"
+                                   placeholder="Courte description générale">
+                        </div>
+
+                        <div>
+                            <label class="info__year_label">Année de la photo</label>
+                            <br>
+                            <input type="text" class="info__year_input" size="10" placeholder="ex.: 2019">
+                        </div>
+
+                        <div>
+                            <label class="info__geneol_label">Indexe(s) généalogique(s)</label>
+                            <br>
+                            <input type="text" class="info__geneol_input" size="30">
+                        </div>
+                    </fieldset>
+                </form>
+
+            </section>
+
+        </main>
+        <!-- end main -->
+    </div>
+    <!-- end container -->
+</div>
+<!-- end page -->
+<script src="js/main.js"></script>
+
+</body>
+</html>

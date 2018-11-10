@@ -11,18 +11,19 @@ header('content-type: text/javascript');
 $function = $_GET['function'];
 
 if ($function == addRepository) {
-  require_once '../classes/database/cl_repositoryDB.php';
-  $type = $_GET['type'];
-  $author = $_GET['author'];
-  $decade = $_GET['decade'];
-  $year = $_GET['year'];
-  $title = $_GET['title'];
-  $levels = $_GET['levels'];
+    require_once '../classes/database/cl_repositoryDB.php';
+    $type = $_GET['type'];
+    $author = $_GET['author'];
+    $decade = $_GET['decade'];
+    $year = $_GET['year'];
+    $title = $_GET['title'];
+    $levels = $_GET['levels'];
+    $title = carReplace($title);
 
-  $repositData = array($type, $author, $decade, $year, $title, $levels);
+    $repositData = array($type, $author, $decade, $year, $title, $levels);
 
-  $db = new repository();
-  $db->addRepository($repositData);
+    $db = new repository();
+    $db->addRepository($repositData);
 }
 
 if ($function == addRepositoryMysql) {
@@ -33,6 +34,7 @@ if ($function == addRepositoryMysql) {
     $year = $_GET['year'];
     $title = $_GET['title'];
     $levels = $_GET['levels'];
+    $title = carReplace($title);
 
     $repositData = array($type, $author, $decade, $year, $title, $levels);
 
@@ -46,4 +48,20 @@ if ($function === addMetadataToMysql) {
 
     $db = new repository();
     $db->addMetadataToMysql($meta);
+}
+
+function carReplace($repositName)
+{
+    $repositName = str_replace(' ', '_', $repositName);
+    $repositName = str_replace('é', 'e', $repositName);
+    $repositName = str_replace('è', 'e', $repositName);
+    $repositName = str_replace('ê', 'e', $repositName);
+    $repositName = str_replace('ä', 'a', $repositName);
+    $repositName = str_replace('û', 'u', $repositName);
+    $repositName = str_replace('à', 'a', $repositName);
+    $repositName = str_replace('É', 'E', $repositName);
+    $repositName = str_replace('ô', 'o', $repositName);
+    $repositName = str_replace('ç', 'c', $repositName);
+
+    return $repositName;
 }

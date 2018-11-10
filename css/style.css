@@ -319,14 +319,14 @@ main {
 /* MAIN CONTENT
 ------------------------------------------ */
 
-.repositH1, .photoAddH1 {
+.repositH1, .photoAddH1, .infoHeader__h1 {
     font-size: x-large;
     text-align: right;
     float: left;
     width: 63%;
 }
 
-#repositX {
+#repositX, #infoHeader__X {
     font-weight: bold;
     width: 15%;
     float: right;
@@ -344,6 +344,7 @@ main {
 .repositGoButton {
     background-color: #fdfaf6;
     float: right;
+    margin-right: 13px;
 }
 
 .repositName {
@@ -366,7 +367,7 @@ main {
     cursor: pointer;
 }
 
-#repositSelectType, #repositSelectLevel, #repositSelectAuthor, #repositSelectDecade, #repositSelectYear, #repositTitle {
+#repositSelectType, #repositSelectLevel, #repositSelectAuthor, #repositSelectDecade, #repositSelectYear {
     display: block;
     background-color: #F8F8F8;
 }
@@ -448,6 +449,41 @@ main > .post:first-child > h1 {
     text-align: right;
     font-weight: normal;
 }
+
+/*** START PHOTO INFO
+*********************************/
+#infoHeader__X {
+    background-color: #fdfaf6;
+    border: none;
+}
+
+.infoHeader__h1 {
+    width: 66%;
+}
+
+.info__title_label, .info__title_input {
+    margin-top: 29px;
+}
+
+.info__title_label, .info__keys_label, .info__legend_label, .info__year_label, .info__geneol_label {
+    color: black;
+    background-color: #fdfaf6;
+    width: 20%;
+    float: left;
+    text-align: right;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.info__title_input, .info__keys_input, .info__legend_input, .info__year_input, .info__geneol_input {
+    position: relative;
+    top: -19px;
+    font-size: small;
+    background-color: #F8F8F8;
+}
+
+/*** END PHOTO INFO
+*********************************/
 
 /* REAGINGS HTML AND A BIT OF OBJECTS
  ************************************/

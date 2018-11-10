@@ -114,13 +114,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     img_convert_to_jpg($target_file, $new_jpg, $file_ext);
                 }
 // ----------- End Convert to JPG Function -----------
-
                 unlink("../uploads/$file_name");
 
+                /*** Write info to mysql ***/
                 $mySql = $db->addMetadataToMysql($idRpt, $file_name);
             }
         }
-
         if ($errors) print_r($errors);
     }
 }
