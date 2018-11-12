@@ -452,12 +452,17 @@ main > .post:first-child > h1 {
 
 /*** START PHOTO INFO
 *********************************/
-.info__button--new-presentation {
-    width: 100%;
-    margin-top: 15px;
+#info__button {
+    position: relative;
+    top: 8px;
+    left: 354px;
+    font-size: small;
+}
+
+#info_button-prev, #info_button-next {
     background-color: #fdfaf6;
     border: none;
-    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 #info__photo {

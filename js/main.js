@@ -216,14 +216,15 @@ function searchInputs() {
     myRequest.send();
 }
 
+var selectedPhotoId;
+
 function getSelectedInfoPhoto() {
     searchChoice = false;
     var url_string = window.location.href;
     var url = new URL(url_string);
-    var c = url.searchParams.get("pid");
+    selectedPhotoId = parseInt(url.searchParams.get("pid"), 10);
     var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + c, true);
-
+    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -233,12 +234,39 @@ function getSelectedInfoPhoto() {
     myRequest.send();
 }
 
+function getPhotoInfoPrevious() {
+    selectedPhotoId -= 1;
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        myInfoPhoto = JSON.parse(myRequest.responseText);
+        renderInfoPhoto(myInfoPhoto);
+    };
+
+    myRequest.send();
+}
+
+function getPhotoInfoNext() {
+    var foundPhoto = false;
+    selectedPhotoId += 1;
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        myInfoPhoto = JSON.parse(myRequest.responseText);
+        renderInfoPhoto(myInfoPhoto);
+    }
+
+    myRequest.send();
+}
+
 function renderInfoPhoto(data) {
     var infoContainer = document.getElementById("info__photo");
     var button = document.getElementsByClassName("info__button info__button--new-presentation");
     var htmlString = "";
-    // var imageURL = "";
     var thumb = "";
+    document.getElementById("info__photo").innerText = "";
 
     for (const obj of data) {
         thumb = obj.prev_path + obj.filename;
@@ -250,10 +278,9 @@ function renderInfoPhoto(data) {
         document.getElementById("info__year-input").value = obj.year;
         document.getElementById("info__geneol-input").value = obj.geneolnames;
 
-        infoContainer.insertAdjacentHTML('beforeend', htmlString)
+        infoContainer.insertAdjacentHTML('beforeend', htmlString);
     }
 }
-
 
 function renderHomePhoto() {
     var archivesContainer = document.getElementById("homePhoto");
