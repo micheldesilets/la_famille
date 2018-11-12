@@ -12,7 +12,7 @@
     <!--[if lt IE 9]>
     <![endif]-->
 </head>
-<body>
+<body onload="javascript:getSelectedInfoPhoto()">
 <div class="page">
 
     <div class="infoHeader">
@@ -26,14 +26,15 @@
     <div class="infoContainer">
         <main role="main">
             <section class="info">
-                <form method="post" enctype="multipart/form-data" id="addReposit" action="javascript:uploadPreview()">
-                    <fieldset class="photoAddFieldset">
+                <fieldset class="photoAddFieldset">
+                    <form method="post" enctype="multipart/form-data" id="addReposit" action="">
+
                         <input type="submit" value="Soumettre" class="repositGoButton"><br>
 
                         <div>
                             <label class="info__title_label">Titre de la photo</label>
                             <br>
-                            <input type="text" class="info__title_input"
+                            <input type="text" id="info__title-input"
                                    placeholder="ex.: Louis chez les grands-parents"
                                    size="75">
                         </div>
@@ -41,31 +42,35 @@
                         <div>
                             <label class="info__keys_label">Mots-clefs</label>
                             <br>
-                            <input type="text" class="info__keys_input" size="75"
+                            <input type="text" id="info__keys-input" size="75"
                                    placeholder="Série de mots-clefs permettant une recherche">
                         </div>
 
                         <div>
-                            <label class="info__legend_label">Légende</label>
+                            <label class="info__caption_label">Légende</label>
                             <br>
-                            <input type="text" class="info__legend_input" size="118"
+                            <input type="text" id="info__caption-input" size="118"
                                    placeholder="Courte description générale">
                         </div>
 
                         <div>
                             <label class="info__year_label">Année de la photo</label>
                             <br>
-                            <input type="text" class="info__year_input" size="10" placeholder="ex.: 2019">
+                            <input type="text" id="info__year-input" size="10" placeholder="ex.: 2019">
                         </div>
 
                         <div>
                             <label class="info__geneol_label">Indexe(s) généalogique(s)</label>
                             <br>
-                            <input type="text" class="info__geneol_input" size="30">
+                            <input type="text" id="info__geneol-input" size="118">
                         </div>
-                    </fieldset>
-                </form>
+                    </form>
 
+                    <section>
+                        <div id="info__photo">
+                        </div>
+                    </section>
+                </fieldset>
             </section>
 
         </main>

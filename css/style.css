@@ -452,6 +452,20 @@ main > .post:first-child > h1 {
 
 /*** START PHOTO INFO
 *********************************/
+.info__button--new-presentation {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #fdfaf6;
+    border: none;
+    margin-bottom: 15px;
+}
+
+#info__photo {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+}
+
 #infoHeader__X {
     background-color: #fdfaf6;
     border: none;
@@ -461,11 +475,11 @@ main > .post:first-child > h1 {
     width: 66%;
 }
 
-.info__title_label, .info__title_input {
+.info__title_label, #info__title-input {
     margin-top: 29px;
 }
 
-.info__title_label, .info__keys_label, .info__legend_label, .info__year_label, .info__geneol_label {
+.info__title_label, .info__keys_label, .info__caption_label, .info__year_label, .info__geneol_label {
     color: black;
     background-color: #fdfaf6;
     width: 20%;
@@ -475,7 +489,7 @@ main > .post:first-child > h1 {
     margin-right: 10px;
 }
 
-.info__title_input, .info__keys_input, .info__legend_input, .info__year_input, .info__geneol_input {
+#info__title-input, #info__keys-input, #info__caption-input, #info__year-input, #info__geneol-input {
     position: relative;
     top: -19px;
     font-size: small;

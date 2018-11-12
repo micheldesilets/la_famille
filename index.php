@@ -36,8 +36,8 @@
         <input type="button" id="myAccount" value="Mon compte" onclick="#">
         <!--    <label for="myAccount">Mon compte</label>-->
         <!--    <p class="logo"><a href="/"><img .../></a></p>-->
-        <h1>Les Normandeau-Desilets</h1>
-
+        <!--        <h1>Les Normandeau-Desilets</h1>-->
+        <h1>Nos souvenirs de famille</h1>
         <h2>Une courte histoire de Nous</h2>
 
         <nav role="navigation">

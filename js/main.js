@@ -216,6 +216,45 @@ function searchInputs() {
     myRequest.send();
 }
 
+function getSelectedInfoPhoto() {
+    searchChoice = false;
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var c = url.searchParams.get("pid");
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + c, true);
+
+    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        myInfoPhoto = JSON.parse(myRequest.responseText);
+        renderInfoPhoto(myInfoPhoto);
+    };
+
+    myRequest.send();
+}
+
+function renderInfoPhoto(data) {
+    var infoContainer = document.getElementById("info__photo");
+    var button = document.getElementsByClassName("info__button info__button--new-presentation");
+    var htmlString = "";
+    // var imageURL = "";
+    var thumb = "";
+
+    for (const obj of data) {
+        thumb = obj.prev_path + obj.filename;
+        htmlString = "<div><img src=\"" + thumb + "\"></div>";
+
+        document.getElementById("info__title-input").value = obj.title;
+        document.getElementById("info__keys-input").value = obj.keywords;
+        document.getElementById("info__caption-input").value = obj.caption;
+        document.getElementById("info__year-input").value = obj.year;
+        document.getElementById("info__geneol-input").value = obj.geneolnames;
+
+        infoContainer.insertAdjacentHTML('beforeend', htmlString)
+    }
+}
+
+
 function renderHomePhoto() {
     var archivesContainer = document.getElementById("homePhoto");
     var htmlString = "";
@@ -420,7 +459,6 @@ function animatePhotos() {
     opacity = 0.5;
 
     imgs.forEach(img => img.addEventListener('click', imgModal));
-    // imgs.forEach(img => img.addEventListener('click', testClick));
     backward.addEventListener('click', prevImage);
     forward.addEventListener('click', nextImage);
 }
@@ -441,12 +479,10 @@ function transformImage(e) {
 var modal;
 
 function imgModal(e) {
-    if (ctrlPressed) {
-        ctrlPressed = false;
-        window.open("photoInfo.html?pid=" + 9);
-        // window.location.href = "photoInfo.html";
-        return;
-    }
+    var currWin = window.location.href;
+    var n = currWin.lastIndexOf('/');
+    var winResult = currWin.substring(n + 1);
+
     var htmlGeneol = "";
     var htmlPhotoId = "";
     bdy = document.getElementById('bdy');
@@ -463,43 +499,50 @@ function imgModal(e) {
     }
     currentIdx = i;
 
-    if (currentIdx == 0) {
-        backward.style.backgroundColor = 'red';
+    if (ctrlPressed && winResult == 'family_photos.html') {
+        ctrlPressed = false;
+        window.open("photoInfo.html?pid=" + myData[currentIdx].idpho);
+        location.reload();
     } else {
-        backward.style.backgroundColor = 'green';
-    }
-    if (currentIdx == maxLength - 1) {
-        forward.style.backgroundColor = 'red';
-    } else {
-        forward.style.backgroundColor = 'green';
-    }
 
-    img = prev.replace('preview', 'full');
+        if (currentIdx == 0) {
+            backward.style.backgroundColor = 'red';
+        } else {
+            backward.style.backgroundColor = 'green';
+        }
+        if (currentIdx == maxLength - 1) {
+            forward.style.backgroundColor = 'red';
+        } else {
+            forward.style.backgroundColor = 'green';
+        }
 
-    modalTitle = document.getElementById('modalTitle');
-    modalImg = document.getElementById("img01");
-    captionText = document.getElementById("caption");
-    // geneolCont = document.getElementById("geneol");
-    modal.style.display = "block";
-    modalTitle.innerHTML = this.title;
-    modalImg.src = img;
-    captionText.innerHTML = this.alt;
+        img = prev.replace('preview', 'full');
 
-    var idxList = myData[currentIdx].geneolidx.split(',');
-    var namesList = myData[currentIdx].geneolnames.split(',');
+        modalTitle = document.getElementById('modalTitle');
+        modalImg = document.getElementById("img01");
+        captionText = document.getElementById("caption");
+        // geneolCont = document.getElementById("geneol");
+        modal.style.display = "block";
+        modalTitle.innerHTML = this.title;
+        modalImg.src = img;
+        captionText.innerHTML = this.alt;
 
-    htmlGeneol = buildGeneolLine(idxList, namesList);
+        var idxList = myData[currentIdx].geneolidx.split(',');
+        var namesList = myData[currentIdx].geneolnames.split(',');
 
-    geneolCont.innerHTML = htmlGeneol;
-    photoId.innerHTML = '<p>(pid-' + myData[currentIdx].idpho + ')</p>';
+        htmlGeneol = buildGeneolLine(idxList, namesList);
+
+        geneolCont.innerHTML = htmlGeneol;
+        photoId.innerHTML = '<p>(pid-' + myData[currentIdx].idpho + ')</p>';
 
 // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+        var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-        bdy.style.overflow = 'visible';
+        span.onclick = function () {
+            modal.style.display = "none";
+            bdy.style.overflow = 'visible';
+        }
     }
 }
 
