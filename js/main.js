@@ -807,10 +807,22 @@ function getRepositInputsPhotos() {
     repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
 }
 
+var infoPhotoData;
+
+function getInfoPhotoInputs() {
+    var infoDoc = document.getElementById('info__form');
+
+    infoDoc['title'] = repositoryDoc.elements['info__title-input'].value;
+    infoDoc['keyWords'] = repositoryDoc.elements['info__keys-input'].value;
+    infoDoc['caption'] = repositoryDoc.elements['info__caption-input'].value;
+    infoDoc['year'] = repositoryDoc.elements['info__year-input'].value;
+    infoDoc['geneolIndexes'] = repositoryDoc.elements['info__geneol-input'].value;
+}
+
 function addRepository() {
     getRepositInputs();
     var myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
+    myRequest.open('GET', 'php/addRepository.php?type=' + infoDoc.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
 
@@ -875,6 +887,10 @@ function uploadPreview() {
     }).then(response => {
         console.log(response);
     });
+}
+
+function insertMetadataInfo() {
+    getInfoPhotoInputs();
 }
 
 function getYearsSelected() {
