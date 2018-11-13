@@ -1,0 +1,20 @@
+@import "base.mixins";
+
+html {
+  background: $color1;
+  color: $color4;
+
+  /*  @include iPad(){
+      background: $color3;
+      color: $color2;
+    }*/
+}
+
+a {
+  color: $color3;
+
+  @include hocus() {
+    color: $color2;
+  }
+}
+

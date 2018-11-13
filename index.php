@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Famille Normandeau-Desilets - Acceuil</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
     <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
-    <script src="js/main.js"></script>
+    <script src="assets/js/main.js"></script>
     <?php
     require_once 'classes/database/cl_getPhotosDB.php';
 
@@ -65,7 +65,7 @@
                  class="" myself" >
             <p>En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu celle
                 de ceux avec qui j'ai partagé ma vie.</p>
-            <img src="img/home/TransparantSignature02.jpg" alt="" class="signature">
+            <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="signature">
             <!--        <h2>About Me</h2>-->
             <!--        ...-->
         </article>

@@ -1,0 +1,23 @@
+@import "base/base";
+
+blockquote {
+  border-left: 2px solid $color2;
+  padding-left: $spacing-normal;
+}
+
+// Example of nesting
+.box {
+  background: $color3;
+  padding: $spacing-normal;
+
+  // Children directly under box
+  > p {
+    margin: 0px;
+  }
+}
+
+.rounded-box {
+  @extend .box;
+
+  @include vendor(border-radius, 54px 60px 10px 30px);
+}

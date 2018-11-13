@@ -137,7 +137,7 @@ function folderLevel4(branch) {
         htmlString = htmlString +
             "<div class=\"item\">\n" +
             "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
-            "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+            "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
             "<ul>\n";
         predecade = decade;
@@ -157,7 +157,7 @@ function folderLevel4(branch) {
             "<li>\n" +
             "<div class=\"sub-item\">\n" +
             "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
-            "<img src=\"img/icons/arrow.png\" class=\"arrow\">\n" +
+            "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
             "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
             "<ul>\n";
         year = branch.year;
