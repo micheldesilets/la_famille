@@ -1,20 +1,41 @@
+@charset "utf-8";
+
 @import "base.mixins";
 
 html {
   background: $color1;
-  color: $color4;
+  color: $color2;
+}
 
-  /*  @include iPad(){
-      background: $color3;
-      color: $color2;
-    }*/
+body {
+  // Set line heights
+  line-height: $base-line-height;
+
+  // Set default font weights
+  font-weight: $font-weight-normal;
+
+  font-size: $font-normal;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100%;
+}
+
+.page {
+  margin: 0 auto;
+  max-width: 960px;
+
+  animation: fadein .8s;
+  -moz-animation: fadein .8s; /* Firefox */
+  -webkit-animation: fadein .8s; /* Safari and Chrome */
+  -o-animation: fadein .8s; /* Opera */
 }
 
 a {
-  color: $color3;
-
+  color: $color2;
   @include hocus() {
     color: $color2;
   }
+  text-decoration: none;
 }
+
 

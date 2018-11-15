@@ -1,0 +1,48 @@
+// Main navigation
+.c-nav-main {
+  text-align: center;
+  border-bottom: 1px solid $color2;
+  margin-bottom: 1em;
+  padding: .4em 0 .4em;
+  color: $color4;
+  cursor: default;
+  &__item {
+    display: inline-block;
+    &:first-child {
+      border-left: none;
+    }
+    &:last-child {
+      .c-nav-main__link {
+        padding-right: 0;
+      }
+    }
+  }
+  &__link {
+    display: inline-block;
+    font-size: 1.2em;
+    padding: .2em .9em .5em 1.15em;
+    &:hover {
+      color: $color3;
+    }
+  }
+}
+
+#repositX, .info-header__X {
+  font-weight: $font-weight-bold;
+  width: 15%;
+  float: right;
+  text-align: right;
+  cursor: pointer;
+  padding-top: 25px;
+
+}
+
+.info-header {
+  &__h1 {
+    width: 66%;
+  }
+  &__X {
+    background-color: $color1;
+    border: none;
+  }
+}

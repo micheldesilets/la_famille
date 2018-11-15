@@ -9,83 +9,73 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/media_query.css" media="screen">
-    <!--[if lt IE 9]>
-    <![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
+
 <body onload="javascript:getSelectedInfoPhoto()">
 <div class="page">
 
-    <div class="infoHeader">
-        <h1 class="infoHeader__h1">Informations sur la photo</h1>
-        <button onclick="javascript:closeWindow()" id="infoHeader__X">
+    <div class="info-header">
+        <h1 class="info-header__h1">Informations sur la photo</h1>
+        <button onclick="javascript:closeWindow()" class="info-header__X">
             <strong>X</strong>
         </button>
     </div>
 
-    <!-- ==== START MAIN ==== -->
-    <div class="infoContainer">
-        <main role="main">
-            <section class="info">
-                <fieldset class="photoAddFieldset">
-                    <form method="post"
-                          enctype="multipart/form-data"
-                          id="info__form"
-                          action="javascript:insertMetadataInfo()">
-                        <input type="submit" value="Soumettre" class="repositGoButton"><br>
+    <main role="main" class="info">
+        <fieldset class="info__fieldset">
+            <form method="post"
+                  enctype="multipart/form-data"
+                  id="info__form"
+                  action="javascript:insertMetadataInfo()">
+                <input type="submit" value="Soumettre" class="repositGoButton"><br>
 
-                        <div>
-                            <label class="info__title_label">Titre de la photo</label>
-                            <br>
-                            <input type="text" id="info__title-input"
-                                   placeholder="ex.: Louis chez les grands-parents"
-                                   size="75">
-                        </div>
+                <div>
+                    <label class="info__label info__label--modifier">Titre de la photo</label>
+                    <br>
+                    <input type="text" class="info__input info__input--modifier"
+                           placeholder="ex.: Louis chez les grands-parents"
+                           size="75">
+                </div>
 
-                        <div>
-                            <label class="info__keys_label">Mots-clefs</label>
-                            <br>
-                            <input type="text" id="info__keys-input" size="75"
-                                   placeholder="Série de mots-clefs permettant une recherche">
-                        </div>
+                <div>
+                    <label class="info__label">Mots-clefs</label>
+                    <br>
+                    <input type="text" class="info__input" size="75"
+                           placeholder="Série de mots-clefs permettant une recherche">
+                </div>
 
-                        <div>
-                            <label class="info__caption_label">Légende</label>
-                            <br>
-                            <input type="text" id="info__caption-input" size="118"
-                                   placeholder="Courte description générale">
-                        </div>
+                <div>
+                    <label class="info__label">Légende</label>
+                    <br>
+                    <input type="text" class="info__input" size="118"
+                           placeholder="Courte description générale">
+                </div>
 
-                        <div>
-                            <label class="info__year_label">Année de la photo</label>
-                            <br>
-                            <input type="text" id="info__year-input" size="10" placeholder="ex.: 2019">
-                        </div>
+                <div>
+                    <label class="info__label">Année de la photo</label>
+                    <br>
+                    <input type="text" class="info__input" size="10" placeholder="ex.: 2019">
+                </div>
 
-                        <div>
-                            <label class="info__geneol_label">Indexe(s) généalogique(s)</label>
-                            <br>
-                            <input type="text" id="info__geneol-input" size="118">
-                        </div>
-                    </form>
+                <div>
+                    <label class="info__label">Indexe(s) généalogique(s)</label>
+                    <br>
+                    <input type="text" class="info__input" size="118">
+                </div>
+            </form>
 
-                    <section>
-                        <div id="info__photo">
-                        </div>
+            <div class="info__photo">
+            </div>
 
-                        <div id="info__button">
-                            <button id="info_button-prev" onclick="javascript:getPhotoInfoPrevious()">Photo précédente
-                            </button>
-                            <button id="info_button-next" onclick="javascript:getPhotoInfoNext()">Photo suivante
-                            </button>
-                        </div>
-                    </section>
-                </fieldset>
-            </section>
-
-        </main>
-        <!-- end main -->
-    </div>
-    <!-- end container -->
+            <div class="info__button">
+                <button class="info__button-prev" onclick="javascript:getPhotoInfoPrevious()">Photo précédente
+                </button>
+                <button class="info__button-next" onclick="javascript:getPhotoInfoNext()">Photo suivante
+                </button>
+            </div>
+        </fieldset>
+    </main>
 </div>
 <!-- end page -->
 <script src="assets/js/main.js"></script>

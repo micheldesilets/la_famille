@@ -1,4 +1,13 @@
-@import "base/base";
+@import "base/base.settings";
+@import "base/base-fonts";
+@import "base/base.palette";
+@import "base/base.theme";
+@import "base/base.mixins";
+@import "base/base.effects";
+@import "base/base.header";
+@import "base/base.footer";
+@import "base/base.content";
+@import "base/base.common";
 
 blockquote {
   border-left: 2px solid $color2;
@@ -12,7 +21,7 @@ blockquote {
 
   // Children directly under box
   > p {
-    margin: 0px;
+    margin: 0;
   }
 }
 

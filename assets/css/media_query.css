@@ -21,24 +21,24 @@
     width: 80%;
   }
 
-  .nav-main {
+    .c-c-nav-main {
     border-top: 0.13em solid black;
     text-align: center;
   }
 
-  .nav-main li {
+    .c-c-nav-main li {
     font-size: 1.0em;
   }
 
-  .nav-main li:first-child {
+    .c-c-nav-main li:first-child {
     border-left: none;
   }
 
-  .nav-main li:last-child a {
+    .c-c-nav-main li:last-child a {
     padding-right: 0;
   }
 
-  .nav-main a {
+    .c-c-nav-main a {
     display: inline-block;
     font-size: .5em;
     padding: .5em .5em .5em 1em;
@@ -77,7 +77,7 @@
       text-align: left;
     }
 
-    .nav-main a {
+    .c-c-nav-main a {
       font-size: 1.125em; !* 18px/16px *!
       padding-left: 1.4em;
       padding-right: 1.15em;
@@ -121,24 +121,24 @@
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {
 
-  .nav-main {
+    .c-c-nav-main {
     border-top: 0.15em solid black;
     text-align: center;
   }
 
-  .nav-main li {
+    .c-c-nav-main li {
     font-size: 1.0em;
   }
 
-  .nav-main li:first-child {
+    .c-c-nav-main li:first-child {
     border-left: none;
   }
 
-  .nav-main li:last-child a {
+    .c-c-nav-main li:last-child a {
     padding-right: 0;
   }
 
-  .nav-main a {
+    .c-c-nav-main a {
     display: inline-block;
     font-size: .7em;
     padding: .5em .9em .5em 1.15em;
@@ -162,7 +162,7 @@
     .about {
       padding-bottom: 1.4em;
     }*/
-  .nav-main a {
+    .c-c-nav-main a {
     /*    display: inline-block;
         font-size: 1em;
         padding: .5em .9em .5em 1.15em;*/
@@ -182,24 +182,24 @@
     margin-bottom: -0.4em;
   }
 
-  .nav-main {
+    .c-c-nav-main {
     border-top: 0.15em solid black;
     text-align: center;
   }
 
-  .nav-main li {
+    .c-c-nav-main li {
     font-size: 1.28em;
   }
 
-  .nav-main li:first-child {
+    .c-c-nav-main li:first-child {
     border-left: none;
   }
 
-  .nav-main li:last-child a {
+    .c-c-nav-main li:last-child a {
     padding-right: 0;
   }
 
-  .nav-main a {
+    .c-c-nav-main a {
     display: inline-block;
     font-size: .65em;
     padding: .5em .9em .5em 1.15em;
@@ -253,7 +253,7 @@
      padding-top: 10px;
    }
 
-   .nav-main {
+   .c-c-nav-main {
      margin-bottom: 0;
    }
 

@@ -1,0 +1,55 @@
+
+.info {
+  &__fieldset {
+    width: 97.3%;
+    height: 500px;
+  }
+  &__button {
+    position: relative;
+    top: 8px;
+    left: 354px;
+    font-size: small;
+  }
+  &__button-prev, &__button-next {
+    background-color: #fdfaf6;
+    border: none;
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+  &__label {
+    color: black;
+    background-color: #fdfaf6;
+    width: 20%;
+    float: left;
+    text-align: right;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  &__input {
+    position: relative;
+    top: -25px;
+    font-size: small;
+    background-color: #F8F8F8;
+  }
+  &__label--modifier, &__input--modifier {
+    margin-top: 33px;
+  }
+  &__photo {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

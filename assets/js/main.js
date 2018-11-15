@@ -262,21 +262,23 @@ function getPhotoInfoNext() {
 }
 
 function renderInfoPhoto(data) {
-    var infoContainer = document.getElementById("info__photo");
-    var button = document.getElementsByClassName("info__button info__button--new-presentation");
+    var infoContainer = document.getElementsByClassName("info__photo");
+    var infoInputs = document.getElementsByClassName("info__input");
+    infoContainer = infoContainer[0];
     var htmlString = "";
     var thumb = "";
-    document.getElementById("info__photo").innerText = "";
+
+    infoContainer.innerText = "";
 
     for (const obj of data) {
         thumb = obj.prev_path + obj.filename;
         htmlString = "<div><img src=\"" + thumb + "\"></div>";
 
-        document.getElementById("info__title-input").value = obj.title;
-        document.getElementById("info__keys-input").value = obj.keywords;
-        document.getElementById("info__caption-input").value = obj.caption;
-        document.getElementById("info__year-input").value = obj.year;
-        document.getElementById("info__geneol-input").value = obj.geneolnames;
+        infoInputs[0].value = obj.title;
+        infoInputs[1].value = obj.keywords;
+        infoInputs[2].value = obj.caption;
+        infoInputs[3].value = obj.year;
+        infoInputs[4].value = obj.geneolnames;
 
         infoContainer.insertAdjacentHTML('beforeend', htmlString);
     }
