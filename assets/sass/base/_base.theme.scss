@@ -2,6 +2,10 @@
 
 @import "base.mixins";
 
+html, body {
+  min-height: 100%;
+}
+
 html {
   background: $color1;
   color: $color2;
@@ -9,11 +13,10 @@ html {
 
 body {
   // Set line heights
-  line-height: $base-line-height;
+  line-height: $spacing-normal;
 
   // Set default font weights
   font-weight: $font-weight-normal;
-
   font-size: $font-normal;
   background-repeat: no-repeat;
   background-position: top left;

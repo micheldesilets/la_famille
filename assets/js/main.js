@@ -262,9 +262,9 @@ function getPhotoInfoNext() {
 }
 
 function renderInfoPhoto(data) {
-    var infoContainer = document.getElementsByClassName("info__photo");
-    var infoInputs = document.getElementsByClassName("info__input");
-    infoContainer = infoContainer[0];
+    var infoContain = document.getElementsByClassName("data-box__photo");
+    var infoInputs = document.getElementsByClassName("data-box__input");
+    var infoContainer = infoContain[0];
     var htmlString = "";
     var thumb = "";
 
@@ -796,17 +796,13 @@ function getRepositInputs() {
 }
 
 function getRepositInputsPhotos() {
-    var repositoryDoc = document.getElementById('addReposit');
-
+    // var repositoryDoc = document.getElementById('addReposit');
+    var repositoryDoc = document.getElementsByClassName("data-box__select");
     repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
     repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositSelectTitle'].value;
-    repositoryData['preview'] = repositoryDoc.elements['repositPreviewInput'].files;
-    repositoryData['full'] = repositoryDoc.elements['repositFullInput'].files;
-    repositoryData['orig'] = repositoryDoc.elements['repositOrigInput'].files;
-    repositoryData['meta'] = repositoryDoc.elements['repositMetaInput'].files;
 }
 
 var infoPhotoData;
@@ -863,7 +859,7 @@ function addMetadataToDB() {
         myRequest.send();*/
 }
 
-function uploadPreview() {
+function uploadPhotos() {
     getRepositInputsPhotos();
 
     const url = 'php/upload.php';
@@ -899,8 +895,8 @@ function getYearsSelected() {
     var myYearsData;
     var firstYear;
 
-    var decade = document.getElementById("repositSelectDecade").value;
-
+    var deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
+    var decade = deca[0].value;
     var myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
     myRequest.onload = function () {
@@ -914,10 +910,10 @@ function getYearsSelected() {
 function getYearsSelectedPhotos() {
     var myYearsData;
     var firstYear;
-
-    var decade = document.getElementById("repositSelectDecade").value;
-
+    var deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
+    var decade = deca[0].value;
     var myRequest = new XMLHttpRequest();
+
     myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
     myRequest.onload = function () {
         myYearsData = JSON.parse(myRequest.responseText);
@@ -931,10 +927,11 @@ function getYearsSelectedPhotos() {
 }
 
 function renderYears(data) {
-    var yearContainer = document.getElementById('repositSelectYear');
+    var yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+    yearContainer = yearContainer[0];
     var htmlString = "";
 
-    document.getElementById("repositSelectYear").innerHTML = "";
+    yearContainer.innerHTML = "";
 
     for (const obj of data) {
         htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
@@ -947,7 +944,8 @@ function renderYears(data) {
 function getReposits(fisrtYear) {
     var myRepositData;
     if (fisrtYear === undefined) {
-        var year = document.getElementById("repositSelectYear").value;
+        var y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+        var year = y[0].value;
     } else {
         year = fisrtYear;
     }
@@ -964,10 +962,11 @@ function getReposits(fisrtYear) {
 }
 
 function renderReposits(myData) {
-    var repositContainer = document.getElementById('repositSelectTitle');
+    var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
+    repositContainer = repositContainer[0];
     var htmlString = "";
 
-    document.getElementById("repositSelectTitle").innerHTML = "";
+    repositContainer.innerHTML = "";
 
     for (const obj of myData) {
         htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";

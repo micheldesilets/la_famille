@@ -1,8 +1,17 @@
 
-.info {
+.data-box {
   &__fieldset {
     width: 97.3%;
-    height: 500px;
+    height: 200px;
+    &--reposit {
+      height: 400px;
+    }
+    &--add-photo {
+      height: 400px;
+    }
+    &--info {
+      height: 500px;
+    }
   }
   &__button {
     position: relative;
@@ -10,8 +19,13 @@
     left: 354px;
     font-size: small;
   }
+  &__go-button {
+    background-color: $color1;
+    float: right;
+    margin-right: 13px;
+  }
   &__button-prev, &__button-next {
-    background-color: #fdfaf6;
+    background-color: $color1;
     border: none;
     cursor: pointer;
     @include hocus() {
@@ -20,28 +34,46 @@
   }
   &__label {
     color: black;
-    background-color: #fdfaf6;
+    background-color: $color1;
     width: 20%;
     float: left;
     text-align: right;
     margin-left: 0;
     margin-right: 10px;
   }
+  &__select {
+    display: block;
+    background-color: $color5;
+  }
   &__input {
     position: relative;
-    top: -25px;
     font-size: small;
-    background-color: #F8F8F8;
-  }
-  &__label--modifier, &__input--modifier {
-    margin-top: 33px;
+    background-color: $color5;
+    &--photos {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
   }
   &__photo {
-    width: 100%;
-    margin-top: 20px;
+    width: auto;
+    margin-top: 10px;
     text-align: center;
   }
+  &__text {
+    position: relative;
+    top: -19px;
+    font-size: small;
+    background-color: $color5;
+    &--photos {
+      top: -25px;
+    }
+  }
 }
+
 
 
 

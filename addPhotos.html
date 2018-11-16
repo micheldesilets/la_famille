@@ -2,10 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="wclassth=device-wclassth, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ajout de photos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="wclassth=device-wclassth, initial-scale=1"/>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -14,106 +14,83 @@
     <![endif]-->
 </head>
 <body onload="javascript:getYearsSelectedPhotos();">
-<div class="page">
+<div class="page data-box">
 
-    <div class="repositHeader">
-        <h1 class="photoAddH1">Ajout de photos</h1>
+    <div>
+        <h1 class="data-box__h1 data-box__h1--add-photos">Ajout de photos</h1>
         <div>
-            <a href="index.php" id="repositX">X</a>
+            <a href="index.php" class="data-box__exit">X</a>
         </div>
     </div>
 
     <!-- ==== START MAIN ==== -->
-    <div class="repositContainer">
-        <main role="main">
-            <section class="repository">
-                <form method="post" enctype="multipart/form-data" id="addReposit" action="javascript:uploadPreview()">
-                    <fieldset class="photoAddFieldset">
-                        <input type="submit" value="Soumettre" class="repositGoButton"><br>
+    <main role="main">
+        <fieldset class="data-box__fieldset data-box__fieldset--add-photo">
+            <form method="post"
+                  enctype="multipart/form-data"
+                  class="data-box__form data-box__form--add-photos"
+                  action="javascript:uploadPhotos()">
+                <input type="submit" value="Soumettre" class="data-box__go-button"><br>
 
-                        <div class="repositType">
-                            <label for="repositSelectType" class="repositTypeLabel">Type de regroupement</label>
-                            <select id="repositSelectType">
-                                <option value="2" selected>Famille</option>
-                                <option value="3">Livres</option>
-                                <option value="6">Objets</option>
-                            </select><br>
-                        </div>
+                <div>
+                    <label for="data-box__select--add-ph-type" class="data-box__label">Type de regroupement</label>
+                    <select class="data-box__select data-box__select--add-ph-type">
+                        <option value="2" selected>Famille</option>
+                        <option value="3">Livres</option>
+                        <option value="6">Objets</option>
+                    </select><br>
+                </div>
 
-                        <div class="repositAuthor">
-                            <label for="RepositSelectAuthor" class="repositAuthorLabel">Auteur</label>
-                            <select id="repositSelectAuthor">
-                                <option value="2" selected>Michel</option>
-                                <option value="3">Amélie</option>
-                                <option value="4">Chantal</option>
-                                <option value="5">Archives</option>
-                                <option value="1">NA</option>
-                            </select><br>
-                        </div>
+                <div>
+                    <label for="data-box__select--add-ph-author" class="data-box__label">Auteur</label>
+                    <select class="data-box__select data-box__select--add-ph-author">
+                        <option value="2" selected>Michel</option>
+                        <option value="3">Amélie</option>
+                        <option value="4">Chantal</option>
+                        <option value="5">Archives</option>
+                        <option value="1">NA</option>
+                    </select><br>
+                </div>
 
-                        <div class="repositDecade">
-                            <label for="repositSelectDecade" class="repositDecadeLabel">Décennie</label>
-                            <select id="repositSelectDecade" onchange="javascript:getYearsSelectedPhotos();">
-                                <option value="2" selected>1970-1979</option>
-                                <option value="3">1980-1989</option>
-                                <option value="4">1990-1999</option>
-                                <option value="5">2000-2009</option>
-                                <option value="6">2010-2019</option>
-                                <option value="1">NA</option>
-                            </select><br>
-                        </div>
+                <div>
+                    <label for="data-box__select--add-repo-photo-decade" class="data-box__label">Décennie</label>
+                    <select class="data-box__select data-box__select--add-repo-photo-decade"
+                            onchange="javascript:getYearsSelectedPhotos();">
+                        <option value="2" selected>1970-1979</option>
+                        <option value="3">1980-1989</option>
+                        <option value="4">1990-1999</option>
+                        <option value="5">2000-2009</option>
+                        <option value="6">2010-2019</option>
+                        <option value="1">NA</option>
+                    </select><br>
+                </div>
 
-                        <div class="repositYear">
-                            <label for="repositSelectYear" class="repositYearLabel">Année</label>
-                            <select id="repositSelectYear" onchange="javascript:getReposits()">
-                            </select><br>
-                        </div>
+                <div>
+                    <label for="data-box__select--add-repo-photo-year" class="data-box__label">Année</label>
+                    <select class="data-box__select data-box__select--add-repo-photo-year"
+                            onchange="javascript:getReposits()">
+                    </select><br>
+                </div>
 
-                        <div class="repositName">
-                            <label for="repositSelectTitle" class="repositNameLabel">Nom du répertoire</label>
-                            <select id="repositSelectTitle">
-                            </select><br>
-                        </div>
+                <div>
+                    <label for="data-box__select--add-ph-title" class="data-box__label">Nom du répertoire</label>
+                    <select class="data-box__select data-box__select--add-ph-title">
+                    </select><br>
+                </div>
 
-                        <div class="repositPreview">
-                            <label for="repositPreviewInput" class="repositPreviewLabel">Sélection des
-                                miniatures</label>
-                            <input type="file" multiple id="repositPreviewInput" name="repositPreviewData[]"
-                                   onchange="javascript:renderPreviewText()"><br>
-                            <input type="text" multiple id="repositPreviewText" size="75"><br>
-                        </div>
-
-                        <div class="repositFull">
-                            <label for="repositFullInput" class="repositFullLabel">Sélection des photos web</label>
-                            <input type="file" multiple id="repositFullInput" name="repositFullData"
-                                   onchange="javascript:renderFullText()"><br>
-                            <input type="text" multiple id="repositFullText" size="75"><br>
-                        </div>
-
-                        <div class="repositOrig">
-                            <label for="repositOrigInput" class="repositOrigLabel">Sélection des photos
-                                originales</label>
-                            <input type="file" multiple id="repositOrigInput" name="repositOrigData"
-                                   onchange="javascript:renderOrigText()"><br>
-                            <input type="text" id="repositOrigText" size="75"><br>
-                        </div>
-
-                        <div class="repositMeta">
-                            <label for="repositMetaInput" class="repositMetaLabel">Sélection du fichier des
-                                métadonnées</label>
-                            <input type="file" multiple id="repositMetaInput" name="repositMetaData"
-                                   onchange="javascript:renderMetadataText()"><br>
-                            <input type="text" id="repositMetaText" size="30">
-                        </div>
-                    </fieldset>
-                </form>
-
-            </section>
-
-        </main>
-        <!-- end main -->
-    </div>
-    <!-- end container -->
+                <div>
+                    <label for="data-box__input--photos" class="data-box__label">Sélection des photos</label>
+                    <input type="file" multiple class="data-box__input data-box__input--photos"
+                           id="data-box__input--photos" name="data-box__data[]"
+                           onchange="javascript:renderPreviewText()"><br>
+                    <input type="text" class="data-box__text data-box__text--photos" size="75">
+                </div>
+            </form>
+        </fieldset>
+    </main>
+    <!-- end main -->
+</div>
+<!-- end container -->
 </div>
 <!-- end page -->
 <script src="assets/js/main.js"></script>

@@ -13,65 +13,62 @@
 </head>
 
 <body onload="javascript:getSelectedInfoPhoto()">
-<div class="page">
+<div class="page data-box">
 
-    <div class="info-header">
-        <h1 class="info-header__h1">Informations sur la photo</h1>
-        <button onclick="javascript:closeWindow()" class="info-header__X">
+    <div>
+        <h1 class="data-box__h1 data-box__h1--info">Informations sur la photo</h1>
+        <button onclick="javascript:closeWindow()" class="data-box__exit data-box__exit--info">
             <strong>X</strong>
         </button>
     </div>
 
-    <main role="main" class="info">
-        <fieldset class="info__fieldset">
+    <main role="main">
+        <fieldset class="data-box__fieldset data-box__fieldset--info">
             <form method="post"
                   enctype="multipart/form-data"
-                  id="info__form"
+                  class="data-box__form"
                   action="javascript:insertMetadataInfo()">
-                <input type="submit" value="Soumettre" class="repositGoButton"><br>
-
+                <input type="submit" value="Soumettre" class="data-box__go-button"><br>
                 <div>
-                    <label class="info__label info__label--modifier">Titre de la photo</label>
-                    <br>
-                    <input type="text" class="info__input info__input--modifier"
+                    <label class="data-box__label">Titre de la photo</label>
+                    <input type="text" class="data-box__input data-box__input--info-title"
                            placeholder="ex.: Louis chez les grands-parents"
                            size="75">
                 </div>
-
+                <br>
                 <div>
-                    <label class="info__label">Mots-clefs</label>
-                    <br>
-                    <input type="text" class="info__input" size="75"
+                    <label class="data-box__label">Mots-clefs</label>
+                    <input type="text" class="data-box__input data-box__input--info-keywords" size="75"
                            placeholder="Série de mots-clefs permettant une recherche">
                 </div>
-
+                <br>
                 <div>
-                    <label class="info__label">Légende</label>
-                    <br>
-                    <input type="text" class="info__input" size="118"
+                    <label class="data-box__label">Légende</label>
+                    <input type="text" class="data-box__input data-box__input--info-caption" size="118"
                            placeholder="Courte description générale">
                 </div>
-
+                <br>
                 <div>
-                    <label class="info__label">Année de la photo</label>
-                    <br>
-                    <input type="text" class="info__input" size="10" placeholder="ex.: 2019">
+                    <label class="data-box__label">Année de la photo</label>
+                    <input type="text"
+                           class="data-box__input data-box__input--info-year"
+                           size="10"
+                           placeholder="ex.: 2019">
                 </div>
-
+                <br>
                 <div>
-                    <label class="info__label">Indexe(s) généalogique(s)</label>
-                    <br>
-                    <input type="text" class="info__input" size="118">
+                    <label class="data-box__label">Indexe(s) généalogique(s)</label>
+                    <input type="text" class="data-box__input data-box__input--info-geneol" size="118">
                 </div>
             </form>
 
-            <div class="info__photo">
+            <div class="data-box__photo">
             </div>
 
-            <div class="info__button">
-                <button class="info__button-prev" onclick="javascript:getPhotoInfoPrevious()">Photo précédente
+            <div class="data-box__button">
+                <button class="data-box__button-prev" onclick="javascript:getPhotoInfoPrevious()">Photo précédente
                 </button>
-                <button class="info__button-next" onclick="javascript:getPhotoInfoNext()">Photo suivante
+                <button class="data-box__button-next" onclick="javascript:getPhotodata-boxNext()">Photo suivante
                 </button>
             </div>
         </fieldset>

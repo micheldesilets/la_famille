@@ -1,9 +1,90 @@
+.masthead {
+  // Dropdown button and account
+  &__dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: Raleway;
+    font-style: normal;
+    font-size: small;
+    .masthead__item {
+      background-color: #fdfaf6;
+    }
+    &:hover {
+      .masthead__dropdown-content {
+        display: block;
+      }
+      .masthead__dropbtn {
+        background-color: #F0F0F0;
+      }
+    }
+  }
+  &__dropbtn {
+    margin-top: 8px;
+    border: none;
+    color: black;
+    background-color: #fdfaf6;
+  }
+  &__dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    .masthead__item {
+      color: black;
+      padding-left: 24px;
+      text-decoration: none;
+      display: block;
+      &:hover {
+        background-color: #F8F8F8;
+      }
+    }
+  }
+  &__account {
+    float: right;
+    margin-top: 8px;
+    background-color: #fdfaf6;
+    border: none;
+    font-family: Raleway;
+    font-style: normal;
+    font-size: small;
+    text-decoration: none;
+  }
+  // End dropdown button and account
+
+  &__title {
+    font-family: 'Alex Brush';
+    font-weight: $font-weight-darker;
+    font-size: $font-larger;
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 30px;
+    &--index {
+      margin-top: 5px;
+    }
+  }
+
+  &__sub-title {
+    font-family: 'Raleway';
+    font-style: italic;
+    font-size: $font-small;
+    font-weight: $font-weight-normal;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+}
+
 // Main navigation
 .c-nav-main {
+  font-family: 'Alex Brush';
+  font-weight: $font-weight-normal;
+  font-size: $font-large;
   text-align: center;
+  margin-top: 9px;
   border-bottom: 1px solid $color2;
-  margin-bottom: 1em;
-  padding: .4em 0 .4em;
   color: $color4;
   cursor: default;
   &__item {
@@ -18,6 +99,7 @@
     }
   }
   &__link {
+
     display: inline-block;
     font-size: 1.2em;
     padding: .2em .9em .5em 1.15em;
@@ -27,22 +109,29 @@
   }
 }
 
-#repositX, .info-header__X {
-  font-weight: $font-weight-bold;
-  width: 15%;
-  float: right;
-  text-align: right;
-  cursor: pointer;
-  padding-top: 25px;
-
-}
-
-.info-header {
-  &__h1 {
-    width: 66%;
-  }
-  &__X {
+.data-box {
+  &__exit {
+    font-weight: $font-weight-bold;
+    width: 15%;
+    float: right;
+    text-align: right;
+    cursor: pointer;
+    padding-top: 25px;
     background-color: $color1;
     border: none;
+  }
+  &__h1 {
+    font-size: x-large;
+    text-align: right;
+    float: left;
+    &--info {
+      width: 66%;
+    }
+    &--reposit {
+      width: 63%;
+    }
+    &--add-photos {
+      width: 63%;
+    }
   }
 }
