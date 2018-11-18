@@ -34,7 +34,7 @@
                 <a class="masthead__item" href="addPhotos.html">Ajout de photos</a>
             </div>
         </div>
-        <input type="button" class="masthead__account" value="Mon compte" onclick="#">
+        <input type="button" class="masthead__account" value="Mon compte">
 
         <h1 class="masthead__title masthead__title--index">Les Normandeau-Desilets</h1>
         <h2 class="masthead__sub-title">Une courte histoire de Nous</h2>
@@ -57,12 +57,13 @@
     </header>
     <!-- end masthead -->
     <!-- ==== START SIDEBAR ==== -->
-    <div class="sidebar">
+    <div>
         <article class="about">
-            <img src="<?php echo($locSb); ?>" alt="Michel Desilets">
-            <p>En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu celle
+            <img class="about__img-me" src="<?php echo($locSb); ?>" alt="Michel Desilets">
+            <p class="about__text">En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu
+                celle
                 de ceux avec qui j'ai partagé ma vie.</p>
-            <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="signature">
+            <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="about__signature">
         </article>
     </div>
     <!-- end sidebar -->

@@ -1,4 +1,6 @@
-
+//
+// Reference table entries
+//
 .data-box {
   &__fieldset {
     width: 97.3%;
@@ -71,6 +73,116 @@
     &--photos {
       top: -25px;
     }
+  }
+}
+
+//
+// Index.php
+//
+.about {
+  width: 18%;
+  float: left;
+  border: 1px solid black;;
+  padding: 0.313em 0.625em 0.625em;
+  margin-right: 0.5em;
+  &__img-me {
+    display: block;
+    width: 75%;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 18% 18% 7% 7%;
+    box-shadow: 4px 4px 20px grey;
+  }
+  &__signature {
+    box-shadow: none;
+    border-radius: unset;
+    border: none;
+    float: right;
+  }
+  &__text {
+    color: black;
+    text-align: left;
+    @include wsh-02;
+  }
+}
+
+//
+// Readings - menu and content
+//
+.menu1 {
+  &__item {
+    display: block;
+    font-style: italic;
+    font-size: .9em;
+    margin-bottom: .7em;
+    &--right {
+      text-align: right;
+      font-weight: normal;
+    }
+    &--left {
+      float: left;
+      margin-left: -3em;
+      font-weight: bold;
+      //text-decoration: underline;
+    }
+  }
+}
+
+.readings {
+  font-weight: bold;
+  &__books {
+    @include templateImgTxt;
+  }
+  &__title {
+    font-weight: bold;
+    margin-top: 0;
+  }
+  &__summary {
+    @include wsh-01;
+    a {
+      text-decoration: underline;
+      color: blue;
+    }
+  }
+}
+
+//
+// Legacy
+//
+
+.legacy {
+  &__left {
+    width: 50%;
+    float: left;
+  }
+  &__right {
+    width: 50%;
+    float: left;
+  }
+  &__title {
+    margin-left: $spacing-normal;
+  }
+  &__items {
+    list-style-type: circle;
+    font-style: italic;
+    @include wsh-01();
+  }
+  &__item {
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+}
+
+// Objects
+.objects {
+  &__img {
+    @include templateImgTxt;
+  }
+  &__description {
+    margin-top: 0;
+    @include wsh-01;
   }
 }
 

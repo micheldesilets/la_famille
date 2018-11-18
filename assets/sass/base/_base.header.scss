@@ -7,14 +7,14 @@
     font-style: normal;
     font-size: small;
     .masthead__item {
-      background-color: #fdfaf6;
+      background-color: $color1;
     }
     &:hover {
       .masthead__dropdown-content {
         display: block;
       }
       .masthead__dropbtn {
-        background-color: #F0F0F0;
+        background-color: $color5;
       }
     }
   }
@@ -22,7 +22,7 @@
     margin-top: 8px;
     border: none;
     color: black;
-    background-color: #fdfaf6;
+    background-color: $color1;
   }
   &__dropdown-content {
     display: none;
@@ -37,14 +37,14 @@
       text-decoration: none;
       display: block;
       &:hover {
-        background-color: #F8F8F8;
+        background-color: $color5;
       }
     }
   }
   &__account {
     float: right;
     margin-top: 8px;
-    background-color: #fdfaf6;
+    background-color: $color1;
     border: none;
     font-family: Raleway;
     font-style: normal;

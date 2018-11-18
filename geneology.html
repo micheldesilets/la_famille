@@ -6,24 +6,15 @@
     <title>Famille Normandeau-Desilets - Photos Famille</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="tutorials/gallery.css">
     <link rel="stylesheet" href="assets/css/main.css">
-
-    <link rel="stylesheet" href="assets/css/familyImages.css">
-    <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
-    <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
-
-
 </head>
-<body>
 
+<body>
 <div class="page">
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
-        <!--    <p class="logo"><a href="/"><img .../></a></p>-->
-        <h1>Les Normandeau-Desilets</h1>
-
-        <h2>Une courte histoire de Nous</h2>
+        <h1 class="masthead__title">Les Normandeau-Desilets</h1>
+        <h2 class="masthead__sub-title">Une courte histoire de Nous</h2>
 
         <nav role="navigation">
             <ul class="c-nav-main">
@@ -44,44 +35,29 @@
     <!-- end masthead -->
 
     <!-- ==== MAIN ==== -->
-    <div role="main">
-        <section class="legacycontainerMichel">
-            <div class="legacy">
-                <h3 class="legacytitlemde">Michel Desilets</h3>
-                <ul class="legacyItems">
-                    <li><a href="legacy/desilets/asc_book/index.html">Livre d'ascendance</a></li>
-                    <li><a href="legacy/desilets/desc_book/index.html">Livre de descendance</a></li>
-                    <li><a href="legacy/desilets/asc_tree/index.html">Arbre d'ascendance</a></li>
-                    <li><a href="legacy/desilets/fam_file/index.html">Fiche familiale</a></li>
-                    <li><a href="legacy/desilets/pers_file/index.html">Fiche individuelle</a></li>
-                    <li><a href="legacy/ArbreMde.pdf"></a>Arbre de Michel Desilets</li>
-                </ul>
-            </div>
+    <div role="main" class="legacy">
+        <section class="legacy__left">
+            <h3 class="legacy__title">Michel Desilets</h3>
+            <ul class="legacy__items">
+                <li><a class="legacy__item" href="legacy/desilets/asc_book/index.html">Livre d'ascendance</a></li>
+                <li><a class="legacy__item" href="legacy/desilets/desc_book/index.html">Livre de descendance</a></li>
+                <li><a class="legacy__item" href="legacy/desilets/asc_tree/index.html">Arbre d'ascendance</a></li>
+                <li><a class="legacy__item" href="legacy/desilets/fam_file/index.html">Fiche familiale</a></li>
+                <li><a class="legacy__item" href="legacy/desilets/pers_file/index.html">Fiche individuelle</a></li>
+                <li><a class="legacy__item" href="legacy/ArbreMde.pdf">Arbre de Michel Desilets</a></li>
+            </ul>
         </section>
-        <section class="legacycontainerChantal">
-            <div class="legacy">
-                <h3 class="legacytitlecno">Chantal Normandeau</h3>
-                <ul class="legacyItems">
-                    <li><a href="#">Livre d'ascendance</a></li>
-                    <li><a href="#">Livre de descendance</a></li>
-                    <li><a href="#">Arbre d'ascendance</a></li>
-                    <li><a href="#">Fiche familiale</a></li>
-                    <li><a href="#">Fiche individuelle</a></li>
-                </ul>
-            </div>
+        <section class="legacy__right">
+            <h3 class="legacy__title">Chantal Normandeau</h3>
+            <ul class="legacy__items">
+                <li><a class="legacy__item" href="#">Livre d'ascendance</a></li>
+                <li><a class="legacy__item" href="#">Livre de descendance</a></li>
+                <li><a class="legacy__item" href="#">Arbre d'ascendance</a></li>
+                <li><a class="legacy__item" href="#">Fiche familiale</a></li>
+                <li><a class="legacy__item" href="#">Fiche individuelle</a></li>
+            </ul>
         </section>
     </div>
-
-    <!-- ==== START PAGE FOOTER ==== -->
-    <div>
-        <!--    <footer role="contentinfo" class="footer">
-              <p class="legal, clearfix">
-                <small>&copy; 2018 Les NormandeauDesilets</small>
-              </p>
-            </footer>-->
-    </div>
-    <!-- end page footer -->
 </div>
-<!-- end page -->
 </body>
 </html>

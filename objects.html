@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Famille Normandeau-Desilets - Objets de famille</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Famille Normandeau-Desilets - Objets de famille</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/main.js"></script>
-  <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
-  <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
-  <!--[if lt IE 9]>
-  <!--<script src="js/html5shiv.js"></script>-->
-  <![endif]-->
+    <!--  <link rel="stylesheet" href="css/media_query.css" media="screen">-->
+    <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
+    <!--[if lt IE 9]>
+    <!--<script src="js/html5shiv.js"></script>-->
+    <![endif]-->
 </head>
 <body id="bdy">
 <div class="page">
-  <!-- ==== START MASTHEAD ==== -->
-  <div class="header-cont">
-    <header class="masthead" role="banner" id="myHeader">
-      <h1>Les Normandeau-Desilets</h1>
-      <h2>Une courte histoire de Nous</h2>
+    <!-- ==== START MASTHEAD ==== -->
+    <div class="header-cont">
+        <header class="masthead" role="banner" id="myHeader">
+            <h1 class="masthead__title">Les Normandeau-Desilets</h1>
+            <h2 class="masthead__sub-title">Une courte histoire de Nous</h2>
 
-      <nav role="navigation">
-          <ul class="c-nav-main">
-              <li class="c-nav-main__item"><a class="c-nav-main__link" href="index.php">Acceuil</a>
-          </li>
-              <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.html">Lectures</a>
-          </li>
-              <li class="c-nav-main__item"><a class="c-nav-main__link" href="geneology.html">Généalogie</a>
-          </li>
-              <li class="c-nav-main__item"><a class="c-nav-main__link" href="">Objets de famille</a>
-          </li>
-              <li class="c-nav-main__item"><a class="c-nav-main__link" href="family_photos.html">La famille en
-                      photos</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  </div>
-
-  <!-- end masthead -->
-  <div class="page">
-      <main role=main>
-        <section id="objContainer">
-          <div id="objs"></div>
-        </section>
-
-        <section class="modalContainer">
-          <!-- The Modal -->
-          <div id="myObjModal" class="modal">
-            <span class="close">x</span>
-            <img class="modal-content" id="obj01">
-          </div>
-        </section>
-        <!--<section id="objects-list"></section>-->
-      </main>
+            <nav role="navigation">
+                <ul class="c-nav-main">
+                    <li class="c-nav-main__item"><a class="c-nav-main__link" href="index.php">Acceuil</a>
+                    </li>
+                    <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.html">Lectures</a>
+                    </li>
+                    <li class="c-nav-main__item"><a class="c-nav-main__link" href="geneology.html">Généalogie</a>
+                    </li>
+                    <li class="c-nav-main__item"><a class="c-nav-main__link" href="">Objets de famille</a>
+                    </li>
+                    <li class="c-nav-main__item"><a class="c-nav-main__link" href="family_photos.html">La famille en
+                            photos</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
     </div>
-  </div>
+    <!-- end masthead -->
+
+    <div>
+        <main role=main class="objects">
+            <section class="objects__container">
+                <div id="objs"></div>
+            </section>
+
+            <section class="modalContainer">
+                <!-- The Modal -->
+                <div id="myObjModal" class="modal">
+                    <span class="close">x</span>
+                    <img class="modal-content" id="obj01">
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
 <script>getObjects()</script>
 </body>
 </html>

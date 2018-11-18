@@ -35,6 +35,12 @@ var modalTitle;
 var geneolCont;
 var photoIdCont;
 var ctrlPressed = false;
+var selectedPhotoId;
+var obj;
+var modalObj;
+var modal;
+var infoPhotoData;
+var repositoryData = [];
 
 var author = "";
 var decade = "";
@@ -46,6 +52,7 @@ var htmlString = "";
 var j = -1;
 var level = 0;
 
+/*** Family Photos ***/
 function buildFolderTree(data) {
     var folderContainer = document.getElementById("photosFolders");
 
@@ -177,7 +184,6 @@ function getFamilyPhotos(obj, path, type) {
     getPhotos(path, type);
 }
 
-
 function getPhotos(path, type) {
     searchChoice = false;
     var myRequest = new XMLHttpRequest();
@@ -216,7 +222,6 @@ function searchInputs() {
     myRequest.send();
 }
 
-var selectedPhotoId;
 
 function getSelectedInfoPhoto() {
     searchChoice = false;
@@ -376,7 +381,6 @@ function turnOffSearchFolders() {
     return;
 }
 
-
 /*** SEARCH
  **********************************/
 function searchForm() {
@@ -504,8 +508,6 @@ function transformImage(e) {
     }
     imgModal(e)
 }
-
-var modal;
 
 function imgModal(e) {
     var currWin = window.location.href;
@@ -673,17 +675,29 @@ function imgClick(e) {
 /*** Reading section ***/
 
 function assignReadingTitle() {
-    document.getElementById("family-left").innerHTML = "Lectures des Normandeau-Desilets";
-    document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
+    var menu = document.getElementsByClassName("menu1__item");
+    var menu0 = menu[0];
+    var menu1 = menu[1];
+    menu0.innerHTML = "Lectures des Normandeau-Desilets";
+    menu1.innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
+    /*   document.getElementById("family-left").innerHTML = "Lectures des Normandeau-Desilets";
+       document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";*/
 }
 
 function getReadings() {
-    var family = document.getElementById("family-right").innerHTML;
-    n = family.search("Bernard-Normandeau");
+    var menu = document.getElementsByClassName("menu1__item");
+    var menu0 = menu[0];
+    var menu1 = menu[1];
+    // var family = document.getElementById("family-right").innerHTML;
+    n = menu1.innerText.search("Bernard-Normandeau");
+
+    // n = family.search("Bernard-Normandeau");
     if (n != -1) {
         path = 11
-        document.getElementById("family-left").innerHTML = "Lectures des Bernard-Normandeau";
-        document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
+        menu0.innerHTML = "Lectures des Bernard-Normandeau";
+        menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
+        /*    document.getElementById("family-left").innerHTML = "Lectures des Bernard-Normandeau";
+            document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";*/
     } else {
         path = 10;
         assignReadingTitle();
@@ -699,11 +713,14 @@ function getReadings() {
 }
 
 function renderReadings(data) {
-    var readingsContainer = document.getElementById("readings-list");
+    var Container = document.getElementsByClassName("readings");
+    var readingsContainer = Container[0];
+    // var readingsContainer = document.getElementById("readings-list");
     var htmlString = "";
     var intro = "";
 
-    document.getElementById("readings-list").innerHTML = "";
+    readingsContainer.innerHTML = "";
+    // document.getElementById("readings-list").innerHTML = "";
 
     for (const obj of data) {
         if (obj.intro == null) {
@@ -711,9 +728,10 @@ function renderReadings(data) {
         }
 
         htmlString = "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
-            "<img src=\"" + obj.file + "\" alt=\"\" class=\"books\">" +
-            "<p class=\"title\">" + obj.title + "</p></a>" +
-            "<p class=\"sumary\">" + intro + "</p>" + "<p class=\"summary\">" + obj.sumary + "</p ><br></div>";
+            "<img src=\"" + obj.file + "\" alt=\"\" class=\"readings__books\">" +
+            "<p class=\"readings__title\">" + obj.title + "</p></a>" +
+            "<p class=\"readings__summary\">" + intro + "</p>" + "<p class=\"readings__summary\">" +
+            obj.sumary + "</p ><br></div>";
 
         readingsContainer.insertAdjacentHTML('beforeend', htmlString)
     }
@@ -733,14 +751,16 @@ function getObjects() {
 }
 
 function renderObjects(data) {
-    var objectsContainer = document.getElementById("objContainer");
+    var container = document.getElementsByClassName("objects__container");
+    var objectsContainer = container[0];
+    // var objectsContainer = document.getElementById("objContainer");
     var htmlString = "";
 
     for (const obj of data) {
 
         htmlString = "<div class=\"clearfix\">\n" +
-            "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects\" title='Cliquer pour agrandir la photo'>\n" +
-            "<p class=\"description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
+            "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects__img\" title='Cliquer pour agrandir la photo'>\n" +
+            "<p class=\"objects__description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
 
         objectsContainer.insertAdjacentHTML('beforeend', htmlString)
     }
@@ -755,9 +775,6 @@ function animateObjects() {
     objs.forEach(obj => obj.addEventListener('click', objModal));
 
 }
-
-var obj;
-var modalObj;
 
 function objModal(e) {
     bdy = document.getElementById('bdy');
@@ -782,8 +799,6 @@ function objModal(e) {
 
 /*** ADD REPOSITORY
  ********************************/
-var repositoryData = [];
-
 function getRepositInputs() {
     var repositoryDoc = document.getElementById('addReposit');
 
@@ -804,8 +819,6 @@ function getRepositInputsPhotos() {
     repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
     repositoryData['title'] = repositoryDoc.elements['repositSelectTitle'].value;
 }
-
-var infoPhotoData;
 
 function getInfoPhotoInputs() {
     var infoDoc = document.getElementById('info__form');

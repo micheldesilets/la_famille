@@ -11,6 +11,28 @@
   }
 }
 
+@mixin templateImgTxt() {
+  width: 15%;
+  float: left;
+  height: auto;
+  margin-right: 1.5em;
+  margin-bottom: 1em;
+  box-shadow: 2px 2px 15px grey;
+}
+
+/// Weight-Size-Height
+@mixin wsh-01() {
+  font-weight: normal;
+  font-size: $font-normal;
+  line-height: $spacing-normal;
+}
+
+@mixin wsh-02() {
+  font-weight: normal;
+  font-size: 0.813em;
+  line-height: $spacing-small;
+}
+
 /// Block Element
 /// @access public
 /// @param {String} $element - Element's name
