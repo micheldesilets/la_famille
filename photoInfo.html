@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
-<body onload="javascript:getSelectedInfoPhoto()">
+<body onload="getSelectedInfoPhoto()">
 <div class="page data-box">
 
     <div>
         <h1 class="data-box__h1 data-box__h1--info">Informations sur la photo</h1>
-        <button onclick="javascript:closeWindow()" class="data-box__exit data-box__exit--info">
+        <button onclick="closeWindow()" class="data-box__exit data-box__exit--info">
             <strong>X</strong>
         </button>
     </div>
@@ -66,9 +66,9 @@
             </div>
 
             <div class="data-box__button">
-                <button class="data-box__button-prev" onclick="javascript:getPhotoInfoPrevious()">Photo précédente
+                <button class="data-box__button-prev" onclick="getPhotoInfoPrevious()">Photo précédente
                 </button>
-                <button class="data-box__button-next" onclick="javascript:getPhotodata-boxNext()">Photo suivante
+                <button class="data-box__button-next" onclick="getPhotoInfoNext()">Photo suivante
                 </button>
             </div>
         </fieldset>

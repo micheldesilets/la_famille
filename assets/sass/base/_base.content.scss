@@ -138,6 +138,7 @@
     margin-top: 0;
   }
   &__summary {
+    text-align: justify;
     @include wsh-01;
     a {
       text-decoration: underline;

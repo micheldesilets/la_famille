@@ -584,10 +584,6 @@ main .books, .objects {
 }
 */
 
-.map {
-    /*margin: 1.438em 0 0.813em;*/
-}
-
 /* ::: Previous and Shared Posts ::: */
 .links {
     /* margin: 1.5em 0 4.125em;
@@ -1008,10 +1004,7 @@ fieldset {
     display: block;
     margin-left: 2px;
     margin-right: 2px;
-    padding-top: 0.35em;
-    padding-bottom: 0.625em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+    padding: 0.35em 0.75em 0.625em;
     border: 1px groove;
 }
 
@@ -1046,11 +1039,10 @@ fieldset {
 #goButton {
     width: auto;
     background-color: white;
-    border: none;
     float: right;
     padding: 5px;
-    margin-top: -8px;
-    border: 1px solid lightgrey;
+    margin-top: -3px;
+    /*border: 1px solid lightgrey;*/
 }
 
 /* LEGACY

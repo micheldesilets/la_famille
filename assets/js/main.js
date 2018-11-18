@@ -6,10 +6,10 @@ function assignArchivesTitle() {
 }
 
 function getFolderTree() {
-    var folderRequest = new XMLHttpRequest();
+    const folderRequest = new XMLHttpRequest();
     folderRequest.open('GET', 'php/getFolderTree.php', true);
     folderRequest.onload = function () {
-        var folderData = JSON.parse(folderRequest.responseText);
+        const folderData = JSON.parse(folderRequest.responseText);
         buildFolderTree(folderData);
     }
     folderRequest.send();
@@ -18,7 +18,7 @@ function getFolderTree() {
 var searchChoice = false;
 var searchItmCont;
 var folderTitle;
-var myData;
+var myData = "";
 
 var current;
 var imgs;
@@ -50,15 +50,15 @@ var repoId = 0;
 var sbitm = 0;
 var htmlString = "";
 var j = -1;
-var level = 0;
+var level;
 
 /*** Family Photos ***/
 function buildFolderTree(data) {
-    var folderContainer = document.getElementById("photosFolders");
+    let folderContainer = document.getElementById("photosFolders");
 
     for (const branch of data) {
-        if (author != branch.author && branch.author.length > 0) {
-            if (author != "" && level == 4) {
+        if (author !== branch.author && branch.author.length > 0) {
+            if (author !== "" && level === "4") {
                 htmlString = htmlString +
                     "</ul>\n" +
                     "</li>\n" +
@@ -66,7 +66,7 @@ function buildFolderTree(data) {
                     "</div>\n" +
                     "</div>\n";
             }
-            if (author != "" && level == 2) {
+            if (author !== "" && level === "2") {
                 htmlString = htmlString +
                     "</ul>\n" +
                     "</div>\n" +
@@ -93,7 +93,7 @@ function buildFolderTree(data) {
         }
     }
 
-    if (level == 4) {
+    if (level === "4") {
         htmlString = htmlString +
             "</ul>\n" +
             "</div>\n" +
@@ -107,7 +107,7 @@ function buildFolderTree(data) {
 }
 
 function folderLevel2(branch) {
-    if (decade != branch.decade && branch.decade.length > 0) {
+    if (decade !== branch.decade && branch.decade.length > 0) {
         // itm++;
         // sbitm = 0;
         htmlString = htmlString +
@@ -115,14 +115,13 @@ function folderLevel2(branch) {
             "<ul>\n";
         // predecade = decade;
         decade = branch.decade;
-        // year = 0;
     }
 
-    if ((author == branch.author && branch.author.length > 0) &&
-        (repoId != branch.repository)) {
+    if ((author === branch.author && branch.author.length > 0) &&
+        (repoId !== branch.repository)) {
 
         htmlString = htmlString +
-            "<li class='photofolder L2' onclick='javascript:getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+            "<li class='photofolder L2' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
         repoId = branch.repository;
     }
 }
@@ -130,8 +129,8 @@ function folderLevel2(branch) {
 // TODO Add folder level 3
 
 function folderLevel4(branch) {
-    if (decade != branch.decade && branch.decade.length > 0) {
-        if (decade != "") {
+    if (decade !== branch.decade && branch.decade.length > 0) {
+        if (decade !== "") {
             htmlString = htmlString +
                 "</ul>\n" +
                 "</div>\n" +
@@ -152,8 +151,8 @@ function folderLevel4(branch) {
         year = 0;
     }
 
-    if (year != branch.year && branch.year.length > 0) {
-        if (year != 0) {
+    if (year !== branch.year && branch.year.length > 0) {
+        if (year !== 0) {
             htmlString = htmlString +
                 "</ul>\n" +
                 "</div>\n" +
@@ -169,12 +168,12 @@ function folderLevel4(branch) {
             "<ul>\n";
         year = branch.year;
     }
-    if ((author == branch.author && branch.author.length > 0) &&
-        (decade == branch.decade && branch.decade.length > 0) &&
-        (year == branch.year && branch.year.length > 0) &&
-        (repoId != branch.repository)) {
+    if ((author === branch.author && branch.author.length > 0) &&
+        (decade === branch.decade && branch.decade.length > 0) &&
+        (year === branch.year && branch.year.length > 0) &&
+        (repoId !== branch.repository)) {
         htmlString = htmlString +
-            "<li class='photofolder' value='0' onclick='javascript:getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+            "<li class='photofolder' value='0' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
         repoId = branch.repository;
     }
 }
@@ -186,7 +185,7 @@ function getFamilyPhotos(obj, path, type) {
 
 function getPhotos(path, type) {
     searchChoice = false;
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
     myRequest.onload = function () {
         myData = JSON.parse(myRequest.responseText);
@@ -206,10 +205,9 @@ function getPhotos(path, type) {
 function searchInputs() {
     searchChoice = true;
     folderTitle = "";
-    var searchFormData = [];
-    searchFormData = getSearchInputs();
+    const searchFormData = getSearchInputs();
 
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
         '&wExact=' + searchFormData.wExact.toString() + '&wPart=' + searchFormData.wPart.toString() +
         '&searchKw=' + searchFormData.searchClefs.toString() + '&searchTitles=' + searchFormData.searchTitres.toString() + '&searchComments=' + searchFormData.searchComment.toString() + '&photoId=' + searchFormData.photoId +
@@ -225,10 +223,9 @@ function searchInputs() {
 
 function getSelectedInfoPhoto() {
     searchChoice = false;
-    var url_string = window.location.href;
-    var url = new URL(url_string);
+    const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get("pid"), 10);
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
@@ -241,7 +238,7 @@ function getSelectedInfoPhoto() {
 
 function getPhotoInfoPrevious() {
     selectedPhotoId -= 1;
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
@@ -253,31 +250,28 @@ function getPhotoInfoPrevious() {
 }
 
 function getPhotoInfoNext() {
-    var foundPhoto = false;
     selectedPhotoId += 1;
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         myInfoPhoto = JSON.parse(myRequest.responseText);
         renderInfoPhoto(myInfoPhoto);
-    }
+    };
 
     myRequest.send();
 }
 
 function renderInfoPhoto(data) {
-    var infoContain = document.getElementsByClassName("data-box__photo");
+    const infoContain = document.getElementsByClassName("data-box__photo");
     var infoInputs = document.getElementsByClassName("data-box__input");
-    var infoContainer = infoContain[0];
-    var htmlString = "";
-    var thumb = "";
+    const infoContainer = infoContain[0];
 
     infoContainer.innerText = "";
 
     for (const obj of data) {
-        thumb = obj.prev_path + obj.filename;
-        htmlString = "<div><img src=\"" + thumb + "\"></div>";
+        const thumb = obj.prev_path + obj.filename;
+        const htmlString = "<div><img src=\"" + thumb + "\"></div>";
 
         infoInputs[0].value = obj.title;
         infoInputs[1].value = obj.keywords;
@@ -290,16 +284,13 @@ function renderInfoPhoto(data) {
 }
 
 function renderHomePhoto() {
-    var archivesContainer = document.getElementById("homePhoto");
-    var htmlString = "";
-    var imageURL = "";
-    var thumb = "";
+    const archivesContainer = document.getElementById("homePhoto");
 
     for (const obj of myData) {
-        imageURL = obj.path + obj.filename;
-        thumb = obj.prev_path + obj.filename;
+        const imageURL = obj.path + obj.filename;
+        const thumb = obj.prev_path + obj.filename;
 
-        htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
+        const htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
 
         archivesContainer.insertAdjacentHTML('beforeend', htmlString)
     }
@@ -307,46 +298,23 @@ function renderHomePhoto() {
 
 function renderFamilyPhotos() {
     document.getElementById('imgs').style.display = 'block';
-    var familyContainer = document.getElementById("imgs");
-    var htmlString = "";
-    var imageURL = "";
-    var thumb = "";
-    var geneology = [];
+    const familyContainer = document.getElementById("imgs");
 
     document.getElementById("imgs").innerHTML = "";
 
     for (const obj of myData) {
-        imageURL = obj.path + obj.filename;
-        thumb = obj.prev_path + obj.filename;
+        const imageURL = obj.path + obj.filename;
+        const thumb = obj.prev_path + obj.filename;
 
-        htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
+        const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
 
         familyContainer.insertAdjacentHTML('beforeend', htmlString);
     }
     animatePhotos();
 }
 
-function closeFolders() {
-    // var cFolder = document.getElementsByClassName('menu')[0].id
-    var i = 0;
-    var j = 0;
-    var checkedValue = null;
-    var inputElements = document.getElementsByClassName('menu');
-    for (i = 0; inputElements[i]; ++i) {
-        if (inputElements[i].checked) {
-            checkedValue = inputElements[i].value;
-            break;
-        }
-    }
-    while (j < 10) {
-        if (document.getElementById("checkbox").checked = true) {
-
-        }
-    }
-}
-
 function turnOffFolders() {
-    var titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementById('thumbTitle');
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
@@ -358,11 +326,10 @@ function turnOffFolders() {
     } else {
         titleContainer.innerText = "";
     }
-    return;
 }
 
 function turnOffSearchFolders() {
-    var titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementById('thumbTitle');
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
@@ -370,7 +337,7 @@ function turnOffSearchFolders() {
     document.getElementById('backToTree').style.display = 'block';
     // document.getElementById('backToSearch').style.display = 'none';
     document.getElementById('thumbTitle').style.display = 'block';
-    if (document.getElementById('searchKw').elements['idContext'].checked != true) {
+    if (document.getElementById('searchKw').elements['idContext'].checked !== true) {
         titleContainer.innerText = '';
     } else {
         titleContainer.innerText = myData[0].rptTitle;
@@ -378,7 +345,6 @@ function turnOffSearchFolders() {
     document.getElementById("backToTree").onclick = function () {
         backToSearch()
     };
-    return;
 }
 
 /*** SEARCH
@@ -391,7 +357,6 @@ function prepareSearchScreen() {
     document.getElementById('searchFormButton').style.display = 'none';
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
-    // document.getElementById('backToSearch').style.display = 'none';
     document.getElementById('searchKw').style.display = 'block';
     document.getElementById("backToTree").onclick = function () {
         backToTree()
@@ -399,9 +364,9 @@ function prepareSearchScreen() {
 }
 
 function getSearchInputs() {
-    var searchData = [];
-    var searchDoc = document.getElementById('searchKw');
-    if (searchDoc.elements["keywrds"].value == "") {
+    const searchData = [];
+    const searchDoc = document.getElementById('searchKw');
+    if (searchDoc.elements["keywrds"].value === "") {
         searchData['kwords'] = "nothingness";
     } else {
         searchData['kwords'] = searchDoc.elements["keywrds"].value;
@@ -413,7 +378,7 @@ function getSearchInputs() {
     searchData['searchClefs'] = searchDoc.elements['clefs'].checked;
     searchData['searchTitres'] = searchDoc.elements['titres'].checked;
     searchData['searchComment'] = searchDoc.elements['commentaires'].checked;
-    if (searchDoc.elements['pid'].value == "") {
+    if (searchDoc.elements['pid'].value === "") {
         searchData['photoId'] = "nothing";
     } else {
         searchData['photoId'] = searchDoc.elements['pid'].value;
@@ -443,13 +408,14 @@ function backToSearch() {
 /* Controle of right and left keys
 **********************************/
 document.onkeydown = function (e) {
-    var evt = e ? e : window.event;
+    const evt = e ? e : window.event;
     if (evt.ctrlKey) {
         ctrlPressed = true;
     }
     switch (e.keyCode) {
         case 17:
             ctrlPressed = true;
+            break;
         case 37:
             // alert('left');
             prevImage();
@@ -462,7 +428,7 @@ document.onkeydown = function (e) {
             nextImage();
             break;
     }
-}
+};
 
 function cancelPid() {
     document.getElementById('pid').value = "";
@@ -499,8 +465,8 @@ function animatePhotos() {
 /*** MODAL ***/
 function transformImage(e) {
     prev = e.target.src;
-    for (i = 0; i < imgs.length; i++) {
-        if (prev == imgs[i].src) {
+    for (let i = 0; i < imgs.length; i++) {
+        if (prev === imgs[i].src) {
             imgs[i].style.transition = "all,1s";
             imgs[i].style.transform = "scale(2,2)";
             break;
@@ -510,12 +476,10 @@ function transformImage(e) {
 }
 
 function imgModal(e) {
-    var currWin = window.location.href;
-    var n = currWin.lastIndexOf('/');
-    var winResult = currWin.substring(n + 1);
+    const currWin = window.location.href;
+    const n = currWin.lastIndexOf('/');
+    const winResult = currWin.substring(n + 1);
 
-    var htmlGeneol = "";
-    var htmlPhotoId = "";
     bdy = document.getElementById('bdy');
     bdy.style.overflow = 'hidden';
     modal = document.getElementById('myModal');
@@ -523,25 +487,25 @@ function imgModal(e) {
     prev = e.target.src;
     maxLength = imgs.length;
 
-    for (i = 0; i < imgs.length; i++) {
-        if (prev == imgs[i].src) {
+    for (var i = 0; i < imgs.length; i++) {
+        if (prev === imgs[i].src) {
             break;
         }
     }
     currentIdx = i;
 
-    if (ctrlPressed && winResult == 'family_photos.html') {
+    if (ctrlPressed && winResult === 'family_photos.html') {
         ctrlPressed = false;
         window.open("photoInfo.html?pid=" + myData[currentIdx].idpho);
         location.reload();
     } else {
 
-        if (currentIdx == 0) {
+        if (currentIdx === 0) {
             backward.style.backgroundColor = 'red';
         } else {
             backward.style.backgroundColor = 'green';
         }
-        if (currentIdx == maxLength - 1) {
+        if (currentIdx === maxLength - 1) {
             forward.style.backgroundColor = 'red';
         } else {
             forward.style.backgroundColor = 'green';
@@ -552,22 +516,19 @@ function imgModal(e) {
         modalTitle = document.getElementById('modalTitle');
         modalImg = document.getElementById("img01");
         captionText = document.getElementById("caption");
-        // geneolCont = document.getElementById("geneol");
         modal.style.display = "block";
         modalTitle.innerHTML = this.title;
         modalImg.src = img;
         captionText.innerHTML = this.alt;
 
-        var idxList = myData[currentIdx].geneolidx.split(',');
-        var namesList = myData[currentIdx].geneolnames.split(',');
+        const idxList = myData[currentIdx].geneolidx.split(',');
+        const namesList = myData[currentIdx].geneolnames.split(',');
 
-        htmlGeneol = buildGeneolLine(idxList, namesList);
-
-        geneolCont.innerHTML = htmlGeneol;
+        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoId.innerHTML = '<p>(pid-' + myData[currentIdx].idpho + ')</p>';
 
 // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        const span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
@@ -578,7 +539,6 @@ function imgModal(e) {
 }
 
 function prevImage() {
-    var htmlGeneol = "";
     if (currentIdx > 0) {
         img = imgs[currentIdx - 1].src;
         img = img.replace('preview', 'full');
@@ -588,15 +548,13 @@ function prevImage() {
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        var idxList = myData[currentIdx - 1].geneolidx.split(',');
-        var namesList = myData[currentIdx - 1].geneolnames.split(',');
+        const idxList = myData[currentIdx - 1].geneolidx.split(',');
+        const namesList = myData[currentIdx - 1].geneolnames.split(',');
 
-        htmlGeneol = buildGeneolLine(idxList, namesList);
-
-        geneolCont.innerHTML = htmlGeneol;
+        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoId.innerHTML = '<p>(pid-' + myData[currentIdx - 1].idpho + ')</p>';
         currentIdx--;
-        if (currentIdx == 0) {
+        if (currentIdx === 0) {
             backward.style.backgroundColor = "red";
         }
         if (currentIdx < maxLength - 1) {
@@ -606,7 +564,6 @@ function prevImage() {
 }
 
 function nextImage() {
-    var htmlGeneol = "";
     if (currentIdx < maxLength - 1) {
         img = imgs[currentIdx + 1].src;
         img = img.replace('preview', 'full');
@@ -616,15 +573,13 @@ function nextImage() {
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        var idxList = myData[currentIdx + 1].geneolidx.split(',');
-        var namesList = myData[currentIdx + 1].geneolnames.split(',');
+        const idxList = myData[currentIdx + 1].geneolidx.split(',');
+        const namesList = myData[currentIdx + 1].geneolnames.split(',');
 
-        htmlGeneol = buildGeneolLine(idxList, namesList);
-
-        geneol.innerHTML = htmlGeneol;
+        geneol.innerHTML = buildGeneolLine(idxList, namesList);
         photoId.innerHTML = '<p>(pid-' + myData[currentIdx + 1].idpho + ')</p>';
         currentIdx++;
-        if (currentIdx == maxLength - 1) {
+        if (currentIdx === maxLength - 1) {
             forward.style.backgroundColor = "red";
         }
         if (currentIdx > 0) {
@@ -635,9 +590,9 @@ function nextImage() {
 
 function buildGeneolLine(idxList, namesList) {
     var htmlLine = '';
-    if (idxList != "") {
+    if (idxList !== "") {
         htmlLine = '<p>Généalogie: ';
-        for (var i = 0; i < idxList.length; i++) {
+        for (let i = 0; i < idxList.length; i++) {
             htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
                 namesList[i];
             if (i + 1 < idxList.length) {
@@ -659,8 +614,9 @@ function imgClick(e) {
 
     // Change current image to src of clicked image
     prev = e.target.src;
-    var full = prev.replace('preview', 'full');
-    current.src = full;
+    /*var full = prev.replace('preview', 'full');
+    current.src = full;*/
+    current.src = prev.replace('preview', 'full');
 
     //Add fade0in class
     current.classList.add('fade-in');
@@ -675,35 +631,29 @@ function imgClick(e) {
 /*** Reading section ***/
 
 function assignReadingTitle() {
-    var menu = document.getElementsByClassName("menu1__item");
-    var menu0 = menu[0];
-    var menu1 = menu[1];
+    const menu = document.getElementsByClassName("menu1__item");
+    const menu0 = menu[0];
+    const menu1 = menu[1];
     menu0.innerHTML = "Lectures des Normandeau-Desilets";
     menu1.innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
-    /*   document.getElementById("family-left").innerHTML = "Lectures des Normandeau-Desilets";
-       document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";*/
 }
 
 function getReadings() {
-    var menu = document.getElementsByClassName("menu1__item");
-    var menu0 = menu[0];
-    var menu1 = menu[1];
-    // var family = document.getElementById("family-right").innerHTML;
-    n = menu1.innerText.search("Bernard-Normandeau");
+    const menu = document.getElementsByClassName("menu1__item");
+    const menu0 = menu[0];
+    const menu1 = menu[1];
+    const n = menu1.innerText.search("Bernard-Normandeau");
 
-    // n = family.search("Bernard-Normandeau");
-    if (n != -1) {
+    if (n !== -1) {
         path = 11
         menu0.innerHTML = "Lectures des Bernard-Normandeau";
         menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
-        /*    document.getElementById("family-left").innerHTML = "Lectures des Bernard-Normandeau";
-            document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";*/
     } else {
         path = 10;
         assignReadingTitle();
     }
 
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getReadings.php?path=' + path, true);
     myRequest.onload = function () {
         var myData = JSON.parse(myRequest.responseText);
@@ -713,21 +663,20 @@ function getReadings() {
 }
 
 function renderReadings(data) {
-    var Container = document.getElementsByClassName("readings");
-    var readingsContainer = Container[0];
-    // var readingsContainer = document.getElementById("readings-list");
-    var htmlString = "";
-    var intro = "";
+    const container = document.getElementsByClassName("readings");
+    const readingsContainer = container[0];
 
     readingsContainer.innerHTML = "";
-    // document.getElementById("readings-list").innerHTML = "";
 
     for (const obj of data) {
-        if (obj.intro == null) {
+        let intro = "";
+        if (obj.intro === null) {
             intro = "";
+        } else {
+            intro = obj.intro;
         }
 
-        htmlString = "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
+        let htmlString = "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"readings__books\">" +
             "<p class=\"readings__title\">" + obj.title + "</p></a>" +
             "<p class=\"readings__summary\">" + intro + "</p>" + "<p class=\"readings__summary\">" +
@@ -741,7 +690,7 @@ function renderReadings(data) {
  ******************/
 
 function getObjects() {
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getObjects.php?path=' + 12, true);
     myRequest.onload = function () {
         var myData = JSON.parse(myRequest.responseText);
@@ -751,14 +700,12 @@ function getObjects() {
 }
 
 function renderObjects(data) {
-    var container = document.getElementsByClassName("objects__container");
-    var objectsContainer = container[0];
-    // var objectsContainer = document.getElementById("objContainer");
-    var htmlString = "";
+    const container = document.getElementsByClassName("objects__container");
+    const objectsContainer = container[0];
 
     for (const obj of data) {
 
-        htmlString = "<div class=\"clearfix\">\n" +
+        const htmlString = "<div class=\"clearfix\">\n" +
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects__img\" title='Cliquer pour agrandir la photo'>\n" +
             "<p class=\"objects__description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
 
@@ -768,12 +715,9 @@ function renderObjects(data) {
 }
 
 function animateObjects() {
-    var objs = document.querySelectorAll('.objects');
-
+    const objs = document.querySelectorAll('.objects');
     opacity = 0.5;
-
     objs.forEach(obj => obj.addEventListener('click', objModal));
-
 }
 
 function objModal(e) {
@@ -811,8 +755,8 @@ function getRepositInputs() {
 }
 
 function getRepositInputsPhotos() {
-    // var repositoryDoc = document.getElementById('addReposit');
-    var repositoryDoc = document.getElementsByClassName("data-box__select");
+    const repositoryDoc = document.getElementsByClassName("data-box__select");
+
     repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
     repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
     repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
@@ -821,7 +765,7 @@ function getRepositInputsPhotos() {
 }
 
 function getInfoPhotoInputs() {
-    var infoDoc = document.getElementById('info__form');
+    const infoDoc = document.getElementById('info__form');
 
     infoDoc['title'] = repositoryDoc.elements['info__title-input'].value;
     infoDoc['keyWords'] = repositoryDoc.elements['info__keys-input'].value;
@@ -832,7 +776,7 @@ function getInfoPhotoInputs() {
 
 function addRepository() {
     getRepositInputs();
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/addRepository.php?type=' + infoDoc.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
@@ -843,7 +787,7 @@ function addRepository() {
 }
 
 function addRepositoryMysql() {
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
@@ -877,8 +821,6 @@ function uploadPhotos() {
 
     const url = 'php/upload.php';
     const files = document.getElementById('repositPreviewInput').files;
-    /*    const path = {type:repositoryData['type'][0], author:repositoryData['author'][0], decade:repositoryData['decade'][0],
-            year:repositoryData['year'][0], title:repositoryData['title']};*/
     const formData = new FormData();
 
     for (let i = 0; i < repositoryData['preview'].length; i++) {
@@ -905,15 +847,12 @@ function insertMetadataInfo() {
 }
 
 function getYearsSelected() {
-    var myYearsData;
-    var firstYear;
-
-    var deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
-    var decade = deca[0].value;
-    var myRequest = new XMLHttpRequest();
+    const deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
+    const decade = deca[0].value;
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
     myRequest.onload = function () {
-        myYearsData = JSON.parse(myRequest.responseText);
+        const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
     };
 
@@ -921,18 +860,16 @@ function getYearsSelected() {
 }
 
 function getYearsSelectedPhotos() {
-    var myYearsData;
-    var firstYear;
-    var deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
-    var decade = deca[0].value;
-    var myRequest = new XMLHttpRequest();
+    const deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
+    const decade = deca[0].value;
+    const myRequest = new XMLHttpRequest();
 
     myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
     myRequest.onload = function () {
-        myYearsData = JSON.parse(myRequest.responseText);
+        const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
 
-        firstYear = myYearsData[0].idxvalue;
+        const firstYear = myYearsData[0].idxValue;
         getReposits(firstYear);
     };
 
@@ -940,34 +877,29 @@ function getYearsSelectedPhotos() {
 }
 
 function renderYears(data) {
-    var yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
-    yearContainer = yearContainer[0];
-    var htmlString = "";
-
-    yearContainer.innerHTML = "";
+    const yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+    yearContainer[0].innerHTML = "";
 
     for (const obj of data) {
-        htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
-        yearContainer.insertAdjacentHTML('beforeend', htmlString);
+        const htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
+        yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
     }
-    htmlString = "<option value=\"1\">NA</option>";
-    yearContainer.insertAdjacentHTML('beforeend', htmlString);
+    const htmlString = "<option value=\"1\">NA</option>";
+    yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
 
 function getReposits(fisrtYear) {
-    var myRepositData;
     if (fisrtYear === undefined) {
-        var y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
-        var year = y[0].value;
+        const y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+        const year = y[0].value;
     } else {
         year = fisrtYear;
     }
 
-    var myRequest = new XMLHttpRequest();
+    const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
     myRequest.onload = function () {
-        // console.log(myRequest.responseText);
-        myRepositData = JSON.parse(myRequest.responseText);
+        const myRepositData = JSON.parse(myRequest.responseText);
         renderReposits(myRepositData);
     };
 
@@ -976,44 +908,34 @@ function getReposits(fisrtYear) {
 
 function renderReposits(myData) {
     var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
-    repositContainer = repositContainer[0];
-    var htmlString = "";
 
-    repositContainer.innerHTML = "";
+    repositContainer[0].innerHTML = "";
 
     for (const obj of myData) {
-        htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
-        repositContainer.insertAdjacentHTML('beforeend', htmlString);
+        const htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
+        repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
     }
 }
 
 function renderPreviewText() {
-    var files = document.getElementById('repositPreviewInput').files;
-    var fileList = createFileList(files);
-    document.getElementById("repositPreviewText").value = fileList;
+    document.getElementById("repositPreviewText").value = createFileList(document.getElementById('repositPreviewInput').files);
 }
 
 function renderFullText() {
-    var files = document.getElementById('repositFullInput').files;
-    var fileList = createFileList(files);
-    document.getElementById("repositFullText").value = fileList;
+    document.getElementById("repositFullText").value = createFileList(document.getElementById('repositFullInput').files);
 }
 
 function renderOrigText() {
-    var files = document.getElementById('repositOrigInput').files;
-    var fileList = createFileList(files);
-    document.getElementById("repositOrigText").value = fileList;
+    document.getElementById("repositOrigText").value = createFileList(document.getElementById('repositOrigInput').files);
 }
 
 function renderMetadataText() {
-    var files = document.getElementById('repositMetaInput').files;
-    var fileList = createFileList(files);
-    document.getElementById("repositMetaText").value = fileList;
+    document.getElementById("repositMetaText").value = createFileList(document.getElementById('repositMetaInput').files);
 }
 
 function createFileList(files) {
     var fileList = "";
-    i = 0
+    let i = 0;
     while (i < files.length) {
         if (fileList.length === 0) {
             fileList = files[i].name;

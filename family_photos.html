@@ -37,7 +37,7 @@
 
     <div class="clearfix">
         <div><p id="thumbTitle"></p>
-            <button id="backToTree" onclick="javascript:backToTree()">
+            <button id="backToTree" onclick="backToTree()">
                 <strong>X</strong>
             </button>
         </div>
@@ -47,12 +47,12 @@
     <div class="searchPhotos">
         <section class="search">
             <input autofocus="autofocus" type="button" id="searchFormButton" value="Recherche"
-                   onclick="javascript:searchForm()">
+                   onclick="searchForm()">
 
             <form action="javascript:searchInputs()" id="searchKw">
                 <fieldset>
                     <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="110"
-                           onkeypress="javascript:cancelPid()"><br>
+                           onkeypress="cancelPid()"><br>
                     <input type="submit" value="Rechercher" id="goButton"><br>
 
                     <label for="anneeDeb" class="yearChoiceStart">De </label>
@@ -157,7 +157,7 @@
                             PID-
                         </label>
                         <input id="pid" type="text" placeholder="Le numéro de la photo" size="24"
-                               onkeypress="javascript:cancelKeywords()">
+                               onkeypress="cancelKeywords()">
 
                         <p class="context">
                             <input type="radio" id="idUnique" name="Context" value="idUnique" checked/>

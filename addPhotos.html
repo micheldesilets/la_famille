@@ -13,7 +13,7 @@
     <!--[if lt IE 9]>
     <![endif]-->
 </head>
-<body onload="javascript:getYearsSelectedPhotos();">
+<body onload="getYearsSelectedPhotos();">
 <div class="page data-box">
 
     <div>
@@ -55,7 +55,7 @@
                 <div>
                     <label for="data-box__select--add-repo-photo-decade" class="data-box__label">Décennie</label>
                     <select class="data-box__select data-box__select--add-repo-photo-decade"
-                            onchange="javascript:getYearsSelectedPhotos();">
+                            onchange="getYearsSelectedPhotos();">
                         <option value="2" selected>1970-1979</option>
                         <option value="3">1980-1989</option>
                         <option value="4">1990-1999</option>
@@ -68,7 +68,7 @@
                 <div>
                     <label for="data-box__select--add-repo-photo-year" class="data-box__label">Année</label>
                     <select class="data-box__select data-box__select--add-repo-photo-year"
-                            onchange="javascript:getReposits()">
+                            onchange="getReposits()">
                     </select><br>
                 </div>
 
@@ -82,7 +82,7 @@
                     <label for="data-box__input--photos" class="data-box__label">Sélection des photos</label>
                     <input type="file" multiple class="data-box__input data-box__input--photos"
                            id="data-box__input--photos" name="data-box__data[]"
-                           onchange="javascript:renderPreviewText()"><br>
+                           onchange="renderPreviewText()"><br>
                     <input type="text" class="data-box__text data-box__text--photos" size="75">
                 </div>
             </form>
