@@ -69,9 +69,9 @@
 
 <!-- ==== START MAIN ==== -->
 <main role="main">
-    <section class="post">
+    <section class="home">
         <script>getPhotos(5, 4)</script>
-        <div id="homePhoto"></div>
+        <div class="home__photo"></div>
     </section>
 </main>
 

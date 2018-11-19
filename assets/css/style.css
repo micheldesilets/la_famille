@@ -419,12 +419,12 @@ ol {
     transition: .4s;
 }
 
-.post img {
+/*.post img {
     display: block;
     max-width: none;
     box-shadow: 6px 6px 10px grey;
     opacity: 1;
-}
+}*/
 
 /* Archives + Readings*/
 #family-left, #family-right {

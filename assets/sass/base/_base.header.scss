@@ -68,8 +68,7 @@
   &__sub-title {
     font-family: Raleway, "Times New Roman", serif;
     font-style: italic;
-    font-size: $font-small;
-    font-weight: $font-weight-normal;
+    @include wsh-02;
     margin-top: 5px;
     margin-bottom: 0;
     text-align: center;

@@ -106,6 +106,15 @@
   }
 }
 
+.home {
+  &__img {
+    display: block;
+    max-width: none;
+    box-shadow: 6px 6px 10px grey;
+    opacity: 1;
+  }
+}
+
 //
 // Readings - menu and content
 //

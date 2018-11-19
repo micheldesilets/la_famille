@@ -79,8 +79,11 @@
                     <label for="data-box__input--photos" class="data-box__label">Sélection des photos</label>
                     <input type="file" multiple class="data-box__input data-box__input--photos"
                            id="data-box__input--photos" name="data-box__data[]"
-                           onchange="renderPreviewText()"><br>
-                    <input type="text" class="data-box__text data-box__text--photos" size="75">
+                           onchange="renderSelectedPhotos()"><br>
+                    <input type="text"
+                           id="data__box--text-input"
+                           class="data-box__text data-box__text--photos"
+                           size="75">
                 </div>
             </form>
         </fieldset>
