@@ -1,20 +1,3 @@
-/*** Photos section ***/
-
-function assignArchivesTitle() {
-    document.getElementById("family-left").innerHTML = "Photos d'archives des Marchand-Desilets";
-    document.getElementById("family-right").innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span> ";
-}
-
-function getFolderTree() {
-    const folderRequest = new XMLHttpRequest();
-    folderRequest.open('GET', 'php/getFolderTree.php', true);
-    folderRequest.onload = function () {
-        const folderData = JSON.parse(folderRequest.responseText);
-        buildFolderTree(folderData);
-    }
-    folderRequest.send();
-}
-
 var searchChoice = false;
 var searchItmCont;
 var folderTitle;
@@ -52,9 +35,19 @@ var htmlString = "";
 var j = -1;
 var level;
 
+function getFolderTree() {
+    const folderRequest = new XMLHttpRequest();
+    folderRequest.open("GET", "php/getFolderTree.php", true);
+    folderRequest.onload = function () {
+        const folderData = JSON.parse(folderRequest.responseText);
+        buildFolderTree(folderData);
+    };
+    folderRequest.send();
+}
+
 /*** Family Photos ***/
 function buildFolderTree(data) {
-    let folderContainer = document.getElementById("photosFolders");
+    const folderContainer = document.getElementById("photosFolders");
 
     for (const branch of data) {
         if (author !== branch.author && branch.author.length > 0) {
@@ -84,10 +77,10 @@ function buildFolderTree(data) {
 
         level = branch.levels;
         switch (level) {
-            case '2':
+            case "2":
                 folderLevel2(branch);
                 break;
-            case '4':
+            case "4":
                 folderLevel4(branch);
                 break;
         }
@@ -103,7 +96,7 @@ function buildFolderTree(data) {
             "</div>\n";
     }
 
-    folderContainer.insertAdjacentHTML('beforeend', htmlString);
+    folderContainer.insertAdjacentHTML("beforeend", htmlString);
 }
 
 function folderLevel2(branch) {
@@ -173,7 +166,7 @@ function folderLevel4(branch) {
         (year === branch.year && branch.year.length > 0) &&
         (repoId !== branch.repository)) {
         htmlString = htmlString +
-            "<li class='photofolder' value='0' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+            "<li class=\"photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.repository + "," + branch.type + ")\">" + branch.title + "</li>\n";
         repoId = branch.repository;
     }
 }
@@ -186,7 +179,7 @@ function getFamilyPhotos(obj, path, type) {
 function getPhotos(path, type) {
     searchChoice = false;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getPhotos.php?path=' + path, true);
+    myRequest.open("GET", "php/getPhotos.php?path=" + path, true);
     myRequest.onload = function () {
         myData = JSON.parse(myRequest.responseText);
         switch (type) {
@@ -208,10 +201,10 @@ function searchInputs() {
     const searchFormData = getSearchInputs();
 
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getSearchedPhotos.php?kwrd=' + searchFormData.kwords + '&startYear=' + searchFormData.startYear + '&endYear=' + searchFormData.endYear +
-        '&wExact=' + searchFormData.wExact.toString() + '&wPart=' + searchFormData.wPart.toString() +
-        '&searchKw=' + searchFormData.searchClefs.toString() + '&searchTitles=' + searchFormData.searchTitres.toString() + '&searchComments=' + searchFormData.searchComment.toString() + '&photoId=' + searchFormData.photoId +
-        '&idUnique=' + searchFormData.idUnique.toString() + '&idContext=' + searchFormData.idContext.toString(), true);
+    myRequest.open("GET", "php/getSearchedPhotos.php?kwrd=" + searchFormData.kwords + "&startYear=" + searchFormData.startYear + "&endYear=" + searchFormData.endYear +
+        "&wExact=" + searchFormData.wExact.toString() + "&wPart=" + searchFormData.wPart.toString() +
+        "&searchKw=" + searchFormData.searchClefs.toString() + "&searchTitles=" + searchFormData.searchTitres.toString() + "&searchComments=" + searchFormData.searchComment.toString() + "&photoId=" + searchFormData.photoId +
+        "&idUnique=" + searchFormData.idUnique.toString() + "&idContext=" + searchFormData.idContext.toString(), true);
     myRequest.onload = function () {
         myData = JSON.parse(myRequest.responseText);
         turnOffSearchFolders();
@@ -226,7 +219,7 @@ function getSelectedInfoPhoto() {
     const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get("pid"), 10);
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open("GET", "php/getInfoPhoto.php?pid=" + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -239,7 +232,7 @@ function getSelectedInfoPhoto() {
 function getPhotoInfoPrevious() {
     selectedPhotoId -= 1;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open("GET", "php/getInfoPhoto.php?pid=" + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -252,7 +245,7 @@ function getPhotoInfoPrevious() {
 function getPhotoInfoNext() {
     selectedPhotoId += 1;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open("GET", "php/getInfoPhoto.php?pid=" + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -279,7 +272,7 @@ function renderInfoPhoto(data) {
         infoInputs[3].value = obj.year;
         infoInputs[4].value = obj.geneolnames;
 
-        infoContainer.insertAdjacentHTML('beforeend', htmlString);
+        infoContainer.insertAdjacentHTML("beforeend", htmlString);
     }
 }
 
@@ -292,12 +285,12 @@ function renderHomePhoto() {
 
         const htmlString = "<img src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
 
-        archivesContainer.insertAdjacentHTML('beforeend', htmlString)
+        archivesContainer.insertAdjacentHTML("beforeend", htmlString)
     }
 }
 
 function renderFamilyPhotos() {
-    document.getElementById('imgs').style.display = 'block';
+    document.getElementById("imgs").style.display = "block";
     const familyContainer = document.getElementById("imgs");
 
     document.getElementById("imgs").innerHTML = "";
@@ -306,21 +299,21 @@ function renderFamilyPhotos() {
         const imageURL = obj.path + obj.filename;
         const thumb = obj.prev_path + obj.filename;
 
-        const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class='thumbimg'></div>"
+        const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>";
 
-        familyContainer.insertAdjacentHTML('beforeend', htmlString);
+        familyContainer.insertAdjacentHTML("beforeend", htmlString);
     }
     animatePhotos();
 }
 
 function turnOffFolders() {
-    const titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementById("thumbTitle");
     // Hide search and tree and bring up back to tree button
-    document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
-    document.getElementById('searchFormButton').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    document.getElementById('thumbTitle').style.display = 'block';
+    document.getElementById("photosFolders").style.display = "none";
+    document.getElementById("searchKw").style.display = "none";
+    document.getElementById("searchFormButton").style.display = "none";
+    document.getElementById("backToTree").style.display = "block";
+    document.getElementById("thumbTitle").style.display = "block";
     if (!searchChoice) {
         titleContainer.innerText = folderTitle;
     } else {
@@ -329,16 +322,16 @@ function turnOffFolders() {
 }
 
 function turnOffSearchFolders() {
-    const titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementById("thumbTitle");
     // Hide search and tree and bring up back to tree button
-    document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
-    document.getElementById('searchFormButton').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    // document.getElementById('backToSearch').style.display = 'none';
-    document.getElementById('thumbTitle').style.display = 'block';
-    if (document.getElementById('searchKw').elements['idContext'].checked !== true) {
-        titleContainer.innerText = '';
+    document.getElementById("photosFolders").style.display = "none";
+    document.getElementById("searchKw").style.display = "none";
+    document.getElementById("searchFormButton").style.display = "none";
+    document.getElementById("backToTree").style.display = "block";
+    // document.getElementById("backToSearch").style.display = "none";
+    document.getElementById("thumbTitle").style.display = "block";
+    if (document.getElementById("searchKw").elements["idContext"].checked !== true) {
+        titleContainer.innerText = "";
     } else {
         titleContainer.innerText = myData[0].rptTitle;
     }
@@ -354,10 +347,10 @@ function searchForm() {
 }
 
 function prepareSearchScreen() {
-    document.getElementById('searchFormButton').style.display = 'none';
-    document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    document.getElementById('searchKw').style.display = 'block';
+    document.getElementById("searchFormButton").style.display = "none";
+    document.getElementById("photosFolders").style.display = "none";
+    document.getElementById("backToTree").style.display = "block";
+    document.getElementById("searchKw").style.display = "block";
     document.getElementById("backToTree").onclick = function () {
         backToTree()
     };
@@ -365,43 +358,43 @@ function prepareSearchScreen() {
 
 function getSearchInputs() {
     const searchData = [];
-    const searchDoc = document.getElementById('searchKw');
+    const searchDoc = document.getElementById("searchKw");
     if (searchDoc.elements["keywrds"].value === "") {
-        searchData['kwords'] = "nothingness";
+        searchData["kwords"] = "nothingness";
     } else {
-        searchData['kwords'] = searchDoc.elements["keywrds"].value;
+        searchData["kwords"] = searchDoc.elements["keywrds"].value;
     }
-    searchData['startYear'] = searchDoc.elements['anneeDeb'].value;
-    searchData['endYear'] = searchDoc.elements['anneeFin'].value;
-    searchData['wExact'] = searchDoc.elements['wExact'].checked;
-    searchData['wPart'] = searchDoc.elements['wPart'].checked;
-    searchData['searchClefs'] = searchDoc.elements['clefs'].checked;
-    searchData['searchTitres'] = searchDoc.elements['titres'].checked;
-    searchData['searchComment'] = searchDoc.elements['commentaires'].checked;
-    if (searchDoc.elements['pid'].value === "") {
-        searchData['photoId'] = "nothing";
+    searchData["startYear"] = searchDoc.elements["anneeDeb"].value;
+    searchData["endYear"] = searchDoc.elements["anneeFin"].value;
+    searchData["wExact"] = searchDoc.elements["wExact"].checked;
+    searchData["wPart"] = searchDoc.elements["wPart"].checked;
+    searchData["searchClefs"] = searchDoc.elements["clefs"].checked;
+    searchData["searchTitres"] = searchDoc.elements["titres"].checked;
+    searchData["searchComment"] = searchDoc.elements["commentaires"].checked;
+    if (searchDoc.elements["pid"].value === "") {
+        searchData["photoId"] = "nothing";
     } else {
-        searchData['photoId'] = searchDoc.elements['pid'].value;
+        searchData["photoId"] = searchDoc.elements["pid"].value;
     }
-    searchData['idUnique'] = searchDoc.elements['idUnique'].checked;
-    searchData['idContext'] = searchDoc.elements['idContext'].checked;
+    searchData["idUnique"] = searchDoc.elements["idUnique"].checked;
+    searchData["idContext"] = searchDoc.elements["idContext"].checked;
     return searchData;
 }
 
 function backToTree() {
-    // Bring back search and tree and hide 'back to tree(X)' button
-    document.getElementById('imgs').style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'none';
-    document.getElementById('thumbTitle').style.display = 'none';
-    document.getElementById('photosFolders').style.display = 'block';
-    document.getElementById('searchFormButton').style.display = 'block';
+    // Bring back search and tree and hide "back to tree(X)" button
+    document.getElementById("imgs").style.display = "none";
+    document.getElementById("searchKw").style.display = "none";
+    document.getElementById("backToTree").style.display = "none";
+    document.getElementById("thumbTitle").style.display = "none";
+    document.getElementById("photosFolders").style.display = "block";
+    document.getElementById("searchFormButton").style.display = "block";
 }
 
 function backToSearch() {
-    document.getElementById('imgs').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    document.getElementById('thumbTitle').style.display = 'none';
+    document.getElementById("imgs").style.display = "none";
+    document.getElementById("backToTree").style.display = "block";
+    document.getElementById("thumbTitle").style.display = "none";
     searchForm();
 }
 
@@ -417,49 +410,49 @@ document.onkeydown = function (e) {
             ctrlPressed = true;
             break;
         case 37:
-            // alert('left');
+            // alert("left");
             prevImage();
             break;
         case 38:
-            // alert('up');
+            // alert("up");
             break;
         case 39:
-            // alert('right');
+            // alert("right");
             nextImage();
             break;
     }
 };
 
 function cancelPid() {
-    document.getElementById('pid').value = "";
-    document.getElementById('idUnique').checked = true;
+    document.getElementById("pid").value = "";
+    document.getElementById("idUnique").checked = true;
 }
 
 function cancelKeywords() {
-    document.getElementById('keywrds').value = "";
-    document.getElementById('debut').value = "debut";
-    document.getElementById('fin').value = "fin";
-    document.getElementById('wPart').checked = true;
-    document.getElementById('clefs').checked = true;
-    document.getElementById('titres').checked = true;
-    document.getElementById('commentaires').checked = true;
+    document.getElementById("keywrds").value = "";
+    document.getElementById("debut").value = "debut";
+    document.getElementById("fin").value = "fin";
+    document.getElementById("wPart").checked = true;
+    document.getElementById("clefs").checked = true;
+    document.getElementById("titres").checked = true;
+    document.getElementById("commentaires").checked = true;
 }
 
 /*********************************/
 
 function animatePhotos() {
-    current = document.querySelector('#current');
-    imgs = document.querySelectorAll('#imgs img');
-    backward = document.getElementById('previous');
-    forward = document.getElementById('next');
-    geneolCont = document.getElementById('geneol');
-    photoIdCont = document.getElementById('photoId');
+    current = document.querySelector("#current");
+    imgs = document.querySelectorAll("#imgs img");
+    backward = document.getElementById("previous");
+    forward = document.getElementById("next");
+    geneolCont = document.getElementById("geneol");
+    photoIdCont = document.getElementById("photoId");
 
     opacity = 0.5;
 
-    imgs.forEach(img => img.addEventListener('click', imgModal));
-    backward.addEventListener('click', prevImage);
-    forward.addEventListener('click', nextImage);
+    imgs.forEach(img => img.addEventListener("click", imgModal));
+    backward.addEventListener("click", prevImage);
+    forward.addEventListener("click", nextImage);
 }
 
 /*** MODAL ***/
@@ -477,12 +470,12 @@ function transformImage(e) {
 
 function imgModal(e) {
     const currWin = window.location.href;
-    const n = currWin.lastIndexOf('/');
+    const n = currWin.lastIndexOf("/");
     const winResult = currWin.substring(n + 1);
 
-    bdy = document.getElementById('bdy');
-    bdy.style.overflow = 'hidden';
-    modal = document.getElementById('myModal');
+    bdy = document.getElementById("bdy");
+    bdy.style.overflow = "hidden";
+    modal = document.getElementById("myModal");
 
     prev = e.target.src;
     maxLength = imgs.length;
@@ -494,26 +487,26 @@ function imgModal(e) {
     }
     currentIdx = i;
 
-    if (ctrlPressed && winResult === 'family_photos.html') {
+    if (ctrlPressed && winResult === "family_photos.html") {
         ctrlPressed = false;
         window.open("photoInfo.html?pid=" + myData[currentIdx].idpho);
         location.reload();
     } else {
 
         if (currentIdx === 0) {
-            backward.style.backgroundColor = 'red';
+            backward.style.backgroundColor = "red";
         } else {
-            backward.style.backgroundColor = 'green';
+            backward.style.backgroundColor = "green";
         }
         if (currentIdx === maxLength - 1) {
-            forward.style.backgroundColor = 'red';
+            forward.style.backgroundColor = "red";
         } else {
-            forward.style.backgroundColor = 'green';
+            forward.style.backgroundColor = "green";
         }
 
-        img = prev.replace('preview', 'full');
+        img = prev.replace("preview", "full");
 
-        modalTitle = document.getElementById('modalTitle');
+        modalTitle = document.getElementById("modalTitle");
         modalImg = document.getElementById("img01");
         captionText = document.getElementById("caption");
         modal.style.display = "block";
@@ -521,11 +514,11 @@ function imgModal(e) {
         modalImg.src = img;
         captionText.innerHTML = this.alt;
 
-        const idxList = myData[currentIdx].geneolidx.split(',');
-        const namesList = myData[currentIdx].geneolnames.split(',');
+        const idxList = myData[currentIdx].geneolidx.split(",");
+        const namesList = myData[currentIdx].geneolnames.split(",");
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = '<p>(pid-' + myData[currentIdx].idpho + ')</p>';
+        photoId.innerHTML = "<p>(pid-" + myData[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
         const span = document.getElementsByClassName("close")[0];
@@ -533,7 +526,7 @@ function imgModal(e) {
 // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
-            bdy.style.overflow = 'visible';
+            bdy.style.overflow = "visible";
         }
     }
 }
@@ -541,18 +534,18 @@ function imgModal(e) {
 function prevImage() {
     if (currentIdx > 0) {
         img = imgs[currentIdx - 1].src;
-        img = img.replace('preview', 'full');
+        img = img.replace("preview", "full");
         capt = imgs[currentIdx - 1].alt;
         titl = imgs[currentIdx - 1].title;
         modalImg.src = img;
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        const idxList = myData[currentIdx - 1].geneolidx.split(',');
-        const namesList = myData[currentIdx - 1].geneolnames.split(',');
+        const idxList = myData[currentIdx - 1].geneolidx.split(",");
+        const namesList = myData[currentIdx - 1].geneolnames.split(",");
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = '<p>(pid-' + myData[currentIdx - 1].idpho + ')</p>';
+        photoId.innerHTML = "<p>(pid-" + myData[currentIdx - 1].idpho + ")</p>";
         currentIdx--;
         if (currentIdx === 0) {
             backward.style.backgroundColor = "red";
@@ -566,18 +559,18 @@ function prevImage() {
 function nextImage() {
     if (currentIdx < maxLength - 1) {
         img = imgs[currentIdx + 1].src;
-        img = img.replace('preview', 'full');
+        img = img.replace("preview", "full");
         capt = imgs[currentIdx + 1].alt;
         titl = imgs[currentIdx + 1].title;
         modalImg.src = img;
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        const idxList = myData[currentIdx + 1].geneolidx.split(',');
-        const namesList = myData[currentIdx + 1].geneolnames.split(',');
+        const idxList = myData[currentIdx + 1].geneolidx.split(",");
+        const namesList = myData[currentIdx + 1].geneolnames.split(",");
 
         geneol.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = '<p>(pid-' + myData[currentIdx + 1].idpho + ')</p>';
+        photoId.innerHTML = "<p>(pid-" + myData[currentIdx + 1].idpho + ")</p>";
         currentIdx++;
         if (currentIdx === maxLength - 1) {
             forward.style.backgroundColor = "red";
@@ -589,9 +582,9 @@ function nextImage() {
 }
 
 function buildGeneolLine(idxList, namesList) {
-    var htmlLine = '';
+    var htmlLine = "";
     if (idxList !== "") {
-        htmlLine = '<p>Généalogie: ';
+        htmlLine = "<p>Généalogie: ";
         for (let i = 0; i < idxList.length; i++) {
             htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
                 namesList[i];
@@ -614,15 +607,15 @@ function imgClick(e) {
 
     // Change current image to src of clicked image
     prev = e.target.src;
-    /*var full = prev.replace('preview', 'full');
+    /*var full = prev.replace("preview", "full");
     current.src = full;*/
-    current.src = prev.replace('preview', 'full');
+    current.src = prev.replace("preview", "full");
 
     //Add fade0in class
-    current.classList.add('fade-in');
+    current.classList.add("fade-in");
 
     //Remove fade-in class after .5 sec
-    setTimeout(() => current.classList.remove('fade-in'), 500)
+    setTimeout(() => current.classList.remove("fade-in"), 500);
 
     //Change the opacity to opacity variable
     e.target.style.opacity = opacity;
@@ -645,7 +638,7 @@ function getReadings() {
     const n = menu1.innerText.search("Bernard-Normandeau");
 
     if (n !== -1) {
-        path = 11
+        path = 11;
         menu0.innerHTML = "Lectures des Bernard-Normandeau";
         menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
     } else {
@@ -654,7 +647,7 @@ function getReadings() {
     }
 
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getReadings.php?path=' + path, true);
+    myRequest.open("GET", "php/getReadings.php?path=" + path, true);
     myRequest.onload = function () {
         var myData = JSON.parse(myRequest.responseText);
         renderReadings(myData);
@@ -682,7 +675,7 @@ function renderReadings(data) {
             "<p class=\"readings__summary\">" + intro + "</p>" + "<p class=\"readings__summary\">" +
             obj.sumary + "</p ><br></div>";
 
-        readingsContainer.insertAdjacentHTML('beforeend', htmlString)
+        readingsContainer.insertAdjacentHTML("beforeend", htmlString)
     }
 }
 
@@ -709,23 +702,23 @@ function renderObjects(data) {
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects__img\" title='Cliquer pour agrandir la photo'>\n" +
             "<p class=\"objects__description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
 
-        objectsContainer.insertAdjacentHTML('beforeend', htmlString)
+        objectsContainer.insertAdjacentHTML("beforeend", htmlString)
     }
     animateObjects()
 }
 
 function animateObjects() {
-    const objs = document.querySelectorAll('.objects');
+    const objs = document.querySelectorAll(".objects");
     opacity = 0.5;
-    objs.forEach(obj => obj.addEventListener('click', objModal));
+    objs.forEach(obj => obj.addEventListener("click", objModal));
 }
 
 function objModal(e) {
-    bdy = document.getElementById('bdy');
-    modal = document.getElementById('myObjModal');
+    bdy = document.getElementById("bdy");
+    modal = document.getElementById("myObjModal");
 
     prev = e.target.src;
-    obj = prev.replace('preview', 'full');
+    obj = prev.replace("preview", "full");
 
     modalObj = document.getElementById("obj01");
     modal.style.display = "block";
@@ -737,49 +730,49 @@ function objModal(e) {
 // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
-        bdy.style.overflow = 'visible';
+        bdy.style.overflow = "visible";
     }
 }
 
 /*** ADD REPOSITORY
  ********************************/
 function getRepositInputs() {
-    var repositoryDoc = document.getElementById('addReposit');
+    var repositoryDoc = document.getElementById("addReposit");
 
-    repositoryData['levels'] = repositoryDoc.elements['repositSelectLevel'].value;
-    repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
-    repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
-    repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
-    repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
-    repositoryData['title'] = repositoryDoc.elements['repositTitle'].value;
+    repositoryData["levels"] = repositoryDoc.elements["repositSelectLevel"].value;
+    repositoryData["type"] = repositoryDoc.elements["repositSelectType"].value;
+    repositoryData["author"] = repositoryDoc.elements["repositSelectAuthor"].value;
+    repositoryData["decade"] = repositoryDoc.elements["repositSelectDecade"].value;
+    repositoryData["year"] = repositoryDoc.elements["repositSelectYear"].value;
+    repositoryData["title"] = repositoryDoc.elements["repositTitle"].value;
 }
 
 function getRepositInputsPhotos() {
     const repositoryDoc = document.getElementsByClassName("data-box__select");
 
-    repositoryData['type'] = repositoryDoc.elements['repositSelectType'].value;
-    repositoryData['author'] = repositoryDoc.elements['repositSelectAuthor'].value;
-    repositoryData['decade'] = repositoryDoc.elements['repositSelectDecade'].value;
-    repositoryData['year'] = repositoryDoc.elements['repositSelectYear'].value;
-    repositoryData['title'] = repositoryDoc.elements['repositSelectTitle'].value;
+    repositoryData["type"] = repositoryDoc.elements["repositSelectType"].value;
+    repositoryData["author"] = repositoryDoc.elements["repositSelectAuthor"].value;
+    repositoryData["decade"] = repositoryDoc.elements["repositSelectDecade"].value;
+    repositoryData["year"] = repositoryDoc.elements["repositSelectYear"].value;
+    repositoryData["title"] = repositoryDoc.elements["repositSelectTitle"].value;
 }
 
 function getInfoPhotoInputs() {
-    const infoDoc = document.getElementById('info__form');
+    const infoDoc = document.getElementById("info__form");
 
-    infoDoc['title'] = repositoryDoc.elements['info__title-input'].value;
-    infoDoc['keyWords'] = repositoryDoc.elements['info__keys-input'].value;
-    infoDoc['caption'] = repositoryDoc.elements['info__caption-input'].value;
-    infoDoc['year'] = repositoryDoc.elements['info__year-input'].value;
-    infoDoc['geneolIndexes'] = repositoryDoc.elements['info__geneol-input'].value;
+    infoDoc["title"] = repositoryDoc.elements["info__title-input"].value;
+    infoDoc["keyWords"] = repositoryDoc.elements["info__keys-input"].value;
+    infoDoc["caption"] = repositoryDoc.elements["info__caption-input"].value;
+    infoDoc["year"] = repositoryDoc.elements["info__year-input"].value;
+    infoDoc["geneolIndexes"] = repositoryDoc.elements["info__geneol-input"].value;
 }
 
 function addRepository() {
     getRepositInputs();
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + infoDoc.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
+    myRequest.open("GET", "php/addRepository.php?type=" + infoDoc.type +
+        "&author=" + repositoryData.author + "&decade=" + repositoryData.decade + "&year=" + repositoryData.year +
+        "&title=" + repositoryData.title + "&levels=" + repositoryData.levels + "&function=addRepository", true);
 
     myRequest.send();
 
@@ -788,9 +781,9 @@ function addRepository() {
 
 function addRepositoryMysql() {
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
+    myRequest.open("GET", "php/addRepository.php?type=" + repositoryData.type +
+        "&author=" + repositoryData.author + "&decade=" + repositoryData.decade + "&year=" + repositoryData.year +
+        "&title=" + repositoryData.title + "&levels=" + repositoryData.levels + "&function=addRepositoryMysql", true);
 
     myRequest.send();
 
@@ -806,12 +799,12 @@ function addMetadataToDB() {
             if (fList.length === 0) {
                 fList = repositoryData.meta[i].name;
             } else {
-                fList = fList + ',' + repositoryData.meta[i].name;
+                fList = fList + "," + repositoryData.meta[i].name;
             }
         }
         jList = JSON.stringify(fList);
         var myRequest = new XMLHttpRequest();
-        myRequest.open('GET', 'php/addRepository.php?meta=' + jList + '&function=addMetadataToMysql', true);
+        myRequest.open("GET", "php/addRepository.php?meta=" + jList + "&function=addMetadataToMysql", true);
 
         myRequest.send();*/
 }
@@ -819,23 +812,23 @@ function addMetadataToDB() {
 function uploadPhotos() {
     getRepositInputsPhotos();
 
-    const url = 'php/upload.php';
-    const files = document.getElementById('repositPreviewInput').files;
+    const url = "php/upload.php";
+    const files = document.getElementById("repositPreviewInput").files;
     const formData = new FormData();
 
-    for (let i = 0; i < repositoryData['preview'].length; i++) {
-        let file = repositoryData['preview'][i];
-        formData.append('files[]', file);
+    for (let i = 0; i < repositoryData["preview"].length; i++) {
+        let file = repositoryData["preview"][i];
+        formData.append("files[]", file);
     }
 
-    formData.append('type', repositoryData['type']);
-    formData.append('author', repositoryData['author']);
-    formData.append('decade', repositoryData['decade']);
-    formData.append('year', repositoryData['year']);
-    formData.append('title', repositoryData['title']);
+    formData.append("type", repositoryData["type"]);
+    formData.append("author", repositoryData["author"]);
+    formData.append("decade", repositoryData["decade"]);
+    formData.append("year", repositoryData["year"]);
+    formData.append("title", repositoryData["title"]);
 
     fetch(url, {
-        method: 'POST',
+        method: "POST",
         body: formData
     }).then(response => {
         console.log(response);
@@ -850,7 +843,7 @@ function getYearsSelected() {
     const deca = document.getElementsByClassName("data-box__select--add-repo-photo-decade");
     const decade = deca[0].value;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
+    myRequest.open("GET", "php/getYears.php?decade=" + decade, true);
     myRequest.onload = function () {
         const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
@@ -864,7 +857,7 @@ function getYearsSelectedPhotos() {
     const decade = deca[0].value;
     const myRequest = new XMLHttpRequest();
 
-    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
+    myRequest.open("GET", "php/getYears.php?decade=" + decade, true);
     myRequest.onload = function () {
         const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
@@ -877,27 +870,27 @@ function getYearsSelectedPhotos() {
 }
 
 function renderYears(data) {
-    const yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+    const yearContainer = document.getElementsByClassName("data-box__select--add-repo-photo-year");
     yearContainer[0].innerHTML = "";
 
     for (const obj of data) {
         const htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
-        yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
+        yearContainer[0].insertAdjacentHTML("beforeend", htmlString);
     }
     const htmlString = "<option value=\"1\">NA</option>";
-    yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
+    yearContainer[0].insertAdjacentHTML("beforeend", htmlString);
 }
 
 function getReposits(fisrtYear) {
     if (fisrtYear === undefined) {
-        const y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+        const y = document.getElementsByClassName("data-box__select--add-repo-photo-year");
         const year = y[0].value;
     } else {
         year = fisrtYear;
     }
 
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
+    myRequest.open("GET", "php/getReposits.php?year=" + year, true);
     myRequest.onload = function () {
         const myRepositData = JSON.parse(myRequest.responseText);
         renderReposits(myRepositData);
@@ -907,30 +900,30 @@ function getReposits(fisrtYear) {
 }
 
 function renderReposits(myData) {
-    var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
+    var repositContainer = document.getElementsByClassName("data-box__select--add-ph-title");
 
     repositContainer[0].innerHTML = "";
 
     for (const obj of myData) {
         const htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
-        repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
+        repositContainer[0].insertAdjacentHTML("beforeend", htmlString);
     }
 }
 
 function renderPreviewText() {
-    document.getElementById("repositPreviewText").value = createFileList(document.getElementById('repositPreviewInput').files);
+    document.getElementById("repositPreviewText").value = createFileList(document.getElementById("repositPreviewInput").files);
 }
 
 function renderFullText() {
-    document.getElementById("repositFullText").value = createFileList(document.getElementById('repositFullInput').files);
+    document.getElementById("repositFullText").value = createFileList(document.getElementById("repositFullInput").files);
 }
 
 function renderOrigText() {
-    document.getElementById("repositOrigText").value = createFileList(document.getElementById('repositOrigInput').files);
+    document.getElementById("repositOrigText").value = createFileList(document.getElementById("repositOrigInput").files);
 }
 
 function renderMetadataText() {
-    document.getElementById("repositMetaText").value = createFileList(document.getElementById('repositMetaInput').files);
+    document.getElementById("repositMetaText").value = createFileList(document.getElementById("repositMetaInput").files);
 }
 
 function createFileList(files) {
@@ -940,7 +933,7 @@ function createFileList(files) {
         if (fileList.length === 0) {
             fileList = files[i].name;
         } else {
-            fileList = fileList + ' , ' + files[i].name;
+            fileList = fileList + " , " + files[i].name;
         }
         i++;
     }

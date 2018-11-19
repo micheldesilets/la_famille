@@ -3,7 +3,7 @@
   &__dropdown {
     position: relative;
     display: inline-block;
-    font-family: Raleway;
+    font-family: Raleway, "Times New Roman", serif;
     font-style: normal;
     font-size: small;
     .masthead__item {
@@ -46,7 +46,7 @@
     margin-top: 8px;
     background-color: $color1;
     border: none;
-    font-family: Raleway;
+    font-family: Raleway, "Times New Roman", serif;
     font-style: normal;
     font-size: small;
     text-decoration: none;
@@ -54,7 +54,7 @@
   // End dropdown button and account
 
   &__title {
-    font-family: 'Alex Brush';
+    font-family: Alex Brush, "Times New Roman", serif;
     font-weight: $font-weight-darker;
     font-size: $font-larger;
     margin-bottom: 0;
@@ -66,7 +66,7 @@
   }
 
   &__sub-title {
-    font-family: 'Raleway';
+    font-family: Raleway, "Times New Roman", serif;
     font-style: italic;
     font-size: $font-small;
     font-weight: $font-weight-normal;
@@ -79,7 +79,7 @@
 
 // Main navigation
 .c-nav-main {
-  font-family: 'Alex Brush';
+  font-family: Alex Brush, "Times New Roman", serif;
   font-weight: $font-weight-normal;
   font-size: $font-large;
   text-align: center;

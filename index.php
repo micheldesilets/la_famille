@@ -57,33 +57,24 @@
     </header>
     <!-- end masthead -->
     <!-- ==== START SIDEBAR ==== -->
-    <div>
-        <article class="about">
-            <img class="about__img-me" src="<?php echo($locSb); ?>" alt="Michel Desilets">
-            <p class="about__text">En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu
-                celle
-                de ceux avec qui j'ai partagé ma vie.</p>
-            <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="about__signature">
-        </article>
-    </div>
+    <article class="about">
+        <img class="about__img-me" src="<?php echo($locSb); ?>" alt="Michel Desilets">
+        <p class="about__text">En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu
+            celle
+            de ceux avec qui j'ai partagé ma vie.</p>
+        <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="about__signature">
+    </article>
     <!-- end sidebar -->
 </div>
-<div class="container">
-    <!-- ==== START MAIN ==== -->
-    <main role="main">
-        <section class="post">
-            <script>getPhotos(5, 4)</script>
-            <div id="homePhoto"></div>
-        </section>
-    </main>
-    <!-- ==== START PAGE FOOTER ==== -->
-    <footer role="contentinfo" class="footer">
-        <p class="legal">
-            <!--      <small>&copy; 2013 Le Journal ...</small>-->
-        </p>
-    </footer>
-    <!-- end page footer -->
-</div>
+
+<!-- ==== START MAIN ==== -->
+<main role="main">
+    <section class="post">
+        <script>getPhotos(5, 4)</script>
+        <div id="homePhoto"></div>
+    </section>
+</main>
+
 <!-- end page -->
 </body>
 </html>

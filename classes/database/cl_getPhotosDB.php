@@ -6,7 +6,6 @@ class photosBD
     public function getSidebarPhoto()
     {
         // current directory
-        $wd = getcwd();
         require_once 'classes/business/cl_photos.php';
         include 'connection/connect.php';
 
@@ -91,8 +90,8 @@ class photosBD
             }
         } else {
             if (count($kwords) > 0) {
-                if ($wPart == "true") {
-                    if ($searchKw == "true") {
+                if ($wPart === "true") {
+                    if ($searchKw === "true") {
                         $sql .= "(pho.keywords_pho LIKE '%" . $kwords[0] . "%'";
                     } else {
                         if ($searchComments == "true") {
