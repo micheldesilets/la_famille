@@ -1,3 +1,7 @@
+/*global describe:true*/
+/*global console:true*/
+/*jshint loopfunc: true */
+
 var searchChoice = false;
 var searchItmCont;
 var folderTitle;
@@ -36,6 +40,7 @@ var j = -1;
 var level;
 
 function getFolderTree() {
+    'use strict';
     const folderRequest = new XMLHttpRequest();
     folderRequest.open('GET', 'php/getFolderTree.php', true);
     folderRequest.onload = function () {
@@ -47,6 +52,7 @@ function getFolderTree() {
 
 /*** Family Photos ***/
 function buildFolderTree(data) {
+    'use strict';
     const folderContainer = document.getElementById("photosFolders");
 
     for (const branch of data) {
@@ -100,6 +106,7 @@ function buildFolderTree(data) {
 }
 
 function folderLevel2(branch) {
+    'use strict';
     if (decade !== branch.decade && branch.decade.length > 0) {
         // itm++;
         // sbitm = 0;
@@ -122,6 +129,7 @@ function folderLevel2(branch) {
 // TODO Add folder level 3
 
 function folderLevel4(branch) {
+    'use strict';
     if (decade !== branch.decade && branch.decade.length > 0) {
         if (decade !== "") {
             htmlString = htmlString +
@@ -139,7 +147,7 @@ function folderLevel4(branch) {
             "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
             "<ul>\n";
-        predecade = decade;
+        // predecade = decade;
         decade = branch.decade;
         year = 0;
     }
@@ -172,11 +180,13 @@ function folderLevel4(branch) {
 }
 
 function getFamilyPhotos(obj, path, type) {
+    'use strict';
     folderTitle = obj.innerHTML;
     getPhotos(path, type);
 }
 
 function getPhotos(path, type) {
+    'use strict';
     searchChoice = false;
     const myRequest = new XMLHttpRequest();
     myRequest.open("GET", "php/getPhotos.php?path=" + path, true);
@@ -196,6 +206,7 @@ function getPhotos(path, type) {
 }
 
 function searchInputs() {
+    'use strict';
     searchChoice = true;
     folderTitle = "";
     const searchFormData = getSearchInputs();
@@ -213,8 +224,8 @@ function searchInputs() {
     myRequest.send();
 }
 
-
 function getSelectedInfoPhoto() {
+    'use strict';
     searchChoice = false;
     const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
@@ -222,7 +233,7 @@ function getSelectedInfoPhoto() {
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
-        myInfoPhoto = JSON.parse(myRequest.responseText);
+        const myInfoPhoto = JSON.parse(myRequest.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
@@ -230,12 +241,13 @@ function getSelectedInfoPhoto() {
 }
 
 function getPhotoInfoPrevious() {
+    'use strict';
     selectedPhotoId -= 1;
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
-        myInfoPhoto = JSON.parse(myRequest.responseText);
+        const myInfoPhoto = JSON.parse(myRequest.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
@@ -243,12 +255,13 @@ function getPhotoInfoPrevious() {
 }
 
 function getPhotoInfoNext() {
+    'use strict';
     selectedPhotoId += 1;
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
-        myInfoPhoto = JSON.parse(myRequest.responseText);
+        const myInfoPhoto = JSON.parse(myRequest.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
@@ -256,6 +269,7 @@ function getPhotoInfoNext() {
 }
 
 function renderInfoPhoto(data) {
+    'use strict';
     const infoContain = document.getElementsByClassName('data-box__photo');
     var infoInputs = document.getElementsByClassName('data-box__input');
     const infoContainer = infoContain[0];
@@ -277,12 +291,13 @@ function renderInfoPhoto(data) {
 }
 
 function renderHomePhoto() {
+    'use strict';
     const container = document.getElementsByClassName('home__photo');
     const archivesContainer = container[0];
 
     for (const obj of myData) {
         const imageURL = obj.path + obj.filename;
-        const thumb = obj.prev_path + obj.filename;
+        // const thumb = obj.prev_path + obj.filename;
 
         const htmlString = "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
 
@@ -291,13 +306,14 @@ function renderHomePhoto() {
 }
 
 function renderFamilyPhotos() {
+    'use strict';
     document.getElementById('imgs').style.display = 'block';
     const familyContainer = document.getElementById('imgs');
 
     document.getElementById('imgs').innerHTML = '';
 
     for (const obj of myData) {
-        const imageURL = obj.path + obj.filename;
+        // const imageURL = obj.path + obj.filename;
         const thumb = obj.prev_path + obj.filename;
 
         const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>";
@@ -308,11 +324,14 @@ function renderFamilyPhotos() {
 }
 
 function turnOffFolders() {
+    'use strict';
     const titleContainer = document.getElementById('thumbTitle');
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
-    document.getElementById('searchFormButton').style.display = 'none';
+    const element = document.getElementsByClassName('search__search-button');
+    element[0].style.display = 'none';
+    // document.getElementById('searchFormButton').style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('thumbTitle').style.display = 'block';
     if (!searchChoice) {
@@ -323,6 +342,7 @@ function turnOffFolders() {
 }
 
 function turnOffSearchFolders() {
+    'use strict';
     const titleContainer = document.getElementById('thumbTitle');
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
@@ -331,59 +351,63 @@ function turnOffSearchFolders() {
     document.getElementById('backToTree').style.display = 'block';
     // document.getElementById('backToSearch').style.display = 'none';
     document.getElementById('thumbTitle').style.display = 'block';
-    if (document.getElementById('searchKw').elements['idContext'].checked !== true) {
+    if (document.getElementById('searchKw').elements.idContext.checked !== true) {
         titleContainer.innerText = '';
     } else {
         titleContainer.innerText = myData[0].rptTitle;
     }
     document.getElementById('backToTree').onclick = function () {
-        backToSearch()
+        backToSearch();
     };
 }
 
 /*** SEARCH
  **********************************/
 function searchForm() {
+    'use strict';
     prepareSearchScreen();
 }
 
 function prepareSearchScreen() {
+    'use strict';
     const buttn = document.getElementsByClassName('search__search-button');
     buttn[0].style.display = 'none';
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('searchKw').style.display = 'block';
     document.getElementById('backToTree').onclick = function () {
-        backToTree()
+        backToTree();
     };
 }
 
 function getSearchInputs() {
+    'use strict';
     const searchData = [];
     const searchDoc = document.getElementById('searchKw');
-    if (searchDoc.elements['keywrds'].value === '') {
-        searchData['kwords'] = 'nothingness';
+    if (searchDoc.elements.keywrds.value === '') {
+        searchData.kwords = 'nothingness';
     } else {
-        searchData['kwords'] = searchDoc.elements['keywrds'].value;
+        searchData.kwords = searchDoc.elements.keywrds.value;
     }
-    searchData['startYear'] = searchDoc.elements['anneeDeb'].value;
-    searchData['endYear'] = searchDoc.elements['anneeFin'].value;
-    searchData['wExact'] = searchDoc.elements['wExact'].checked;
-    searchData['wPart'] = searchDoc.elements['wPart'].checked;
-    searchData['searchClefs'] = searchDoc.elements['clefs'].checked;
-    searchData['searchTitres'] = searchDoc.elements['titres'].checked;
-    searchData['searchComment'] = searchDoc.elements['commentaires'].checked;
-    if (searchDoc.elements['pid'].value === '') {
-        searchData['photoId'] = 'nothing';
+    searchData.startYear = searchDoc.elements.anneeDeb.value;
+    searchData.endYear = searchDoc.elements.anneeFin.value;
+    searchData.wExact = searchDoc.elements.wExact.checked;
+    searchData.wPart = searchDoc.elements.wPart.checked;
+    searchData.searchClefs = searchDoc.elements.clefs.checked;
+    searchData.searchTitres = searchDoc.elements.titres.checked;
+    searchData.searchComment = searchDoc.elements.commentaires.checked;
+    if (searchDoc.elements.pid.value === '') {
+        searchData.photoId = 'nothing';
     } else {
-        searchData['photoId'] = searchDoc.elements['pid'].value;
+        searchData.photoId = searchDoc.elements.pid.value;
     }
-    searchData['idUnique'] = searchDoc.elements['idUnique'].checked;
-    searchData['idContext'] = searchDoc.elements['idContext'].checked;
+    searchData.idUnique = searchDoc.elements.idUnique.checked;
+    searchData.idContext = searchDoc.elements.idContext.checked;
     return searchData;
 }
 
 function backToTree() {
+    'use strict';
     // Bring back search and tree and hide 'back to tree(X)' button
     document.getElementById('imgs').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
@@ -395,6 +419,7 @@ function backToTree() {
 }
 
 function backToSearch() {
+    'use strict';
     document.getElementById('imgs').style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('thumbTitle').style.display = 'none';
@@ -404,6 +429,7 @@ function backToSearch() {
 /* Controle of right and left keys
 **********************************/
 document.onkeydown = function (e) {
+    'use strict';
     const evt = e ? e : window.event;
     if (evt.ctrlKey) {
         ctrlPressed = true;
@@ -427,6 +453,7 @@ document.onkeydown = function (e) {
 };
 
 function cancelPid() {
+    'use strict';
     const pid = document.getElementsByClassName('search__pid');
     pid[0].value = '';
     // document.getElementById('pid').value = '';
@@ -434,9 +461,9 @@ function cancelPid() {
 }
 
 function cancelKeywords() {
+    'use strict';
     const kw = document.getElementsByClassName('search__key-words');
     kw[0].value = '';
-    // document.getElementById('keywrds').value = '';
     document.getElementById('search__year-start').value = 'debut';
     document.getElementById('search__year-end').value = 'fin';
     document.getElementById('search__radio-partial').checked = true;
@@ -448,6 +475,7 @@ function cancelKeywords() {
 /*********************************/
 
 function animatePhotos() {
+    'use strict';
     current = document.querySelector('#current');
     imgs = document.querySelectorAll('#imgs img');
     backward = document.getElementById('previous');
@@ -464,6 +492,7 @@ function animatePhotos() {
 
 /*** MODAL ***/
 function transformImage(e) {
+    'use strict';
     prev = e.target.src;
     for (let i = 0; i < imgs.length; i++) {
         if (prev === imgs[i].src) {
@@ -472,15 +501,16 @@ function transformImage(e) {
             break;
         }
     }
-    imgModal(e)
+    imgModal(e);
 }
 
 function imgModal(e) {
+    'use strict';
     const currWin = window.location.href;
     const n = currWin.lastIndexOf('/');
     const winResult = currWin.substring(n + 1);
 
-    bdy = document.getElementById('bdy');
+    const bdy = document.getElementById('bdy');
     bdy.style.overflow = 'hidden';
     modal = document.getElementById('myModal');
 
@@ -517,15 +547,15 @@ function imgModal(e) {
         modalImg = document.getElementById('img01');
         captionText = document.getElementById('caption');
         modal.style.display = 'block';
-        modalTitle.innerHTML = this.title;
+        modalTitle.innerHTML = imgs[currentIdx - 1].title;
         modalImg.src = img;
-        captionText.innerHTML = this.alt;
+        captionText.innerHTML = imgs[currentIdx - 1].alt;
 
         const idxList = myData[currentIdx].geneolidx.split(',');
         const namesList = myData[currentIdx].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = "<p>(pid-" + myData[currentIdx].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
         const span = document.getElementsByClassName('close')[0];
@@ -534,16 +564,17 @@ function imgModal(e) {
         span.onclick = function () {
             modal.style.display = 'none';
             bdy.style.overflow = 'visible';
-        }
+        };
     }
 }
 
 function prevImage() {
+    'use strict';
     if (currentIdx > 0) {
         img = imgs[currentIdx - 1].src;
         img = img.replace('preview', 'full');
-        capt = imgs[currentIdx - 1].alt;
-        titl = imgs[currentIdx - 1].title;
+        const capt = imgs[currentIdx - 1].alt;
+        const titl = imgs[currentIdx - 1].title;
         modalImg.src = img;
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
@@ -552,7 +583,7 @@ function prevImage() {
         const namesList = myData[currentIdx - 1].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = "<p>(pid-" + myData[currentIdx - 1].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx - 1].idpho + ")</p>";
         currentIdx--;
         if (currentIdx === 0) {
             backward.style.backgroundColor = 'red';
@@ -564,11 +595,12 @@ function prevImage() {
 }
 
 function nextImage() {
+    'use strict';
     if (currentIdx < maxLength - 1) {
         img = imgs[currentIdx + 1].src;
         img = img.replace('preview', 'full');
-        capt = imgs[currentIdx + 1].alt;
-        titl = imgs[currentIdx + 1].title;
+        const capt = imgs[currentIdx + 1].alt;
+        const titl = imgs[currentIdx + 1].title;
         modalImg.src = img;
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
@@ -576,8 +608,8 @@ function nextImage() {
         const idxList = myData[currentIdx + 1].geneolidx.split(',');
         const namesList = myData[currentIdx + 1].geneolnames.split(',');
 
-        geneol.innerHTML = buildGeneolLine(idxList, namesList);
-        photoId.innerHTML = "<p>(pid-" + myData[currentIdx + 1].idpho + ")</p>";
+        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+        photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx + 1].idpho + ")</p>";
         currentIdx++;
         if (currentIdx === maxLength - 1) {
             forward.style.backgroundColor = 'red';
@@ -589,10 +621,11 @@ function nextImage() {
 }
 
 function buildGeneolLine(idxList, namesList) {
+    'use strict';
     var htmlLine = '';
     if (idxList !== '') {
         htmlLine = '<p>Généalogie: ';
-        for (let i = 0; i < idxList.length; i++) {
+        for (var i = 0; i < idxList.length; i++) {
             htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
                 namesList[i];
             if (i + 1 < idxList.length) {
@@ -605,10 +638,10 @@ function buildGeneolLine(idxList, namesList) {
     return htmlLine;
 }
 
-
 /*** END MODAL ***/
 
 function imgClick(e) {
+    'use strict';
     // Reset opacity
     imgs.forEach(img => (img.style.opacity = 1));
 
@@ -631,6 +664,7 @@ function imgClick(e) {
 /*** Reading section ***/
 
 function assignReadingTitle() {
+    'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
     const menu1 = menu[1];
@@ -639,10 +673,12 @@ function assignReadingTitle() {
 }
 
 function getReadings() {
+    'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
     const menu1 = menu[1];
     const n = menu1.innerText.search('Bernard-Normandeau');
+    var path;
 
     if (n !== -1) {
         path = 11;
@@ -663,6 +699,7 @@ function getReadings() {
 }
 
 function renderReadings(data) {
+    'use strict';
     const container = document.getElementsByClassName('readings');
     const readingsContainer = container[0];
 
@@ -682,7 +719,7 @@ function renderReadings(data) {
             "<p class=\"readings__summary\">" + intro + "</p>" + "<p class=\"readings__summary\">" +
             obj.sumary + "</p ><br></div>";
 
-        readingsContainer.insertAdjacentHTML('beforeend', htmlString)
+        readingsContainer.insertAdjacentHTML('beforeend', htmlString);
     }
 }
 
@@ -690,6 +727,7 @@ function renderReadings(data) {
  ******************/
 
 function getObjects() {
+    'use strict';
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getObjects.php?path=' + 12, true);
     myRequest.onload = function () {
@@ -700,6 +738,7 @@ function getObjects() {
 }
 
 function renderObjects(data) {
+    'use strict';
     const container = document.getElementsByClassName('objects__container');
     const objectsContainer = container[0];
 
@@ -709,19 +748,21 @@ function renderObjects(data) {
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects__img\" title='Cliquer pour agrandir la photo'>\n" +
             "<p class=\"objects__description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
 
-        objectsContainer.insertAdjacentHTML('beforeend', htmlString)
+        objectsContainer.insertAdjacentHTML('beforeend', htmlString);
     }
-    animateObjects()
+    animateObjects();
 }
 
 function animateObjects() {
+    'use strict';
     const objs = document.querySelectorAll('.objects');
     opacity = 0.5;
     objs.forEach(obj => obj.addEventListener('click', objModal));
 }
 
 function objModal(e) {
-    bdy = document.getElementById('bdy');
+    'use strict';
+    const bdy = document.getElementById('bdy');
     modal = document.getElementById('myObjModal');
 
     prev = e.target.src;
@@ -738,46 +779,39 @@ function objModal(e) {
     span.onclick = function () {
         modal.style.display = 'none';
         bdy.style.overflow = 'visible';
-    }
+    };
 }
 
 /*** ADD REPOSITORY
  ********************************/
 function getRepositInputs() {
+    'use strict';
     const repositoryDoc = document.getElementsByClassName('data-box__select');
 
-    repositoryData['levels'] = repositoryDoc[0].value;
-    repositoryData['type'] = repositoryDoc[1].value;
-    repositoryData['author'] = repositoryDoc[2].value;
-    repositoryData['decade'] = repositoryDoc[3].value;
-    repositoryData['year'] = repositoryDoc[4].value;
-    repositoryData['title'] = repositoryDoc[5].value;
+    repositoryData.levels = repositoryDoc[0].value;
+    repositoryData.type = repositoryDoc[1].value;
+    repositoryData.author = repositoryDoc[2].value;
+    repositoryData.decade = repositoryDoc[3].value;
+    repositoryData.year = repositoryDoc[4].value;
+    repositoryData.title = repositoryDoc[5].value;
 }
 
 function getRepositInputsPhotos() {
+    'use strict';
     const repositoryDoc = document.getElementsByClassName('data-box__select');
 
-    repositoryData['type'] = repositoryDoc[0].value;
-    repositoryData['author'] = repositoryDoc[1].value;
-    repositoryData['decade'] = repositoryDoc[2].value;
-    repositoryData['year'] = repositoryDoc[3].value;
-    repositoryData['title'] = repositoryDoc[4].value;
-}
-
-function getInfoPhotoInputs() {
-    const infoDoc = document.getElementById('info__form');
-
-    infoDoc['title'] = repositoryDoc.elements['info__title-input'].value;
-    infoDoc['keyWords'] = repositoryDoc.elements['info__keys-input'].value;
-    infoDoc['caption'] = repositoryDoc.elements['info__caption-input'].value;
-    infoDoc['year'] = repositoryDoc.elements['info__year-input'].value;
-    infoDoc['geneolIndexes'] = repositoryDoc.elements['info__geneol-input'].value;
+    repositoryData.type = repositoryDoc[0].value;
+    repositoryData.author = repositoryDoc[1].value;
+    repositoryData.decade = repositoryDoc[2].value;
+    repositoryData.year = repositoryDoc[3].value;
+    repositoryData.title = repositoryDoc[4].value;
 }
 
 function addRepository() {
+    'use strict';
     getRepositInputs();
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + infoDoc.type +
+    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
 
@@ -787,6 +821,7 @@ function addRepository() {
 }
 
 function addRepositoryMysql() {
+    'use strict';
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
@@ -794,45 +829,28 @@ function addRepositoryMysql() {
 
     myRequest.send();
 
-    alert('Success');
+    // alert('Success');
     // addMetadataToDB();
 }
 
-/*** Add Lightroom data to database
- *********************************/
-function addMetadataToDB() {
-    /*    var fList = [];
-        for (var i = 0; i < repositoryData.meta.length; i++) {
-            if (fList.length === 0) {
-                fList = repositoryData.meta[i].name;
-            } else {
-                fList = fList + ',' + repositoryData.meta[i].name;
-            }
-        }
-        jList = JSON.stringify(fList);
-        var myRequest = new XMLHttpRequest();
-        myRequest.open('GET', 'php/addRepository.php?meta=' + jList + '&function=addMetadataToMysql', true);
-
-        myRequest.send();*/
-}
-
 function uploadPhotos() {
+    'use strict';
     getRepositInputsPhotos();
 
     const url = 'php/upload.php';
-    const files = document.getElementById('data-box__input--photos').files;
+    // const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
-    for (let i = 0; i < repositoryData['preview'].length; i++) {
-        let file = repositoryData['preview'][i];
+    for (let i = 0; i < repositoryData.preview.length; i++) {
+        let file = repositoryData.preview[i];
         formData.append('files[]', file);
     }
 
-    formData.append('type', repositoryData['type']);
-    formData.append('author', repositoryData['author']);
-    formData.append('decade', repositoryData['decade']);
-    formData.append('year', repositoryData['year']);
-    formData.append('title', repositoryData['title']);
+    formData.append('type', repositoryData.type);
+    formData.append('author', repositoryData.author);
+    formData.append('decade', repositoryData.decade);
+    formData.append('year', repositoryData.year);
+    formData.append('title', repositoryData.title);
 
     fetch(url, {
         method: 'POST',
@@ -842,11 +860,8 @@ function uploadPhotos() {
     });
 }
 
-function insertMetadataInfo() {
-    getInfoPhotoInputs();
-}
-
 function getYearsSelected() {
+    'use strict';
     const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
     const decade = deca[0].value;
     const myRequest = new XMLHttpRequest();
@@ -860,6 +875,7 @@ function getYearsSelected() {
 }
 
 function getYearsSelectedPhotos() {
+    'use strict';
     const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
     const decade = deca[0].value;
     const myRequest = new XMLHttpRequest();
@@ -877,6 +893,7 @@ function getYearsSelectedPhotos() {
 }
 
 function renderYears(data) {
+    'use strict';
     const yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
     yearContainer[0].innerHTML = '';
 
@@ -889,6 +906,7 @@ function renderYears(data) {
 }
 
 function getReposits(fisrtYear) {
+    'use strict';
     if (fisrtYear === undefined) {
         const y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
         const year = y[0].value;
@@ -907,6 +925,7 @@ function getReposits(fisrtYear) {
 }
 
 function renderReposits(myData) {
+    'use strict';
     var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
 
     repositContainer[0].innerHTML = '';
@@ -918,10 +937,12 @@ function renderReposits(myData) {
 }
 
 function renderSelectedPhotos() {
+    'use strict';
     document.getElementById('data__box--text-input').value = createFileList(document.getElementById('data-box__input--photos').files);
 }
 
 function createFileList(files) {
+    'use strict';
     var fileList = '';
     let i = 0;
     while (i < files.length) {
@@ -936,5 +957,6 @@ function createFileList(files) {
 }
 
 function closeWindow() {
+    'use strict';
     window.close(window.location.href);
 }

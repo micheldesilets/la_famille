@@ -57,9 +57,8 @@
                     <input type="submit" value="Rechercher" class="search__go-button"><br>
 
                     <label for="search__year-start" class="search__year-start">De </label>
-                    <select id="search__year-start">
-                        <option selected>
-                            <p>Première année</p>
+                    <select id="search__year-start" class="search__select">
+                        <option selected>Première année
                         </option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
@@ -97,7 +96,7 @@
                     </select><br>
 
                     <label for="search__year-end" class="search__year-end">À </label>
-                    <select id="search__year-end">
+                    <select id="search__year-end" class="search__select">
                         <option id="fin" value="fin" selected>Dernière année</option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
@@ -134,21 +133,25 @@
                         </optgroup>
                     </select><br>
 
-                    <p class="radio">
+                    <p class="search__radio-button">
                         <input type="radio" id="search__radio-exact" value="wExact"/>
-                        <label for="search__radio-exact">Contient le/les mots exacts</label>
+                        <label for="search__radio-exact" class="search__rb-label">Contient le/les mots exacts</label>
                         <br>
                         <input type="radio" id="search__radio-partial" value="wPartial" checked/>
-                        <label for="search__radio-partial">Contient une partie du/des mot(s)</label>
+                        <label for="search__radio-partial" class="search__rb-label">Contient une partie du/des
+                            mot(s)</label>
                     </p><br>
 
-                    <div id="searchCb">
-                        <input type="checkbox" id="search__keys" value="clefs" checked>Recherche des mots
-                        clefs<br>
-                        <input type="checkbox" id="search__titles" value="titres" checked>Recherche des titres<br>
-                        <input type="checkbox" id="search__comments" value="commentaires" checked>Recherche
-                        des
-                        commentaires<br>
+                    <div class="search__check-box">
+                        <input type="checkbox" id="search__keys" value="clefs" checked>
+                        <label for="search__keys" class="search__cb-label">Recherche des mots clefs</label>
+                        <br>
+                        <input type="checkbox" id="search__titles" value="titres" checked>
+                        <label for="search__titles" class="search__cb-label">Recherche des titres</label>
+                        <br>
+                        <input type="checkbox" id="search__comments" value="commentaires" checked>
+                        <label for="search__comments" class="search__cb-label">Recherche des commentaires</label>
+                        <br>
                     </div>
 
                     <fieldset class="search__pid-context">
@@ -158,12 +161,12 @@
                         <input class="search__pid" type="text" placeholder="Le numéro de la photo" size="24"
                                onkeypress="cancelKeywords()">
 
-                        <p class="context">
+                        <p class="search__context">
                             <input type="radio" id="search__radio-uniq" value="idUnique" checked/>
-                            <label for="search__radio-uniq">Unique</label>
+                            <label for="search__radio-uniq" class="search__rb-label">Unique</label>
                             <br>
                             <input type="radio" id="search__radio-context" value="idContext"/>
-                            <label for="search__radio-context">Contexte</label>
+                            <label for="search__radio-context" class="search__rb-label">Contexte</label>
                         </p><br>
                     </fieldset>
                 </fieldset>
@@ -192,7 +195,7 @@
                 <span class="close">x</span>
 
 
-                <img class="modal-content" id="img01">
+                <img src="" class="modal-content" id="img01">
                 <div id="modalTitle"></div>
                 <div id="caption"></div>
                 <div id="idGeneolCont">

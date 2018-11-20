@@ -188,7 +188,7 @@ ol {
     padding-left: 90px;
 }*/
 
-.masthead h2, .masthead-1 h2 {
+/*.masthead h2, .masthead-1 h2 {*/
     /*    font-family: Raleway;
         font-style: italic;
         font-weight: normal;
@@ -196,7 +196,7 @@ ol {
         font-size: .8em;
         text-align: center;
         margin-bottom: -0.8em;*/
-}
+/*}*/
 
 /*.sticky {
     position: fixed;
@@ -539,11 +539,11 @@ main .books, .objects {
 
 /* SIDEBAR
 ------------------------------------------ */
-.mod h2 {
+/*.mod h2 {*/
     /*border-bottom: 1px solid #dbdbdb;
     margin-top: 2.571em;
     padding-bottom: .75em;*/
-}
+/*}*/
 
 /* ::: About Me ::: */
 /*
@@ -585,20 +585,20 @@ main .books, .objects {
 */
 
 /* ::: Previous and Shared Posts ::: */
-.links {
+/*.links {*/
     /* margin: 1.5em 0 4.125em;
      padding-left: 0;
      width: 270px;*/
-}
+/*}*/
 
-.links li {
+/*.links li {*/
     /* margin-bottom: 1.1em;*/
-}
+/*}*/
 
-.links a {
+/*.links a {*/
     /* font-size: 1.125em;
      line-height: 1.195;*/
-}
+/*}*/
 
 #imgs > div {
     /*width: ; !* Declare your value. Can be in relative units. *!*/
