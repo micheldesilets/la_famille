@@ -260,7 +260,7 @@ ol {
 }
 */
 
-#searchFormButton {
+/*#searchFormButton {
     float: right;
     background-color: #fdfaf6;
     border: none;
@@ -268,12 +268,12 @@ ol {
     font-style: normal;
     font-size: small;
     text-decoration: none;
-    /*margin-bottom: 20px;*/
+    !*margin-bottom: 20px;*!
 }
 
 #searchFormButton {
     font-weight: bold;
-}
+}*/
 
 /* ::: Main Navigation ::: */
 /*.c-nav-main {
@@ -978,6 +978,7 @@ label {
 
 /* SEARCH PHOTOS
  *********************************/
+/*
 .searchPhotos {
     padding-bottom: 1em;
     font-size: small;
@@ -1000,7 +1001,7 @@ label {
 }
 
 .yearChoiceEnd {
-    margin-right: .6em; /* to align boxes */
+    margin-right: .6em; !* to align boxes *!
 }
 
 fieldset {
@@ -1045,9 +1046,10 @@ fieldset {
     float: right;
     padding: 5px;
     margin-top: -3px;
-    /*border: 1px solid lightgrey;*/
+    !*border: 1px solid lightgrey;*!
 }
 
+*/
 /* LEGACY
 **********************************/
 /*

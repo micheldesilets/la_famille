@@ -348,7 +348,8 @@ function searchForm() {
 }
 
 function prepareSearchScreen() {
-    document.getElementById('searchFormButton').style.display = 'none';
+    const buttn = document.getElementsByClassName('search__search-button');
+    buttn[0].style.display = 'none';
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('searchKw').style.display = 'block';
@@ -389,7 +390,8 @@ function backToTree() {
     document.getElementById('backToTree').style.display = 'none';
     document.getElementById('thumbTitle').style.display = 'none';
     document.getElementById('photosFolders').style.display = 'block';
-    document.getElementById('searchFormButton').style.display = 'block';
+    const searchBtn = document.getElementsByClassName('search__search-button');
+    searchBtn[0].style.display = 'block';
 }
 
 function backToSearch() {
@@ -425,18 +427,22 @@ document.onkeydown = function (e) {
 };
 
 function cancelPid() {
-    document.getElementById('pid').value = '';
-    document.getElementById('idUnique').checked = true;
+    const pid = document.getElementsByClassName('search__pid');
+    pid[0].value = '';
+    // document.getElementById('pid').value = '';
+    document.getElementById('search__radio-uniq').checked = true;
 }
 
 function cancelKeywords() {
-    document.getElementById('keywrds').value = '';
-    document.getElementById('debut').value = 'debut';
-    document.getElementById('fin').value = 'fin';
-    document.getElementById('wPart').checked = true;
-    document.getElementById('clefs').checked = true;
-    document.getElementById('titres').checked = true;
-    document.getElementById('commentaires').checked = true;
+    const kw = document.getElementsByClassName('search__key-words');
+    kw[0].value = '';
+    // document.getElementById('keywrds').value = '';
+    document.getElementById('search__year-start').value = 'debut';
+    document.getElementById('search__year-end').value = 'fin';
+    document.getElementById('search__radio-partial').checked = true;
+    document.getElementById('search__keys').checked = true;
+    document.getElementById('search__titles').checked = true;
+    document.getElementById('search__comments').checked = true;
 }
 
 /*********************************/

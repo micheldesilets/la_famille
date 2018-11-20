@@ -196,6 +196,147 @@
   }
 }
 
+// Family photos
+.search {
+  padding-bottom: 1em;
+  font-size: small;
+  &__go-button {
+    width: auto;
+    background-color: white;
+    float: right;
+    padding: 5px;
+    margin-top: -3px;
+  }
+  &__section {
+    padding-left: 0.4em;
+
+  }
+  &__label {
+
+  }
+  &__fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 0.35em 0.75em 0.625em;
+    border: 1px groove;
+  }
+  &__search-button {
+    float: right;
+    background-color: #fdfaf6;
+    border: none;
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: normal;
+    font-size: small;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  &__key-words {
+    margin: .5em 0 0 0;
+    width: 70%;
+    float: left;
+  }
+  &__year-start {
+    width: 100%;
+    margin-top: 1.4em;
+  }
+  &__year-end {
+    margin-right: .6em; /* to align boxes */
+  }
+  &__pid-context {
+    width: 50%;
+  }
+}
+
+/*.searchPhotos {
+  padding-bottom: 1em;
+  font-size: small;
+}*/
+
+.search__section label {
+  display: inline-block;
+  padding-right: 0.3em;
+  text-align: left;
+  width: auto;
+}
+
+/*.search__section {
+  padding-left: 0.4em;
+}*/
+/*
+.yearChoiceStart {
+  width: 100%;
+  margin-top: 1.4em;
+}*/
+/*
+.yearChoiceEnd {
+  margin-right: .6em; !* to align boxes *!
+}*/
+
+/*
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 0.35em 0.75em 0.625em;
+  border: 1px groove;
+}
+*/
+
+#searchFormButton {
+  float: right;
+  background-color: #fdfaf6;
+  border: none;
+  font-family: Raleway, "Times New Roman", serif;
+  font-style: normal;
+  font-size: small;
+  text-decoration: none;
+  /*margin-bottom: 20px;*/
+}
+
+#searchFormButton {
+  font-weight: bold;
+}
+
+/*
+#keywrds {
+  margin: .5em 0 0 0;
+  width: 70%;
+  float: left;
+}*/
+
+.radio, .radio label, .context, .context label {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.pidContext {
+  width: 50%;
+}
+
+#searchCb input[type="checkbox"] {
+  display: inline-block;
+}
+
+#searchCb {
+  margin-bottom: 1.3em;
+  text-align: left
+}
+
+#searchCb input {
+  margin: 0 0 .6em 1px;
+}
+
+#goButton {
+  width: auto;
+  background-color: white;
+  float: right;
+  padding: 5px;
+  margin-top: -3px;
+  /*border: 1px solid lightgrey;*/
+}
+
+
 
 
 

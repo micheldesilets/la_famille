@@ -42,23 +42,24 @@
     </div>
 
     <!--  Search-->
-    <div class="searchPhotos">
-        <section class="search">
-            <input autofocus="autofocus" type="button" id="searchFormButton" value="Recherche"
+    <div class="search">
+        <section class="search__section">
+            <input autofocus="autofocus" type="button" class="search__search-button" value="Recherche"
                    onclick="searchForm()">
 
             <form action="javascript:searchInputs()" id="searchKw">
-                <fieldset>
-                    <input type="text" id="keywrds" placeholder="mots clefs séparés par une virgule" size="110"
+                <fieldset class="search__fieldset">
+                    <input type="text"
+                           class="search__key-words"
+                           placeholder="mots clefs séparés par une virgule"
+                           size="110"
                            onkeypress="cancelPid()"><br>
-                    <input type="submit" value="Rechercher" id="goButton"><br>
+                    <input type="submit" value="Rechercher" class="search__go-button"><br>
 
-                    <label for="anneeDeb" class="yearChoiceStart">De </label>
-                    <select id="anneeDeb">
-                        <option id="debut" value="debut" selected>
-
+                    <label for="search__year-start" class="search__year-start">De </label>
+                    <select id="search__year-start">
+                        <option selected>
                             <p>Première année</p>
-
                         </option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
@@ -95,8 +96,8 @@
                         </optgroup>
                     </select><br>
 
-                    <label for="anneeFin" class="yearChoiceEnd">À </label>
-                    <select id="anneeFin">
+                    <label for="search__year-end" class="search__year-end">À </label>
+                    <select id="search__year-end">
                         <option id="fin" value="fin" selected>Dernière année</option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
@@ -134,35 +135,35 @@
                     </select><br>
 
                     <p class="radio">
-                        <input type="radio" id="wExact" name="wordLen" value="wExact"/>
-                        <label for="wExact">Contient le/les mots exacts</label>
+                        <input type="radio" id="search__radio-exact" value="wExact"/>
+                        <label for="search__radio-exact">Contient le/les mots exacts</label>
                         <br>
-                        <input type="radio" id="wPart" name="wordLen" value="wPart" checked/>
-                        <label for="wPart">Contient une partie du/des mot(s)</label>
+                        <input type="radio" id="search__radio-partial" value="wPartial" checked/>
+                        <label for="search__radio-partial">Contient une partie du/des mot(s)</label>
                     </p><br>
 
                     <div id="searchCb">
-                        <input type="checkbox" id="clefs" name="clefs" value="clefs" checked>Recherche des mots
+                        <input type="checkbox" id="search__keys" value="clefs" checked>Recherche des mots
                         clefs<br>
-                        <input type="checkbox" id="titres" name="titres" value="titres" checked>Recherche des titres<br>
-                        <input type="checkbox" id="commentaires" name="commentaires" value="commentaires" checked>Recherche
+                        <input type="checkbox" id="search__titles" value="titres" checked>Recherche des titres<br>
+                        <input type="checkbox" id="search__comments" value="commentaires" checked>Recherche
                         des
                         commentaires<br>
                     </div>
 
-                    <fieldset class="pidContext">
+                    <fieldset class="search__pid-context">
                         <label>
                             PID-
                         </label>
-                        <input id="pid" type="text" placeholder="Le numéro de la photo" size="24"
+                        <input class="search__pid" type="text" placeholder="Le numéro de la photo" size="24"
                                onkeypress="cancelKeywords()">
 
                         <p class="context">
-                            <input type="radio" id="idUnique" name="Context" value="idUnique" checked/>
-                            <label for="idUniquew">Unique</label>
+                            <input type="radio" id="search__radio-uniq" value="idUnique" checked/>
+                            <label for="search__radio-uniq">Unique</label>
                             <br>
-                            <input type="radio" id="idContext" name="Context" value="idContext"/>
-                            <label for="idContext">Contextuel</label>
+                            <input type="radio" id="search__radio-context" value="idContext"/>
+                            <label for="search__radio-context">Contexte</label>
                         </p><br>
                     </fieldset>
                 </fieldset>
