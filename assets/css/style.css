@@ -412,12 +412,12 @@ ol {
     !* margin-top: 0.904em;*!
 }*/
 
-.gallery img {
+/*.gallery img {
     height: auto;
     border-radius: 8px;
     cursor: pointer;
     transition: .4s;
-}
+}*/
 
 /*.post img {
     display: block;
@@ -426,14 +426,14 @@ ol {
     opacity: 1;
 }*/
 
-/* Archives + Readings*/
+/*!* Archives + Readings*!
 #family-left, #family-right {
     display: block;
     font-style: italic;
     font-size: .9em;
 
     margin-bottom: .7em;
-}
+}*/
 
 /*#family-left {
     float: left;
@@ -600,29 +600,29 @@ main .books, .objects {
      line-height: 1.195;*/
 /*}*/
 
-#imgs > div {
-    /*width: ; !* Declare your value. Can be in relative units. *!*/
+/*.imgs > div {
+    !*width: ; !* Declare your value. Can be in relative units. *!*!
     display: inline-block;
     vertical-align: top;
     margin-left: 16px;
     margin-bottom: 10px;
-    /*margin-top: -20px;*/
+    !*margin-top: -20px;*!
     padding: 7px;
 
     box-shadow: 4px 4px 10px grey;
-    /* IE fix. */
+    !* IE fix. *!
     *display: inline;
     zoom: 1;
 }
 
-#imgs:after {
+.imgs:after {
     content: "";
     width: 100%;
     display: inline-block;
-}
+}*/
 
 /*** ... Fade-in animation ***/
-@keyframes fadeIn {
+/*@keyframes fadeIn {
     to {
         opacity: 1;
     }
@@ -631,11 +631,11 @@ main .books, .objects {
 .fade-in {
     opacity: 0;
     animation: fadeIn 0.5s ease-in 1 forwards;
-}
+}*/
 
 /* THE MODAL
 **********************************/
-#myImg {
+/*#myImg {
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
@@ -643,29 +643,30 @@ main .books, .objects {
 
 #myImg:hover {
     opacity: 0.7;
-}
+}*/
 
 /* background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 20px; /* Location of the box */
+/*.modal {
+    display: none; !* Hidden by default *!
+    position: fixed; !* Stay in place *!
+    z-index: 1; !* Sit on top *!
+    padding-top: 20px; !* Location of the box *!
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
-}
+    background-color: rgb(0, 0, 0); !* Fallback color *!
+    background-color: rgba(0, 0, 0, 0.75); !* Black w/ opacity *!
+}*/
 
 /* Content (image) */
-
+/*
 #idGeneolCont {
     width: 80%;
     margin: auto;
-}
+}*/
 
+/*
 #photoId p {
     position: fixed;
     bottom: 30px;
@@ -674,8 +675,9 @@ main .books, .objects {
     font-size: small;
     color: #bbbbbb;
 }
+*/
 
-#geneol {
+/*#geneol {
     margin: auto;
     display: block;
     width: 80%;
@@ -691,24 +693,25 @@ main .books, .objects {
 
 #geneol p {
     color: white;
-}
+}*/
 
-.modal-content {
+/*.modal-content {
     background-color: #fefefe;
     padding: 5px;
     border: 1px solid #888;
     margin: auto;
-    /*margin-left: 75px;*/
+    !*margin-left: 75px;*!
     display: block;
     max-width: 100%;
     max-height: 80%;
-}
+}*/
 
-.modal a {
+/*.modal a {
     color: white;
-}
+}*/
 
 /* Caption of Modal Image */
+/*
 #caption {
     margin: auto;
     display: block;
@@ -717,11 +720,12 @@ main .books, .objects {
     text-align: center;
     color: #ccc;
     padding-bottom: 12px;
-    /*height: 150px;*/
+    !*height: 150px;*!
 }
+*/
 
 /* Title of Modal Image */
-#modalTitle {
+/*#modalTitle {
     margin: auto;
     display: block;
     width: 80%;
@@ -729,17 +733,17 @@ main .books, .objects {
     text-align: center;
     color: #ccc;
     padding: 10px 0 0;
-}
+}*/
 
 /* Add Animation */
-.modal-content, #caption, #modalTitle {
+/*#caption, #modalTitle {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
     animation-duration: 0.6s;
-}
+}*/
 
-@-webkit-keyframes zoom {
+/*@-webkit-keyframes zoom {
     from {
         -webkit-transform: scale(0)
     }
@@ -755,9 +759,9 @@ main .books, .objects {
     to {
         transform: scale(1)
     }
-}
+}*/
 
-#previous {
+/*#previous {
     position: relative;
     float: left;
     top: 40%;
@@ -767,9 +771,10 @@ main .books, .objects {
     position: relative;
     float: right;
     top: 40%;
-}
+}*/
 
 /* The Close Button */
+/*
 .close, .downloadImage {
     position: absolute;
     top: 22px;
@@ -779,39 +784,45 @@ main .books, .objects {
     font-weight: bold;
     transition: 0.3s;
 }
+*/
 
-.downloadImage {
+/*.downloadImage {
     top: 30px;
     right: 75px;
     width: 24px;
     height: 24px;
-}
+}*/
 
+/*
 .close:hover,
 .close:focus, .downloadImage:hover, .downloadImage:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }
+*/
 
 /* 100% Image Width on Smaller Screens */
+/*
 @media only screen and (max-width: 700px) {
     .modal-content {
         width: 100%;
     }
 }
+*/
 
 /* Back to Tree */
-#backToTree {
+/*#backToTree {
     float: right;
     cursor: pointer;
     border: none;
     background: none;
     display: none;
     margin-bottom: .5em;
-}
+}*/
 
 /* Back to Search */
+/*
 #backToSearch {
     float: right;
     cursor: pointer;
@@ -820,6 +831,8 @@ main .books, .objects {
     display: none;
     margin: 0;
 }
+*/
+/*
 
 #thumbTitle {
     float: left;
@@ -828,6 +841,7 @@ main .books, .objects {
     border: none;
     margin: 0;
 }
+*/
 
 /* DROPDOWN LIST
 **********************************/

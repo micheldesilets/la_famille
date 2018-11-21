@@ -194,6 +194,15 @@
     margin-top: 0;
     @include wsh-01;
   }
+  &__modal-content {
+    @include modal-content;
+    @include animate01;
+  }
+  @include hocus() {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
 // Family photos
@@ -267,105 +276,98 @@
   }
 }
 
-/*.searchPhotos {
-  padding-bottom: 1em;
-  font-size: small;
-}*/
-
-/*.search__section label {
-  display: inline-block;
-  padding-right: 0.3em;
-  text-align: left;
-  width: auto;
-}*/
-
-/*.search__section {
-  padding-left: 0.4em;
-}*/
-/*
-.yearChoiceStart {
-  width: 100%;
-  margin-top: 1.4em;
-}*/
-/*
-.yearChoiceEnd {
-  margin-right: .6em; !* to align boxes *!
-}*/
-
-/*
-fieldset {
-  display: block;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding: 0.35em 0.75em 0.625em;
-  border: 1px groove;
+.photos {
+  &__imgs {
+    & > div {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 16px;
+      margin-bottom: 10px;
+      padding: 7px;
+      box-shadow: 4px 4px 10px grey;
+      *display: inline;
+      zoom: 1;
+    }
+    &:after {
+      content: "";
+      width: 100%;
+      display: inline-block;
+    }
+  }
+  &__modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 20px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
+    & a {
+      color: white;
+    }
+  }
+  &__modal-content {
+    @include modal-content;
+    @include animate01;
+  }
+  &__next {
+    position: relative;
+    float: right;
+    top: 40%;
+  }
+  &__previous {
+    position: relative;
+    float: left;
+    top: 40%;
+  }
+  &__modal-title {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0 0;
+    @include animate01;
+  }
+  &__caption {
+    margin: auto;
+    margin-top: 0;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    @include animate01;
+  }
+  &__id-geneol {
+    width: 80%;
+    margin: auto;
+  }
+  &__geneol {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    height: 150px;
+    font-size: .8em;
+    & a {
+      color: aqua;
+    }
+    & p {
+      color: white;
+    }
+  }
+  &__photo-id p {
+    position: fixed;
+    bottom: 30px;
+    left: 45px;
+    margin: 0;
+    font-size: small;
+    color: #bbbbbb;
+  }
 }
-*/
-
-/*#searchFormButton {
-  float: right;
-  background-color: #fdfaf6;
-  border: none;
-  font-family: Raleway, "Times New Roman", serif;
-  font-style: normal;
-  font-size: small;
-  text-decoration: none;
-  !*margin-bottom: 20px;*!
-}
-
-#searchFormButton {
-  font-weight: bold;
-}*/
-
-/*
-#keywrds {
-  margin: .5em 0 0 0;
-  width: 70%;
-  float: left;
-}*/
-
-/*.search__radio-button, .search__radio-button label, .context, .context label {
-  margin-bottom: 0;
-  padding: 0;
-}*/
-
-/*.pidContext {
-  width: 50%;
-}*/
-/*
-#searchCb input[type="checkbox"] {
-  display: inline-block;
-}*/
-
-/*#searchCb {
-  margin-bottom: 1.3em;
-  text-align: left
-}*/
-/*
-#searchCb input {
-  margin: 0 0 .6em 1px;
-}*/
-
-/*
-#goButton {
-  width: auto;
-  background-color: white;
-  float: right;
-  padding: 5px;
-  margin-top: -3px;
-  !*border: 1px solid lightgrey;*!
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-

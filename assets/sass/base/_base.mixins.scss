@@ -33,6 +33,24 @@
   line-height: $spacing-small;
 }
 
+/// Add Animation to modal */
+@mixin modal-content {
+  background-color: #fefefe;
+  padding: 5px;
+  border: 1px solid #888;
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 80%;
+}
+
+@mixin animate01 {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
 /// Block Element
 /// @access public
 /// @param {String} $element - Element's name

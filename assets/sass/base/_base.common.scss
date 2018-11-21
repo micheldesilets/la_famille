@@ -1,3 +1,37 @@
 @import "base.palette";
 
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+//* The Close Button for the Modal common in family photos and objects*!
+.close {
+    position: absolute;
+    top: 22px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+    @include hocus() {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
 

@@ -307,15 +307,16 @@ function renderHomePhoto() {
 
 function renderFamilyPhotos() {
     'use strict';
-    document.getElementById('imgs').style.display = 'block';
-    const familyContainer = document.getElementById('imgs');
+    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    imgDisplay.style.display = 'block';
 
-    document.getElementById('imgs').innerHTML = '';
+    const familyContainer = document.getElementsByClassName('photos__imgs')[0];
+
+    imgDisplay.innerHTML = '';
 
     for (const obj of myData) {
         // const imageURL = obj.path + obj.filename;
         const thumb = obj.prev_path + obj.filename;
-
         const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>";
 
         familyContainer.insertAdjacentHTML('beforeend', htmlString);
@@ -409,7 +410,8 @@ function getSearchInputs() {
 function backToTree() {
     'use strict';
     // Bring back search and tree and hide 'back to tree(X)' button
-    document.getElementById('imgs').style.display = 'none';
+    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    imgDisplay.style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
     document.getElementById('backToTree').style.display = 'none';
     document.getElementById('thumbTitle').style.display = 'none';
@@ -420,7 +422,8 @@ function backToTree() {
 
 function backToSearch() {
     'use strict';
-    document.getElementById('imgs').style.display = 'none';
+    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    imgDisplay.style.display = 'none';
     document.getElementById('backToTree').style.display = 'block';
     document.getElementById('thumbTitle').style.display = 'none';
     searchForm();
@@ -477,11 +480,11 @@ function cancelKeywords() {
 function animatePhotos() {
     'use strict';
     current = document.querySelector('#current');
-    imgs = document.querySelectorAll('#imgs img');
-    backward = document.getElementById('previous');
-    forward = document.getElementById('next');
-    geneolCont = document.getElementById('geneol');
-    photoIdCont = document.getElementById('photoId');
+    imgs = document.querySelectorAll('.photos__imgs img');
+    backward = document.getElementsByClassName('photos__previous')[0];
+    forward = document.getElementsByClassName('photos__next')[0];
+    geneolCont = document.getElementsByClassName('photos__geneol')[0];
+    photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
 
     opacity = 0.5;
 
@@ -512,7 +515,8 @@ function imgModal(e) {
 
     const bdy = document.getElementById('bdy');
     bdy.style.overflow = 'hidden';
-    modal = document.getElementById('myModal');
+    // modal = document.getElementById('myModal');
+    modal = document.getElementsByClassName('photos__modal')[0];
 
     prev = e.target.src;
     maxLength = imgs.length;
@@ -543,13 +547,13 @@ function imgModal(e) {
 
         img = prev.replace('preview', 'full');
 
-        modalTitle = document.getElementById('modalTitle');
+        modalTitle = document.getElementsByClassName('photos__modal-title')[0];
         modalImg = document.getElementById('img01');
-        captionText = document.getElementById('caption');
+        captionText = document.getElementsByClassName('photos__caption')[0];
         modal.style.display = 'block';
-        modalTitle.innerHTML = imgs[currentIdx - 1].title;
+        modalTitle.innerHTML = imgs[currentIdx].title;
         modalImg.src = img;
-        captionText.innerHTML = imgs[currentIdx - 1].alt;
+        captionText.innerHTML = imgs[currentIdx].alt;
 
         const idxList = myData[currentIdx].geneolidx.split(',');
         const namesList = myData[currentIdx].geneolnames.split(',');
@@ -763,12 +767,12 @@ function animateObjects() {
 function objModal(e) {
     'use strict';
     const bdy = document.getElementById('bdy');
-    modal = document.getElementById('myObjModal');
+    modal = document.getElementsByClassName('objects__modal')[0];
 
     prev = e.target.src;
     obj = prev.replace('preview', 'full');
 
-    modalObj = document.getElementById('obj01');
+    modalObj = document.getElementsByClassName('objects__modal-content')[0];
     modal.style.display = 'block';
     modalObj.src = obj;
 
