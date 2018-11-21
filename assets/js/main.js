@@ -838,11 +838,16 @@ function uploadPhotos() {
     getRepositInputsPhotos();
 
     const url = 'php/upload.php';
-    // const files = document.getElementById('data-box__input--photos').files;
+    const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
-    for (let i = 0; i < repositoryData.preview.length; i++) {
-        let file = repositoryData.preview[i];
+    /*    for (let i = 0; i < repositoryData.preview.length; i++) {
+            let file = repositoryData.preview[i];
+            formData.append('files[]', file);
+        }*/
+
+    for (let i = 0; i < files.length; i++) {
+        let file = files[i];
         formData.append('files[]', file);
     }
 

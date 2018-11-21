@@ -73,7 +73,7 @@ class repository
         $year = $repository->get_Year();
         $title = $repository->get_Title();
 
-        $path = $curr . '/img';
+        $path = $curr . '/assets/img';
 
         $path = $path . "/" . $typePhoto[type_typ];
         if (!file_exists($path)) {
