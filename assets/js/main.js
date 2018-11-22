@@ -108,12 +108,9 @@ function buildFolderTree(data) {
 function folderLevel2(branch) {
     'use strict';
     if (decade !== branch.decade && branch.decade.length > 0) {
-        // itm++;
-        // sbitm = 0;
         htmlString = htmlString +
             "<div class=\"itemL2\">\n" +
             "<ul>\n";
-        // predecade = decade;
         decade = branch.decade;
     }
 
@@ -147,7 +144,6 @@ function folderLevel4(branch) {
             "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
             "<ul>\n";
-        // predecade = decade;
         decade = branch.decade;
         year = 0;
     }
@@ -297,7 +293,6 @@ function renderHomePhoto() {
 
     for (const obj of myData) {
         const imageURL = obj.path + obj.filename;
-        // const thumb = obj.prev_path + obj.filename;
 
         const htmlString = "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
 
@@ -315,7 +310,6 @@ function renderFamilyPhotos() {
     imgDisplay.innerHTML = '';
 
     for (const obj of myData) {
-        // const imageURL = obj.path + obj.filename;
         const thumb = obj.prev_path + obj.filename;
         const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>";
 
@@ -326,15 +320,16 @@ function renderFamilyPhotos() {
 
 function turnOffFolders() {
     'use strict';
-    const titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
     const element = document.getElementsByClassName('search__search-button');
     element[0].style.display = 'none';
-    // document.getElementById('searchFormButton').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    document.getElementById('thumbTitle').style.display = 'block';
+    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    btt.style.display = 'block';
+    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    thumbTitle.style.display = 'block';
     if (!searchChoice) {
         titleContainer.innerText = folderTitle;
     } else {
@@ -344,20 +339,21 @@ function turnOffFolders() {
 
 function turnOffSearchFolders() {
     'use strict';
-    const titleContainer = document.getElementById('thumbTitle');
+    const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
     document.getElementById('searchFormButton').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    // document.getElementById('backToSearch').style.display = 'none';
-    document.getElementById('thumbTitle').style.display = 'block';
+    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    btt.style.display = 'block';
+    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    thumbTitle.style.display = 'block';
     if (document.getElementById('searchKw').elements.idContext.checked !== true) {
         titleContainer.innerText = '';
     } else {
         titleContainer.innerText = myData[0].rptTitle;
     }
-    document.getElementById('backToTree').onclick = function () {
+    btt.onclick = function () {
         backToSearch();
     };
 }
@@ -374,9 +370,10 @@ function prepareSearchScreen() {
     const buttn = document.getElementsByClassName('search__search-button');
     buttn[0].style.display = 'none';
     document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
+    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    btt.style.display = 'block';
     document.getElementById('searchKw').style.display = 'block';
-    document.getElementById('backToTree').onclick = function () {
+    btt.onclick = function () {
         backToTree();
     };
 }
@@ -413,8 +410,10 @@ function backToTree() {
     const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'none';
     document.getElementById('searchKw').style.display = 'none';
-    document.getElementById('backToTree').style.display = 'none';
-    document.getElementById('thumbTitle').style.display = 'none';
+    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    btt.style.display = 'none';
+    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    thumbTitle.style.display = 'none';
     document.getElementById('photosFolders').style.display = 'block';
     const searchBtn = document.getElementsByClassName('search__search-button');
     searchBtn[0].style.display = 'block';
@@ -424,8 +423,10 @@ function backToSearch() {
     'use strict';
     const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'none';
-    document.getElementById('backToTree').style.display = 'block';
-    document.getElementById('thumbTitle').style.display = 'none';
+    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    btt.style.display = 'block';
+    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    thumbTitle.style.display = 'none';
     searchForm();
 }
 
@@ -459,7 +460,6 @@ function cancelPid() {
     'use strict';
     const pid = document.getElementsByClassName('search__pid');
     pid[0].value = '';
-    // document.getElementById('pid').value = '';
     document.getElementById('search__radio-uniq').checked = true;
 }
 
@@ -515,7 +515,6 @@ function imgModal(e) {
 
     const bdy = document.getElementById('bdy');
     bdy.style.overflow = 'hidden';
-    // modal = document.getElementById('myModal');
     modal = document.getElementsByClassName('photos__modal')[0];
 
     prev = e.target.src;
@@ -832,9 +831,6 @@ function addRepositoryMysql() {
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
 
     myRequest.send();
-
-    // alert('Success');
-    // addMetadataToDB();
 }
 
 function uploadPhotos() {
