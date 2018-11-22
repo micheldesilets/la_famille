@@ -812,17 +812,17 @@ main .books, .objects {
 */
 
 /* Back to Tree */
-/*#backToTree {
+#backToTree {
     float: right;
     cursor: pointer;
     border: none;
     background: none;
     display: none;
     margin-bottom: .5em;
-}*/
+}
 
 /* Back to Search */
-/*
+
 #backToSearch {
     float: right;
     cursor: pointer;
@@ -831,8 +831,6 @@ main .books, .objects {
     display: none;
     margin: 0;
 }
-*/
-/*
 
 #thumbTitle {
     float: left;
@@ -841,7 +839,6 @@ main .books, .objects {
     border: none;
     margin: 0;
 }
-*/
 
 /* DROPDOWN LIST
 **********************************/
