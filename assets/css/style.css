@@ -204,9 +204,9 @@ ol {
     width: 100%;
 }*/
 
-#searchKw {
+/*#searchKw {
     display: none;
-}
+}*/
 
 /*.dropdown {
     position: relative;
@@ -841,11 +841,12 @@ main .books, .objects {
     border: none;
     margin: 0;
 }*/
+/*
 
-/* DROPDOWN LIST
-**********************************/
+!* DROPDOWN LIST
+**********************************!
 
-/* Functionality */
+!* Functionality *!
 .item ul, input[type="checkbox"] {
     display: none;
 }
@@ -870,7 +871,7 @@ main .books, .objects {
     cursor: pointer;
 }
 
-/* Arrow */
+!* Arrow *!
 .arrow {
     width: 6px;
     height: 6px;
@@ -905,7 +906,7 @@ label:hover {
     overflow: hidden;
 }
 
-/*** Family Photos ***/
+!*** Family Photos ***!
 #thumbContainer #imgs {
     text-align: justify;
 }
@@ -988,6 +989,7 @@ label {
 .item ul {
     padding: 0 0.25em;
 }
+*/
 
 /* SEARCH PHOTOS
  *********************************/

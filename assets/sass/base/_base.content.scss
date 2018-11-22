@@ -282,6 +282,9 @@
     display: none;
     margin-bottom: .5em;
   }
+  &__keyword {
+    display: none;
+  }
 }
 
 .photos {
@@ -385,6 +388,187 @@
     border: none;
     margin: 0;
   }
+}
+
+.folders {
+  &__arrow {
+    width: 6px;
+    height: 6px;
+    vertical-align: middle;
+    float: left;
+    z-index: 0;
+    margin: 8px .5em 0 10em;
+  }
+  &__multi-level0, &__multi-level1, &__multi-level2, &__multi-level3,
+  &__multi-level4, &__multi-level5, &__multi-level6, &__multi-level7,
+  &__multi-level8, &__multi-level9 {
+    display: none;
+  }
+}
+
+#folders {
+  &__menu0:checked ~ .folders__multi-level0,
+  &__menu1:checked ~ .folders__multi-level1,
+  &__menu2:checked ~ .folders__multi-level2,
+  &__menu3:checked ~ .folders__multi-level3,
+  &__menu4:checked ~ .folders__multi-level4,
+  &__menu5:checked ~ .folders__multi-level5,
+  &__menu6:checked ~ .folders__multi-level6,
+  &__menu7:checked ~ .folders__multi-level7,
+  &__menu8:checked ~ .folders__multi-level8,
+  &__menu9:checked ~ .folders__multi-level9 {
+    display: block;
+  }
+}
+
+/* DROPDOWN LIST
+**********************************/
+
+/* Functionality */
+.item ul, input[type="checkbox"] {
+  display: none;
+}
+
+.item input:checked ~ ul {
+  display: block;
+}
+
+/*
+.multi-level0, .multi-level1, .multi-level2, .multi-level3, .multi-level4, .multi-level5,
+.multi-level6, .multi-level7, .multi-level8, .multi-level9 {
+  display: none;
+}*/
+
+/*#menu0:checked ~ .multi-level0, #menu1:checked ~ .multi-level1, #menu2:checked ~ .multi-level2, #menu3:checked ~ .multi-level3,
+#menu4:checked ~ .multi-level4, #menu5:checked ~ .multi-level5, #menu6:checked ~ .multi-level6, #menu7:checked ~ .multi-level7,
+#menu8:checked ~ .multi-level8, #menu9:checked ~ .multi-level9 {
+  display: block;
+}*/
+
+.sub-item ul li:hover, .itemL2 li:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+/* Arrow */
+/*
+.folders__arrow {
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  float: left;
+  z-index: 0;
+  margin: 8px .5em 0 10em;
+}
+*/
+
+.item input + .folders__arrow {
+  transform: rotate(-90deg);
+  transition: 0.1s;
+}
+
+.item input:checked + .folders__arrow {
+  transform: rotate(0deg);
+  transition: 0.1s;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+.names:before {
+  content: "-";
+  margin-right: 0.5em;
+
+}
+
+#thumbContainer {
+  margin-top: -.2em;
+  overflow: hidden;
+}
+
+/*** Family Photos ***/
+#thumbContainer #imgs {
+  text-align: justify;
+}
+
+#imgs .thumbimg {
+  margin: 1px;
+}
+
+.names {
+  font-family: Raleway, "Times New Roman", serif;
+  font-style: italic;
+  font-size: medium;
+  display: block;
+  text-align: left;
+}
+
+.drop-down label {
+  width: 100%;
+  display: block;
+  z-index: 3;
+  position: relative;
+}
+
+.sub-item {
+  padding: 0 .2em;
+}
+
+.drop-down {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #fdfaf6;
+}
+
+.drop-down ul {
+  line-height: 20px;
+  margin: 0;
+  padding: 0 2em;
+  list-style: none;
+  text-decoration: none;
+  font-weight: 100;
+  width: 100%;
+}
+
+.drop-down li {
+  line-height: 20px;
+  margin: 0;
+  padding: 0 2em 0 5em;
+  list-style: none;
+  text-decoration: none;
+  font-weight: 100;
+  width: 100%;
+}
+
+.photofolder:before {
+  content: "-";
+  margin-right: 0.5em;
+}
+
+.drop-down .photofolder.L2 {
+  padding-left: 8em;
+}
+
+.drop-down .photofolder {
+  margin: 0;
+  padding-left: 13em;
+  padding-bottom: 0.15em;
+  font-style: italic;
+}
+
+label {
+  line-height: 20px;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+  font-weight: 100;
+  width: 100%;
+  padding-bottom: .4em;
+}
+
+.item ul {
+  padding: 0 0.25em;
 }
 
 .clearfix {

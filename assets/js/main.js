@@ -74,9 +74,9 @@ function buildFolderTree(data) {
             j++;
 
             htmlString = htmlString +
-                "<input type=\"checkbox\" id=\"menu" + j + "\"/>\n" +
-                "<label for=\"menu" + j + "\" class=\"names\">" + branch.author + "</label>\n" +
-                "<div class=\"multi-level" + j + "\">\n";
+                "<input type=\"checkbox\" id=\"folders__menu" + j + "\"/>\n" +
+                "<label for=\"folders__menu" + j + "\" class=\"names\">" + branch.author + "</label>\n" +
+                "<div class=\"folders__multi-level" + j + "\">\n";
             author = branch.author;
             decade = "";
         }
@@ -141,7 +141,7 @@ function folderLevel4(branch) {
         htmlString = htmlString +
             "<div class=\"item\">\n" +
             "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
-            "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
+            "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
             "<ul>\n";
         decade = branch.decade;
@@ -160,7 +160,7 @@ function folderLevel4(branch) {
             "<li>\n" +
             "<div class=\"sub-item\">\n" +
             "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
-            "<img src=\"assets/img/icons/arrow.png\" class=\"arrow\">\n" +
+            "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
             "<ul>\n";
         year = branch.year;
@@ -323,7 +323,9 @@ function turnOffFolders() {
     const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
+    const kw = document.getElementsByClassName('search__keyword')[0];
+    kw.style.display = 'none';
+    // document.getElementById('searchKw').style.display = 'none';
     const element = document.getElementsByClassName('search__search-button');
     element[0].style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
@@ -342,13 +344,14 @@ function turnOffSearchFolders() {
     const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photosFolders').style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
+    const kword = document.getElementsByClassName('search__keyword')[0];
+    kword.style.display = 'none';
     document.getElementById('searchFormButton').style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
-    if (document.getElementById('searchKw').elements.idContext.checked !== true) {
+    if (kword.elements.idContext.checked !== true) {
         titleContainer.innerText = '';
     } else {
         titleContainer.innerText = myData[0].rptTitle;
@@ -372,7 +375,9 @@ function prepareSearchScreen() {
     document.getElementById('photosFolders').style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
-    document.getElementById('searchKw').style.display = 'block';
+    const kword = document.getElementsByClassName('search__keyword')[0];
+    kword.style.display = 'block';
+    // document.getElementById('searchKw').style.display = 'block';
     btt.onclick = function () {
         backToTree();
     };
@@ -381,7 +386,7 @@ function prepareSearchScreen() {
 function getSearchInputs() {
     'use strict';
     const searchData = [];
-    const searchDoc = document.getElementById('searchKw');
+    const searchDoc = document.getElementsByClassName('search__keyword')[0];
     if (searchDoc.elements.keywrds.value === '') {
         searchData.kwords = 'nothingness';
     } else {
@@ -409,7 +414,9 @@ function backToTree() {
     // Bring back search and tree and hide 'back to tree(X)' button
     const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'none';
-    document.getElementById('searchKw').style.display = 'none';
+    const kword = document.getElementsByClassName('search__keyword')[0];
+    kword.style.display = 'none';
+    // document.getElementById('searchKw').style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'none';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
