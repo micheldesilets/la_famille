@@ -17,7 +17,7 @@ class readingsDB
 //    $lectures = new Readings();
 
     $sql = "SELECT * FROM readings_rea
-  JOIN photosFolders_pfo pfo
+  JOIN photos_folders_pfo pfo
   ON pfo.idrpt_pfo = idrpt_rea
   WHERE pfo.idrpt_pfo = $path
     ORDER BY order_rea";

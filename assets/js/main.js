@@ -75,7 +75,7 @@ function buildFolderTree(data) {
 
             htmlString = htmlString +
                 "<input type=\"checkbox\" id=\"folders__menu" + j + "\"/>\n" +
-                "<label for=\"folders__menu" + j + "\" class=\"names\">" + branch.author + "</label>\n" +
+                "<label for=\"folders__menu" + j + "\" class=\"folders__names\">" + branch.author + "</label>\n" +
                 "<div class=\"folders__multi-level" + j + "\">\n";
             author = branch.author;
             decade = "";
@@ -109,7 +109,7 @@ function folderLevel2(branch) {
     'use strict';
     if (decade !== branch.decade && branch.decade.length > 0) {
         htmlString = htmlString +
-            "<div class=\"itemL2\">\n" +
+            "<div class=\"folders__itemL2\">\n" +
             "<ul>\n";
         decade = branch.decade;
     }
@@ -118,7 +118,7 @@ function folderLevel2(branch) {
         (repoId !== branch.repository)) {
 
         htmlString = htmlString +
-            "<li class='photofolder L2' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
+            "<li class='folders__photofolder L2' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
         repoId = branch.repository;
     }
 }
@@ -139,7 +139,7 @@ function folderLevel4(branch) {
         itm++;
         sbitm = 0;
         htmlString = htmlString +
-            "<div class=\"item\">\n" +
+            "<div class=\"folders__item\">\n" +
             "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
             "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
@@ -158,7 +158,7 @@ function folderLevel4(branch) {
         sbitm++;
         htmlString = htmlString +
             "<li>\n" +
-            "<div class=\"sub-item\">\n" +
+            "<div class=\"folders__sub-item\">\n" +
             "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
             "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
@@ -170,7 +170,7 @@ function folderLevel4(branch) {
         (year === branch.year && branch.year.length > 0) &&
         (repoId !== branch.repository)) {
         htmlString = htmlString +
-            "<li class=\"photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.repository + "," + branch.type + ")\">" + branch.title + "</li>\n";
+            "<li class=\"folders__photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.repository + "," + branch.type + ")\">" + branch.title + "</li>\n";
         repoId = branch.repository;
     }
 }
@@ -919,9 +919,10 @@ function renderYears(data) {
 
 function getReposits(fisrtYear) {
     'use strict';
+    var year;
     if (fisrtYear === undefined) {
         const y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
-        const year = y[0].value;
+        year = y[0].value;
     } else {
         year = fisrtYear;
     }

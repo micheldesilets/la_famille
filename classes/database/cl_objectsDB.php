@@ -16,7 +16,7 @@ class objectsDB
     require_once '../classes/business/cl_objects.php';
 
     $sql = "SELECT * FROM objects_obj obj
-  JOIN photosFolders_pfo pfo
+  JOIN photos_folders_pfo pfo
   ON pfo.idrpt_pfo = obj.idrpt_obj
   WHERE pfo.idrpt_pfo = $path
     ORDER BY order_obj";

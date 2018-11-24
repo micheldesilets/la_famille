@@ -15,7 +15,7 @@ class photosBD
             FROM photos_pho pho
             JOIN parameters_par pp
             ON id_pho = pp.home_sidebar_par   
-            JOIN photosFolders_pfo pfo
+            JOIN photos_folders_pfo pfo
            ON pfo.idrpt_pfo = pho.idrpt_pho
            WHERE pp.id_par = 1";
 
@@ -76,7 +76,7 @@ class photosBD
 
         $sql = "SELECT *
             FROM photos_pho pho
-            INNER JOIN photosFolders_pfo pfo
+            INNER JOIN photos_folders_pfo pfo
             ON pfo.idrpt_pfo = pho.idrpt_pho
             JOIN repository_titles_rpt rpt 
             ON pfo.idrpt_pfo = rpt.id_rpt
