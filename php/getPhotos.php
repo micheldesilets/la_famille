@@ -9,3 +9,4 @@ $db = new photosBD();
 $photo = $db->getPhotos($path);
 
 
+

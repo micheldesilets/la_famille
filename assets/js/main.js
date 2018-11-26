@@ -187,15 +187,19 @@ function getPhotos(path, type) {
     const myRequest = new XMLHttpRequest();
     myRequest.open("GET", "php/getPhotos.php?path=" + path, true);
     myRequest.onload = function () {
-        myData = JSON.parse(myRequest.responseText);
-        switch (type) {
-            case 4:
-                renderHomePhoto();
-                break;
-            case 2:
-                turnOffFolders();
-                renderFamilyPhotos();
-                break;
+        console.log(myRequest.readyState);
+        if (myRequest.readyState === 4) {
+            console.log(myRequest.responseText);
+            myData = JSON.parse(myRequest.responseText);
+            switch (type) {
+                case 4:
+                    renderHomePhoto();
+                    break;
+                case 2:
+                    turnOffFolders();
+                    renderFamilyPhotos();
+                    break;
+            }
         }
     };
     myRequest.send();
