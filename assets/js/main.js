@@ -53,7 +53,7 @@ function getFolderTree() {
 /*** Family Photos ***/
 function buildFolderTree(data) {
     'use strict';
-    const folderContainer = document.getElementById("photosFolders");
+    const folderContainer = document.getElementById("photos__folders");
 
     for (const branch of data) {
         if (author !== branch.author && branch.author.length > 0) {
@@ -187,7 +187,6 @@ function getPhotos(path, type) {
     const myRequest = new XMLHttpRequest();
     myRequest.open("GET", "php/getPhotos.php?path=" + path, true);
     myRequest.onload = function () {
-        console.log(myRequest.readyState);
         if (myRequest.readyState === 4) {
             console.log(myRequest.responseText);
             myData = JSON.parse(myRequest.responseText);
@@ -217,6 +216,7 @@ function searchInputs() {
         "&searchKw=" + searchFormData.searchClefs.toString() + "&searchTitles=" + searchFormData.searchTitres.toString() + "&searchComments=" + searchFormData.searchComment.toString() + "&photoId=" + searchFormData.photoId +
         "&idUnique=" + searchFormData.idUnique.toString() + "&idContext=" + searchFormData.idContext.toString(), true);
     myRequest.onload = function () {
+        console.log(myRequest.responseText);
         myData = JSON.parse(myRequest.responseText);
         turnOffSearchFolders();
         renderFamilyPhotos();
@@ -326,7 +326,7 @@ function turnOffFolders() {
     'use strict';
     const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
-    document.getElementById('photosFolders').style.display = 'none';
+    document.getElementById('photos__folders').style.display = 'none';
     const kw = document.getElementsByClassName('search__keyword')[0];
     kw.style.display = 'none';
     // document.getElementById('searchKw').style.display = 'none';
@@ -347,15 +347,16 @@ function turnOffSearchFolders() {
     'use strict';
     const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
-    document.getElementById('photosFolders').style.display = 'none';
+    document.getElementById('photos__folders').style.display = 'none';
     const kword = document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'none';
-    document.getElementById('searchFormButton').style.display = 'none';
+    const fmButton = document.getElementsByClassName('search__search-button')[0];
+    fmButton .style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
-    if (kword.elements.idContext.checked !== true) {
+    if (document.getElementById('search__radio-context').checked !== true) {
         titleContainer.innerText = '';
     } else {
         titleContainer.innerText = myData[0].rptTitle;
@@ -376,7 +377,7 @@ function prepareSearchScreen() {
     'use strict';
     const buttn = document.getElementsByClassName('search__search-button');
     buttn[0].style.display = 'none';
-    document.getElementById('photosFolders').style.display = 'none';
+    document.getElementById('photos__folders').style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
     const kword = document.getElementsByClassName('search__keyword')[0];
@@ -390,26 +391,21 @@ function prepareSearchScreen() {
 function getSearchInputs() {
     'use strict';
     const searchData = [];
-    const searchDoc = document.getElementsByClassName('search__keyword')[0];
-    if (searchDoc.elements.keywrds.value === '') {
-        searchData.kwords = 'nothingness';
-    } else {
-        searchData.kwords = searchDoc.elements.keywrds.value;
-    }
-    searchData.startYear = searchDoc.elements.anneeDeb.value;
-    searchData.endYear = searchDoc.elements.anneeFin.value;
-    searchData.wExact = searchDoc.elements.wExact.checked;
-    searchData.wPart = searchDoc.elements.wPart.checked;
-    searchData.searchClefs = searchDoc.elements.clefs.checked;
-    searchData.searchTitres = searchDoc.elements.titres.checked;
-    searchData.searchComment = searchDoc.elements.commentaires.checked;
-    if (searchDoc.elements.pid.value === '') {
+    searchData.kwords = document.getElementsByClassName('search__key-words')[0].value;
+    searchData.startYear = document.getElementById('search__year-start').value;
+    searchData.endYear = document.getElementById('search__year-end').value;
+    searchData.wExact = document.getElementById('search__radio-exact').checked;
+    searchData.wPart = document.getElementById('search__radio-partial').checked;
+    searchData.searchClefs = document.getElementById('search__keys').checked;
+    searchData.searchTitres = document.getElementById('search__titles').checked;
+    searchData.searchComment = document.getElementById('search__comments').checked;
+    if (document.getElementsByClassName('search__pid'[0]).value === '') {
         searchData.photoId = 'nothing';
     } else {
-        searchData.photoId = searchDoc.elements.pid.value;
+        searchData.photoId = document.getElementsByClassName('search__pid')[0].value;
     }
-    searchData.idUnique = searchDoc.elements.idUnique.checked;
-    searchData.idContext = searchDoc.elements.idContext.checked;
+    searchData.idUnique = document.getElementById('search__radio-uniq').checked;
+    searchData.idContext = document.getElementById('search__radio-context').checked;
     return searchData;
 }
 
@@ -425,7 +421,7 @@ function backToTree() {
     btt.style.display = 'none';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'none';
-    document.getElementById('photosFolders').style.display = 'block';
+    document.getElementById('photos__folders').style.display = 'block';
     const searchBtn = document.getElementsByClassName('search__search-button');
     searchBtn[0].style.display = 'block';
 }

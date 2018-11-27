@@ -233,8 +233,10 @@ class photosBD
                 $photo->set_GeneolIdx("");
                 $photo->set_GeneolNames("");
             } else {
-                $photo->set_GeneolIdx($this->buildIdxList($row["idgen_pho"]));
-                $photo->set_GeneolNames($this->buildNamesList($row['idgen_pho']));
+                $gIdx = $this->buildIdxList($row["idgen_pho"]);
+                $photo->set_GeneolIdx($gIdx);
+                $gName = $this->buildNamesList($row['idgen_pho']);
+                $photo->set_GeneolNames($gName);
             }
             if ($row['title_rpt'] == null) {
                 $photo->set_rptTitle("");
@@ -280,7 +282,7 @@ class photosBD
         $array = explode(',', $idxs);
         foreach ($array as $value) {
             $sql = "SELECT name_gen
-            FROM geneologyIdx_gen gen
+            FROM geneology_idx_gen gen
             WHERE gen.id_gen = $value";
 
             $name = $this->getName($sql);
@@ -300,7 +302,7 @@ class photosBD
         $array = explode(',', $idxs);
         foreach ($array as $value) {
             $sql = "SELECT index_gen
-            FROM geneologyIdx_gen gen
+            FROM geneology_idx_gen gen
             WHERE gen.id_gen = $value";
 
             $ind = $this->getIndex($sql);
@@ -328,7 +330,11 @@ class photosBD
 
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-        return $row['name_gen'];
+        if ($row['name_gen'] == NULL) {
+            return "";
+        } else {
+            return $row['name_gen'];
+        }
     }
 
     private
@@ -347,7 +353,6 @@ class photosBD
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
         return $row['index_gen'];
-
     }
 }
 

@@ -21,18 +21,18 @@ $idContext = $_GET['idContext'];
 
 if ($kwords != "nothingness") {
   $kwArr = explode(',', $kwords);
-  array_walk($kwArr, trimValue);
+  array_walk($kwArr, 'trimValue');
 }
 
 if ($photoPid == "nothing") {
   $photoPid = "";
 }
 
-if ($startYear == "debut") {
+if ($startYear == "start") {
   $startYear = '1900';
 }
 
-if ($endYear == 'fin') {
+if ($endYear == 'end') {
   $endYear = '2050';
 }
 
@@ -41,10 +41,11 @@ $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $s
 require_once '../classes/database/cl_getPhotosDB.php';
 $db = new photosBD();
 $photo = $db->getSearchPhotos($searchData);
+return;
 
 function trimValue(&$value)
 {
-  $value = trim($value);
+    $value = trim($value);
 }
 
 ;

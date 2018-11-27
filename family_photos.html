@@ -57,8 +57,8 @@
                     <input type="submit" value="Rechercher" class="search__go-button"><br>
 
                     <label for="search__year-start" class="search__year-start">De </label>
-                    <select id="search__year-start" class="search__select">
-                        <option selected>Première année
+                    <select id="search__year-start" class="search__select" >
+                        <option selected value="start">Première année
                         </option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
@@ -97,7 +97,7 @@
 
                     <label for="search__year-end" class="search__year-end">À </label>
                     <select id="search__year-end" class="search__select">
-                        <option id="fin" value="fin" selected>Dernière année</option>
+                        <option id="fin" value="end" selected>Dernière année</option>
                         <optgroup label="1940-1949">
                             <option value="1940">1940</option>
                             <option value="1941">1941</option>
@@ -134,10 +134,10 @@
                     </select><br>
 
                     <p class="search__radio-button">
-                        <input type="radio" id="search__radio-exact" value="wExact"/>
+                        <input type="radio" id="search__radio-exact" value="wExact" name="scope"/>
                         <label for="search__radio-exact" class="search__rb-label">Contient le/les mots exacts</label>
                         <br>
-                        <input type="radio" id="search__radio-partial" value="wPartial" checked/>
+                        <input type="radio" id="search__radio-partial" value="wPartial" name="scope" checked/>
                         <label for="search__radio-partial" class="search__rb-label">Contient une partie du/des
                             mot(s)</label>
                     </p><br>
@@ -177,7 +177,7 @@
     <!-- ==== MAIN ==== -->
     <div class="photos">
         <!--  Drop down menu is here  -->
-        <section class="folders__drop-down" id="photosFolders"></section>
+        <section class="folders__drop-down" id="photos__folders"></section>
 
         <!--  Thumbnails  -->
         <section class="photos__thumb-container">
