@@ -45,7 +45,7 @@
     <div class="search">
         <section class="search__section">
             <input autofocus="autofocus" type="button" class="search__search-button" value="Recherche"
-                   onclick="searchForm()">
+                   onclick="initSearchForm()">
 
             <form action="javascript:searchInputs()" class="search__keyword">
                 <fieldset class="search__fieldset">
@@ -162,10 +162,10 @@
                                onkeypress="cancelKeywords()">
 
                         <p class="search__context">
-                            <input type="radio" id="search__radio-uniq" value="idUnique" checked/>
+                            <input type="radio" id="search__radio-uniq" value="idUnique" name="context" checked/>
                             <label for="search__radio-uniq" class="search__rb-label">Unique</label>
                             <br>
-                            <input type="radio" id="search__radio-context" value="idContext"/>
+                            <input type="radio" id="search__radio-context" value="idContext" name="context"/>
                             <label for="search__radio-context" class="search__rb-label">Contexte</label>
                         </p><br>
                     </fieldset>

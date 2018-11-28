@@ -47,5 +47,3 @@ function trimValue(&$value)
 {
     $value = trim($value);
 }
-
-;

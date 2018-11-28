@@ -368,10 +368,16 @@ function turnOffSearchFolders() {
 
 /*** SEARCH
  **********************************/
+function initSearchForm() {
+    'use strict';
+    prepareSearchScreen();
+    initSearchInputs();
+}
+
 function searchForm() {
     'use strict';
     prepareSearchScreen();
-}
+    }
 
 function prepareSearchScreen() {
     'use strict';
@@ -383,10 +389,26 @@ function prepareSearchScreen() {
     const kword = document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'block';
     // document.getElementById('searchKw').style.display = 'block';
-    btt.onclick = function () {
+        btt.onclick = function () {
         backToTree();
     };
 }
+
+function initSearchInputs(){
+    'use strict';
+    document.getElementsByClassName('search__key-words')[0].value = '';
+    document.getElementById('search__year-start').value='start';
+    document.getElementById('search__year-end').value='end';
+    document.getElementById('search__radio-exact').checked = false;
+    document.getElementById('search__radio-partial').checked = true;
+    document.getElementById('search__keys').checked = true;
+    document.getElementById('search__titles').checked = true;
+    document.getElementById('search__comments').checked = true;
+    document.getElementsByClassName('search__pid')[0].value ='';
+    document.getElementById('search__radio-uniq').checked = true;
+    document.getElementById('search__radio-context').checked = false;
+}
+
 
 function getSearchInputs() {
     'use strict';
@@ -395,7 +417,6 @@ function getSearchInputs() {
     searchData.startYear = document.getElementById('search__year-start').value;
     searchData.endYear = document.getElementById('search__year-end').value;
     searchData.wExact = document.getElementById('search__radio-exact').checked;
-    // searchData.wExact = document.querySelector('input.search__radio.exact').checked;
     searchData.wPart = document.getElementById('search__radio-partial').checked;
     searchData.searchClefs = document.getElementById('search__keys').checked;
     searchData.searchTitres = document.getElementById('search__titles').checked;
