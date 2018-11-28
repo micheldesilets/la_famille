@@ -5,35 +5,42 @@
   &__fieldset {
     width: 97.3%;
     height: 200px;
+
     &--reposit {
       height: 400px;
     }
+
     &--add-photo {
       height: 400px;
     }
+
     &--info {
       height: 500px;
     }
   }
+
   &__button {
     position: relative;
     top: 8px;
     left: 354px;
     font-size: small;
   }
+
   &__go-button {
     background-color: $color1;
     float: right;
     margin-right: 13px;
   }
+
   &__button-prev, &__button-next {
     background-color: $color1;
     border: none;
     cursor: pointer;
     @include hocus() {
-      color: $color3;
-    }
+           color: $color3;
+         }
   }
+
   &__label {
     color: black;
     background-color: $color1;
@@ -43,14 +50,17 @@
     margin-left: 0;
     margin-right: 10px;
   }
+
   &__select {
     display: block;
     background-color: $color5;
   }
+
   &__input {
     position: relative;
     font-size: small;
     background-color: $color5;
+
     &--photos {
       width: 0.1px;
       height: 0.1px;
@@ -60,16 +70,19 @@
       z-index: -1;
     }
   }
+
   &__photo {
     width: auto;
     margin-top: 10px;
     text-align: center;
   }
+
   &__text {
     position: relative;
     top: -19px;
     font-size: small;
     background-color: $color5;
+
     &--photos {
       top: -25px;
     }
@@ -85,6 +98,7 @@
   border: 1px solid black;;
   padding: 0.313em 0.625em 0.625em;
   margin-right: 0.5em;
+
   &__img-me {
     display: block;
     width: 75%;
@@ -93,12 +107,14 @@
     border-radius: 18% 18% 7% 7%;
     box-shadow: 4px 4px 20px grey;
   }
+
   &__signature {
     box-shadow: none;
     border-radius: unset;
     border: none;
     float: right;
   }
+
   &__text {
     color: black;
     text-align: left;
@@ -124,10 +140,12 @@
     font-style: italic;
     font-size: .9em;
     margin-bottom: .7em;
+
     &--right {
       text-align: right;
       font-weight: normal;
     }
+
     &--left {
       float: left;
       margin-left: -3em;
@@ -139,16 +157,20 @@
 
 .readings {
   font-weight: bold;
+
   &__books {
     @include templateImgTxt;
   }
+
   &__title {
     font-weight: bold;
     margin-top: 0;
   }
+
   &__summary {
     text-align: justify;
     @include wsh-01;
+
     a {
       text-decoration: underline;
       color: blue;
@@ -165,18 +187,22 @@
     width: 50%;
     float: left;
   }
+
   &__right {
     width: 50%;
     float: left;
   }
+
   &__title {
     margin-left: $spacing-normal;
   }
+
   &__items {
     list-style-type: circle;
     font-style: italic;
     @include wsh-01();
   }
+
   &__item {
     cursor: pointer;
     @include hocus() {
@@ -190,10 +216,12 @@
   &__img {
     @include templateImgTxt;
   }
+
   &__description {
     margin-top: 0;
     @include wsh-01;
   }
+
   &__modal-content {
     @include modal-content;
     @include animate01;
@@ -204,6 +232,7 @@
 .search {
   padding-bottom: 1em;
   font-size: $font-small;
+
   &__go-button {
     width: auto;
     background-color: $color1;
@@ -211,9 +240,11 @@
     padding: 5px;
     margin-top: -1.4em;
   }
+
   &__section {
     padding-left: 0.4em;
   }
+
   &__fieldset {
     display: block;
     margin-left: 2px;
@@ -221,6 +252,7 @@
     padding: 0.35em 0.75em 0.625em;
     border: 1px groove;
   }
+
   &__search-button {
     float: right;
     background-color: $color1;
@@ -231,44 +263,56 @@
     text-decoration: none;
     font-weight: $font-weight-bold;
   }
+
   &__key-words {
     margin: .5em 0 0 0;
     width: 70%;
     float: left;
   }
+
   &__year-start {
     width: 100%;
     margin-top: 1.4em;
   }
+
   &__select {
     margin-left: 8px;
   }
+
   &__year-end {
     margin-right: .6em; /* to align boxes */
   }
+
   &__pid-context {
     width: 50%;
   }
+
   &__radio-button {
     margin-bottom: 0;
     padding: 0;
   }
+
   &__rb-label {
     margin-left: 9px;
   }
+
   &__check-box {
     margin-bottom: 1.3em;
     text-align: left
   }
+
   &__cb-label {
     margin-left: 9px;
   }
+
   &__check-box input[type="checkbox"] {
     display: inline-block;
   }
+
   &__check-box input {
     margin: 0 0 .6em 1px;
   }
+
   &__back-to-tree {
     float: right;
     cursor: pointer;
@@ -277,6 +321,7 @@
     display: none;
     margin-bottom: .5em;
   }
+
   &__keyword {
     display: none;
   }
@@ -288,8 +333,10 @@
     margin-top: -.2em;
     overflow: hidden;
   }
+
   &__imgs {
     text-align: justify;
+
     & > div {
       display: inline-block;
       vertical-align: top;
@@ -304,12 +351,14 @@
     & .thumbimg {
       margin: 1px;
     }
+
     &:after {
       content: "";
       width: 100%;
       display: inline-block;
     }
   }
+
   &__modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -325,20 +374,24 @@
       color: white;
     }
   }
+
   &__modal-content {
     @include modal-content;
     @include animate01;
   }
+
   &__next {
     position: relative;
     float: right;
     top: 40%;
   }
+
   &__previous {
     position: relative;
     float: left;
     top: 40%;
   }
+
   &__modal-title {
     margin: auto;
     display: block;
@@ -349,6 +402,7 @@
     padding: 10px 0 0;
     @include animate01;
   }
+
   &__caption {
     margin: auto;
     margin-top: 0;
@@ -359,10 +413,12 @@
     color: #ccc;
     @include animate01;
   }
+
   &__id-geneol {
     width: 80%;
     margin: auto;
   }
+
   &__geneol {
     margin: auto;
     display: block;
@@ -371,13 +427,16 @@
     text-align: center;
     height: 150px;
     font-size: .8em;
+
     & a {
       color: aqua;
     }
+
     & p {
       color: white;
     }
   }
+
   &__photo-id p {
     position: fixed;
     bottom: 30px;
@@ -386,6 +445,7 @@
     font-size: small;
     color: #bbbbbb;
   }
+
   &__thumb-title {
     float: left;
     display: none;
@@ -404,6 +464,7 @@
     z-index: 0;
     margin: 8px .5em 0 10em;
   }
+
   &__multi-level0, &__multi-level1, &__multi-level2, &__multi-level3,
   &__multi-level4, &__multi-level5, &__multi-level6, &__multi-level7,
   &__multi-level8, &__multi-level9 {
@@ -411,7 +472,9 @@
   }
 
   &__sub-item ul li:hover, &__itemL2 li:hover {
-    background-color: lightgrey;
+    @include hocus() {
+      color: $color3;
+    }
     cursor: pointer;
   }
 
@@ -541,10 +604,12 @@ label {
 
 .clearfix {
   *zoom: 1;
+
   &:before, &:after {
     content: " ";
     display: table;
   }
+
   &:after {
     clear: both;
   }

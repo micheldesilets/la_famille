@@ -351,7 +351,7 @@ function turnOffSearchFolders() {
     const kword = document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'none';
     const fmButton = document.getElementsByClassName('search__search-button')[0];
-    fmButton .style.display = 'none';
+    fmButton.style.display = 'none';
     const btt = document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
@@ -395,6 +395,7 @@ function getSearchInputs() {
     searchData.startYear = document.getElementById('search__year-start').value;
     searchData.endYear = document.getElementById('search__year-end').value;
     searchData.wExact = document.getElementById('search__radio-exact').checked;
+    // searchData.wExact = document.querySelector('input.search__radio.exact').checked;
     searchData.wPart = document.getElementById('search__radio-partial').checked;
     searchData.searchClefs = document.getElementById('search__keys').checked;
     searchData.searchTitres = document.getElementById('search__titles').checked;
