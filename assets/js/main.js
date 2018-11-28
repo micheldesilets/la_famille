@@ -273,35 +273,35 @@ function renderInfoPhoto(data) {
     const infoContain = document.getElementsByClassName('data-box__photo');
     var infoInputs = document.getElementsByClassName('data-box__input');
     const infoContainer = infoContain[0];
+    var htmlString = "";
 
     infoContainer.innerText = '';
 
     for (const obj of data) {
         const thumb = obj.prev_path + obj.filename;
-        const htmlString = "<div><img src=\"" + thumb + "\"></div>";
+        htmlString += "<div><img src=\"" + thumb + "\"></div>";
 
         infoInputs[0].value = obj.title;
         infoInputs[1].value = obj.keywords;
         infoInputs[2].value = obj.caption;
         infoInputs[3].value = obj.year;
         infoInputs[4].value = obj.geneolnames;
-
-        infoContainer.insertAdjacentHTML('beforeend', htmlString);
     }
+    infoContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
 function renderHomePhoto() {
     'use strict';
     const container = document.getElementsByClassName('home__photo');
     const archivesContainer = container[0];
+    var htmlString = "";
 
     for (const obj of myData) {
         const imageURL = obj.path + obj.filename;
 
-        const htmlString = "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
-
-        archivesContainer.insertAdjacentHTML('beforeend', htmlString);
+        htmlString += "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
     }
+    archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
 function renderFamilyPhotos() {
@@ -310,15 +310,15 @@ function renderFamilyPhotos() {
     imgDisplay.style.display = 'block';
 
     const familyContainer = document.getElementsByClassName('photos__imgs')[0];
+    var htmlString = "";
 
     imgDisplay.innerHTML = '';
 
     for (const obj of myData) {
         const thumb = obj.prev_path + obj.filename;
-        const htmlString = "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>";
-
-        familyContainer.insertAdjacentHTML('beforeend', htmlString);
+        htmlString += "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>\n";
     }
+    familyContainer.insertAdjacentHTML('beforeend', htmlString);
     animatePhotos();
 }
 
@@ -371,13 +371,14 @@ function turnOffSearchFolders() {
 function initSearchForm() {
     'use strict';
     prepareSearchScreen();
+    initAllYears();
     initSearchInputs();
 }
 
 function searchForm() {
     'use strict';
     prepareSearchScreen();
-    }
+}
 
 function prepareSearchScreen() {
     'use strict';
@@ -389,26 +390,87 @@ function prepareSearchScreen() {
     const kword = document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'block';
     // document.getElementById('searchKw').style.display = 'block';
-        btt.onclick = function () {
+    btt.onclick = function () {
         backToTree();
     };
 }
 
-function initSearchInputs(){
+function initSearchInputs() {
     'use strict';
     document.getElementsByClassName('search__key-words')[0].value = '';
-    document.getElementById('search__year-start').value='start';
-    document.getElementById('search__year-end').value='end';
+    /* document.getElementById('search__year-start').value='start';
+     document.getElementById('search__year-end').value='end';*/
     document.getElementById('search__radio-exact').checked = false;
     document.getElementById('search__radio-partial').checked = true;
     document.getElementById('search__keys').checked = true;
     document.getElementById('search__titles').checked = true;
     document.getElementById('search__comments').checked = true;
-    document.getElementsByClassName('search__pid')[0].value ='';
+    document.getElementsByClassName('search__pid')[0].value = '';
     document.getElementById('search__radio-uniq').checked = true;
     document.getElementById('search__radio-context').checked = false;
 }
 
+function initAllYears() {
+    'use strict';
+    const myRequest = new XMLHttpRequest();
+
+    myRequest.open('GET', 'php/getAllYears.php', true);
+    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        const myYearsData = JSON.parse(myRequest.responseText);
+        renderAllYears(myYearsData);
+    };
+    myRequest.send();
+}
+
+function renderAllYears(yearsData) {
+    'use strict';
+    var yearsFromContainer = document.getElementsByClassName('search__insert-from')[0];
+    var optGroup = '';
+
+    var htmlString = '<label for=\"search__year-start\" class=\"search__year-start\">De </label>\n' +
+        '    <select id=\"search__year-start\" class=\"search__select\" >\n' +
+        '    <option selected value=\"start\">1839\n' +
+        '    </option>\n';
+
+    for (const obj of yearsData) {
+        if (optGroup !== obj.decade) {
+            if (optGroup !== '') {
+                htmlString += '</optgroup>\n';
+            }
+            htmlString += '<optgroup label = \"' + obj.decade + '\">\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            optGroup = obj.decade;
+        } else {
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+        }
+    }
+    htmlString += '</optgroup>\n' +
+        '</select><br>';
+
+    optGroup = '';
+    htmlString += '<label for=\"search__year-end\" class=\"search__year-end\">À </label>\n' +
+        '    <select id=\"search__year-end\" class=\"search__select\" >\n' +
+        '    <option selected value=\"end\">2038\n' +
+        '    </option>\n';
+
+    for (const obj of yearsData) {
+        if (optGroup !== obj.decade) {
+            if (optGroup !== '') {
+                htmlString += '</optgroup>\n';
+            }
+            htmlString += '<optgroup label = \"' + obj.decade + '\">\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            optGroup = obj.decade;
+        } else {
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+        }
+    }
+    htmlString += '</optgroup>\n' +
+        '</select><br>';
+
+    yearsFromContainer.insertAdjacentHTML('beforeend', htmlString);
+}
 
 function getSearchInputs() {
     'use strict';
@@ -734,6 +796,7 @@ function renderReadings(data) {
     'use strict';
     const container = document.getElementsByClassName('readings');
     const readingsContainer = container[0];
+    var htmlString = '';
 
     readingsContainer.innerHTML = '';
 
@@ -745,14 +808,13 @@ function renderReadings(data) {
             intro = obj.intro;
         }
 
-        let htmlString = "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
+        htmlString += "<div class=\"clearfix\">" + "<a href=\"" + obj.address + "\" target=\"_blank\">" +
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"readings__books\">" +
             "<p class=\"readings__title\">" + obj.title + "</p></a>" +
             "<p class=\"readings__summary\">" + intro + "</p>" + "<p class=\"readings__summary\">" +
             obj.sumary + "</p ><br></div>";
-
-        readingsContainer.insertAdjacentHTML('beforeend', htmlString);
     }
+    readingsContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
 /*** OBJECT SECTION
@@ -773,15 +835,14 @@ function renderObjects(data) {
     'use strict';
     const container = document.getElementsByClassName('objects__container');
     const objectsContainer = container[0];
+    var htmlString = "";
 
     for (const obj of data) {
-
-        const htmlString = "<div class=\"clearfix\">\n" +
+        htmlString += "<div class=\"clearfix\">\n" +
             "<img src=\"" + obj.file + "\" alt=\"\" class=\"objects__img\" title='Cliquer pour agrandir la photo'>\n" +
             "<p class=\"objects__description\" >" + obj.description + "\n</p >\n<br>\n</div>\n";
-
-        objectsContainer.insertAdjacentHTML('beforeend', htmlString);
     }
+    objectsContainer.insertAdjacentHTML('beforeend', htmlString);
     animateObjects();
 }
 
@@ -930,12 +991,12 @@ function renderYears(data) {
     'use strict';
     const yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
     yearContainer[0].innerHTML = '';
+    var htmlString = "";
 
     for (const obj of data) {
-        const htmlString = "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>";
-        yearContainer[0].insertAdjacentHTML("beforeend", htmlString);
+        htmlString += "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>\n";
     }
-    const htmlString = "<option value=\"1\">NA</option>";
+    htmlString += "<option value=\"1\">NA</option>";
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
 
@@ -962,13 +1023,13 @@ function getReposits(fisrtYear) {
 function renderReposits(myData) {
     'use strict';
     var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
-
+    var htmlString = "";
     repositContainer[0].innerHTML = '';
 
     for (const obj of myData) {
-        const htmlString = "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
-        repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
+        htmlString += "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
     }
+    repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
 
 function renderSelectedPhotos() {
