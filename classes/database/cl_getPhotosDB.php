@@ -129,7 +129,7 @@ class photosBD
                         $sql .= "(pho.keywords_pho REGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
                     } else {
                         if ($searchComments == "true") {
-                            $sql .= "(pho.caption_pho LREGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
+                            $sql .= "(pho.caption_pho REGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
                         } else {
                             if ($searchTitles == "true") {
                                 $sql .= "(pho.title_pho REGEXP '[[:<:]]" . $kwords[0] . "[[:>:]]'";
