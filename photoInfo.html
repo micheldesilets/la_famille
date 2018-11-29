@@ -25,7 +25,7 @@
             <form method="post"
                   enctype="multipart/form-data"
                   class="data-box__form"
-                  action="javascript:insertMetadataInfo()">
+                  action="javascript:insertPhotoInfo()">
                 <input type="submit" value="Soumettre" class="data-box__go-button"><br>
                 <div>
                     <label class="data-box__label">Titre de la photo</label>
@@ -56,9 +56,12 @@
                 <br>
                 <div>
                     <label class="data-box__label">Indexe(s) généalogique(s)</label>
-                    <input type="text" class="data-box__input data-box__input--info-geneol" size="118">
+                    <input type="text" class="data-box__input data-box__input--info-geneol" size="85">
                 </div>
             </form>
+
+            <div class="data-box__geneol-list">
+            </div>
 
             <div class="data-box__photo">
             </div>

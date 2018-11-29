@@ -28,6 +28,8 @@ var modalObj;
 var modal;
 var infoPhotoData;
 var repositoryData = [];
+var myYearsData = "";
+var namesList = [];
 
 var author = '';
 var decade = '';
@@ -279,7 +281,7 @@ function renderInfoPhoto(data) {
 
     for (const obj of data) {
         const thumb = obj.prev_path + obj.filename;
-        htmlString += "<div><img src=\"" + thumb + "\"></div>";
+        htmlString += "<div><img src=\"" + thumb + "\" ></div>";
 
         infoInputs[0].value = obj.title;
         infoInputs[1].value = obj.keywords;
@@ -288,6 +290,7 @@ function renderInfoPhoto(data) {
         infoInputs[4].value = obj.geneolnames;
     }
     infoContainer.insertAdjacentHTML('beforeend', htmlString);
+    getGeneologyList();
 }
 
 function renderHomePhoto() {
@@ -412,20 +415,22 @@ function initSearchInputs() {
 
 function initAllYears() {
     'use strict';
-    const myRequest = new XMLHttpRequest();
+    if (myYearsData.length === 0) {
+        const myRequest = new XMLHttpRequest();
 
-    myRequest.open('GET', 'php/getAllYears.php', true);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        const myYearsData = JSON.parse(myRequest.responseText);
-        renderAllYears(myYearsData);
-    };
-    myRequest.send();
+        myRequest.open('GET', 'php/getAllYears.php', true);
+        myRequest.onload = function () {
+            console.log(myRequest.responseText);
+            myYearsData = JSON.parse(myRequest.responseText);
+            renderAllYears(myYearsData);
+        };
+        myRequest.send();
+    }
 }
 
 function renderAllYears(yearsData) {
     'use strict';
-    var yearsFromContainer = document.getElementsByClassName('search__insert-from')[0];
+    var yearsFromContainer = document.getElementsByClassName('search__insert-years')[0];
     var optGroup = '';
 
     var htmlString = '<label for=\"search__year-start\" class=\"search__year-start\">De </label>\n' +
@@ -1055,4 +1060,79 @@ function createFileList(files) {
 function closeWindow() {
     'use strict';
     window.close(window.location.href);
+}
+
+function insertPhotoInfo() {
+    'use strict';
+    getPhotoInfoInputs();
+}
+
+function getPhotoInfoInputs() {
+    'use strict';
+    const infoInputs = [];
+    infoInputs.title = document.getElementsByClassName('data-box__input--info-title')[0].value;
+    infoInputs.keyWords = document.getElementsByClassName('data-box__input--info-keywords')[0].value;
+    infoInputs.caption = document.getElementsByClassName('data-box__input--info-caption')[0].value;
+    infoInputs.year = document.getElementsByClassName('data-box__input--info-year')[0].value;
+    infoInputs.geneologyIdxs = document.getElementsByClassName('data-box__input--info-geneol')[0].value;
+}
+
+function getGeneologyList() {
+    'use strict';
+
+    const myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'php/getGeneologyList.php', true);
+    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        const myRepositData = JSON.parse(myRequest.responseText);
+        renderGeneologyList(myRepositData);
+    };
+
+    myRequest.send();
+
+}
+
+function renderGeneologyList(rawData) {
+    'use strict';
+    var listContainer = document.getElementsByClassName('data-box__geneol-list')[0];
+    var optGroup = '';
+    var htmlString = "";
+    var names = [];
+
+    htmlString = '<select onchange="addGeneolNames()" id=\"data-box__geneol-list\" class=\"data-box__ select data-box__select--geneol\" >\n' +
+        '    <option selected value=\"choice\">Faites un choix\n' +
+        '    </option>\n';
+
+    for (const obj of rawData) {
+        htmlString += '<option value=\"' + obj.idgen + '\">' + obj.name + '</option>\n';
+        const names = {'idx': obj.idgen, 'name': obj.name};
+        namesList.push(names);
+    }
+
+    htmlString += '</select><br>';
+
+    listContainer.insertAdjacentHTML('beforeend', htmlString);
+
+}
+
+function addGeneolNames() {
+    'use strict';
+    let geneolList = document.getElementsByClassName('data-box__input--info-geneol');
+    var names = geneolList[0].value;
+    var selectGeneol = document.getElementsByClassName('select data-box__select--geneol')[0].value;
+    var name = '';
+
+    for (const obj of namesList) {
+        if (selectGeneol === obj.idx) {
+            name = obj.name;
+            break;
+        }
+    }
+    if (names.length !== 0) {
+        names += ' , ' + name;
+
+    } else {
+        names = name;
+    }
+    geneolList[0].value=names;
 }

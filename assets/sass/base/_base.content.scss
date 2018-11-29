@@ -54,13 +54,19 @@
   &__select {
     display: block;
     background-color: $color5;
+    &--geneol{
+      float: right;
+      background-color: $color1;
+      height: 20px;
+      @include wsh-02;
+      margin-right: 12px;
+    }
   }
 
   &__input {
     position: relative;
     font-size: small;
     background-color: $color5;
-
     &--photos {
       width: 0.1px;
       height: 0.1px;
@@ -68,6 +74,9 @@
       overflow: hidden;
       position: absolute;
       z-index: -1;
+    }
+    &--info-geneol{
+      float: left;
     }
   }
 
