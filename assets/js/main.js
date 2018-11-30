@@ -30,6 +30,7 @@ var infoPhotoData;
 var repositoryData = [];
 var myYearsData = "";
 var namesList = [];
+var geneolListDone = false;
 
 var author = '';
 var decade = '';
@@ -232,7 +233,9 @@ function getSelectedInfoPhoto() {
     const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+        '&function=getInfo', true);
+    console.log(myRequest.responseText);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         const myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -246,7 +249,8 @@ function getPhotoInfoPrevious() {
     'use strict';
     selectedPhotoId -= 1;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+        '&function=getInfo', true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         const myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -260,7 +264,8 @@ function getPhotoInfoNext() {
     'use strict';
     selectedPhotoId += 1;
     const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getInfoPhoto.php?pid=' + selectedPhotoId, true);
+    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+        '&function=getInfo', true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
         const myInfoPhoto = JSON.parse(myRequest.responseText);
@@ -290,7 +295,10 @@ function renderInfoPhoto(data) {
         infoInputs[4].value = obj.geneolnames;
     }
     infoContainer.insertAdjacentHTML('beforeend', htmlString);
-    getGeneologyList();
+
+    if (geneolListDone === false) {
+        getGeneologyList();
+    }
 }
 
 function renderHomePhoto() {
@@ -1065,6 +1073,16 @@ function closeWindow() {
 function insertPhotoInfo() {
     'use strict';
     getPhotoInfoInputs();
+
+    const req = new XMLHttpRequest();
+    const inputs = getPhotoInfoInputs();
+
+    req.open('GET', 'php/cl_photoInfo.php?title=' + inputs.title + '&keyWords=' + inputs.keyWords +
+        '&caption=' + inputs.caption + '&year=' + inputs.year + '&geneology=' + inputs.geneologyIdxs +
+        '&function=insertPhotoInfo', true);
+    req.onload = function () {
+        let success = true;
+    };
 }
 
 function getPhotoInfoInputs() {
@@ -1075,21 +1093,44 @@ function getPhotoInfoInputs() {
     infoInputs.caption = document.getElementsByClassName('data-box__input--info-caption')[0].value;
     infoInputs.year = document.getElementsByClassName('data-box__input--info-year')[0].value;
     infoInputs.geneologyIdxs = document.getElementsByClassName('data-box__input--info-geneol')[0].value;
+    infoInputs.geneologyIdxs = validatePhotoInfoIndexes(infoInputs.geneologyIdxs);
+    return infoInputs;
+}
+
+function validatePhotoInfoIndexes(listOfIndexes) {
+    'use strict';
+    const listIdx = listOfIndexes.split(/\s,\s*/);
+    var indexes = '';
+    var index = '';
+    var names = '';
+
+    for (var i = 0; i < listIdx.length; i++) {
+        for (const obj of namesList) {
+            if (listIdx[i] === obj.name) {
+                index = obj.idx;
+                if (indexes.length !== 0) {
+                    indexes += ' , ' + index;
+                } else {
+                    indexes = index;
+                }
+                break;
+            }
+        }
+    }
+    return indexes;
 }
 
 function getGeneologyList() {
     'use strict';
-
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/getGeneologyList.php', true);
     myRequest.onload = function () {
         console.log(myRequest.responseText);
-        const myRepositData = JSON.parse(myRequest.responseText);
-        renderGeneologyList(myRepositData);
+        const jsGeneolList = JSON.parse(myRequest.responseText);
+        renderGeneologyList(jsGeneolList);
+        geneolListDone=true;
     };
-
     myRequest.send();
-
 }
 
 function renderGeneologyList(rawData) {
@@ -1134,5 +1175,5 @@ function addGeneolNames() {
     } else {
         names = name;
     }
-    geneolList[0].value=names;
+    geneolList[0].value = names;
 }
