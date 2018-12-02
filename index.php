@@ -7,14 +7,9 @@
     <title>Famille Normandeau-Desilets - Acceuil</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <!--   <link rel="stylesheet" href="css/media_query.css" media="screen">-->
-    <!--  <link href="https://fonts.googleapis.com/css?family=Alex+Brush|Raleway:400,400i,700,700i" rel="stylesheet">-->
     <script src="assets/js/main.js"></script>
     <?php
-    require_once 'classes/database/cl_getPhotosDB.php';
-
-    /* sidebar photo
-    */
+    require_once 'classes/database/cl_PhotosDB.php';
     $dbSb = new photosBD();
     $photoSb = $dbSb->getSidebarPhoto();
     $fileSb = $photoSb->get_Filename();

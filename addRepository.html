@@ -11,7 +11,7 @@
     <!--    <link rel="stylesheet" href="assets/css/media_query.css" media="screen">-->
 </head>
 
-<body onload="getYearsSelected();">
+<body onload="getDecades();">
 <div class="page data-box">
 
     <h1 class="data-box__h1 data-box__h1--reposit">Ajout d'un répertoire</h1>
@@ -56,13 +56,7 @@
                 <div>
                     <label for="data-box__select--decade" class="data-box__label">Décennie</label>
                     <select class="data-box__select data-box__select--add-repo-photo-decade"
-                            onchange="javascript:getYearsSelected();">
-                        <option value="2" selected>1970-1979</option>
-                        <option value="3">1980-1989</option>
-                        <option value="4">1990-1999</option>
-                        <option value="5">2000-2009</option>
-                        <option value="6">2010-2019</option>
-                        <option value="1">NA</option>
+                            onchange="getYearsSelected();">
                     </select>
                 </div>
                 <br>
@@ -76,8 +70,10 @@
                     <label for="data-box__select--title" class="data-box__label">Nom du répertoire</label>
                     <input type="text" class="data-box__select data-box__select--title" size="50">
                 </div>
-
             </form>
+
+            <p class='data-box__message' hidden>Cliquer <a href="addPhotos.html"><span class="data-box__message--link">
+                        ici</span></a> pour déposer des photos</p>
         </fieldset>
     </main>
 </div>

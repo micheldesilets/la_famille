@@ -288,11 +288,12 @@ function renderInfoPhoto(data) {
         const thumb = obj.prev_path + obj.filename;
         htmlString += "<div><img src=\"" + thumb + "\" ></div>";
 
-        infoInputs[0].value = obj.title;
-        infoInputs[1].value = obj.keywords;
-        infoInputs[2].value = obj.caption;
-        infoInputs[3].value = obj.year;
-        infoInputs[4].value = obj.geneolnames;
+        infoInputs[0].value = obj.idpho;
+        infoInputs[1].value = obj.title;
+        infoInputs[2].value = obj.keywords;
+        infoInputs[3].value = obj.caption;
+        infoInputs[4].value = obj.year;
+        infoInputs[5].value = obj.geneolnames;
     }
     infoContainer.insertAdjacentHTML('beforeend', htmlString);
 
@@ -633,19 +634,19 @@ function imgModal(e) {
 
     if (ctrlPressed && winResult === 'family_photos.html') {
         ctrlPressed = false;
-        window.open('photoInfo.html?pid=' + myData[currentIdx].idpho);
-        location.reload();
+        /*window.open('photoInfo.html?pid=' + myData[currentIdx].idpho);
+        location.reload();*/
     } else {
 
         if (currentIdx === 0) {
-            backward.style.backgroundColor = 'red';
+            // backward.style.backgroundColor = 'red';
         } else {
-            backward.style.backgroundColor = 'green';
+            // backward.style.backgroundColor = 'green';
         }
         if (currentIdx === maxLength - 1) {
-            forward.style.backgroundColor = 'red';
+            // forward.style.backgroundColor = 'red';
         } else {
-            forward.style.backgroundColor = 'green';
+            // forward.style.backgroundColor = 'green';
         }
 
         img = prev.replace('preview', 'full');
@@ -693,10 +694,10 @@ function prevImage() {
         photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx - 1].idpho + ")</p>";
         currentIdx--;
         if (currentIdx === 0) {
-            backward.style.backgroundColor = 'red';
+            // backward.style.backgroundColor = 'red';
         }
         if (currentIdx < maxLength - 1) {
-            forward.style.backgroundColor = 'green';
+            // forward.style.backgroundColor = 'green';
         }
     }
 }
@@ -719,10 +720,10 @@ function nextImage() {
         photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx + 1].idpho + ")</p>";
         currentIdx++;
         if (currentIdx === maxLength - 1) {
-            forward.style.backgroundColor = 'red';
+            // forward.style.backgroundColor = 'red';
         }
         if (currentIdx > 0) {
-            backward.style.backgroundColor = 'green';
+            // backward.style.backgroundColor = 'green';
         }
     }
 }
@@ -743,6 +744,12 @@ function buildGeneolLine(idxList, namesList) {
         }
     }
     return htmlLine;
+}
+
+function editPhoto() {
+    'use strict';
+    window.open('photoInfo.html?pid=' + myData[currentIdx].idpho);
+    location.reload();
 }
 
 /*** END MODAL ***/
@@ -922,18 +929,19 @@ function addRepository() {
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
 
     myRequest.send();
-
     addRepositoryMysql();
 }
 
 function addRepositoryMysql() {
     'use strict';
+    const message = document.getElementsByClassName('data-box__message');
     const myRequest = new XMLHttpRequest();
     myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
 
     myRequest.send();
+    message[0].style.display = 'block';
 }
 
 function uploadPhotos() {
@@ -943,11 +951,6 @@ function uploadPhotos() {
     const url = 'php/upload.php';
     const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
-
-    /*    for (let i = 0; i < repositoryData.preview.length; i++) {
-            let file = repositoryData.preview[i];
-            formData.append('files[]', file);
-        }*/
 
     for (let i = 0; i < files.length; i++) {
         let file = files[i];
@@ -968,8 +971,22 @@ function uploadPhotos() {
     });
 }
 
+function getDecades() {
+    'use strict';
+    const req = new XMLHttpRequest();
+    req.open('GET', 'php/getDecades.php', true);
+    req.onload = function () {
+        console.log(req.responseText);
+        const decadesData = JSON.parse(req.responseText);
+        renderDecades(decadesData);
+        getYearsSelected();
+    };
+    req.send();
+}
+
 function getYearsSelected() {
     'use strict';
+    const url = currentWindow();
     const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
     const decade = deca[0].value;
     const myRequest = new XMLHttpRequest();
@@ -977,27 +994,23 @@ function getYearsSelected() {
     myRequest.onload = function () {
         const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
+        if(url==='addPhotos.html'){
+            const firstYear = myYearsData[0].idxYear;
+            getReposits(firstYear);
+        }
     };
-
     myRequest.send();
 }
 
-function getYearsSelectedPhotos() {
+function renderDecades(decades) {
     'use strict';
-    const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
-    const decade = deca[0].value;
-    const myRequest = new XMLHttpRequest();
+    const decadeContainer = document.getElementsByClassName('data-box__select--add-repo-photo-decade')[0];
+    var htmlString = "";
 
-    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
-    myRequest.onload = function () {
-        const myYearsData = JSON.parse(myRequest.responseText);
-        renderYears(myYearsData);
-
-        const firstYear = myYearsData[0].idxValue;
-        getReposits(firstYear);
-    };
-
-    myRequest.send();
+    for (obj of decades) {
+        htmlString += "<option value=\"" + obj.idDecade + "\">" + obj.decade + "</option>\n";
+    }
+    decadeContainer.insertAdjacentHTML("beforeend", htmlString);
 }
 
 function renderYears(data) {
@@ -1007,7 +1020,7 @@ function renderYears(data) {
     var htmlString = "";
 
     for (const obj of data) {
-        htmlString += "<option value=\"" + obj.idxValue + "\">" + obj.year + "</option>\n";
+        htmlString += "<option value=\"" + obj.idxYear + "\">" + obj.year + "</option>\n";
     }
     htmlString += "<option value=\"1\">NA</option>";
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
@@ -1072,22 +1085,22 @@ function closeWindow() {
 
 function insertPhotoInfo() {
     'use strict';
-    getPhotoInfoInputs();
+    var req = new XMLHttpRequest();
+    var inputs = getPhotoInfoInputs();
 
-    const req = new XMLHttpRequest();
-    const inputs = getPhotoInfoInputs();
-
-    req.open('GET', 'php/cl_photoInfo.php?title=' + inputs.title + '&keyWords=' + inputs.keyWords +
-        '&caption=' + inputs.caption + '&year=' + inputs.year + '&geneology=' + inputs.geneologyIdxs +
+    req.open('POST', 'php/photoInfo.php?photoId=' + inputs.photoId + '&title=' + inputs.title + '&keyWords=' + inputs.keyWords +
+        '&caption=' + inputs.caption + '&year=' + inputs.year + '&geneologyIdxs=' + inputs.geneologyIdxs +
         '&function=insertPhotoInfo', true);
     req.onload = function () {
         let success = true;
     };
+    req.send();
 }
 
 function getPhotoInfoInputs() {
     'use strict';
-    const infoInputs = [];
+    var infoInputs = [];
+    infoInputs.photoId = document.getElementsByClassName('data-box__photo-id')[0].value;
     infoInputs.title = document.getElementsByClassName('data-box__input--info-title')[0].value;
     infoInputs.keyWords = document.getElementsByClassName('data-box__input--info-keywords')[0].value;
     infoInputs.caption = document.getElementsByClassName('data-box__input--info-caption')[0].value;
@@ -1128,7 +1141,7 @@ function getGeneologyList() {
         console.log(myRequest.responseText);
         const jsGeneolList = JSON.parse(myRequest.responseText);
         renderGeneologyList(jsGeneolList);
-        geneolListDone=true;
+        geneolListDone = true;
     };
     myRequest.send();
 }
@@ -1153,7 +1166,6 @@ function renderGeneologyList(rawData) {
     htmlString += '</select><br>';
 
     listContainer.insertAdjacentHTML('beforeend', htmlString);
-
 }
 
 function addGeneolNames() {
@@ -1176,4 +1188,12 @@ function addGeneolNames() {
         names = name;
     }
     geneolList[0].value = names;
+}
+
+function currentWindow() {
+    'use strict';
+    const currWin = window.location.href;
+    const n = currWin.lastIndexOf('/');
+    return currWin.substring(n + 1);
+
 }

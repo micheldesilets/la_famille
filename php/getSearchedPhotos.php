@@ -38,7 +38,7 @@ if ($endYear == 'end') {
 
 $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-require_once '../classes/database/cl_getPhotosDB.php';
+require_once '../classes/database/cl_PhotosDB.php';
 $db = new photosBD();
 $photo = $db->getSearchPhotos($searchData);
 return;

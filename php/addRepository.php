@@ -20,7 +20,7 @@ if ($function == addRepository) {
     $levels = $_GET['levels'];
     $title = carReplace($title);
 
-    $repositData = array($type, $author, $decade, $year, $title, $levels);
+    $repositData = array($type, $author, $decade, $year, $title, $levels,$title);
 
     $db = new repository();
     $db->addRepository($repositData);

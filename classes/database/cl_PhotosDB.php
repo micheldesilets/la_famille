@@ -354,5 +354,32 @@ class photosBD
 
         return $row['index_gen'];
     }
-}
 
+    function insertPhotoInfo($photoInfo)
+    {
+        include '../connection/connect.php';
+        $con->query('SET NAMES utf8');
+
+        $photoId = $photoInfo[0];
+        $title = '"' . $photoInfo[1] . '"';
+        $keywords = '"' . $photoInfo[2] . '"';
+        $caption = '"' . $photoInfo[3] . '"';
+        $year = $photoInfo[4];
+        $geneologyIdxs = '"' . $photoInfo[5] . '"';
+
+        $sql = 'UPDATE photos_pho SET title_pho= ' . $title . ',keywords_pho= ' . $keywords . ',caption_pho= '
+                       . $caption .  ',year_pho= ' . $year . ',idgen_pho= ' . $geneologyIdxs .
+               ' WHERE id_pho= ' . $photoId;
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+        } else {
+            echo("nothing");
+        };
+
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        $con->close();
+    }
+}

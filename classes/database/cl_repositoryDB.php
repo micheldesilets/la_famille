@@ -101,51 +101,9 @@ class repository
             chdir($path);
             mkdir('full');
             mkdir('preview');
-        };
-    }
-
-    function getYearsSelected($decade)
-    {
-        $wd = getcwd();
-
-        require_once '../classes/business/cl_year.php';
-        include '../connection/connect.php';
-
-        $sql = "CALL getYearsSelected($decade)";
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has % d rows . \n", $rowcount); */
         } else {
-            echo("nothing");
+            echo 'Le répertoire existe dans la base de données.';
         };
-
-        $yearArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-            $year = new cl_year();
-
-            $year->set_Idyea($row["id_yea"]);
-            $year->set_Decade($row["decade_deca"]);
-            $year->set_Year($row["year_yea"]);
-
-            array_push($yearArray, $year);
-
-            $l++;
-        endwhile;
-
-        // Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        $json = createJson($yearArray);
-        echo $json;
     }
 
     function addRepositoryMysql($repositData)

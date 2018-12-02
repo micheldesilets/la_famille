@@ -35,6 +35,7 @@ class cl_yearsDB
             $year = new cl_year();
 
             $year->set_Idyea($row["id_yea"]);
+            $year->set_Iddeca($row['iddeca_yea']);
             $year->set_Decade($row["decade_deca"]);
             $year->set_Year($row["year_yea"]);
 
@@ -51,7 +52,96 @@ class cl_yearsDB
         $json = createJson($yearArray);
         echo $json;
     }
+
+    public function getDecades()
+    {
+        require_once '../classes/business/cl_decade.php';
+        include '../connection/connect.php';
+
+        $sql = "CALL getDecades()";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+            /* printf("Result set has % d rows . \n", $rowcount); */
+        } else {
+            echo("nothing");
+        };
+
+        $decadeArray = array();
+        $l = 1;
+
+        while ($l <= $rowcount):
+            // Associative array
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $decade = new decade();
+
+            $decade->set_Iddeca($row['id_deca']);
+            $decade->set_Decade($row{'decade_deca'});
+            $decade->set_FromYear($row["fromYear_deca"]);
+            $decade->set_ToYear($row['toYear_deca']);
+
+            array_push($decadeArray, $decade);
+
+            $l++;
+        endwhile;
+
+// Free result set
+        mysqli_free_result($result);
+
+        mysqli_close($con);
+
+        $json = createJson($decadeArray);
+        echo $json;
+    }
+
+    public function getYearsSelected($decade)
+    {
+        $wd = getcwd();
+
+        require_once '../classes/business/cl_year.php';
+        include '../connection/connect.php';
+
+        $sql = "CALL getYearsSelected($decade)";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+            /* printf("Result set has % d rows . \n", $rowcount); */
+        } else {
+            echo("nothing");
+        };
+
+        $yearArray = array();
+        $l = 1;
+
+        while ($l <= $rowcount):
+            // Associative array
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $year = new cl_year();
+
+            $year->set_Idyea($row["id_yea"]);
+            $year->set_Iddeca($row['iddeca_yea']);
+            $year->set_Decade($row["decade_deca"]);
+            $year->set_Year($row["year_yea"]);
+
+            array_push($yearArray, $year);
+
+            $l++;
+        endwhile;
+
+        // Free result set
+        mysqli_free_result($result);
+
+        mysqli_close($con);
+
+        $json = createJson($yearArray);
+        echo $json;
+    }
 }
+
 
 function createJson($rawData)
 {

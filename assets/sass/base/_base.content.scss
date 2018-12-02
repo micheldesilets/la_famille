@@ -19,6 +19,15 @@
     }
   }
 
+  &__message {
+    text-align: center;
+
+    &--link {
+      color: blue;
+      font-weight: bold;
+    }
+  }
+
   &__button {
     position: relative;
     top: 8px;
@@ -37,8 +46,8 @@
     border: none;
     cursor: pointer;
     @include hocus() {
-           color: $color3;
-         }
+      color: $color3;
+    }
   }
 
   &__label {
@@ -54,7 +63,8 @@
   &__select {
     display: block;
     background-color: $color5;
-    &--geneol{
+
+    &--geneol {
       float: right;
       background-color: $color1;
       height: 20px;
@@ -67,6 +77,7 @@
     position: relative;
     font-size: small;
     background-color: $color5;
+
     &--photos {
       width: 0.1px;
       height: 0.1px;
@@ -75,7 +86,8 @@
       position: absolute;
       z-index: -1;
     }
-    &--info-geneol{
+
+    &--info-geneol {
       float: left;
     }
   }
@@ -237,7 +249,7 @@
   }
 }
 
-// Family photos
+// Family photos - Search
 .search {
   padding-bottom: 1em;
   font-size: $font-small;
@@ -336,6 +348,7 @@
   }
 }
 
+// Family photos - Photos
 .photos {
   &__thumb-container {
     text-align: justify;
@@ -378,10 +391,18 @@
     width: 100vw;
     height: 100vh;
     background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
+    background-color: rgba(255, 255, 255, 0.95); /* Black w/ opacity */
     & a {
       color: white;
     }
+  }
+
+  &__edit-photo {
+    height: 25px;
+    width: 25px;
+    float: right;
+    position: relative;
+    right: 40px;
   }
 
   &__modal-content {
@@ -393,12 +414,14 @@
     position: relative;
     float: right;
     top: 40%;
+    font-weight: $font-weight-darker;
   }
 
   &__previous {
     position: relative;
     float: left;
     top: 40%;
+    font-weight: $font-weight-darker;
   }
 
   &__modal-title {
@@ -407,7 +430,7 @@
     width: 80%;
     max-width: 700px;
     text-align: center;
-    color: #ccc;
+    color: rgba(0, 0, 0, 1);
     padding: 10px 0 0;
     @include animate01;
   }
@@ -419,7 +442,7 @@
     width: 80%;
     max-width: 700px;
     text-align: center;
-    color: #ccc;
+    color: rgba(0, 0, 0, 1);
     @include animate01;
   }
 
@@ -438,11 +461,13 @@
     font-size: .8em;
 
     & a {
-      color: aqua;
+      color: rgba(0, 0, 0, 1);
+      font-weight: $font-weight-normal;
     }
 
     & p {
-      color: white;
+      color: rgba(255, 0, 0, 1);
+      font-weight: $font-weight-darker;
     }
   }
 
