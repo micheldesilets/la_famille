@@ -631,49 +631,30 @@ function imgModal(e) {
         }
     }
     currentIdx = i;
+    img = prev.replace('preview', 'full');
 
-    if (ctrlPressed && winResult === 'family_photos.html') {
-        ctrlPressed = false;
-        /*window.open('photoInfo.html?pid=' + myData[currentIdx].idpho);
-        location.reload();*/
-    } else {
+    modalTitle = document.getElementsByClassName('photos__modal-title')[0];
+    modalImg = document.getElementById('img01');
+    captionText = document.getElementsByClassName('photos__caption')[0];
+    modal.style.display = 'block';
+    modalTitle.innerHTML = imgs[currentIdx].title;
+    modalImg.src = img;
+    captionText.innerHTML = imgs[currentIdx].alt;
 
-        if (currentIdx === 0) {
-            // backward.style.backgroundColor = 'red';
-        } else {
-            // backward.style.backgroundColor = 'green';
-        }
-        if (currentIdx === maxLength - 1) {
-            // forward.style.backgroundColor = 'red';
-        } else {
-            // forward.style.backgroundColor = 'green';
-        }
+    const idxList = myData[currentIdx].geneolidx.split(',');
+    const namesList = myData[currentIdx].geneolnames.split(',');
 
-        img = prev.replace('preview', 'full');
-
-        modalTitle = document.getElementsByClassName('photos__modal-title')[0];
-        modalImg = document.getElementById('img01');
-        captionText = document.getElementsByClassName('photos__caption')[0];
-        modal.style.display = 'block';
-        modalTitle.innerHTML = imgs[currentIdx].title;
-        modalImg.src = img;
-        captionText.innerHTML = imgs[currentIdx].alt;
-
-        const idxList = myData[currentIdx].geneolidx.split(',');
-        const namesList = myData[currentIdx].geneolnames.split(',');
-
-        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx].idpho + ")</p>";
+    geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+    photoIdCont.innerHTML = "<p>(pid-" + myData[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
-        const span = document.getElementsByClassName('close')[0];
+    const span = document.getElementsByClassName('close')[0];
 
 // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = 'none';
-            bdy.style.overflow = 'visible';
-        };
-    }
+    span.onclick = function () {
+        modal.style.display = 'none';
+        bdy.style.overflow = 'visible';
+    };
 }
 
 function prevImage() {
@@ -994,7 +975,7 @@ function getYearsSelected() {
     myRequest.onload = function () {
         const myYearsData = JSON.parse(myRequest.responseText);
         renderYears(myYearsData);
-        if(url==='addPhotos.html'){
+        if (url === 'addPhotos.html') {
             const firstYear = myYearsData[0].idxYear;
             getReposits(firstYear);
         }
