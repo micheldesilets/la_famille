@@ -26,45 +26,48 @@
                   enctype="multipart/form-data"
                   class="data-box__form"
                   action="javascript:insertPhotoInfo()">
-                <input type="text" hidden class = 'data-box__input data-box__photo-id'></>
-                <input type="submit" value="Soumettre" class="data-box__go-button"><br>
-                <div>
-                    <label class="data-box__label">Titre de la photo</label>
-                    <input type="text" class="data-box__input data-box__input--info-title"
-                           placeholder="ex.: Louis chez les grands-parents"
-                           size="75">
-                </div>
-                <br>
-                <div>
-                    <label class="data-box__label">Mots-clefs</label>
-                    <input type="text" class="data-box__input data-box__input--info-keywords" size="75"
-                           placeholder="Série de mots-clefs, séparés par une virgule, permettant une recherche">
-                </div>
-                <br>
-                <div>
-                    <label class="data-box__label">Légende</label>
-                    <input type="text" class="data-box__input data-box__input--info-caption" size="118"
-                           placeholder="Courte description générale">
-                </div>
-                <br>
-                <div>
-                    <label class="data-box__label">Année de la photo</label>
-                    <input type="text"
-                           class="data-box__input data-box__input--info-year"
-                           size="10"
-                           placeholder="ex.: 2019">
-                </div>
-                <br>
-                <div>
-                    <label class="data-box__label">Indexe(s) généalogique(s)</label>
-                    <input type="text" class="data-box__input data-box__input--info-geneol" size="85">
-                </div>
+                <input type="text" hidden class='data-box__input data-box__photo-id'></
+            >
+            <input type="submit" value="Soumettre" class="data-box__go-button"><br>
+            <div>
+                <label class="data-box__label">Titre de la photo</label>
+                <input type="text" class="data-box__input data-box__input--info-title"
+                       placeholder="ex.: Louis chez les grands-parents"
+                       size="75">
+            </div>
+            <br>
+            <div>
+                <label class="data-box__label">Mots-clefs</label>
+                <input type="text" class="data-box__input data-box__input--info-keywords" size="75"
+                       placeholder="Série de mots-clefs, séparés par une virgule, permettant une recherche">
+            </div>
+            <br>
+            <div>
+                <label class="data-box__label">Légende</label>
+                <input type="text" class="data-box__input data-box__input--info-caption" size="118"
+                       placeholder="Courte description générale">
+            </div>
+            <br>
+            <div>
+                <label class="data-box__label">Année de la photo</label>
+                <input type="text"
+                       class="data-box__input data-box__input--info-year"
+                       size="10"
+                       placeholder="ex.: 2019">
+            </div>
+            <br>
+            <div>
+                <label class="data-box__label">Indexe(s) généalogique(s)</label>
+                <input type="text" class="data-box__input data-box__input--info-geneol" size="85">
+            </div>
             </form>
 
             <div class="data-box__geneol-list">
             </div>
 
-            <div class="data-box__photo">
+            <div class="data-box__photo-container">
+                <div class="data-box__photo">
+                </div>
             </div>
 
             <div class="data-box__button">

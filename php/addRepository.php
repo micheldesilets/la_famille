@@ -48,6 +48,7 @@ if ($function === addMetadataToMysql) {
 
     $db = new repository();
     $db->addMetadataToMysql($meta);
+    return;
 }
 
 function carReplace($repositName)

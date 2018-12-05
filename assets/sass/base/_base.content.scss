@@ -92,10 +92,24 @@
     }
   }
 
+  &__photo-container {
+    margin: auto;
+    margin-top: 35px;
+    width: 150px;
+    height: 200px;
+  }
+
   &__photo {
     width: auto;
     margin-top: 10px;
     text-align: center;
+    height: 150px;
+    &:hover {
+      position: relative;
+      z-index: 1;
+      transform: scale(1.5, 1.5);
+      transform-origin: 0 0;
+    }
   }
 
   &__text {
@@ -391,7 +405,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(255, 255, 255, 0.85); /* Black w/ opacity */
+    background-color: rgba(255, 255, 255, 1); /* Black w/ opacity */
     & a {
       color: white;
     }

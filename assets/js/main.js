@@ -908,7 +908,6 @@ function addRepository() {
     myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
-
     myRequest.send();
     addRepositoryMysql();
 }
@@ -920,6 +919,11 @@ function addRepositoryMysql() {
     myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
+
+/*    myRequest.onload = function () {
+        console.log(myRequest.responseText);
+        // var myData = JSON.parse(myRequest.responseText);
+    };*/
 
     myRequest.send();
     message[0].style.display = 'block';
@@ -1116,15 +1120,19 @@ function validatePhotoInfoIndexes(listOfIndexes) {
 
 function getGeneologyList() {
     'use strict';
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getGeneologyList.php', true);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        const jsGeneolList = JSON.parse(myRequest.responseText);
-        renderGeneologyList(jsGeneolList);
-        geneolListDone = true;
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/getGeneologyList.php', true);
+    xhr.responseType = 'JSON';
+    xhr.onload = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const jsGeneolList = JSON.parse(xhr.responseText);
+                renderGeneologyList(jsGeneolList);
+                geneolListDone = true;
+            }
+        }
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function renderGeneologyList(rawData) {

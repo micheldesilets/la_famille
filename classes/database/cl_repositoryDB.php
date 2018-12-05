@@ -7,7 +7,6 @@
  */
 class repository
 {
-
     function addRepository($repositData)
     {
         // current directory
@@ -24,6 +23,8 @@ class repository
 
         $repositArray = array();
         $repository = new cl_repository();
+
+//        $sql= 'CALL getRepositoryDescriptions($type,$author,$decade,$year)';
 
         $sql = "SELECT typ.type_typ 
             FROM type_typ typ 
@@ -127,7 +128,10 @@ class repository
         }
 
         mysqli_close($con);
-        return;
+        /*
+        $cars = array("Volvo", "BMW", "Toyota");
+        $json=createJson($cars);
+        echo $json;*/
     }
 
     function getReposits($year)
