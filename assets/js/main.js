@@ -44,13 +44,14 @@ var level;
 
 function getFolderTree() {
     'use strict';
-    const folderRequest = new XMLHttpRequest();
-    folderRequest.open('GET', 'php/getFolderTree.php', true);
-    folderRequest.onload = function () {
-        const folderData = JSON.parse(folderRequest.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/repositories.php?function=getRepositories', true);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        const folderData = JSON.parse(xhr.responseText);
         buildFolderTree(folderData);
     };
-    folderRequest.send();
+    xhr.send();
 }
 
 /*** Family Photos ***/
@@ -892,13 +893,13 @@ function getRepositInputs() {
 
 function getRepositInputsPhotos() {
     'use strict';
-    const repositoryDoc = document.getElementsByClassName('data-box__select');
+       const repositoryDoc = document.getElementsByClassName('data-box__select');
 
-    repositoryData.type = repositoryDoc[0].value;
-    repositoryData.author = repositoryDoc[1].value;
-    repositoryData.decade = repositoryDoc[2].value;
-    repositoryData.year = repositoryDoc[3].value;
-    repositoryData.title = repositoryDoc[4].value;
+       repositoryData.type = repositoryDoc[0].value;
+       repositoryData.author = repositoryDoc[1].value;
+       repositoryData.decade = repositoryDoc[2].value;
+       repositoryData.year = repositoryDoc[3].value;
+       repositoryData.title = repositoryDoc[4].value;
 }
 
 function addRepository() {
@@ -920,10 +921,10 @@ function addRepositoryMysql() {
         '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
         '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
 
-/*    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        // var myData = JSON.parse(myRequest.responseText);
-    };*/
+    /*    myRequest.onload = function () {
+            console.log(myRequest.responseText);
+            // var myData = JSON.parse(myRequest.responseText);
+        };*/
 
     myRequest.send();
     message[0].style.display = 'block';
@@ -1038,7 +1039,7 @@ function renderReposits(myData) {
     repositContainer[0].innerHTML = '';
 
     for (const obj of myData) {
-        htmlString += "<option value=\"" + obj.idrpt + "\">" + obj.title + "</option>";
+        htmlString += "<option value=\"" + obj.repository + "\">" + obj.title + "</option>";
     }
     repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
@@ -1185,4 +1186,11 @@ function currentWindow() {
     const n = currWin.lastIndexOf('/');
     return currWin.substring(n + 1);
 
+}
+
+function getRollingFolders() {
+    'use strict';
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'php/repositories.php?=getRollingRepositories');
 }

@@ -10,7 +10,7 @@ class cl_repository implements JsonSerializable
 {
     private $m_idrpt;
     private $m_levels;
-    private $m_type;
+    private $m_idtyp;
     private $m_author;
     private $m_decade;
     private $m_year;
@@ -49,11 +49,11 @@ class cl_repository implements JsonSerializable
     }
 
     /**
-     * @param mixed $m_type
+     * @param mixed $m_idtyp
      */
-    public function set_Type($m_type): void
+    public function set_Type($m_idtyp): void
     {
-        $this->m_type = $m_type;
+        $this->m_type = $m_idtyp;
     }
 
     /**

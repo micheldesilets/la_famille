@@ -11,7 +11,7 @@ header('content-type: text/javascript');
 $function = $_GET['function'];
 
 if ($function == addRepository) {
-    require_once '../classes/database/cl_repositoryDB.php';
+    require_once '../classes/database/cl_repositoriesDB.php';
     $type = $_GET['type'];
     $author = $_GET['author'];
     $decade = $_GET['decade'];
@@ -27,7 +27,7 @@ if ($function == addRepository) {
 }
 
 if ($function == addRepositoryMysql) {
-    require_once '../classes/database/cl_repositoryDB.php';
+    require_once '../classes/database/cl_repositoriesDB.php';
     $type = $_GET['type'];
     $author = $_GET['author'];
     $decade = $_GET['decade'];
@@ -44,7 +44,7 @@ if ($function == addRepositoryMysql) {
 
 if ($function === addMetadataToMysql) {
     $meta = json_decode($_GET['meta']);
-    require_once '../classes/database/cl_repositoryDB.php';
+    require_once '../classes/database/cl_repositoriesDB.php';
 
     $db = new repository();
     $db->addMetadataToMysql($meta);

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'];
 
         $repositData = array($type, $author, $decade, $year, $title);
-        require_once '../classes/database/cl_repositoryDB.php';
+        require_once '../classes/database/cl_repositoriesDB.php';
         $db = new repository();
         $pathSql = $db->getPath($repositData);
         $path = $pathSql[0];
