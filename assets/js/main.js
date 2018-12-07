@@ -36,7 +36,7 @@ var author = '';
 var decade = '';
 var year = 0;
 var itm = 0;
-var repoId = 0;
+var folderId = 0;
 var sbitm = 0;
 var htmlString = '';
 var j = -1;
@@ -119,11 +119,11 @@ function folderLevel2(branch) {
     }
 
     if ((author === branch.author && branch.author.length > 0) &&
-        (repoId !== branch.folder)) {
+        (folderId !== branch.folder)) {
 
         htmlString = htmlString +
             "<li class='folders__photofolder L2' onclick='getFamilyPhotos(this," + branch.folder + "," + branch.type + ")'>" + branch.title + "</li>\n";
-        repoId = branch.folder;
+        folderId = branch.folder;
     }
 }
 
@@ -172,10 +172,10 @@ function folderLevel4(branch) {
     if ((author === branch.author && branch.author.length > 0) &&
         (decade === branch.decade && branch.decade.length > 0) &&
         (year === branch.year && branch.year.length > 0) &&
-        (repoId !== branch.folder)) {
+        (folderId !== branch.folder)) {
         htmlString = htmlString +
             "<li class=\"folders__photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.folder + "," + branch.type + ")\">" + branch.title + "</li>\n";
-        repoId = branch.folder;
+        folderId = branch.folder;
     }
 }
 
@@ -540,24 +540,49 @@ function backToSearch() {
 **********************************/
 document.onkeydown = function (e) {
     'use strict';
+    var currWin = currentWindow();
     const evt = e ? e : window.event;
-    if (evt.ctrlKey) {
-        ctrlPressed = true;
-    }
-    switch (e.keyCode) {
-        case 17:
+
+    switch (true) {
+        case evt.key === 17:
             ctrlPressed = true;
             break;
-        case 37:
+        case evt.key === 37:
             // alert('left');
             prevImage();
             break;
-        case 38:
+        case evt.key === 38:
             // alert('up');
             break;
-        case 39:
+        case evt.key === 39:
             // alert('right');
             nextImage();
+            break;
+        case evt.key >= 'a' && evt.key <= 'z':
+            if (currWin === 'addFolder.html') {
+                const butt = document.getElementsByClassName('data-box__go-button')[0];
+                butt.disabled = false;
+            }
+            if (currWin === 'addPhotos.html') {
+                const butt = document.getElementsByClassName('data-box__go-button')[0];
+                butt.disabled = false;
+            }
+            break;
+        case evt.key === 'Backspace':
+            if (currWin === 'addFolder.html') {
+                const titleLength = document.getElementsByClassName('data-box__select--title');
+                if (titleLength[0].value.length === 1) {
+                    const butt = document.getElementsByClassName('data-box__go-button')[0];
+                    butt.disabled = true;
+                }
+            }
+            if (currWin === 'addPhotos.html') {
+                const inputLength = document.getElementsByClassName('data-box__input--photos');
+                if (inputLength[0].value.length === 0) {
+                    const butt = document.getElementsByClassName('data-box__go-button')[0];
+                    butt.disabled = true;
+                }
+            }
             break;
     }
 };
@@ -893,13 +918,13 @@ function getFolderInputs() {
 
 function getFolderInputsPhotos() {
     'use strict';
-       const folderDoc = document.getElementsByClassName('data-box__select');
+    const folderDoc = document.getElementsByClassName('data-box__select');
 
-       folderData.type = folderDoc[0].value;
-       folderData.author = folderDoc[1].value;
-       folderData.decade = folderDoc[2].value;
-       folderData.year = folderDoc[3].value;
-       folderData.title = folderDoc[4].value;
+    folderData.type = folderDoc[0].value;
+    folderData.author = folderDoc[1].value;
+    folderData.decade = folderDoc[2].value;
+    folderData.year = folderDoc[3].value;
+    folderData.title = folderDoc[4].value;
 }
 
 function addFolder() {
@@ -961,6 +986,7 @@ function getDecades() {
         const decadesData = JSON.parse(req.responseText);
         renderDecades(decadesData);
         getYearsSelected();
+        disableSubmitButton();
     };
     req.send();
 }
@@ -968,7 +994,7 @@ function getDecades() {
 function getYearsSelected() {
     'use strict';
     const url = currentWindow();
-    const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
+    const deca = document.getElementsByClassName('data-box__select--add-folder-photo-decade');
     const decade = deca[0].value;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/getYears.php?decade=' + decade, true);
@@ -985,7 +1011,7 @@ function getYearsSelected() {
 
 function renderDecades(decades) {
     'use strict';
-    const decadeContainer = document.getElementsByClassName('data-box__select--add-repo-photo-decade')[0];
+    const decadeContainer = document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
     var htmlString = "";
 
     for (obj of decades) {
@@ -996,7 +1022,7 @@ function renderDecades(decades) {
 
 function renderYears(data) {
     'use strict';
-    const yearContainer = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+    const yearContainer = document.getElementsByClassName('data-box__select--add-folder-photo-year');
     yearContainer[0].innerHTML = '';
     var htmlString = "";
 
@@ -1011,7 +1037,7 @@ function getFolders(fisrtYear) {
     'use strict';
     var year;
     if (fisrtYear === undefined) {
-        const y = document.getElementsByClassName('data-box__select--add-repo-photo-year');
+        const y = document.getElementsByClassName('data-box__select--add-folder-photo-year');
         year = y[0].value;
     } else {
         year = fisrtYear;
@@ -1188,4 +1214,10 @@ function getRollingFolders() {
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', 'php/folders.php?=getRollingFolders');
+}
+
+function disableSubmitButton() {
+    'use strict';
+    const butt = document.getElementsByClassName('data-box__go-button')[0];
+    butt.disabled = true;
 }

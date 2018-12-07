@@ -43,7 +43,7 @@
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link" href="objects.html">Objets de famille</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="family_photos.html">La famille en
+                <li class="c-nav-main__item"><a class="c-nav-main__link" href="familyPhotos.html">La famille en
                         photos</a>
                 </li>
             </ul>

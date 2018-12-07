@@ -14,19 +14,19 @@
 <body onload="getDecades();">
 <div class="page data-box">
 
-    <h1 class="data-box__h1 data-box__h1--reposit">Ajouter un répertoire</h1>
+    <h1 class="data-box__h1 data-box__h1--folder">Ajouter un répertoire</h1>
     <div>
         <a href="index.php" class="data-box__exit">X</a>
     </div>
 
     <main role="main">
-        <fieldset class="data-box__fieldset data-box__fieldset--reposit">
-            <form action="javascript:addFolder()" class="data-box__form data-box__form--reposit">
+        <fieldset class="data-box__fieldset data-box__fieldset--folder">
+            <form action="javascript:addFolder()" class="data-box__form data-box__form--folder">
                 <input type="submit" value="Soumettre" class="data-box__go-button"><br>
 
                 <div>
                     <label for="data-box__select--level" class="data-box__label">Nombre de niveaux</label>
-                    <select class="data-box__select data-box__select--add-repo-level">
+                    <select class="data-box__select data-box__select--add-folder-level">
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4" selected>4</option>
@@ -35,7 +35,7 @@
                 <br>
                 <div>
                     <label for="data-box__select--family" class="data-box__label">Type de regroupement</label>
-                    <select class="data-box__select data-box__select--add-repo-family">
+                    <select class="data-box__select data-box__select--add-folder-family">
                         <option value="2" selected>Famille</option>
                         <option value="3">Livres</option>
                         <option value="6">Objets</option>
@@ -44,7 +44,7 @@
                 <br>
                 <div>
                     <label for="data-box__select--author" class="data-box__label">Auteur</label>
-                    <select class="data-box__select data-box__select--add-repo-author">
+                    <select class="data-box__select data-box__select--add-folder-author">
                         <option value="2" selected>Michel</option>
                         <option value="3">Amélie</option>
                         <option value="4">Chantal</option>
@@ -55,14 +55,14 @@
                 <br>
                 <div>
                     <label for="data-box__select--decade" class="data-box__label">Décennie</label>
-                    <select class="data-box__select data-box__select--add-repo-photo-decade"
+                    <select class="data-box__select data-box__select--add-folder-photo-decade"
                             onchange="getYearsSelected();">
                     </select>
                 </div>
                 <br>
                 <div>
                     <label for="data-box__select--year" class="data-box__label">Année</label>
-                    <select class="data-box__select data-box__select--add-repo-photo-year">
+                    <select class="data-box__select data-box__select--add-folder-photo-year">
                     </select>
                 </div>
                 <br>
