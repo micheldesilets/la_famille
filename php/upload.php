@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $year = $_POST['year'];
         $title = $_POST['title'];
 
-        $repositData = array($type, $author, $decade, $year, $title);
-        require_once '../classes/database/cl_repositoriesDB.php';
-        $db = new repository();
-        $pathSql = $db->getPath($repositData);
+        $folderData = array($type, $author, $decade, $year, $title);
+        require_once '../classes/database/cl_foldersDB.php';
+        $db = new foldersDB();
+        $pathSql = $db->getPath($folderData);
         $path = $pathSql[0];
         $idRpt = $pathSql[1];
 

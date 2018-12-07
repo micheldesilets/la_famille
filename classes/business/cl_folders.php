@@ -27,12 +27,12 @@ class Folders implements JsonSerializable
     return $this->m_idpfo;
   }
 
-  public function setRepositoryId($m_idrpt): void
+  public function setFolderId($m_idrpt): void
   {
     $this->m_idrpt = $m_idrpt;
   }
 
-  public function getRepositoryId()
+  public function getFolderId()
   {
     return $this->m_idrpt;
   }
@@ -107,7 +107,7 @@ class Folders implements JsonSerializable
   {
     return [
       'folderId' => $this->getIdpfo(),
-      'repository' => $this->getRepositoryId(),
+      'folder' => $this->getFolderId(),
       'type' => $this->getTypeId(),
       'author' => $this->getAuthor(),
       'decade' => $this->getDecade(),

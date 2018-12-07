@@ -78,7 +78,7 @@ class photosBD
             FROM photos_pho pho
             INNER JOIN photos_folders_pfo pfo
             ON pfo.idrpt_pfo = pho.idrpt_pho
-            JOIN repository_titles_rpt rpt 
+            JOIN folders_fol rpt 
             ON pfo.idrpt_pfo = rpt.id_rpt
             WHERE  ";
 

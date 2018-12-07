@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="GoDaddy" uuid="c760aac7-0fc8-4e9f-9da7-a148d88240c0">
+    <data-source source="LOCAL" name="GoDaddy" uuid="683f179e-7a4f-4c27-bfb4-b3ea70b8de35">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://lesnormandeaudesilets.ca:3306/famille-norm-desi</jdbc-url>
+      <jdbc-url>jdbc:mysql://lesnormandeaudesilets.ca:3306/lesnormandeaudesilets</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -15,7 +15,7 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="lesnormandeaudesilets_DEV@localhost" uuid="d6d300eb-5734-45f8-b9c4-fdcbcff609e5">
+    <data-source source="LOCAL" name="lesnormandeaudesilets_DEV@localhost" uuid="a8488d82-e1e3-4227-8462-8570d715f31d">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>

@@ -27,7 +27,7 @@ var obj;
 var modalObj;
 var modal;
 var infoPhotoData;
-var repositoryData = [];
+var folderData = [];
 var myYearsData = "";
 var namesList = [];
 var geneolListDone = false;
@@ -45,7 +45,7 @@ var level;
 function getFolderTree() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/repositories.php?function=getRepositories', true);
+    xhr.open('GET', 'php/folders.php?function=getFolders', true);
     xhr.onload = function () {
         console.log(xhr.responseText);
         const folderData = JSON.parse(xhr.responseText);
@@ -119,11 +119,11 @@ function folderLevel2(branch) {
     }
 
     if ((author === branch.author && branch.author.length > 0) &&
-        (repoId !== branch.repository)) {
+        (repoId !== branch.folder)) {
 
         htmlString = htmlString +
-            "<li class='folders__photofolder L2' onclick='getFamilyPhotos(this," + branch.repository + "," + branch.type + ")'>" + branch.title + "</li>\n";
-        repoId = branch.repository;
+            "<li class='folders__photofolder L2' onclick='getFamilyPhotos(this," + branch.folder + "," + branch.type + ")'>" + branch.title + "</li>\n";
+        repoId = branch.folder;
     }
 }
 
@@ -172,10 +172,10 @@ function folderLevel4(branch) {
     if ((author === branch.author && branch.author.length > 0) &&
         (decade === branch.decade && branch.decade.length > 0) &&
         (year === branch.year && branch.year.length > 0) &&
-        (repoId !== branch.repository)) {
+        (repoId !== branch.folder)) {
         htmlString = htmlString +
-            "<li class=\"folders__photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.repository + "," + branch.type + ")\">" + branch.title + "</li>\n";
-        repoId = branch.repository;
+            "<li class=\"folders__photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.folder + "," + branch.type + ")\">" + branch.title + "</li>\n";
+        repoId = branch.folder;
     }
 }
 
@@ -188,12 +188,12 @@ function getFamilyPhotos(obj, path, type) {
 function getPhotos(path, type) {
     'use strict';
     searchChoice = false;
-    const myRequest = new XMLHttpRequest();
-    myRequest.open("GET", "php/getPhotos.php?path=" + path, true);
-    myRequest.onload = function () {
-        if (myRequest.readyState === 4) {
-            console.log(myRequest.responseText);
-            myData = JSON.parse(myRequest.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "php/getPhotos.php?path=" + path, true);
+    xhr.onload = function () {
+        if (xhr.readyState === 4) {
+            console.log(xhr.responseText);
+            myData = JSON.parse(xhr.responseText);
             switch (type) {
                 case 4:
                     renderHomePhoto();
@@ -205,7 +205,7 @@ function getPhotos(path, type) {
             }
         }
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function searchInputs() {
@@ -214,18 +214,18 @@ function searchInputs() {
     folderTitle = "";
     const searchFormData = getSearchInputs();
 
-    const myRequest = new XMLHttpRequest();
-    myRequest.open("GET", "php/getSearchedPhotos.php?kwrd=" + searchFormData.kwords + "&startYear=" + searchFormData.startYear + "&endYear=" + searchFormData.endYear +
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "php/getSearchedPhotos.php?kwrd=" + searchFormData.kwords + "&startYear=" + searchFormData.startYear + "&endYear=" + searchFormData.endYear +
         "&wExact=" + searchFormData.wExact.toString() + "&wPart=" + searchFormData.wPart.toString() +
         "&searchKw=" + searchFormData.searchClefs.toString() + "&searchTitles=" + searchFormData.searchTitres.toString() + "&searchComments=" + searchFormData.searchComment.toString() + "&photoId=" + searchFormData.photoId +
         "&idUnique=" + searchFormData.idUnique.toString() + "&idContext=" + searchFormData.idContext.toString(), true);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        myData = JSON.parse(myRequest.responseText);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        myData = JSON.parse(xhr.responseText);
         turnOffSearchFolders();
         renderFamilyPhotos();
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function getSelectedInfoPhoto() {
@@ -233,47 +233,47 @@ function getSelectedInfoPhoto() {
     searchChoice = false;
     const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
-    console.log(myRequest.responseText);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        const myInfoPhoto = JSON.parse(myRequest.responseText);
+    console.log(xhr.responseText);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        const myInfoPhoto = JSON.parse(xhr.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
-    myRequest.send();
+    xhr.send();
 }
 
 function getPhotoInfoPrevious() {
     'use strict';
     selectedPhotoId -= 1;
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        const myInfoPhoto = JSON.parse(myRequest.responseText);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        const myInfoPhoto = JSON.parse(xhr.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
-    myRequest.send();
+    xhr.send();
 }
 
 function getPhotoInfoNext() {
     'use strict';
     selectedPhotoId += 1;
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
-    myRequest.onload = function () {
-        console.log(myRequest.responseText);
-        const myInfoPhoto = JSON.parse(myRequest.responseText);
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        const myInfoPhoto = JSON.parse(xhr.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
 
-    myRequest.send();
+    xhr.send();
 }
 
 function renderInfoPhoto(data) {
@@ -426,15 +426,15 @@ function initSearchInputs() {
 function initAllYears() {
     'use strict';
     if (myYearsData.length === 0) {
-        const myRequest = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
 
-        myRequest.open('GET', 'php/getAllYears.php', true);
-        myRequest.onload = function () {
-            console.log(myRequest.responseText);
-            myYearsData = JSON.parse(myRequest.responseText);
+        xhr.open('GET', 'php/getAllYears.php', true);
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            myYearsData = JSON.parse(xhr.responseText);
             renderAllYears(myYearsData);
         };
-        myRequest.send();
+        xhr.send();
     }
 }
 
@@ -785,13 +785,13 @@ function getReadings() {
         assignReadingTitle();
     }
 
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getReadings.php?path=' + path, true);
-    myRequest.onload = function () {
-        var myData = JSON.parse(myRequest.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/getReadings.php?path=' + path, true);
+    xhr.onload = function () {
+        var myData = JSON.parse(xhr.responseText);
         renderReadings(myData);
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function renderReadings(data) {
@@ -824,13 +824,13 @@ function renderReadings(data) {
 
 function getObjects() {
     'use strict';
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getObjects.php?path=' + 12, true);
-    myRequest.onload = function () {
-        var myData = JSON.parse(myRequest.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/getObjects.php?path=' + 12, true);
+    xhr.onload = function () {
+        var myData = JSON.parse(xhr.responseText);
         renderObjects(myData);
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function renderObjects(data) {
@@ -877,62 +877,57 @@ function objModal(e) {
     };
 }
 
-/*** ADD REPOSITORY
+/*** ADD folder
  ********************************/
-function getRepositInputs() {
+function getFolderInputs() {
     'use strict';
-    const repositoryDoc = document.getElementsByClassName('data-box__select');
+    const folderDoc = document.getElementsByClassName('data-box__select');
 
-    repositoryData.levels = repositoryDoc[0].value;
-    repositoryData.type = repositoryDoc[1].value;
-    repositoryData.author = repositoryDoc[2].value;
-    repositoryData.decade = repositoryDoc[3].value;
-    repositoryData.year = repositoryDoc[4].value;
-    repositoryData.title = repositoryDoc[5].value;
+    folderData.levels = folderDoc[0].value;
+    folderData.type = folderDoc[1].value;
+    folderData.author = folderDoc[2].value;
+    folderData.decade = folderDoc[3].value;
+    folderData.year = folderDoc[4].value;
+    folderData.title = folderDoc[5].value;
 }
 
-function getRepositInputsPhotos() {
+function getFolderInputsPhotos() {
     'use strict';
-       const repositoryDoc = document.getElementsByClassName('data-box__select');
+       const folderDoc = document.getElementsByClassName('data-box__select');
 
-       repositoryData.type = repositoryDoc[0].value;
-       repositoryData.author = repositoryDoc[1].value;
-       repositoryData.decade = repositoryDoc[2].value;
-       repositoryData.year = repositoryDoc[3].value;
-       repositoryData.title = repositoryDoc[4].value;
+       folderData.type = folderDoc[0].value;
+       folderData.author = folderDoc[1].value;
+       folderData.decade = folderDoc[2].value;
+       folderData.year = folderDoc[3].value;
+       folderData.title = folderDoc[4].value;
 }
 
-function addRepository() {
+function addFolder() {
     'use strict';
-    getRepositInputs();
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepository', true);
-    myRequest.send();
-    addRepositoryMysql();
+    getFolderInputs();
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/addFolder.php?type=' + folderData.type +
+        '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
+        '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolder', true);
+    xhr.send();
+    addFolderMysql();
 }
 
-function addRepositoryMysql() {
+function addFolderMysql() {
     'use strict';
     const message = document.getElementsByClassName('data-box__message');
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/addRepository.php?type=' + repositoryData.type +
-        '&author=' + repositoryData.author + '&decade=' + repositoryData.decade + '&year=' + repositoryData.year +
-        '&title=' + repositoryData.title + '&levels=' + repositoryData.levels + '&function=addRepositoryMysql', true);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/addFolder.php?type=' + folderData.type +
+        '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
+        '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolderMysql', true);
 
-    /*    myRequest.onload = function () {
-            console.log(myRequest.responseText);
-            // var myData = JSON.parse(myRequest.responseText);
-        };*/
-
-    myRequest.send();
+    xhr.send();
     message[0].style.display = 'block';
 }
 
 function uploadPhotos() {
     'use strict';
-    getRepositInputsPhotos();
+    getFolderInputsPhotos();
 
     const url = 'php/upload.php';
     const files = document.getElementById('data-box__input--photos').files;
@@ -943,11 +938,11 @@ function uploadPhotos() {
         formData.append('files[]', file);
     }
 
-    formData.append('type', repositoryData.type);
-    formData.append('author', repositoryData.author);
-    formData.append('decade', repositoryData.decade);
-    formData.append('year', repositoryData.year);
-    formData.append('title', repositoryData.title);
+    formData.append('type', folderData.type);
+    formData.append('author', folderData.author);
+    formData.append('decade', folderData.decade);
+    formData.append('year', folderData.year);
+    formData.append('title', folderData.title);
 
     fetch(url, {
         method: 'POST',
@@ -975,17 +970,17 @@ function getYearsSelected() {
     const url = currentWindow();
     const deca = document.getElementsByClassName('data-box__select--add-repo-photo-decade');
     const decade = deca[0].value;
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getYears.php?decade=' + decade, true);
-    myRequest.onload = function () {
-        const myYearsData = JSON.parse(myRequest.responseText);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/getYears.php?decade=' + decade, true);
+    xhr.onload = function () {
+        const myYearsData = JSON.parse(xhr.responseText);
         renderYears(myYearsData);
         if (url === 'addPhotos.html') {
             const firstYear = myYearsData[0].idxYear;
-            getReposits(firstYear);
+            getFolders(firstYear);
         }
     };
-    myRequest.send();
+    xhr.send();
 }
 
 function renderDecades(decades) {
@@ -1012,7 +1007,7 @@ function renderYears(data) {
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
 
-function getReposits(fisrtYear) {
+function getFolders(fisrtYear) {
     'use strict';
     var year;
     if (fisrtYear === undefined) {
@@ -1022,26 +1017,26 @@ function getReposits(fisrtYear) {
         year = fisrtYear;
     }
 
-    const myRequest = new XMLHttpRequest();
-    myRequest.open('GET', 'php/getReposits.php?year=' + year, true);
-    myRequest.onload = function () {
-        const myRepositData = JSON.parse(myRequest.responseText);
-        renderReposits(myRepositData);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'php/getFolders.php?year=' + year, true);
+    xhr.onload = function () {
+        const folderData = JSON.parse(xhr.responseText);
+        renderFolders(folderData);
     };
 
-    myRequest.send();
+    xhr.send();
 }
 
-function renderReposits(myData) {
+function renderFolders(folderData) {
     'use strict';
-    var repositContainer = document.getElementsByClassName('data-box__select--add-ph-title');
+    var folderContainer = document.getElementsByClassName('data-box__select--add-ph-title');
     var htmlString = "";
-    repositContainer[0].innerHTML = '';
+    folderContainer[0].innerHTML = '';
 
-    for (const obj of myData) {
-        htmlString += "<option value=\"" + obj.repository + "\">" + obj.title + "</option>";
+    for (const obj of folderData) {
+        htmlString += "<option value=\"" + obj.folder + "\">" + obj.title + "</option>";
     }
-    repositContainer[0].insertAdjacentHTML('beforeend', htmlString);
+    folderContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
 
 function renderSelectedPhotos() {
@@ -1192,5 +1187,5 @@ function getRollingFolders() {
     'use strict';
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', 'php/repositories.php?=getRollingRepositories');
+    xhr.open('GET', 'php/folders.php?=getRollingFolders');
 }

@@ -18,12 +18,13 @@ if ($function == addFolder) {
     $year = $_GET['year'];
     $title = $_GET['title'];
     $levels = $_GET['levels'];
+    $title = carReplace($title);
 
-    $folderData = array($type, $author, $decade, $year, $title, $levels);
+    $folderData = array($type, $author, $decade, $year, $title, $levels,$title);
 
     $db = new foldersDB();
     $db->addFolder($folderData);
-}
+    }
 
 if ($function == addFolderMysql) {
     require_once '../classes/database/cl_foldersDB.php';
@@ -33,6 +34,7 @@ if ($function == addFolderMysql) {
     $year = $_GET['year'];
     $title = $_GET['title'];
     $levels = $_GET['levels'];
+    $title = carReplace($title);
 
     $folderData = array($type, $author, $decade, $year, $title, $levels);
 
@@ -46,4 +48,21 @@ if ($function === addMetadataToMysql) {
 
     $db = new foldersDB();
     $db->addMetadataToMysql($meta);
+    return;
+}
+
+function carReplace($folderName)
+{
+    $folderName = str_replace(' ', '_', $folderName);
+    $folderName = str_replace('é', 'e', $folderName);
+    $folderName = str_replace('è', 'e', $folderName);
+    $folderName = str_replace('ê', 'e', $folderName);
+    $folderName = str_replace('ä', 'a', $folderName);
+    $folderName = str_replace('û', 'u', $folderName);
+    $folderName = str_replace('à', 'a', $folderName);
+    $folderName = str_replace('É', 'E', $folderName);
+    $folderName = str_replace('ô', 'o', $folderName);
+    $folderName = str_replace('ç', 'c', $folderName);
+
+    return $folderName;
 }

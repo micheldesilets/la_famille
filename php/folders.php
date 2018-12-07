@@ -9,10 +9,10 @@ header('content-type: text/javascript');
 
 $function = $_GET['function'];
 
-if ($function === 'getRepositories') {
-    require_once '../classes/database/cl_repositoriesDB.php';
-    $db = new repository();
-    $folder = $db->getRepositories();
+if ($function === 'getFolders') {
+    require_once '../classes/database/cl_foldersDB.php';
+    $db = new foldersDB();
+    $folder = $db->getFoldersTree();
 }
 
 /*if ($function === getRollingRepositories()){

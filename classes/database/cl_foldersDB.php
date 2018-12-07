@@ -5,18 +5,18 @@
  * Date: 2018-10-19
  * Time: 10:04
  */
-class repository
+class foldersDB
 {
-    public function getRepositories()
+    public function getFoldersTree()
     {
         include '../connection/connect.php';
-        require_once '../classes/business/cl_repositories.php';
+        require_once '../classes/business/cl_folders.php';
 
-        $folder = new Folders();
+        $folder = new folders();
 
         $sql = "SELECT rpt.id_rpt,typ.id_typ,aut.first_name_aut,deca.decade_deca,
                    yea.year_yea,rpt.title_rpt,rpt.levels_rpt,aut.prefix_aut
-            FROM repository_titles_rpt rpt
+            FROM folders_fol rpt
                  INNER JOIN author_aut aut
                  ON rpt.idaut_rpt = aut.id_aut
                  INNER JOIN decade_deca deca
@@ -43,9 +43,9 @@ class repository
             // Associative array
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-            $folder = new Folders();
+            $folder = new folders();
 
-            $folder->setRepositoryId($row["id_rpt"]);
+            $folder->setFolderId($row["id_rpt"]);
             $folder->setTypeId($row["id_typ"]);
             $folder->setAuthor($row["prefix_aut"] . $row["first_name_aut"]);
             $folder->setDecade($row["decade_deca"]);
@@ -67,22 +67,19 @@ class repository
         echo $json;
     }
 
-    function addRepository($repositData)
+    function addFolder($folderData)
     {
         // current directory
         $wd = getcwd();
-        require_once '../classes/business/cl_repositories.php';
+        require_once '../classes/business/cl_folders.php';
         include '../connection/connect.php';
 
-        $type = $repositData[0];
-        $author = $repositData[1];
-        $decade = $repositData[2];
-        $year = $repositData[3];
-        $title = $repositData[4];
-        $levels = $repositData[5];
-
-        $repositArray = array();
-        $repository = new Folders();
+        $type = $folderData[0];
+        $author = $folderData[1];
+        $decade = $folderData[2];
+        $year = $folderData[3];
+        $title = $folderData[4];
+        $levels = $folderData[5];
 
 //        $sql= 'CALL getRepositoryDescriptions($type,$author,$decade,$year)';
 
@@ -107,26 +104,26 @@ class repository
             echo("nothing");
         };
 
-        $repositArray = [mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC),
-            mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC), $title, $levels];
+        $folderArray = array(mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC),
+            mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC), $title, $levels);
 
         mysqli_close($con);
 
-        $this->createRepositoryFolder($repositArray);
+        $this->createFolder($folderArray);
 
         return;
     }
 
-    function createRepositoryFolder($repository)
+    function createFolder($folder)
     {
         chdir('../');
         $curr = getcwd();
 
-        $typePhoto = $repository[0];
-        $author = $repository[1];
-        $decade = $repository[2];
-        $year = $repository[3];
-        $title = $repository[4];
+        $typePhoto = $folder[0];
+        $author = $folder[1];
+        $decade = $folder[2];
+        $year = $folder[3];
+        $title = $folder[4];
 
         $path = $curr . '/assets/img';
 
@@ -161,19 +158,19 @@ class repository
         };
     }
 
-    function addRepositoryMysql($repositData)
+    function addFolderMysql($folderData)
     {
         $curr = getcwd();
         include '../connection/connect.php';
 
-        $typePhoto = $repositData[0];
-        $author = $repositData[1];
-        $decade = $repositData[2];
-        $year = $repositData[3];
-        $title = $repositData[4];
-        $levels = $repositData[5];
+        $typePhoto = $folderData[0];
+        $author = $folderData[1];
+        $decade = $folderData[2];
+        $year = $folderData[3];
+        $title = $folderData[4];
+        $levels = $folderData[5];
 
-        $sql = "CALL addRepository($typePhoto,'" . $title . "',$author,$decade,$year,$levels)";
+        $sql = "CALL addFolder($typePhoto,'" . $title . "',$author,$decade,$year,$levels)";
 
         if (mysqli_query($con, $sql)) {
             echo "New record created successfully";
@@ -182,20 +179,16 @@ class repository
         }
 
         mysqli_close($con);
-        /*
-        $cars = array("Volvo", "BMW", "Toyota");
-        $json=createJson($cars);
-        echo $json;*/
     }
 
-    function getReposits($year)
+    function getFolders($year)
     {
         $wd = getcwd();
 
-        require_once '../classes/business/cl_repositories.php';
+        require_once '../classes/business/cl_folders.php';
         include '../connection/connect.php';
 
-        $sql = "CALL getRepositories($year)";
+        $sql = "CALL getFolders($year)";
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -204,19 +197,19 @@ class repository
             echo("nothing");
         };
 
-        $repositArray = array();
+        $folderArray = array();
         $l = 1;
 
         while ($l <= $rowcount):
             // Associative array
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-            $reposit = new Folders();
+            $folder = new folders();
 
-            $reposit->setRepositoryId($row['id_rpt']);
-            $reposit->setTitle($row["title_rpt"]);
+            $folder->setFolderId($row['id_rpt']);
+            $folder->setTitle($row["title_rpt"]);
 
-            array_push($repositArray, $reposit);
+            array_push($folderArray, $folder);
 
             $l++;
         endwhile;
@@ -226,7 +219,7 @@ class repository
 
         mysqli_close($con);
 
-        $json = createJson($repositArray);
+        $json = createJson($folderArray);
         echo $json;
     }
 

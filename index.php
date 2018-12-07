@@ -24,7 +24,7 @@
         <div class="masthead__dropdown">
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="addRepository.html">Ajout d'un répertoire</a>
+                <a class="masthead__item" href="addFolder.html">Ajout d'un répertoire</a>
                 <a class="masthead__item" href="addPhotos.html">Ajout de photos</a>
             </div>
         </div>
