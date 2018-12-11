@@ -13,20 +13,7 @@ class foldersDB
         require_once '../classes/business/cl_folders.php';
 
         $folder = new folders();
-
-        $sql = "SELECT rpt.id_rpt,typ.id_typ,aut.first_name_aut,deca.decade_deca,
-                   yea.year_yea,rpt.title_rpt,rpt.levels_rpt,aut.prefix_aut
-            FROM folders_fol rpt
-                 INNER JOIN author_aut aut
-                 ON rpt.idaut_rpt = aut.id_aut
-                 INNER JOIN decade_deca deca
-                 ON rpt.iddec_rpt = deca.id_deca
-                 INNER JOIN year_yea yea
-                 ON rpt.idyea_rpt = yea.id_yea
-                 INNER JOIN type_typ typ
-                 ON rpt.idtyp_rpt = typ.id_typ
-             WHERE typ.id_typ = 2
-             ORDER BY typ.id_typ, aut.first_name_aut, deca.decade_deca, yea.year_yea";
+        $sql = "CALL getFoldersTree()";
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -67,6 +54,55 @@ class foldersDB
         echo $json;
     }
 
+    public function getShiftingFolders()
+    {
+        include '../connection/connect.php';
+        require_once '../classes/business/cl_folders.php';
+
+        $folder = new folders();
+        $sql = "CALL getShiftingFolders()";
+
+        if ($result = mysqli_query($con, $sql)) {
+            // Return the number of rows in result set
+            $rowcount = mysqli_num_rows($result);
+        } else {
+            echo("nothing");
+        };
+
+
+        $folderArray = array();
+        $l = 1;
+
+        while ($l <= $rowcount):
+            // Associative array
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $folder = new folders();
+
+            $folder->setFolderId($row["id_rpt"]);
+            $folder->setTypeId("2");
+            $folder->setAuthor("");
+            $folder->setDecade("");
+            $folder->setYear("");
+            $folder->setTitle($row['title_rpt']);
+            $folder->setLevels("");
+
+            array_push($folderArray, $folder);
+
+            $l++;
+        endwhile;
+
+        // Free result set
+        mysqli_free_result($result);
+
+        mysqli_close($con);
+        unset($conn);
+
+        unset($stmt);
+        $json = createJson($folderArray);
+        echo $json;
+    }
+
     function addFolder($folderData)
     {
         // current directory
@@ -81,23 +117,7 @@ class foldersDB
         $title = $folderData[4];
         $levels = $folderData[5];
 
-//        $sql= 'CALL getRepositoryDescriptions($type,$author,$decade,$year)';
-
-        $sql = "SELECT typ.type_typ 
-            FROM type_typ typ 
-            WHERE typ.id_typ = $type
-            UNION ALL
-            SELECT aut.first_name_aut 
-            FROM author_aut aut 
-            WHERE aut.id_aut = $author
-            UNION ALL 
-            SELECT decade_deca
-            FROM decade_deca deca
-            WHERE deca.id_deca = $decade
-            UNION ALL 
-            SELECT year_yea
-            FROM year_yea yea
-            WHERE yea.id_yea = $year";
+        $sql = "CALL getFolderDescriptions($type,$author,$decade,$year)";
 
         if ($result = mysqli_query($con, $sql)) {
         } else {

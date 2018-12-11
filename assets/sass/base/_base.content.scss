@@ -29,10 +29,12 @@
   }
 
   &__button {
-    position: relative;
-    top: 8px;
-    left: 354px;
-    font-size: small;
+    width: 100%;
+    text-align: center;
+    //position: relative;
+    //top: 8px;
+    //left: 354px;
+    font-size: $font-small;
   }
 
   &__go-button {
@@ -41,13 +43,17 @@
     margin-right: 13px;
   }
 
-  &__button-prev, &__button-next {
+  &__button-prev, &__button-next, &__rotate-photo-90degres-negative, &__rotate-photo-90degres-positive {
     background-color: $color1;
     border: none;
     cursor: pointer;
     @include hocus() {
       color: $color3;
     }
+  }
+
+  &__rotate-photo-90degres-negative {
+    padding-left: 22px;
   }
 
   &__label {
@@ -96,7 +102,7 @@
     margin: auto;
     margin-top: 35px;
     width: 150px;
-    height: 200px;
+    height: 165px;
   }
 
   &__photo {
@@ -104,6 +110,7 @@
     margin-top: 10px;
     text-align: center;
     height: 150px;
+
     &:hover {
       position: relative;
       z-index: 1;
@@ -320,7 +327,7 @@
     margin-right: .6em; /* to align boxes */
   }
 
-  &__pid{
+  &__pid {
     background-color: $color1;
   }
 
@@ -500,7 +507,21 @@
     color: #bbbbbb;
   }
 
+  &__next-folder, &__previous-folder {
+    float: left;
+    position: relative;
+   //left: 40px;
+    background-color: $color1;
+    border: none;
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+
   &__thumb-title {
+    min-width: 65%;
+    max-width: 65%;
     float: left;
     display: none;
     font-weight: bold;

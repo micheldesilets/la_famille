@@ -9,13 +9,14 @@ header('content-type: text/javascript');
 
 $function = $_GET['function'];
 
+require_once '../classes/database/cl_foldersDB.php';
+$db = new foldersDB();
+
 if ($function === 'getFolders') {
-    require_once '../classes/database/cl_foldersDB.php';
-    $db = new foldersDB();
-    $folder = $db->getFoldersTree();
+    $db->getFoldersTree();
 }
 
-/*if ($function === getRollingRepositories()){
-
-};*/
+if ($function === 'getShiftingFolders') {
+$db->getShiftingFolders();
+};
 

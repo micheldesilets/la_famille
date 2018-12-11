@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body id="bdy" onload="getRollingFolders">
+<body id="bdy" onload="getShiftingFolders()">
 <div class="page ">
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
@@ -33,8 +33,11 @@
     <!-- end masthead -->
 
     <div class="clearfix">
-        <!--        <div><p id="thumbTitle"></p>-->
         <div><p class="photos__thumb-title"></p>
+            <button onclick="showPreviousFolder()" class="photos__previous-folder" style="display: none">Répertoire précédent
+            </button>
+            <button onclick="showNextFolder()" class="photos__next-folder" style="display: none" >Répertoire suivant
+            </button>
             <button class="search__back-to-tree" onclick="backToTree()">
                 <strong>X</strong>
             </button>
@@ -56,7 +59,9 @@
                            onkeypress="cancelPid()"><br>
                     <input type="submit" value="Rechercher" class="search__go-button"><br>
 
-                    <div class="search__insert-years">
+                    <div class="search__from-year">
+                    </div>
+                    <div class="search__to-year">
                     </div>
 
                     <p class="search__radio-button">
@@ -119,7 +124,7 @@
                 <button class="photos__next">></button>
 
                 <img src="assets/img/icons/iconfinder_Streamline-22_185042.png" class="photos__edit-photo" alt="Edition"
-                onclick="editPhoto()">
+                     onclick="editPhoto()">
                 <span class="close">x</span>
 
 
@@ -137,8 +142,6 @@
 </div>
 
 <script src="assets/js/main.js"></script>
-<!--<script src="js/mainext.js"></script>-->
-<!--<script>assignPhotosHierarchy()</script>-->
 <script>getFolderTree()</script>
 
 </body>

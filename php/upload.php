@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $target_file = $resized_file;
 //                $thumbnail = "uploads/thumb_$fileName";
                 $thumbnail = $path . 'preview/' . $file_name;
-                $random = rand(0, 4);
+                $random = rand(0, 6);
                 switch ($random) {
                     case 0;
                         $wthumb = 125;
@@ -103,6 +103,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     case 4;
                         $wthumb = 125;
                         $hthumb = 100;
+                        break;
+                    case 5;
+                        $wthumb = 100;
+                        $hthumb = 150;
+                        break;
+                    case 6;
+                        $wthumb = 150;
+                        $hthumb = 150;
                         break;
                 }
                 img_thumb($target_file, $thumbnail, $wthumb, $hthumb, $file_ext);
