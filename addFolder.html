@@ -26,7 +26,7 @@
 
                 <div>
                     <label for="data-box__select--level" class="data-box__label">Nombre de niveaux</label>
-                    <select class="data-box__select data-box__select--add-folder-level">
+                    <select class="data-box__select data-box__select--add-folder-level" id="data-box__select--level">
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4" selected>4</option>
@@ -35,7 +35,7 @@
                 <br>
                 <div>
                     <label for="data-box__select--family" class="data-box__label">Type de regroupement</label>
-                    <select class="data-box__select data-box__select--add-folder-family">
+                    <select class="data-box__select data-box__select--add-folder-family" id="data-box__select--family">
                         <option value="2" selected>Famille</option>
                         <option value="3">Livres</option>
                         <option value="6">Objets</option>
@@ -44,7 +44,7 @@
                 <br>
                 <div>
                     <label for="data-box__select--author" class="data-box__label">Auteur</label>
-                    <select class="data-box__select data-box__select--add-folder-author">
+                    <select class="data-box__select data-box__select--add-folder-author" id="data-box__select--author">
                         <option value="2" selected>Michel</option>
                         <option value="3">Amélie</option>
                         <option value="4">Chantal</option>
@@ -55,20 +55,20 @@
                 <br>
                 <div>
                     <label for="data-box__select--decade" class="data-box__label">Décennie</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-decade"
+                    <select class="data-box__select data-box__select--add-folder-photo-decade" id="data-box__select--decade"
                             onchange="getYearsSelected();">
                     </select>
                 </div>
                 <br>
                 <div>
                     <label for="data-box__select--year" class="data-box__label">Année</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-year">
+                    <select class="data-box__select data-box__select--add-folder-photo-year" id="data-box__select--year">
                     </select>
                 </div>
                 <br>
                 <div>
                     <label for="data-box__select--title" class="data-box__label">Nom du répertoire</label>
-                    <input type="text" class="data-box__select data-box__select--title" size="50">
+                    <input type="text" class="data-box__select data-box__select--title" id="data-box__select--title" size="50">
                 </div>
             </form>
 

@@ -1,3 +1,5 @@
+/* jshint node: true */
+
 var mysql = require('mysql');
 var express = require('express');
 var siege = require('siege');
@@ -21,13 +23,14 @@ con.connect(function (err) {
 });
 
 app.get('/', function (req, res) {
-    'use strict';
+     'use strict';
     con.query('call getAllYears', function (err, rows, fields) {
         con.end();
         if (!err) {
             console.log('The solution is: ', JSON.stringify(rows));
-        } else
+        } else {
             console.log('Error while performing Query.');
+        }
     });
 });
 

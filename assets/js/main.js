@@ -35,6 +35,7 @@ var folderData = [];
 var allYearsData = "";
 var namesList = [];
 var geneolListDone = false;
+var inFolders = true;
 
 var author = '';
 var decade = '';
@@ -184,9 +185,10 @@ function folderLevel4(branch) {
 
 function getFamilyPhotos(obj, path, type) {
     'use strict';
-    for (let i=0; i<jsShiftingFolders.length;++i){
-        if (path===parseInt(jsShiftingFolders[i].folder)){
-            currentShiftingFolder=i;
+    inFolders = true;
+    for (let i = 0; i < jsShiftingFolders.length; ++i) {
+        if (path === parseInt(jsShiftingFolders[i].folder)) {
+            currentShiftingFolder = i;
             break;
         }
     }
@@ -345,8 +347,8 @@ function renderFamilyPhotos() {
         htmlString += "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>\n";
     }
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
-    document.getElementsByClassName('photos__previous-folder')[0].disabled=false;
-    document.getElementsByClassName('photos__next-folder')[0].disabled=false;
+    document.getElementsByClassName('photos__previous-folder')[0].disabled = false;
+    document.getElementsByClassName('photos__next-folder')[0].disabled = false;
     animatePhotos();
 }
 
@@ -603,21 +605,29 @@ document.onkeydown = function (e) {
     'use strict';
     var currWin = currentWindow();
     const evt = e ? e : window.event;
-
+console.log(evt.key);
     switch (true) {
         case evt.key === 17:
             ctrlPressed = true;
             break;
-        case evt.key === 37:
+        case evt.key === 'ArrowLeft':
             // alert('left');
-            prevImage();
+            if (!inFolders) {
+                prevImage();
+            } else {
+                showPreviousFolder();
+            }
             break;
         case evt.key === 38:
             // alert('up');
             break;
-        case evt.key === 39:
+        case evt.key === 'ArrowRight':
             // alert('right');
-            nextImage();
+            if (!inFolders) {
+                nextImage();
+            } else {
+                showNextFolder();
+            }
             break;
         case evt.key >= 'a' && evt.key <= 'z':
             if (currWin === 'addFolder.html') {
@@ -701,6 +711,7 @@ function transformImage(e) {
 
 function imgModal(e) {
     'use strict';
+    inFolders = false;
     const currWin = window.location.href;
     const n = currWin.lastIndexOf('/');
     const winResult = currWin.substring(n + 1);
@@ -741,6 +752,7 @@ function imgModal(e) {
     span.onclick = function () {
         modal.style.display = 'none';
         bdy.style.overflow = 'visible';
+        inFolders = true;
     };
 }
 
@@ -761,12 +773,6 @@ function prevImage() {
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoIdCont.innerHTML = "<p>(pid-" + selectedPhotos[currentIdx - 1].idpho + ")</p>";
         currentIdx--;
-        if (currentIdx === 0) {
-            // backward.style.backgroundColor = 'red';
-        }
-        if (currentIdx < maxLength - 1) {
-            // forward.style.backgroundColor = 'green';
-        }
     }
 }
 
@@ -787,12 +793,6 @@ function nextImage() {
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoIdCont.innerHTML = "<p>(pid-" + selectedPhotos[currentIdx + 1].idpho + ")</p>";
         currentIdx++;
-        if (currentIdx === maxLength - 1) {
-            // forward.style.backgroundColor = 'red';
-        }
-        if (currentIdx > 0) {
-            // backward.style.backgroundColor = 'green';
-        }
     }
 }
 
@@ -1325,25 +1325,25 @@ function getShiftingFolders() {
 
 function showNextFolder() {
     'use strict';
-    document.getElementsByClassName('photos__previous-folder')[0].disabled=true;
-    document.getElementsByClassName('photos__next-folder')[0].disabled=true;
+    document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
+    document.getElementsByClassName('photos__next-folder')[0].disabled = true;
     if (currentShiftingFolder < jsShiftingFolders.length) {
         currentShiftingFolder += 1;
-        folderTitle=jsShiftingFolders[currentShiftingFolder].title;
-        const path=jsShiftingFolders[currentShiftingFolder].folder;
-        getPhotos(path,2);
+        folderTitle = jsShiftingFolders[currentShiftingFolder].title;
+        const path = jsShiftingFolders[currentShiftingFolder].folder;
+        getPhotos(path, 2);
     }
 }
 
 function showPreviousFolder() {
     'use strict';
-    document.getElementsByClassName('photos__previous-folder')[0].disabled=true;
-    document.getElementsByClassName('photos__next-folder')[0].disabled=true;
+    document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
+    document.getElementsByClassName('photos__next-folder')[0].disabled = true;
     if (currentShiftingFolder >= 0) {
         currentShiftingFolder -= 1;
-        const path=jsShiftingFolders[currentShiftingFolder].folder;
-        folderTitle=jsShiftingFolders[currentShiftingFolder].title;
-        getPhotos(path,2);
+        const path = jsShiftingFolders[currentShiftingFolder].folder;
+        folderTitle = jsShiftingFolders[currentShiftingFolder].title;
+        getPhotos(path, 2);
     }
 }
 
