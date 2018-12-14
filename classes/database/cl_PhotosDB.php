@@ -16,7 +16,7 @@ class photosBD
             JOIN parameters_par pp
             ON id_pho = pp.home_sidebar_par   
             JOIN photos_folders_pfo pfo
-           ON pfo.idrpt_pfo = pho.idrpt_pho
+           ON pfo.idfol_pfo = pho.idfol_pho
            WHERE pp.id_par = 1";
 
         if ($result = mysqli_query($con, $sql)) {
@@ -77,16 +77,16 @@ class photosBD
         $sql = "SELECT *
             FROM photos_pho pho
             INNER JOIN photos_folders_pfo pfo
-            ON pfo.idrpt_pfo = pho.idrpt_pho
+            ON pfo.idfol_pfo = pho.idfol_pho
             JOIN folders_fol rpt 
-            ON pfo.idrpt_pfo = rpt.id_rpt
+            ON pfo.idfol_pfo = rpt.id_fol
             WHERE  ";
 
         if ($photoPid != "") {
             if ($idContext == "true") {
-                $sql .= "rpt.idtyp_rpt = 2 AND pho.idrpt_pho = (SELECT idrpt_pho FROM photos_pho pp WHERE pp.id_pho= $photoPid)";
+                $sql .= "rpt.idtyp_fol = 2 AND pho.idfol_pho = (SELECT idfol_pho FROM photos_pho pp WHERE pp.id_pho= $photoPid)";
             } else {
-                $sql .= "rpt.idtyp_rpt = 2 AND pho.id_pho = $photoPid";
+                $sql .= "rpt.idtyp_fol = 2 AND pho.id_pho = $photoPid";
             }
         } else {
             if (count($kwords) > 0) {
@@ -166,7 +166,7 @@ class photosBD
             $sql .= "(year_pho >= '" . $startYear . "' AND year_pho <= '" . $endYear . "')";
 
         }
-        $sql .= " AND rpt.idtyp_rpt = 2 ORDER BY pho.year_pho";
+        $sql .= " AND rpt.idtyp_fol = 2 ORDER BY pho.year_pho";
 
         $json = $this->createJason($sql);
         echo $json;
@@ -238,10 +238,10 @@ class photosBD
                 $gName = $this->buildNamesList($row['idgen_pho']);
                 $photo->set_GeneolNames($gName);
             }
-            if ($row['title_rpt'] == null) {
+            if ($row['title_fol'] == null) {
                 $photo->set_rptTitle("");
             } else {
-                $photo->set_rptTitle($row['title_rpt']);
+                $photo->set_rptTitle($row['title_fol']);
             }
             if ($row['year_pho'] == null) {
                 $photo->set_Year("");

@@ -16,11 +16,12 @@ class readingsDB
 
 //    $lectures = new Readings();
 
-    $sql = "SELECT * FROM readings_rea
+      $sql = "CALL getReadings($path)";
+    /*$sql = "SELECT * FROM readings_rea
   JOIN photos_folders_pfo pfo
-  ON pfo.idrpt_pfo = idrpt_rea
-  WHERE pfo.idrpt_pfo = $path
-    ORDER BY order_rea";
+  ON pfo.idfol_pfo = idfol_pho
+  WHERE pfo.idfol_pfo = $path
+    ORDER BY order_rea";*/
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set

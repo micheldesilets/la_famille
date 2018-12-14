@@ -510,7 +510,7 @@
   &__next-folder, &__previous-folder {
     float: left;
     position: relative;
-   //left: 40px;
+   //left: 10px;
     background-color: $color1;
     border: none;
     cursor: pointer;
@@ -520,8 +520,8 @@
   }
 
   &__thumb-title {
-    min-width: 65%;
-    max-width: 65%;
+    min-width: 55%;
+    max-width: 55%;
     float: left;
     display: none;
     font-weight: bold;

@@ -17,8 +17,8 @@ class objectsDB
 
     $sql = "SELECT * FROM objects_obj obj
   JOIN photos_folders_pfo pfo
-  ON pfo.idrpt_pfo = obj.idrpt_obj
-  WHERE pfo.idrpt_pfo = $path
+  ON pfo.idfol_pfo = obj.idfol_obj
+  WHERE pfo.idfol_pfo = $path
     ORDER BY order_obj";
 
     if ($result = mysqli_query($con, $sql)) {

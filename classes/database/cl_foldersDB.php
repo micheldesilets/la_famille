@@ -22,7 +22,6 @@ class foldersDB
             echo("nothing");
         };
 
-
         $folderArray = array();
         $l = 1;
 
@@ -32,13 +31,13 @@ class foldersDB
 
             $folder = new folders();
 
-            $folder->setFolderId($row["id_rpt"]);
+            $folder->setFolderId($row["id_fol"]);
             $folder->setTypeId($row["id_typ"]);
             $folder->setAuthor($row["prefix_aut"] . $row["first_name_aut"]);
             $folder->setDecade($row["decade_deca"]);
             $folder->setYear($row["year_yea"]);
-            $folder->setTitle($row["title_rpt"]);
-            $folder->setLevels($row["levels_rpt"]);
+            $folder->setTitle($row["title_fol"]);
+            $folder->setLevels($row["levels_fol"]);
 
             array_push($folderArray, $folder);
 
@@ -79,12 +78,12 @@ class foldersDB
 
             $folder = new folders();
 
-            $folder->setFolderId($row["id_rpt"]);
+            $folder->setFolderId($row["id_fol"]);
             $folder->setTypeId("2");
             $folder->setAuthor("");
             $folder->setDecade("");
             $folder->setYear("");
-            $folder->setTitle($row['title_rpt']);
+            $folder->setTitle($row['title_fol']);
             $folder->setLevels("");
 
             array_push($folderArray, $folder);
@@ -226,8 +225,8 @@ class foldersDB
 
             $folder = new folders();
 
-            $folder->setFolderId($row['id_rpt']);
-            $folder->setTitle($row["title_rpt"]);
+            $folder->setFolderId($row['id_fol']);
+            $folder->setTitle($row["title_fol"]);
 
             array_push($folderArray, $folder);
 
@@ -283,8 +282,8 @@ class foldersDB
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $current = getcwd() . "\n";
             $path = '../assets/img/' . utf8_encode($row['type_typ']) . '/' . utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
-                $row['year_yea'] . '/' . utf8_encode($row['title_rpt']) . '/';
-            $info = [$path, $row['id_rpt']];
+                $row['year_yea'] . '/' . utf8_encode($row['title_fol']) . '/';
+            $info = [$path, $row['id_fol']];
             return $info;
         }
     }
