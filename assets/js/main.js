@@ -24,7 +24,7 @@ var photoIdCont;
 var ctrlPressed = false;
 var photoInfoList;
 var selectedPhotoId;
-var selectedPhotoIdx;
+var selectedPhotoIdx = {};
 var currentShiftingFolder;
 var jsShiftingFolders;
 var obj;
@@ -32,7 +32,7 @@ var modalObj;
 var modal;
 var infoPhotoData;
 var folderData = [];
-var allYearsData = "";
+var allYearsData = {};
 var namesList = [];
 var geneolListDone = false;
 var inFolders = true;
@@ -244,10 +244,8 @@ function getSelectedInfoPhoto() {
 
     const url = new URL(window.location.href);
     selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
-    selectedPhotoIdx = parseInt(url.searchParams.get('currIdx'), 10);
-    console.log(selectedPhotoIdx);
-    console.log(photoInfoList[selectedPhotoIdx].idpho);
-
+    selectedPhotoIdx = new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
+    // console.log(selectedPhotoIdx.currentIdx());
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
@@ -255,38 +253,35 @@ function getSelectedInfoPhoto() {
         const myInfoPhoto = JSON.parse(xhr.responseText);
         renderInfoPhoto(myInfoPhoto);
     };
-
     xhr.send();
 }
 
 function getPhotoInfoPrevious() {
     'use strict';
-    if (selectedPhotoIdx > 0) {
-        selectedPhotoIdx -= 1;
+    if (selectedPhotoIdx.currentIdx() > 0) {
+        const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'php/photoInfo.php?pid=' + photoInfoList[selectedPhotoIdx].idpho +
+        xhr.open('GET', 'php/photoInfo.php?pid=' + photoInfoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
             const myInfoPhoto = JSON.parse(xhr.responseText);
             renderInfoPhoto(myInfoPhoto);
         };
-
         xhr.send();
     }
 }
 
 function getPhotoInfoNext() {
     'use strict';
-    if (selectedPhotoIdx < photoInfoList.length) {
-        selectedPhotoIdx += 1;
+    if (selectedPhotoIdx.currentIdx() < photoInfoList.length) {
+        const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'php/photoInfo.php?pid=' + photoInfoList[selectedPhotoIdx].idpho +
+        xhr.open('GET', 'php/photoInfo.php?pid=' + photoInfoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
             const myInfoPhoto = JSON.parse(xhr.responseText);
             renderInfoPhoto(myInfoPhoto);
         };
-
         xhr.send();
     }
 }
@@ -448,13 +443,18 @@ function initAllYears() {
     'use strict';
     if (allYearsData.length === 0) {
         const xhr = new XMLHttpRequest();
-
+        // try {
         xhr.open('GET', 'php/getAllYears.php', true);
         xhr.onload = function () {
             allYearsData = JSON.parse(xhr.responseText);
             renderAllYears();
         };
         xhr.send();
+        /*} catch {
+            alert('Erreur');
+        } finally {
+
+        }*/
     }
 }
 
@@ -605,7 +605,7 @@ document.onkeydown = function (e) {
     'use strict';
     var currWin = currentWindow();
     const evt = e ? e : window.event;
-console.log(evt.key);
+    // console.log(evt.key);
     switch (true) {
         case evt.key === 17:
             ctrlPressed = true;
@@ -641,14 +641,14 @@ console.log(evt.key);
             break;
         case evt.key === 'Backspace':
             if (currWin === 'addFolder.html') {
-                const titleLength = document.getElementsByClassName('data-box__select--title');
+                const titleLength = document.getElementsByClassName('data-box__text--photos');
                 if (titleLength[0].value.length === 1) {
                     const butt = document.getElementsByClassName('data-box__go-button')[0];
                     butt.disabled = true;
                 }
             }
             if (currWin === 'addPhotos.html') {
-                const inputLength = document.getElementsByClassName('data-box__input--photos');
+                const inputLength = document.getElementsByClassName('data-box__text--photos');
                 if (inputLength[0].value.length === 0) {
                     const butt = document.getElementsByClassName('data-box__go-button')[0];
                     butt.disabled = true;
@@ -825,10 +825,10 @@ function editPhoto() {
 
 function rotatePhotoNegative() {
     'use strict';
-    console.log(selectedPhotoIdx);
-
-    const thumb = photoInfoList[selectedPhotoIdx].prev_path + photoInfoList[selectedPhotoIdx].filename;
-    const full = photoInfoList[selectedPhotoIdx].path + photoInfoList[selectedPhotoIdx].filename;
+    // console.log(selectedPhotoIdx);
+    console.log(selectedPhotoIdx.currentIdx());
+    const thumb = photoInfoList[selectedPhotoIdx.currentIdx()].prev_path + photoInfoList[selectedPhotoIdx.currentIdx()].filename;
+    const full = photoInfoList[selectedPhotoIdx.currentIdx()].path + photoInfoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full + '&direction=90', true);
@@ -844,10 +844,10 @@ function rotatePhotoNegative() {
 
 function rotatePhotoPositive() {
     'use strict';
-    console.log(selectedPhotoIdx);
+    // console.log(selectedPhotoIdx);
 
-    const thumb = photoInfoList[selectedPhotoIdx].prev_path + photoInfoList[selectedPhotoIdx].filename;
-    const full = photoInfoList[selectedPhotoIdx].path + photoInfoList[selectedPhotoIdx].filename;
+    const thumb = photoInfoList[selectedPhotoIdx.currentIdx()].prev_path + photoInfoList[selectedPhotoIdx.currentIdx()].filename;
+    const full = photoInfoList[selectedPhotoIdx.currentIdx()].path + photoInfoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full + '&direction=-90', true);
@@ -1031,23 +1031,28 @@ function addFolder() {
     'use strict';
     getFolderInputs();
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/addFolder.php?type=' + folderData.type +
+    xhr.open('GET', 'php/folders.php?type=' + folderData.type +
         '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
         '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolder', true);
+    xhr.onload = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const xhr1 = new XMLHttpRequest();
+                xhr1.open('GET', 'php/folders.php?type=' + folderData.type +
+                    '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
+                    '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolderMysql', true);
+                xhr1.onload = function () {
+                    if (xhr1.readyState === 4) {
+                        if (xhr1.status === 200) {
+                            document.getElementsByClassName('data-box__message')[0].style.display = 'block';
+                        }
+                    }
+                };
+                xhr1.send();
+            }
+        }
+    };
     xhr.send();
-    addFolderMysql();
-}
-
-function addFolderMysql() {
-    'use strict';
-    const message = document.getElementsByClassName('data-box__message');
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/addFolder.php?type=' + folderData.type +
-        '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
-        '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolderMysql', true);
-
-    xhr.send();
-    message[0].style.display = 'block';
 }
 
 function uploadPhotos() {
@@ -1058,22 +1063,31 @@ function uploadPhotos() {
     const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        formData.append('files[]', file);
+    if (files.length > 0) {
+        const butt = document.getElementsByClassName('data-box__go-button')[0];
+        butt.disabled = false;
+
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            formData.append('files[]', file);
+        }
+
+        formData.append('type', folderData.type);
+        formData.append('author', folderData.author);
+        formData.append('decade', folderData.decade);
+        formData.append('year', folderData.year);
+        formData.append('title', folderData.title);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+        });
+    } else {
+        const butt = document.getElementsByClassName('data-box__go-button')[0];
+        butt.disabled = false;
+        document.getElementsByClassName('data-box__message')[0].style.display = 'block';
     }
-
-    formData.append('type', folderData.type);
-    formData.append('author', folderData.author);
-    formData.append('decade', folderData.decade);
-    formData.append('year', folderData.year);
-    formData.append('title', folderData.title);
-
-    fetch(url, {
-        method: 'POST',
-        body: formData
-    }).then(response => {
-    });
 }
 
 function getDecades() {
@@ -1165,6 +1179,7 @@ function renderFolders(folderData) {
 
 function renderSelectedPhotos() {
     'use strict';
+    document.getElementsByClassName('data-box__message')[0].style.display = 'none';
     document.getElementById('data__box--text-input').value = createFileList(document.getElementById('data-box__input--photos').files);
 }
 
@@ -1304,7 +1319,6 @@ function currentWindow() {
     const currWin = window.location.href;
     const n = currWin.lastIndexOf('/');
     return currWin.substring(n + 1);
-
 }
 
 function getShiftingFolders() {
@@ -1315,7 +1329,7 @@ function getShiftingFolders() {
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                console.log(xhr.responseText);
+                // console.log(xhr.responseText);
                 jsShiftingFolders = JSON.parse(xhr.responseText);
             }
         }
@@ -1349,6 +1363,35 @@ function showPreviousFolder() {
 
 function disableSubmitButton() {
     'use strict';
-    const butt = document.getElementsByClassName('data-box__go-button')[0];
-    butt.disabled = true;
+    const currWin = currentWindow();
+    if (currWin === 'addFolder.html;') {
+        const butt = document.getElementsByClassName('data-box__go-button')[0];
+        butt.disabled = true;
+    }
+}
+
+function photoInfoIdxIncrementer(pIndex) {
+    'use strict';
+    var _index = pIndex;
+
+    this.add = function () {
+        _index += 1;
+        return _index;
+    };
+    this.subtract = function () {
+        _index -= 1;
+        return _index;
+    };
+    this.currentIdx = function () {
+        return _index;
+    };
+}
+
+function listOfAllYears(years) {
+    'use strict';
+    var _years = years;
+    function listOfYears() {
+        return _years;
+    }
+    return listOfYears();
 }

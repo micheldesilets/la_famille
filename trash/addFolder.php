@@ -24,6 +24,7 @@ if ($function == addFolder) {
 
     $db = new foldersDB();
     $db->addFolder($folderData);
+    return;
     }
 
 if ($function == addFolderMysql) {
@@ -40,6 +41,7 @@ if ($function == addFolderMysql) {
 
     $db = new foldersDB();
     $db->addFolderMysql($folderData);
+    return;
 }
 
 if ($function === addMetadataToMysql) {

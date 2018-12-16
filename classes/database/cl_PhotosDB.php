@@ -361,6 +361,7 @@ class photosBD
         $con->query('SET NAMES utf8');
 
         $photoId = $photoInfo[0];
+
         $title = '"' . $photoInfo[1] . '"';
         $keywords = '"' . $photoInfo[2] . '"';
         $caption = '"' . $photoInfo[3] . '"';
