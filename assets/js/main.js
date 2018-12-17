@@ -2,10 +2,9 @@
 /*global console:true*/
 /*jshint loopfunc: true */
 
-var searchChoice = false;
-var searchItmCont;
-var folderTitle;
-var selectedPhotos = '';
+var searchChoice = new searchPhotos(false);
+var folderTitle = new directoryTitle();
+var selectedPhotos = new photos();
 
 var current;
 var imgs;
@@ -23,10 +22,9 @@ var geneolCont;
 var photoIdCont;
 var ctrlPressed = false;
 var photoInfoList;
-var selectedPhotoId;
 var selectedPhotoIdx = {};
-var currentShiftingFolder;
-var jsShiftingFolders;
+var currentShiftingFolder = {};
+var jsShiftingFolders = new listShiftingFolders();
 var obj;
 var modalObj;
 var modal;
@@ -186,24 +184,26 @@ function folderLevel4(branch) {
 function getFamilyPhotos(obj, path, type) {
     'use strict';
     inFolders = true;
-    for (let i = 0; i < jsShiftingFolders.length; ++i) {
-        if (path === parseInt(jsShiftingFolders[i].folder)) {
-            currentShiftingFolder = i;
+    const folders = jsShiftingFolders.getShiftingFolders();
+    for (let i = 0; i < folders.length; ++i) {
+        if (path === parseInt(folders[i].folder)) {
+            currentShiftingFolder = new shiftingFoldersIdx(i);
             break;
         }
     }
-    folderTitle = obj.innerHTML;
+    folderTitle.setTitle(obj.innerHTML);
     getPhotos(path, type);
 }
 
 function getPhotos(path, type) {
     'use strict';
-    searchChoice = false;
+    searchChoice.setSearchPageStatus(false);
+    // searchChoice.setSearchPageStatus = false;
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "php/getPhotos.php?path=" + path, true);
     xhr.onload = function () {
         if (xhr.readyState === 4) {
-            selectedPhotos = JSON.parse(xhr.responseText);
+            selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
             switch (type) {
                 case 4:
                     renderHomePhoto();
@@ -220,8 +220,9 @@ function getPhotos(path, type) {
 
 function searchInputs() {
     'use strict';
-    searchChoice = true;
-    folderTitle = "";
+    searchChoice.setSearchPageStatus(true);
+    // searchChoice = true;
+    folderTitle.setTitle("");
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
@@ -230,7 +231,7 @@ function searchInputs() {
         "&searchKw=" + searchFormData.searchClefs.toString() + "&searchTitles=" + searchFormData.searchTitres.toString() + "&searchComments=" + searchFormData.searchComment.toString() + "&photoId=" + searchFormData.photoId +
         "&idUnique=" + searchFormData.idUnique.toString() + "&idContext=" + searchFormData.idContext.toString(), true);
     xhr.onload = function () {
-        selectedPhotos = JSON.parse(xhr.responseText);
+        selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         turnOffSearchFolders();
         renderFamilyPhotos();
     };
@@ -240,12 +241,12 @@ function searchInputs() {
 function getSelectedInfoPhoto() {
     'use strict';
     photoInfoList = JSON.parse(localStorage.getItem("photoInfoList"));
-    searchChoice = false;
+    searchChoice.setSearchPageStatus(false);
+    // searchChoice = false;
 
     const url = new URL(window.location.href);
-    selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
+    const selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
     selectedPhotoIdx = new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
-    // console.log(selectedPhotoIdx.currentIdx());
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
@@ -273,7 +274,7 @@ function getPhotoInfoPrevious() {
 
 function getPhotoInfoNext() {
     'use strict';
-    if (selectedPhotoIdx.currentIdx() < photoInfoList.length) {
+    if (selectedPhotoIdx.currentIdx() < photoInfoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'php/photoInfo.php?pid=' + photoInfoList[idx].idpho +
@@ -318,8 +319,9 @@ function renderHomePhoto() {
     const container = document.getElementsByClassName('home__photo');
     const archivesContainer = container[0];
     var htmlString = "";
+    const listPhotos = selectedPhotos.getPhotos();
 
-    for (const obj of selectedPhotos) {
+    for (const obj of listPhotos) {
         const imageURL = obj.path + obj.filename;
 
         htmlString += "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
@@ -334,10 +336,11 @@ function renderFamilyPhotos() {
 
     const familyContainer = document.getElementsByClassName('photos__imgs')[0];
     var htmlString = "";
+    const listPhotos = selectedPhotos.getPhotos();
 
     imgDisplay.innerHTML = '';
 
-    for (const obj of selectedPhotos) {
+    for (const obj of listPhotos) {
         const thumb = obj.prev_path + obj.filename;
         htmlString += "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>\n";
     }
@@ -365,8 +368,9 @@ function turnOffFolders() {
     btt.style.display = 'block';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
-    if (!searchChoice) {
-        titleContainer.innerText = folderTitle;
+    const choice = searchChoice.getSearchPageStatus();
+    if (!choice) {
+        titleContainer.innerText = folderTitle.getTitle();
     } else {
         titleContainer.innerText = '';
     }
@@ -385,10 +389,11 @@ function turnOffSearchFolders() {
     btt.style.display = 'block';
     const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
+    const listPhotos = selectedPhotos.getPhotos();
     if (document.getElementById('search__radio-context').checked !== true) {
         titleContainer.innerText = '';
     } else {
-        titleContainer.innerText = selectedPhotos[0].rptTitle;
+        titleContainer.innerText = listPhotos[0].rptTitle;
     }
     btt.onclick = function () {
         backToSearch();
@@ -441,20 +446,15 @@ function initSearchInputs() {
 
 function initAllYears() {
     'use strict';
-    if (allYearsData.length === 0) {
+    if (Object.keys(allYearsData).length === 0) {
         const xhr = new XMLHttpRequest();
-        // try {
+
         xhr.open('GET', 'php/getAllYears.php', true);
         xhr.onload = function () {
-            allYearsData = JSON.parse(xhr.responseText);
+            allYearsData = new listOfAllYears(JSON.parse(xhr.responseText));
             renderAllYears();
         };
         xhr.send();
-        /*} catch {
-            alert('Erreur');
-        } finally {
-
-        }*/
     }
 }
 
@@ -469,7 +469,9 @@ function renderAllYears() {
         '    <option selected value=\"start\">1839\n' +
         '    </option>\n';
 
-    for (const obj of allYearsData) {
+    const years = allYearsData.listOfYears();
+
+    for (const obj of years) {
         if (optGroup !== obj.decade) {
             if (optGroup !== '') {
                 htmlString += '</optgroup>\n';
@@ -493,7 +495,7 @@ function renderAllYears() {
         '    <option selected value=\"end\">2038\n' +
         '    </option>\n';
 
-    for (const obj of allYearsData) {
+    for (const obj of years) {
         if (optGroup !== obj.decade) {
             if (optGroup !== '') {
                 htmlString += '</optgroup>\n';
@@ -526,7 +528,9 @@ function getFollowingYears() {
         '    <option selected value=\"end\">2038\n' +
         '    </option>\n';
 
-    for (const obj of allYearsData) {
+    const years = allYearsData.listOfYears();
+
+    for (const obj of years) {
         if (obj.year >= fromYear) {
             if (optGroup !== obj.decade) {
                 if (optGroup !== '') {
@@ -738,12 +742,12 @@ function imgModal(e) {
     modalTitle.innerHTML = imgs[currentIdx].title;
     modalImg.src = img;
     captionText.innerHTML = imgs[currentIdx].alt;
-
-    const idxList = selectedPhotos[currentIdx].geneolidx.split(',');
-    const namesList = selectedPhotos[currentIdx].geneolnames.split(',');
+    const listPhotos = selectedPhotos.getPhotos();
+    const idxList = listPhotos[currentIdx].geneolidx.split(',');
+    const namesList = listPhotos[currentIdx].geneolnames.split(',');
 
     geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-    photoIdCont.innerHTML = "<p>(pid-" + selectedPhotos[currentIdx].idpho + ")</p>";
+    photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
     const span = document.getElementsByClassName('close')[0];
@@ -767,11 +771,12 @@ function prevImage() {
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        const idxList = selectedPhotos[currentIdx - 1].geneolidx.split(',');
-        const namesList = selectedPhotos[currentIdx - 1].geneolnames.split(',');
+        const listPhotos = selectedPhotos.getPhotos();
+        const idxList = listPhotos[currentIdx - 1].geneolidx.split(',');
+        const namesList = listPhotos[currentIdx - 1].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoIdCont.innerHTML = "<p>(pid-" + selectedPhotos[currentIdx - 1].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx - 1].idpho + ")</p>";
         currentIdx--;
     }
 }
@@ -787,11 +792,12 @@ function nextImage() {
         modalTitle.innerHTML = titl;
         captionText.innerHTML = capt;
 
-        const idxList = selectedPhotos[currentIdx + 1].geneolidx.split(',');
-        const namesList = selectedPhotos[currentIdx + 1].geneolnames.split(',');
+        const listPhotos = selectedPhotos.getPhotos();
+        const idxList = listPhotos[currentIdx + 1].geneolidx.split(',');
+        const namesList = listPhotos[currentIdx + 1].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoIdCont.innerHTML = "<p>(pid-" + selectedPhotos[currentIdx + 1].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx + 1].idpho + ")</p>";
         currentIdx++;
     }
 }
@@ -818,8 +824,9 @@ function buildGeneolLine(idxList, namesList) {
 
 function editPhoto() {
     'use strict';
-    localStorage.setItem("photoInfoList", JSON.stringify(selectedPhotos));
-    window.open('photoInfo.html?pid=' + selectedPhotos[currentIdx].idpho + '&currIdx=' + currentIdx);
+    const listPhotos = selectedPhotos.getPhotos();
+    localStorage.setItem("photoInfoList", JSON.stringify(listPhotos));
+    window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho + '&currIdx=' + currentIdx);
     location.reload();
 }
 
@@ -868,8 +875,6 @@ function imgClick(e) {
 
     // Change current image to src of clicked image
     prev = e.target.src;
-    /*var full = prev.replace('preview', 'full');
-    current.src = full;*/
     current.src = prev.replace('preview', 'full');
 
     //Add fade0in class
@@ -913,8 +918,9 @@ function getReadings() {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/getReadings.php?path=' + path, true);
     xhr.onload = function () {
-        var selectedPhotos = JSON.parse(xhr.responseText);
-        renderReadings(selectedPhotos);
+        selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
+        const listPhotos = selectedPhotos.getPhotos();
+        renderReadings(listPhotos);
     };
     xhr.send();
 }
@@ -952,8 +958,9 @@ function getObjects() {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/getObjects.php?path=' + 12, true);
     xhr.onload = function () {
-        var selectedPhotos = JSON.parse(xhr.responseText);
-        renderObjects(selectedPhotos);
+        selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
+        const listPhotos = selectedPhotos.getPhotos();
+        renderObjects(listPhotos);
     };
     xhr.send();
 }
@@ -1329,8 +1336,7 @@ function getShiftingFolders() {
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                // console.log(xhr.responseText);
-                jsShiftingFolders = JSON.parse(xhr.responseText);
+                jsShiftingFolders = new listShiftingFolders(JSON.parse(xhr.responseText));
             }
         }
     };
@@ -1341,10 +1347,11 @@ function showNextFolder() {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
-    if (currentShiftingFolder < jsShiftingFolders.length) {
-        currentShiftingFolder += 1;
-        folderTitle = jsShiftingFolders[currentShiftingFolder].title;
-        const path = jsShiftingFolders[currentShiftingFolder].folder;
+    const folders = jsShiftingFolders.getShiftingFolders();
+    if (currentShiftingFolder.currentIdx() < folders.length) {
+        const idx = currentShiftingFolder.addOne();
+        folderTitle.setTitle(folders[idx].title);
+        const path = folders[idx].folder;
         getPhotos(path, 2);
     }
 }
@@ -1353,10 +1360,11 @@ function showPreviousFolder() {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
-    if (currentShiftingFolder >= 0) {
-        currentShiftingFolder -= 1;
-        const path = jsShiftingFolders[currentShiftingFolder].folder;
-        folderTitle = jsShiftingFolders[currentShiftingFolder].title;
+    const folders = jsShiftingFolders.getShiftingFolders();
+    if (currentShiftingFolder.currentIdx() >= 0) {
+        const idx = currentShiftingFolder.subtractOne();
+        const path = folders[idx].folder;
+        folderTitle.setTitle(folders[idx].title);
         getPhotos(path, 2);
     }
 }
@@ -1370,6 +1378,7 @@ function disableSubmitButton() {
     }
 }
 
+/*** Closures ***/
 function photoInfoIdxIncrementer(pIndex) {
     'use strict';
     var _index = pIndex;
@@ -1387,11 +1396,85 @@ function photoInfoIdxIncrementer(pIndex) {
     };
 }
 
-function listOfAllYears(years) {
+function listOfAllYears(pYears) {
     'use strict';
-    var _years = years;
-    function listOfYears() {
+    var _years = pYears;
+
+    this.listOfYears = function () {
         return _years;
-    }
-    return listOfYears();
+    };
+}
+
+function searchPhotos(pPage) {
+    'use strict';
+    var _search = pPage;
+
+    this.setSearchPageStatus = function (status) {
+        _search = status;
+    };
+    this.getSearchPageStatus = function () {
+        return _search;
+    };
+}
+
+function directoryTitle() {
+    'use strict';
+    var _title = "";
+
+    this.setTitle = function (title) {
+        _title = title;
+    };
+    this.getTitle = function () {
+        return _title;
+    };
+}
+
+function photos() {
+    'use strict';
+    var _photos = "";
+
+    this.setPhotos = function (list) {
+        _photos = list;
+    };
+    this.getPhotos = function () {
+        return _photos;
+    };
+}
+
+function images() {
+    'use strict';
+    var _images = "";
+
+    this.setImages = function (img) {
+        _images = img;
+    };
+    this.getImages = function () {
+        return _images;
+    };
+}
+
+function shiftingFoldersIdx(pIdx) {
+    'use strict';
+    var _folderIdx = pIdx;
+
+    this.addOne = function () {
+        _folderIdx += 1;
+        return _folderIdx;
+    };
+    this.subtractOne = function () {
+        _folderIdx -= 1;
+        return _folderIdx;
+    };
+    this.currentIdx = function () {
+        return _folderIdx;
+    };
+}
+
+function listShiftingFolders(pFolders) {
+    'use strict';
+    var _shiftingFolders = pFolders;
+
+    this.getShiftingFolders = function () {
+        return _shiftingFolders;
+    };
 }
