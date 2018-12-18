@@ -30,11 +30,12 @@ var modal;
 var infoPhotoData;
 var folderData = [];
 var allYearsData = {};
-var namesList = [];
+var namesList = new listGeneologyNames();
 var geneolListDone = new geneologyList(false);
 var inFolders = new inFoldersState(true);
 
-var author = '';
+var folderHierarchy = new folderHierarchy();
+// var author = '';
 var decade = '';
 var year = 0;
 var itm = 0;
@@ -61,8 +62,8 @@ function buildFolderTree(data) {
     const folderContainer = document.getElementById("photos__folders");
 
     for (const branch of data) {
-        if (author !== branch.author && branch.author.length > 0) {
-            if (author !== "" && level === "4") {
+        if (folderHierarchy.getAuthor() !== branch.author && branch.author.length > 0) {
+            if (folderHierarchy.getAuthor() !== "" && level === "4") {
                 htmlString = htmlString +
                     "</ul>\n" +
                     "</li>\n" +
@@ -70,7 +71,7 @@ function buildFolderTree(data) {
                     "</div>\n" +
                     "</div>\n";
             }
-            if (author !== "" && level === "2") {
+            if (folderHierarchy.getAuthor() !== "" && level === "2") {
                 htmlString = htmlString +
                     "</ul>\n" +
                     "</div>\n" +
@@ -82,7 +83,7 @@ function buildFolderTree(data) {
                 "<input type=\"checkbox\" id=\"folders__menu" + j + "\"/>\n" +
                 "<label for=\"folders__menu" + j + "\" class=\"folders__names\">" + branch.author + "</label>\n" +
                 "<div class=\"folders__multi-level" + j + "\">\n";
-            author = branch.author;
+            folderHierarchy.setAuthor(branch.author);
             decade = "";
         }
 
@@ -119,7 +120,7 @@ function folderLevel2(branch) {
         decade = branch.decade;
     }
 
-    if ((author === branch.author && branch.author.length > 0) &&
+    if ((folderHierarchy.getAuthor() === branch.author && branch.author.length > 0) &&
         (folderId !== branch.folder)) {
 
         htmlString = htmlString +
@@ -170,7 +171,7 @@ function folderLevel4(branch) {
             "<ul>\n";
         year = branch.year;
     }
-    if ((author === branch.author && branch.author.length > 0) &&
+    if ((folderHierarchy.getAuthor() === branch.author && branch.author.length > 0) &&
         (decade === branch.decade && branch.decade.length > 0) &&
         (year === branch.year && branch.year.length > 0) &&
         (folderId !== branch.folder)) {
@@ -616,9 +617,9 @@ document.onkeydown = function (e) {
             // ctrlPressed = true;
             break;
         case evt.key === 'ArrowLeft':
-            if (currWin==='photoInfo.html'){
+            if (currWin === 'photoInfo.html') {
                 getPhotoInfoPrevious();
-            }else {
+            } else {
                 if (!inFolders.getState()) {
                     prevImage();
                 } else {
@@ -627,9 +628,9 @@ document.onkeydown = function (e) {
             }
             break;
         case evt.key === 'ArrowRight':
-            if (currWin==='photoInfo.html'){
+            if (currWin === 'photoInfo.html') {
                 getPhotoInfoNext();
-            }else {
+            } else {
                 if (!inFolders.getState()) {
                     nextImage();
                 } else {
@@ -1286,6 +1287,7 @@ function renderGeneologyList(rawData) {
     var optGroup = '';
     var htmlString = "";
     var names = [];
+    var listOfNames = [];
 
     htmlString = '<select onchange="addGeneolNames()" id=\"data-box__geneol-list\" class=\"data-box__ select data-box__select--geneol\" >\n' +
         '    <option selected value=\"choice\">Faites un choix\n' +
@@ -1294,12 +1296,13 @@ function renderGeneologyList(rawData) {
     for (const obj of rawData) {
         htmlString += '<option value=\"' + obj.idgen + '\">' + obj.name + '</option>\n';
         const names = {'idx': obj.idgen, 'name': obj.name};
-        namesList.push(names);
+        listOfNames.push(names);
     }
 
     htmlString += '</select><br>';
 
     listContainer.insertAdjacentHTML('beforeend', htmlString);
+    namesList.setNames(listOfNames);
 }
 
 function addGeneolNames() {
@@ -1308,8 +1311,9 @@ function addGeneolNames() {
     var names = geneolList[0].value;
     var selectGeneol = document.getElementsByClassName('select data-box__select--geneol')[0].value;
     var name = '';
+    const listOfNames = namesList.getNames();
 
-    for (const obj of namesList) {
+    for (const obj of listOfNames) {
         if (selectGeneol === obj.idx) {
             name = obj.name;
             break;
@@ -1495,8 +1499,8 @@ function geneologyList(pState) {
     'use strict';
     var _state = pState;
 
-    this.setState = function(state){
-        _state=state;
+    this.setState = function (state) {
+        _state = state;
     };
     this.getState = function () {
         return _state;
@@ -1509,8 +1513,88 @@ function inFoldersState(pState) {
 
     this.setState = function (state) {
         _state = state;
-    }
+    };
     this.getState = function () {
         return _state;
-    }
+    };
+}
+
+function listGeneologyNames() {
+    'use strict';
+    var _names = "";
+
+    this.setNames = function (names) {
+        _names = names;
+    };
+    this.getNames = function () {
+        return _names;
+    };
+}
+
+function folderHierarchy() {
+    'use strict';
+    var _author = "";
+    var _decade = "";
+    var _year = 0;
+    var _itm = 0;
+    var _folderId = 0;
+    var _sbitm = 0;
+    var _htmlString = '';
+    var _j = -1;
+    var _level = 0;
+
+    this.setAuthor = function (author) {
+        _author = author;
+    };
+    this.getAuthor = function () {
+        return _author;
+    };
+    this.setDecade = function (decade) {
+        _decade = decade;
+    };
+    this.getDecade = function () {
+        return _decade;
+    };
+    this.setYear = function (year) {
+        _year = year;
+    };
+    this.getYear = function () {
+        return _year;
+    };
+    this.setItem = function (item) {
+        _itm = item;
+    };
+    this.getItem = function () {
+        return _itm;
+    };
+    this.setFolderId = function (folderId) {
+        _folderId = folderId;
+    };
+    this.getFolderId = function () {
+        return _folderId;
+    };
+    this.setSubItem = function (sItem) {
+        _sbitm = sItem;
+    };
+    this.getSubItem = function () {
+        return _sbitm;
+    };
+    this.setHtmlString = function (htmlString) {
+        _htmlString = htmlString;
+    };
+    this.getHtmlString = function () {
+        return _htmlString;
+    };
+    this.setJcounter = function (j) {
+        _j = j;
+    };
+    this.getJcounter = function () {
+        return _j;
+    };
+    this.setLevel = function (level) {
+        _level = level;
+    };
+    this.getLevel = function () {
+        return _level;
+    };
 }
