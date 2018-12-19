@@ -24,27 +24,38 @@
         <div class="masthead__dropdown">
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="addFolder.html">Ajout d'un répertoire</a>
-                <a class="masthead__item" href="addPhotos.html">Ajout de photos</a>
+                <a class="masthead__item" href="addFolder.html">Ajout d'un
+                    répertoire</a>
+                <a class="masthead__item" href="addPhotos.html">Ajout de
+                    photos</a>
             </div>
         </div>
         <input type="button" class="masthead__account" value="Mon compte">
 
-        <h1 class="masthead__title masthead__title--index">Les Normandeau-Desilets</h1>
+        <h1 class="masthead__title masthead__title--index">Les
+            Normandeau-Desilets</h1>
         <h2 class="masthead__sub-title">Une courte histoire de Nous</h2>
 
         <nav role="navigation">
             <ul class="c-nav-main">
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href1="#">Acceuil</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href1="#">Acceuil</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.html">Lectures</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="readings.html">
+                        Lectures</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="geneology.html">Généalogie</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="geneology.html">
+                        Généalogie</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="objects.html">Objets de famille</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="objects.html">
+                        Objets de famille</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="familyPhotos.html">La famille en
-                        photos</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="familyPhotos.html">
+                        La famille en photos</a>
                 </li>
             </ul>
         </nav>
@@ -52,11 +63,13 @@
     <!-- end masthead -->
     <!-- ==== START SIDEBAR ==== -->
     <article class="about">
-        <img class="about__img-me" src="<?php echo($locSb); ?>" alt="Michel Desilets">
-        <p class="about__text">En construisant ce site, j'ai voulu conserver l'histoire de ma famille et un peu
-            celle
-            de ceux avec qui j'ai partagé ma vie.</p>
-        <img src="assets/img/home/TransparantSignature02.jpg" alt="" class="about__signature">
+        <img class="about__img-me" src="<?php echo($locSb); ?>"
+             alt="Michel Desilets">
+        <p class="about__text">En construisant ce site, j'ai voulu conserver
+            l'histoire de ma famille et un peu celle de ceux avec qui j'ai
+            partagé ma vie.</p>
+        <img src="assets/img/home/TransparantSignature02.jpg" alt=""
+             class="about__signature">
     </article>
     <!-- end sidebar -->
 </div>
@@ -64,7 +77,18 @@
 <!-- ==== START MAIN ==== -->
 <main role="main">
     <section class="home">
-        <script>getPhotos(5, 4)</script>
+        <img class='home__img'
+             src="assets\img\home\2015-01-06_Parc_Lafontaine1.jpg"
+             srcset="assets\img\home\2015-01-06_Parc_Lafontaine_400.jpg 400w,
+        assets\img\home\2015-01-06_Parc_Lafontaine_800.jpg 800w,
+        assets\img\home\2015-01-06_Parc_Lafontaine_1600.jpg 1600w"
+             sizes="(min-width: 900px) 1000px,
+            (max-width: 900px) and (min-width: 400px) 50em,
+            ( not (orientation: portrait) ) 300px,
+            ( (orientation: landscape) or (min-width: 1000px) ) 50vw,
+            100vw"
+             alt="">
+        <!--        <script>getPhotos(5, 4)</script>-->
         <div class="home__photo"></div>
     </section>
 </main>

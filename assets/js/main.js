@@ -21,7 +21,8 @@ var folderHierarchy = new folderHierarchy();
 function getFolderTree() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/folders.php?function=getFolders', true);
+    xhr.open('GET', 'php/folders.php?function=getFolders',
+        true);
     xhr.onload = function () {
         const folderData = JSON.parse(xhr.responseText);
         buildFolderTree(folderData);
@@ -35,8 +36,10 @@ function buildFolderTree(data) {
     const folderContainer = document.getElementById("photos__folders");
 
     for (const branch of data) {
-        if (folderHierarchy.getAuthor() !== branch.author && branch.author.length > 0) {
-            if (folderHierarchy.getAuthor() !== "" && folderHierarchy.getLevel() === "4") {
+        if (folderHierarchy.getAuthor() !== branch.author &&
+            branch.author.length > 0) {
+            if (folderHierarchy.getAuthor() !== "" &&
+                folderHierarchy.getLevel() === "4") {
                 folderHierarchy.addToHtmlString(
                     "</ul>\n" +
                     "</li>\n" +
@@ -44,7 +47,8 @@ function buildFolderTree(data) {
                     "</div>\n" +
                     "</div>\n");
             }
-            if (folderHierarchy.getAuthor() !== "" && folderHierarchy.getLevel() === "2") {
+            if (folderHierarchy.getAuthor() !== "" &&
+                folderHierarchy.getLevel() === "2") {
                 folderHierarchy.addToHtmlString(
                     "</ul>\n" +
                     "</div>\n" +
@@ -53,8 +57,9 @@ function buildFolderTree(data) {
             folderHierarchy.addJcounter();
             const j = folderHierarchy.getJcounter();
             folderHierarchy.addToHtmlString(
-                "<input type=\"checkbox\" id=\"folders__menu" + j + "\"/>\n" +
-                "<label for=\"folders__menu" + j + "\" class=\"folders__names\">" + branch.author + "</label>\n" +
+                "<input type=\"checkbox\" id=\"folders__menu" + j +
+                "\"/>\n" + "<label for=\"folders__menu" + j +
+                "\" class=\"folders__names\">" + branch.author + "</label>\n" +
                 "<div class=\"folders__multi-level" + j + "\">\n");
             folderHierarchy.setAuthor(branch.author);
             folderHierarchy.setDecade("");
@@ -256,7 +261,8 @@ function getPhotoInfoPrevious() {
         const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
         const infoList = photoInfoList.getPhotoInfoList();
-        xhr.open('GET', 'php/photoInfo.php?pid=' + infoList[idx].idpho +
+        xhr.open('GET', 'php/photoInfo.php?pid=' +
+            infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
             const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -272,7 +278,8 @@ function getPhotoInfoNext() {
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'php/photoInfo.php?pid=' + infoList[idx].idpho +
+        xhr.open('GET', 'php/photoInfo.php?pid=' +
+            infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
             const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -284,8 +291,10 @@ function getPhotoInfoNext() {
 
 function renderInfoPhoto(data) {
     'use strict';
-    const infoContain = document.getElementsByClassName('data-box__photo');
-    var infoInputs = document.getElementsByClassName('data-box__input');
+    const infoContain =
+        document.getElementsByClassName('data-box__photo');
+    var infoInputs =
+        document.getElementsByClassName('data-box__input');
     const infoContainer = infoContain[0];
     var htmlString = "";
 
@@ -320,17 +329,20 @@ function renderHomePhoto() {
     for (const obj of listPhotos) {
         const imageURL = obj.path + obj.filename;
 
-        htmlString += "<img class='home__img' src=\"" + imageURL + "\" alt=\"" + obj.title + "\">";
+        htmlString += "<img class='home__img' src=\"" + imageURL + "\" alt=\"" +
+            obj.title + "\">";
     }
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
 function renderFamilyPhotos() {
     'use strict';
-    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    const imgDisplay =
+        document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'block';
 
-    const familyContainer = document.getElementsByClassName('photos__imgs')[0];
+    const familyContainer =
+        document.getElementsByClassName('photos__imgs')[0];
     var htmlString = "";
     const listPhotos = selectedPhotos.getPhotos();
 
@@ -338,7 +350,8 @@ function renderFamilyPhotos() {
 
     for (const obj of listPhotos) {
         const thumb = obj.prev_path + obj.filename;
-        htmlString += "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption + "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>\n";
+        htmlString += "<div><img src=\"" + thumb + "\" alt=\"" + obj.caption +
+            "\" title=\"" + obj.title + "\" class=\"thumbimg\"></div>\n";
     }
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
     document.getElementsByClassName('photos__previous-folder')[0].disabled = false;
@@ -348,21 +361,27 @@ function renderFamilyPhotos() {
 
 function turnOffFolders() {
     'use strict';
-    const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
+    const titleContainer =
+        document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photos__folders').style.display = 'none';
     const kw = document.getElementsByClassName('search__keyword')[0];
     kw.style.display = 'none';
     // document.getElementById('searchKw').style.display = 'none';
-    const element = document.getElementsByClassName('search__search-button');
+    const element =
+        document.getElementsByClassName('search__search-button');
     element[0].style.display = 'none';
-    const nextFolder = document.getElementsByClassName('photos__next-folder')[0];
+    const nextFolder =
+        document.getElementsByClassName('photos__next-folder')[0];
     nextFolder.style.display = 'block';
-    const previousFolder = document.getElementsByClassName('photos__previous-folder')[0];
+    const previousFolder =
+        document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'block';
-    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    const btt =
+        document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
-    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    const thumbTitle =
+        document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
     const choice = searchChoice.getSearchPageStatus();
     if (!choice) {
@@ -374,16 +393,21 @@ function turnOffFolders() {
 
 function turnOffSearchFolders() {
     'use strict';
-    const titleContainer = document.getElementsByClassName('photos__thumb-title')[0];
+    const titleContainer =
+        document.getElementsByClassName('photos__thumb-title')[0];
     // Hide search and tree and bring up back to tree button
     document.getElementById('photos__folders').style.display = 'none';
-    const kword = document.getElementsByClassName('search__keyword')[0];
+    const kword =
+        document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'none';
-    const fmButton = document.getElementsByClassName('search__search-button')[0];
+    const fmButton =
+        document.getElementsByClassName('search__search-button')[0];
     fmButton.style.display = 'none';
-    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    const btt =
+        document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
-    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    const thumbTitle =
+        document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'block';
     const listPhotos = selectedPhotos.getPhotos();
     if (document.getElementById('search__radio-context').checked !== true) {
@@ -412,12 +436,15 @@ function searchForm() {
 
 function prepareSearchScreen() {
     'use strict';
-    const buttn = document.getElementsByClassName('search__search-button');
+    const buttn =
+        document.getElementsByClassName('search__search-button');
     buttn[0].style.display = 'none';
     document.getElementById('photos__folders').style.display = 'none';
-    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    const btt =
+        document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
-    const kword = document.getElementsByClassName('search__keyword')[0];
+    const kword =
+        document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'block';
     // document.getElementById('searchKw').style.display = 'block';
     btt.onclick = function () {
@@ -456,12 +483,16 @@ function initAllYears() {
 
 function renderAllYears() {
     'use strict';
-    var yearsFromContainer = document.getElementsByClassName('search__from-year')[0];
-    var yearsToContainer = document.getElementsByClassName('search__to-year')[0];
+    var yearsFromContainer =
+        document.getElementsByClassName('search__from-year')[0];
+    var yearsToContainer =
+        document.getElementsByClassName('search__to-year')[0];
     var optGroup = '';
 
-    var htmlString = '<label for=\"search__year-start\" class=\"search__year-start\">De </label>\n' +
-        '    <select onchange="getFollowingYears()" id=\"search__year-start\" class=\"search__select\" >\n' +
+    var htmlString = '<label for=\"search__year-start\" ' +
+        'class=\"search__year-start\">De </label>\n' +
+        '    <select onchange="getFollowingYears()" ' +
+        'id=\"search__year-start\" class=\"search__select\" >\n' +
         '    <option selected value=\"start\">1839\n' +
         '    </option>\n';
 
@@ -473,10 +504,12 @@ function renderAllYears() {
                 htmlString += '</optgroup>\n';
             }
             htmlString += '<optgroup label = \"' + obj.decade + '\">\n';
-            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                '</option>\n';
             optGroup = obj.decade;
         } else {
-            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                '</option>\n';
         }
     }
     htmlString += '</optgroup>\n' +
@@ -486,8 +519,9 @@ function renderAllYears() {
 
     optGroup = '';
     htmlString = '';
-    htmlString += '<label for=\"search__year-end\" class=\"search__year-end\">À </label>\n' +
-        '    <select id=\"search__year-end\" class=\"search__select\" >\n' +
+    htmlString += '<label for=\"search__year-end\" class=\"search__year-end\">À ' +
+        '</label>\n' + '<select id=\"search__year-end\" ' +
+        'class=\"search__select\" >\n' +
         '    <option selected value=\"end\">2038\n' +
         '    </option>\n';
 
