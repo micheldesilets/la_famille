@@ -1,3 +1,5 @@
+/*** Michel Desilets 2018 ***/
+
 /*global describe:true*/
 /*global console:true*/
 /*jshint loopfunc: true */
@@ -5,45 +7,16 @@
 var searchChoice = new searchPhotos(false);
 var folderTitle = new directoryTitle();
 var selectedPhotos = new photos();
-
-var current;
-var imgs;
-var opacity;
-var currentIdx;
-var maxLength;
-var prev;
-var img;
-var modalImg;
-var captionText;
-var forward;
-var backward;
-var modalTitle;
-var geneolCont;
-var photoIdCont;
+var modalCurrentIdx = new modalCurrentIndex();
 var photoInfoList = {};
 var selectedPhotoIdx = {};
 var currentShiftingFolder = {};
 var jsShiftingFolders = new listShiftingFolders();
-var obj;
-var modalObj;
-var modal;
-var infoPhotoData;
-var folderData = [];
 var allYearsData = {};
 var namesList = new listGeneologyNames();
 var geneolListDone = new geneologyList(false);
 var inFolders = new inFoldersState(true);
-
 var folderHierarchy = new folderHierarchy();
-// var author = '';
-var decade = '';
-var year = 0;
-var itm = 0;
-var folderId = 0;
-var sbitm = 0;
-var htmlString = '';
-var j = -1;
-var level;
 
 function getFolderTree() {
     'use strict';
@@ -63,32 +36,32 @@ function buildFolderTree(data) {
 
     for (const branch of data) {
         if (folderHierarchy.getAuthor() !== branch.author && branch.author.length > 0) {
-            if (folderHierarchy.getAuthor() !== "" && level === "4") {
-                htmlString = htmlString +
+            if (folderHierarchy.getAuthor() !== "" && folderHierarchy.getLevel() === "4") {
+                folderHierarchy.addToHtmlString(
                     "</ul>\n" +
                     "</li>\n" +
                     "</ul>\n" +
                     "</div>\n" +
-                    "</div>\n";
+                    "</div>\n");
             }
-            if (folderHierarchy.getAuthor() !== "" && level === "2") {
-                htmlString = htmlString +
+            if (folderHierarchy.getAuthor() !== "" && folderHierarchy.getLevel() === "2") {
+                folderHierarchy.addToHtmlString(
                     "</ul>\n" +
                     "</div>\n" +
-                    "</div>\n";
+                    "</div>\n");
             }
-            j++;
-
-            htmlString = htmlString +
+            folderHierarchy.addJcounter();
+            const j = folderHierarchy.getJcounter();
+            folderHierarchy.addToHtmlString(
                 "<input type=\"checkbox\" id=\"folders__menu" + j + "\"/>\n" +
                 "<label for=\"folders__menu" + j + "\" class=\"folders__names\">" + branch.author + "</label>\n" +
-                "<div class=\"folders__multi-level" + j + "\">\n";
+                "<div class=\"folders__multi-level" + j + "\">\n");
             folderHierarchy.setAuthor(branch.author);
-            decade = "";
+            folderHierarchy.setDecade("");
         }
 
-        level = branch.levels;
-        switch (level) {
+        folderHierarchy.setLevel(branch.levels);
+        switch (folderHierarchy.getLevel()) {
             case "2":
                 folderLevel2(branch);
                 break;
@@ -98,34 +71,39 @@ function buildFolderTree(data) {
         }
     }
 
-    if (level === "4") {
-        htmlString = htmlString +
+    if (folderHierarchy.getLevel() === "4") {
+        folderHierarchy.addToHtmlString(
             "</ul>\n" +
             "</div>\n" +
             "</li>\n" +
             "</ul>\n" +
             "</div>\n" +
-            "</div>\n";
+            "</div>\n");
     }
 
-    folderContainer.insertAdjacentHTML("beforeend", htmlString);
+    folderContainer.insertAdjacentHTML("beforeend",
+        folderHierarchy.getHtmlString());
 }
 
 function folderLevel2(branch) {
     'use strict';
-    if (decade !== branch.decade && branch.decade.length > 0) {
-        htmlString = htmlString +
+    if (folderHierarchy.getDecade() !== branch.decade &&
+        branch.decade.length > 0) {
+        folderHierarchy.addToHtmlString(
             "<div class=\"folders__itemL2\">\n" +
-            "<ul>\n";
-        decade = branch.decade;
+            "<ul>\n");
+        folderHierarchy.setDecade(branch.decade);
     }
 
-    if ((folderHierarchy.getAuthor() === branch.author && branch.author.length > 0) &&
-        (folderId !== branch.folder)) {
+    if ((folderHierarchy.getAuthor() === branch.author &&
+        branch.author.length > 0) &&
+        (folderHierarchy.getFolderId() !== branch.folder)) {
 
-        htmlString = htmlString +
-            "<li class='folders__photofolder L2' onclick='getFamilyPhotos(this," + branch.folder + "," + branch.type + ")'>" + branch.title + "</li>\n";
-        folderId = branch.folder;
+        folderHierarchy.addToHtmlString(
+            "<li class='folders__photofolder L2' " +
+            "onclick='getFamilyPhotos(this," + branch.folder + "," +
+            branch.type + ")'>" + branch.title + "</li>\n");
+        folderHierarchy.setFolderId(branch.folder);
     }
 }
 
@@ -133,51 +111,60 @@ function folderLevel2(branch) {
 
 function folderLevel4(branch) {
     'use strict';
-    if (decade !== branch.decade && branch.decade.length > 0) {
-        if (decade !== "") {
-            htmlString = htmlString +
+    if (folderHierarchy.getDecade() !== branch.decade &&
+        branch.decade.length > 0) {
+        if (folderHierarchy.getDecade() !== "") {
+            folderHierarchy.addToHtmlString(
                 "</ul>\n" +
                 "</div>\n" +
                 "</li>\n" +
                 "</ul>\n" +
-                "</div>\n";
+                "</div>\n");
         }
-        itm++;
-        sbitm = 0;
-        htmlString = htmlString +
+        folderHierarchy.addItem();
+        const itm = folderHierarchy.getItem();
+        folderHierarchy.setSubItem(0);
+        folderHierarchy.addToHtmlString(
             "<div class=\"folders__item\">\n" +
             "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
             "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
-            "<ul>\n";
-        decade = branch.decade;
-        year = 0;
+            "<ul>\n");
+        folderHierarchy.setDecade(branch.decade);
+        folderHierarchy.setYear(0);
     }
 
-    if (year !== branch.year && branch.year.length > 0) {
-        if (year !== 0) {
-            htmlString = htmlString +
+    if (folderHierarchy.getYear() !== branch.year && branch.year.length > 0) {
+        if (folderHierarchy.getYear() !== 0) {
+            folderHierarchy.addToHtmlString(
                 "</ul>\n" +
                 "</div>\n" +
-                "</li>\n";
+                "</li>\n");
         }
-        sbitm++;
-        htmlString = htmlString +
+        const itm = folderHierarchy.getItem();
+        folderHierarchy.addSubItem();
+        const sbitm = folderHierarchy.getSubItem();
+        folderHierarchy.addToHtmlString(
             "<li>\n" +
             "<div class=\"folders__sub-item\">\n" +
             "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
             "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
-            "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year + "</label>\n" +
-            "<ul>\n";
-        year = branch.year;
+            "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year +
+            "</label>\n" +
+            "<ul>\n");
+        folderHierarchy.setYear(branch.year);
     }
-    if ((folderHierarchy.getAuthor() === branch.author && branch.author.length > 0) &&
-        (decade === branch.decade && branch.decade.length > 0) &&
-        (year === branch.year && branch.year.length > 0) &&
-        (folderId !== branch.folder)) {
-        htmlString = htmlString +
-            "<li class=\"folders__photofolder\" value=\"0\" onclick=\"getFamilyPhotos(this," + branch.folder + "," + branch.type + ")\">" + branch.title + "</li>\n";
-        folderId = branch.folder;
+    if ((folderHierarchy.getAuthor() === branch.author &&
+        branch.author.length > 0) &&
+        (folderHierarchy.getDecade() === branch.decade &&
+            branch.decade.length > 0) &&
+        (folderHierarchy.getYear() === branch.year && branch.year.length > 0) &&
+        (folderHierarchy.getFolderId() !== branch.folder)) {
+        folderHierarchy.addToHtmlString(
+            "<li class=\"folders__photofolder\" value=\"0\" " +
+            "onclick=\"getFamilyPhotos(this," + branch.folder + "," +
+            branch.type + ")\">" + branch.title + "</li>\n");
+        folderHierarchy.setFolderId(branch.folder);
     }
 }
 
@@ -226,10 +213,17 @@ function searchInputs() {
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "php/getSearchedPhotos.php?kwrd=" + searchFormData.kwords + "&startYear=" + searchFormData.startYear + "&endYear=" + searchFormData.endYear +
-        "&wExact=" + searchFormData.wExact.toString() + "&wPart=" + searchFormData.wPart.toString() +
-        "&searchKw=" + searchFormData.searchClefs.toString() + "&searchTitles=" + searchFormData.searchTitres.toString() + "&searchComments=" + searchFormData.searchComment.toString() + "&photoId=" + searchFormData.photoId +
-        "&idUnique=" + searchFormData.idUnique.toString() + "&idContext=" + searchFormData.idContext.toString(), true);
+    xhr.open("GET", "php/getSearchedPhotos.php?kwrd=" +
+        searchFormData.kwords + "&startYear=" + searchFormData.startYear +
+        "&endYear=" + searchFormData.endYear + "&wExact=" +
+        searchFormData.wExact.toString() + "&wPart=" +
+        searchFormData.wPart.toString() + "&searchKw=" +
+        searchFormData.searchClefs.toString() + "&searchTitles=" +
+        searchFormData.searchTitres.toString() + "&searchComments=" +
+        searchFormData.searchComment.toString() + "&photoId=" +
+        searchFormData.photoId + "&idUnique=" +
+        searchFormData.idUnique.toString() + "&idContext=" +
+        searchFormData.idContext.toString(), true);
     xhr.onload = function () {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         turnOffSearchFolders();
@@ -240,7 +234,7 @@ function searchInputs() {
 
 function getSelectedInfoPhoto() {
     'use strict';
-    photoInfoList = new lisPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
+    photoInfoList = new listPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
     searchChoice.setSearchPageStatus(false);
 
     const url = new URL(window.location.href);
@@ -690,14 +684,9 @@ function cancelKeywords() {
 
 function animatePhotos() {
     'use strict';
-    current = document.querySelector('#current');
-    imgs = document.querySelectorAll('.photos__imgs img');
-    backward = document.getElementsByClassName('photos__previous')[0];
-    forward = document.getElementsByClassName('photos__next')[0];
-    geneolCont = document.getElementsByClassName('photos__geneol')[0];
-    photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
-
-    opacity = 0.5;
+    const imgs = document.querySelectorAll('.photos__imgs img');
+    const backward = document.getElementsByClassName('photos__previous')[0];
+    const forward = document.getElementsByClassName('photos__next')[0];
 
     imgs.forEach(img => img.addEventListener('click', imgModal));
     backward.addEventListener('click', prevImage);
@@ -707,7 +696,8 @@ function animatePhotos() {
 /*** MODAL ***/
 function transformImage(e) {
     'use strict';
-    prev = e.target.src;
+    const imgs = document.querySelectorAll('.photos__imgs img');
+    const prev = e.target.src;
     for (let i = 0; i < imgs.length; i++) {
         if (prev === imgs[i].src) {
             imgs[i].style.transition = 'all,1s';
@@ -720,29 +710,32 @@ function transformImage(e) {
 
 function imgModal(e) {
     'use strict';
+    const imgs = document.querySelectorAll('.photos__imgs img');
+    const geneolCont = document.getElementsByClassName('photos__geneol')[0];
+    const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
     inFolders.setState(false);
     const currWin = window.location.href;
     const n = currWin.lastIndexOf('/');
     const winResult = currWin.substring(n + 1);
-
     const bdy = document.getElementById('bdy');
-    bdy.style.overflow = 'hidden';
-    modal = document.getElementsByClassName('photos__modal')[0];
 
-    prev = e.target.src;
-    maxLength = imgs.length;
+    bdy.style.overflow = 'hidden';
+    var modal = document.getElementsByClassName('photos__modal')[0];
+
+    const prev = e.target.src;
 
     for (var i = 0; i < imgs.length; i++) {
         if (prev === imgs[i].src) {
             break;
         }
     }
-    currentIdx = i;
-    img = prev.replace('preview', 'full');
+    modalCurrentIdx.setIndex(i);
+    const currentIdx = modalCurrentIdx.getIndex();
+    const img = prev.replace('preview', 'full');
 
-    modalTitle = document.getElementsByClassName('photos__modal-title')[0];
-    modalImg = document.getElementById('img01');
-    captionText = document.getElementsByClassName('photos__caption')[0];
+    const modalTitle = document.getElementsByClassName('photos__modal-title')[0];
+    const modalImg = document.getElementById('img01');
+    const captionText = document.getElementsByClassName('photos__caption')[0];
     modal.style.display = 'block';
     modalTitle.innerHTML = imgs[currentIdx].title;
     modalImg.src = img;
@@ -767,8 +760,15 @@ function imgModal(e) {
 
 function prevImage() {
     'use strict';
+    const imgs = document.querySelectorAll('.photos__imgs img');
+    const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
+    const geneolCont = document.getElementsByClassName('photos__geneol')[0];
+    const modalImg = document.getElementById('img01');
+    const modalTitle = document.getElementsByClassName('photos__modal-title')[0];
+    const captionText = document.getElementsByClassName('photos__caption')[0];
+    const currentIdx = modalCurrentIdx.getIndex();
     if (currentIdx > 0) {
-        img = imgs[currentIdx - 1].src;
+        var img = imgs[currentIdx - 1].src;
         img = img.replace('preview', 'full');
         const capt = imgs[currentIdx - 1].alt;
         const titl = imgs[currentIdx - 1].title;
@@ -782,14 +782,23 @@ function prevImage() {
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx - 1].idpho + ")</p>";
-        currentIdx--;
+        modalCurrentIdx.subtractOne();
     }
 }
 
 function nextImage() {
     'use strict';
+    const imgs = document.querySelectorAll('.photos__imgs img');
+    const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
+    const geneolCont = document.getElementsByClassName('photos__geneol')[0];
+    const modalImg = document.getElementById('img01');
+    const modalTitle = document.getElementsByClassName('photos__modal-title')[0];
+    const captionText = document.getElementsByClassName('photos__caption')[0];
+    const currentIdx = modalCurrentIdx.getIndex();
+    var maxLength = imgs.length;
+
     if (currentIdx < maxLength - 1) {
-        img = imgs[currentIdx + 1].src;
+        var img = imgs[currentIdx + 1].src;
         img = img.replace('preview', 'full');
         const capt = imgs[currentIdx + 1].alt;
         const titl = imgs[currentIdx + 1].title;
@@ -803,7 +812,7 @@ function nextImage() {
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
         photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx + 1].idpho + ")</p>";
-        currentIdx++;
+        modalCurrentIdx.addOne();
     }
 }
 
@@ -829,6 +838,7 @@ function buildGeneolLine(idxList, namesList) {
 
 function editPhoto() {
     'use strict';
+    const currentIdx = modalCurrentIdx.getIndex();
     const listPhotos = selectedPhotos.getPhotos();
     localStorage.setItem("photoInfoList", JSON.stringify(listPhotos));
     window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho + '&currIdx=' + currentIdx);
@@ -837,7 +847,6 @@ function editPhoto() {
 
 function rotatePhotoNegative() {
     'use strict';
-    console.log(selectedPhotoIdx.currentIdx());
     const infoList = photoInfoList.getPhotoInfoList();
     const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path + infoList[selectedPhotoIdx.currentIdx()].filename;
     const full = infoList[selectedPhotoIdx.currentIdx()].path + infoList[selectedPhotoIdx.currentIdx()].filename;
@@ -874,11 +883,14 @@ function rotatePhotoPositive() {
 
 function imgClick(e) {
     'use strict';
+    const current = document.querySelector('#current');
     // Reset opacity
+    const opacity = 0.5;
+    const imgs = document.querySelectorAll('.photos__imgs img');
     imgs.forEach(img => (img.style.opacity = 1));
 
     // Change current image to src of clicked image
-    prev = e.target.src;
+    const prev = e.target.src;
     current.src = prev.replace('preview', 'full');
 
     //Add fade0in class
@@ -987,19 +999,19 @@ function renderObjects(data) {
 function animateObjects() {
     'use strict';
     const objs = document.querySelectorAll('.objects');
-    opacity = 0.5;
+    const opacity = 0.5;
     objs.forEach(obj => obj.addEventListener('click', objModal));
 }
 
 function objModal(e) {
     'use strict';
     const bdy = document.getElementById('bdy');
-    modal = document.getElementsByClassName('objects__modal')[0];
+    var modal = document.getElementsByClassName('objects__modal')[0];
 
-    prev = e.target.src;
-    obj = prev.replace('preview', 'full');
+    const prev = e.target.src;
+    const obj = prev.replace('preview', 'full');
 
-    modalObj = document.getElementsByClassName('objects__modal-content')[0];
+    const modalObj = document.getElementsByClassName('objects__modal-content')[0];
     modal.style.display = 'block';
     modalObj.src = obj;
 
@@ -1018,29 +1030,31 @@ function objModal(e) {
 function getFolderInputs() {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
-
+    var folderData = [];
     folderData.levels = folderDoc[0].value;
     folderData.type = folderDoc[1].value;
     folderData.author = folderDoc[2].value;
     folderData.decade = folderDoc[3].value;
     folderData.year = folderDoc[4].value;
     folderData.title = folderDoc[5].value;
+    return folderData;
 }
 
 function getFolderInputsPhotos() {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
-
+    var folderData = [];
     folderData.type = folderDoc[0].value;
     folderData.author = folderDoc[1].value;
     folderData.decade = folderDoc[2].value;
     folderData.year = folderDoc[3].value;
     folderData.title = folderDoc[4].value;
+    return folderData;
 }
 
 function addFolder() {
     'use strict';
-    getFolderInputs();
+    const folderData = getFolderInputs();
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/folders.php?type=' + folderData.type +
         '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
@@ -1068,7 +1082,7 @@ function addFolder() {
 
 function uploadPhotos() {
     'use strict';
-    getFolderInputsPhotos();
+    const folderData = getFolderInputsPhotos();
 
     const url = 'php/upload.php';
     const files = document.getElementById('data-box__input--photos').files;
@@ -1137,7 +1151,7 @@ function renderDecades(decades) {
     const decadeContainer = document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
     var htmlString = "";
 
-    for (obj of decades) {
+    for (const obj of decades) {
         htmlString += "<option value=\"" + obj.idDecade + "\">" + obj.decade + "</option>\n";
     }
     decadeContainer.insertAdjacentHTML("beforeend", htmlString);
@@ -1247,9 +1261,9 @@ function validatePhotoInfoIndexes(listOfIndexes) {
     var indexes = '';
     var index = '';
     var names = '';
-
+    const lisOfNames = namesList.getNames();
     for (var i = 0; i < listIdx.length; i++) {
-        for (const obj of namesList) {
+        for (const obj of lisOfNames) {
             if (listIdx[i] === obj.name) {
                 index = obj.idx;
                 if (indexes.length !== 0) {
@@ -1403,7 +1417,7 @@ function photoInfoIdxIncrementer(pIndex) {
     };
 }
 
-function lisPhotoInfo(pList) {
+function listPhotoInfo(pList) {
     'use strict';
     var _list = pList;
 
@@ -1561,8 +1575,8 @@ function folderHierarchy() {
     this.getYear = function () {
         return _year;
     };
-    this.setItem = function (item) {
-        _itm = item;
+    this.addItem = function () {
+        _itm += 1;
     };
     this.getItem = function () {
         return _itm;
@@ -1573,20 +1587,26 @@ function folderHierarchy() {
     this.getFolderId = function () {
         return _folderId;
     };
+    this.addSubItem = function () {
+        _sbitm += 1;
+    };
     this.setSubItem = function (sItem) {
         _sbitm = sItem;
-    };
+    }
     this.getSubItem = function () {
         return _sbitm;
     };
     this.setHtmlString = function (htmlString) {
         _htmlString = htmlString;
     };
+    this.addToHtmlString = function (htmlstring) {
+        _htmlString = _htmlString + htmlstring;
+    };
     this.getHtmlString = function () {
         return _htmlString;
     };
-    this.setJcounter = function (j) {
-        _j = j;
+    this.addJcounter = function () {
+        _j += 1;
     };
     this.getJcounter = function () {
         return _j;
@@ -1596,5 +1616,23 @@ function folderHierarchy() {
     };
     this.getLevel = function () {
         return _level;
+    };
+}
+
+function modalCurrentIndex() {
+    'use strict';
+    var _index = 0;
+
+    this.setIndex = function (idx) {
+        _index = idx;
+    }
+    this.addOne = function () {
+        _index++;
+    };
+    this.subtractOne = function () {
+        _index--;
+    };
+    this.getIndex = function () {
+        return _index;
     };
 }
