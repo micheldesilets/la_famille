@@ -19,40 +19,51 @@ if ($function === 'zipAndDownload') {
         $listPids = json_decode($_POST['pids']);
         $photos = $db->downloadPhotos($listPids);
         $listPhotos = json_decode($photos, true);
-    }
+
 // Checking files are selected
-    $zip = new ZipArchive();
-    $zip_name =
-        '../assets/archives/lesnormandeaudesilets' . time() . ".zip";
-    $fname = $zip_name;
+        $curr=getcwd();
 
-    if ($zip->open($zip_name, ZIPARCHIVE::CREATE) !== TRUE) {
-        // Opening zip file to load files
-        $error .= "* Sorry ZIP creation failed at this time";
-    }
+        $zip = new ZipArchive();
+        $zip_name =
+            'assets/archives/lesnormandeaudesilets' . time() . ".zip";
+        $fname = $zip_name;
 
-    foreach ($listPhotos as $key => $value) {
-        $path = $value["path"];
-        $file = $value["filename"];
-        $filename = '../' . $path . $file;
-        $zip->addFile($filename);
-    }
+        if ($zip->open($zip_name, ZIPARCHIVE::CREATE) !== TRUE) {
+            // Opening zip file to load files
+            $error .= "* Sorry ZIP creation failed at this time";
+        }
 
-    $zip->close();
+        foreach ($listPhotos as $key => $value) {
+            $path = $value["path"];
+            $file = $value["filename"];
+            $filename = $path . $file;
+            $zip->addFile($filename);
+        }
 
-    if (file_exists($zip_name)) {
-        header("Cache-Control: public");
-        header("Content-Description: File Transfer");
-        header('Content-type: application/zip');
-        header("Content-Disposition: attachment; filename=$zip_name");
-        header("Content-Transfer-Encoding: binary");
-        readfile($zip_name);
+        $zip->close();
+
+        if (file_exists($zip_name)) {
+            header("Cache-Control: public");
+            header("Content-Description: File Transfer");
+            header('Content-type: application/zip');
+            header("Content-Disposition: attachment; filename=$zip_name");
+            header("Content-Transfer-Encoding: binary");
+            readfile($zip_name);
+        }
     }
 }
 
 if ($function === 'removeZipFile'){
     $curr = getcwd();
-    $dir = "../assets/archives";
+    chdir('../');
+    $dir = "assets/archives";
+    $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
+    $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
+    foreach ( $ri as $file ) {
+        $file->isDir() ?  rmdir($file) : unlink($file);
+    }
+
+    $dir = "photosNormDesi";
     $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
     $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
     foreach ( $ri as $file ) {

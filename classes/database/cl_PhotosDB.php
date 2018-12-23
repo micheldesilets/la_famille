@@ -388,21 +388,36 @@ class photosBD
     {
         include '../connection/connect.php';
         require_once '../classes/business/cl_photos.php';
-/*
-        $sql = "SELECT * from photos_pho 
-        WHERE id_pho IN (" . implode(',', $listPids) . ")";*/
+        /*
+                $sql = "SELECT * from photos_pho
+                WHERE id_pho IN (" . implode(',', $listPids) . ")";*/
 
         $sql = "SELECT
         *
         FROM photos_folders_pfo pfo
-    INNER JOIN photos_pho pho
-      ON pfo.idfol_pfo = pho.idfol_pho
-    JOIN folders_fol rpt
-      ON pfo.idfol_pfo = rpt.id_fol
-  WHERE id_pho IN (" . implode(',', $listPids) . ")
-  ORDER BY pho.year_pho";
+        INNER JOIN photos_pho pho
+        ON pfo.idfol_pfo = pho.idfol_pho
+        JOIN folders_fol rpt
+        ON pfo.idfol_pfo = rpt.id_fol
+        WHERE id_pho IN (" . implode(',', $listPids) . ")
+        ORDER BY pho.year_pho";
 
         $json = $this->createJason($sql);
+        $photosArray = json_decode($json);
+
+        $curr = getcwd();
+        chdir('../');
+        $curr=getcwd();
+
+        foreach ($photosArray as $value) {
+            $p = $value->path;
+            $f = $value->filename;
+            $sourceName = $p . $f;
+            $destName = 'photosNormDesi/' . $f;
+            copy($sourceName,$destName);
+            $value->path = 'photosNormDesi/';
+        }
+        $json = json_encode($photosArray);
         return $json;
     }
 }
