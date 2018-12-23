@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body id="bdy" onload="getShiftingFolders()">
+<body id="bdy" onmousedown="isKeyPressed(event)" onload="getShiftingFolders()">
 <div class="page ">
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
@@ -16,16 +16,22 @@
 
         <nav role="navigation">
             <ul class="c-nav-main">
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="index.php">Acceuil</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="index.php">Acceuil</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.html">Lectures</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="readings.html">Lectures</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="geneology.html">Généalogie</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="geneology.html">Généalogie</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="objects.html">Objets de famille</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="objects.html">Objets de
+                        famille</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="familyPhotos.html">La famille en
-                        photos</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link"
+                                                href="familyPhotos.html">La
+                        famille en photos</a>
                 </li>
             </ul>
         </nav>
@@ -34,9 +40,17 @@
 
     <div class="clearfix">
         <div><p class="photos__thumb-title"></p>
-            <button onclick="showPreviousFolder()" class="photos__previous-folder" style="display: none">Répertoire précédent
+            <button onclick="downloadPhotos()"
+                    class="photos__download-photos"
+                    style="display:none">Télécharger
             </button>
-            <button onclick="showNextFolder()" class="photos__next-folder" style="display: none" >Répertoire suivant
+            <button onclick="showPreviousFolder()"
+                    class="photos__previous-folder"
+                    style="display: none">Répertoire précédent
+            </button>
+            <button onclick="showNextFolder()"
+                    class="photos__next-folder"
+                    style="display: none">Répertoire suivant
             </button>
             <button class="search__back-to-tree" onclick="backToTree()">
                 <strong>X</strong>
@@ -47,7 +61,8 @@
     <!--  Search-->
     <div class="search">
         <section class="search__section">
-            <input autofocus="autofocus" type="button" class="search__search-button" value="Recherche"
+            <input autofocus="autofocus" type="button"
+                   class="search__search-button" value="Recherche"
                    onclick="initSearchForm()">
 
             <form action="javascript:searchInputs()" class="search__keyword">
@@ -57,7 +72,9 @@
                            placeholder="mots clefs séparés par une virgule"
                            size="110"
                            onkeypress="cancelPid()"><br>
-                    <input type="submit" value="Rechercher" class="search__go-button"><br>
+                    <input type="submit"
+                           value="Rechercher"
+                           class="search__go-button"><br>
 
                     <div class="search__from-year">
                     </div>
@@ -65,23 +82,46 @@
                     </div>
 
                     <p class="search__radio-button">
-                        <input type="radio" id="search__radio-exact" value="wExact" name="scope"/>
-                        <label for="search__radio-exact" class="search__rb-label">Contient le/les mots exacts</label>
+                        <input type="radio"
+                               id="search__radio-exact"
+                               value="wExact"
+                               name="scope"/>
+                        <label for="search__radio-exact"
+                               class="search__rb-label">Contient le/les mots
+                            exacts</label>
                         <br>
-                        <input type="radio" id="search__radio-partial" value="wPartial" name="scope" checked/>
-                        <label for="search__radio-partial" class="search__rb-label">Contient une partie du/des
+                        <input type="radio"
+                               id="search__radio-partial"
+                               value="wPartial"
+                               name="scope"
+                               checked/>
+                        <label for="search__radio-partial"
+                               class="search__rb-label">Contient une partie
+                            du/des
                             mot(s)</label>
                     </p><br>
 
                     <div class="search__check-box">
-                        <input type="checkbox" id="search__keys" value="clefs" checked>
-                        <label for="search__keys" class="search__cb-label">Recherche des mots clefs</label>
+                        <input type="checkbox"
+                               id="search__keys"
+                               value="clefs"
+                               checked>
+                        <label for="search__keys" class="search__cb-label">Recherche
+                            des mots clefs</label>
                         <br>
-                        <input type="checkbox" id="search__titles" value="titres" checked>
-                        <label for="search__titles" class="search__cb-label">Recherche des titres</label>
+                        <input type="checkbox"
+                               id="search__titles"
+                               value="titres"
+                               checked>
+                        <label for="search__titles" class="search__cb-label">Recherche
+                            des titres</label>
                         <br>
-                        <input type="checkbox" id="search__comments" value="commentaires" checked>
-                        <label for="search__comments" class="search__cb-label">Recherche des commentaires</label>
+                        <input type="checkbox"
+                               id="search__comments"
+                               value="commentaires"
+                               checked>
+                        <label for="search__comments" class="search__cb-label">Recherche
+                            des commentaires</label>
                         <br>
                     </div>
 
@@ -89,15 +129,27 @@
                         <label>
                             PID-
                         </label>
-                        <input class="search__pid" type="text" placeholder="Le numéro de la photo" size="24"
+                        <input class="search__pid"
+                               type="text"
+                               placeholder="Le numéro de la photo"
+                               size="24"
                                onkeypress="cancelKeywords()">
 
                         <p class="search__context">
-                            <input type="radio" id="search__radio-uniq" value="idUnique" name="context" checked/>
-                            <label for="search__radio-uniq" class="search__rb-label">Unique</label>
+                            <input type="radio"
+                                   id="search__radio-uniq"
+                                   value="idUnique"
+                                   name="context"
+                                   checked/>
+                            <label for="search__radio-uniq"
+                                   class="search__rb-label">Unique</label>
                             <br>
-                            <input type="radio" id="search__radio-context" value="idContext" name="context"/>
-                            <label for="search__radio-context" class="search__rb-label">Contexte</label>
+                            <input type="radio"
+                                   id="search__radio-context"
+                                   value="idContext"
+                                   name="context"/>
+                            <label for="search__radio-context"
+                                   class="search__rb-label">Contexte</label>
                         </p><br>
                     </fieldset>
                 </fieldset>
@@ -123,7 +175,9 @@
                 <button class="photos__previous"><</button>
                 <button class="photos__next">></button>
 
-                <img src="assets/img/icons/iconfinder_Streamline-22_185042.png" class="photos__edit-photo" alt="Edition"
+                <img src="assets/img/icons/iconfinder_Streamline-22_185042.png"
+                     class="photos__edit-photo"
+                     alt="Edition"
                      onclick="editPhoto()">
                 <span class="close">x</span>
 

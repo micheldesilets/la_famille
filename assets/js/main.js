@@ -17,6 +17,7 @@ var namesList = new listGeneologyNames();
 var geneolListDone = new geneologyList(false);
 var inFolders = new inFoldersState(true);
 var folderHierarchy = new folderHierarchy();
+var listPhotosDownload = new photosForDownload();
 
 function getFolderTree() {
     'use strict';
@@ -190,24 +191,27 @@ function getFamilyPhotos(obj, path, type) {
 function getPhotos(path, type) {
     'use strict';
     searchChoice.setSearchPageStatus(false);
-    // searchChoice.setSearchPageStatus = false;
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "php/getPhotos.php?path=" + path, true);
-    xhr.onload = function () {
-        if (xhr.readyState === 4) {
-            selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
-            switch (type) {
-                case 4:
-                    renderHomePhoto();
-                    break;
-                case 2:
-                    turnOffFolders();
-                    renderFamilyPhotos();
-                    break;
+    try {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "php/getPhotos.php?path=" + path, true);
+        xhr.onload = function () {
+            if (xhr.readyState === 4) {
+                selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
+                switch (type) {
+                    case 4:
+                        renderHomePhoto();
+                        break;
+                    case 2:
+                        turnOffFolders();
+                        renderFamilyPhotos();
+                        break;
+                }
             }
-        }
-    };
-    xhr.send();
+        };
+        xhr.send();
+    } catch (err) {
+        alert(err.message);
+    }
 }
 
 function searchInputs() {
@@ -239,12 +243,14 @@ function searchInputs() {
 
 function getSelectedInfoPhoto() {
     'use strict';
-    photoInfoList = new listPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
+    photoInfoList =
+        new listPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
     searchChoice.setSearchPageStatus(false);
 
     const url = new URL(window.location.href);
     const selectedPhotoId = parseInt(url.searchParams.get('pid'), 10);
-    selectedPhotoIdx = new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
+    selectedPhotoIdx =
+        new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
@@ -367,7 +373,6 @@ function turnOffFolders() {
     document.getElementById('photos__folders').style.display = 'none';
     const kw = document.getElementsByClassName('search__keyword')[0];
     kw.style.display = 'none';
-    // document.getElementById('searchKw').style.display = 'none';
     const element =
         document.getElementsByClassName('search__search-button');
     element[0].style.display = 'none';
@@ -377,6 +382,7 @@ function turnOffFolders() {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'block';
+    document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
     const btt =
         document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
@@ -531,10 +537,12 @@ function renderAllYears() {
                 htmlString += '</optgroup>\n';
             }
             htmlString += '<optgroup label = \"' + obj.decade + '\">\n';
-            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                '</option>\n';
             optGroup = obj.decade;
         } else {
-            htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+            htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                '</option>\n';
         }
     }
     htmlString += '</optgroup>\n' +
@@ -546,14 +554,17 @@ function renderAllYears() {
 function getFollowingYears() {
     'use strict';
     var optGroup = '';
-    const fromYear = document.getElementsByClassName('search__select')[0].value;
-    var yearsToContainer = document.getElementsByClassName('search__to-year')[0];
+    const fromYear =
+        document.getElementsByClassName('search__select')[0].value;
+    var yearsToContainer =
+        document.getElementsByClassName('search__to-year')[0];
     var htmlString = '';
 
     yearsToContainer.innerText = "";
 
     optGroup = '';
-    htmlString += '<label for=\"search__year-end\" class=\"search__year-end\">À </label>\n' +
+    htmlString += '<label for=\"search__year-end\" class=\"search__year-end\">' +
+        '    À </label>\n' +
         '    <select id=\"search__year-end\" class=\"search__select\" >\n' +
         '    <option selected value=\"end\">2038\n' +
         '    </option>\n';
@@ -567,10 +578,12 @@ function getFollowingYears() {
                     htmlString += '</optgroup>\n';
                 }
                 htmlString += '<optgroup label = \"' + obj.decade + '\">\n';
-                htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+                htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                    '</option>\n';
                 optGroup = obj.decade;
             } else {
-                htmlString += '<option value=\"' + obj.year + '\">' + obj.year + '</option>\n';
+                htmlString += '<option value=\"' + obj.year + '\">' + obj.year +
+                    '</option>\n';
             }
         }
     }
@@ -583,39 +596,56 @@ function getFollowingYears() {
 function getSearchInputs() {
     'use strict';
     const searchData = [];
-    searchData.kwords = document.getElementsByClassName('search__key-words')[0].value;
-    searchData.startYear = document.getElementById('search__year-start').value;
-    searchData.endYear = document.getElementById('search__year-end').value;
-    searchData.wExact = document.getElementById('search__radio-exact').checked;
-    searchData.wPart = document.getElementById('search__radio-partial').checked;
-    searchData.searchClefs = document.getElementById('search__keys').checked;
-    searchData.searchTitres = document.getElementById('search__titles').checked;
-    searchData.searchComment = document.getElementById('search__comments').checked;
+    searchData.kwords =
+        document.getElementsByClassName('search__key-words')[0].value;
+    searchData.startYear =
+        document.getElementById('search__year-start').value;
+    searchData.endYear =
+        document.getElementById('search__year-end').value;
+    searchData.wExact =
+        document.getElementById('search__radio-exact').checked;
+    searchData.wPart =
+        document.getElementById('search__radio-partial').checked;
+    searchData.searchClefs =
+        document.getElementById('search__keys').checked;
+    searchData.searchTitres =
+        document.getElementById('search__titles').checked;
+    searchData.searchComment =
+        document.getElementById('search__comments').checked;
     if (document.getElementsByClassName('search__pid'[0]).value === '') {
         searchData.photoId = 'nothing';
     } else {
-        searchData.photoId = document.getElementsByClassName('search__pid')[0].value;
+        searchData.photoId =
+            document.getElementsByClassName('search__pid')[0].value;
     }
-    searchData.idUnique = document.getElementById('search__radio-uniq').checked;
-    searchData.idContext = document.getElementById('search__radio-context').checked;
+    searchData.idUnique =
+        document.getElementById('search__radio-uniq').checked;
+    searchData.idContext =
+        document.getElementById('search__radio-context').checked;
     return searchData;
 }
 
 function backToTree() {
     'use strict';
     // Bring back search and tree and hide 'back to tree(X)' button
-    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    const imgDisplay =
+        document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'none';
-    const kword = document.getElementsByClassName('search__keyword')[0];
+    const kword =
+        document.getElementsByClassName('search__keyword')[0];
     kword.style.display = 'none';
-    // document.getElementById('searchKw').style.display = 'none';
-    const nextFolder = document.getElementsByClassName('photos__next-folder')[0];
+    const nextFolder =
+        document.getElementsByClassName('photos__next-folder')[0];
     nextFolder.style.display = 'none';
-    const previousFolder = document.getElementsByClassName('photos__previous-folder')[0];
+    const previousFolder =
+        document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'none';
-    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
+    const btt =
+        document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'none';
-    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    const thumbTitle =
+        document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'none';
     document.getElementById('photos__folders').style.display = 'block';
     const searchBtn = document.getElementsByClassName('search__search-button');
@@ -624,13 +654,27 @@ function backToTree() {
 
 function backToSearch() {
     'use strict';
-    const imgDisplay = document.getElementsByClassName('photos__imgs')[0];
+    const imgDisplay =
+        document.getElementsByClassName('photos__imgs')[0];
     imgDisplay.style.display = 'none';
-    const btt = document.getElementsByClassName('search__back-to-tree')[0];
+    const btt =
+        document.getElementsByClassName('search__back-to-tree')[0];
     btt.style.display = 'block';
-    const thumbTitle = document.getElementsByClassName('photos__thumb-title')[0];
+    const thumbTitle =
+        document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'none';
     searchForm();
+}
+
+function isKeyPressed(event) {
+    'use strict';
+    if (event.shiftKey) {
+        // alert("The SHIFT key was pressed!");
+        listPhotosDownload.setShiftKey(true);
+    } else {
+        listPhotosDownload.setShiftKey(false);
+        // alert("The SHIFT key was NOT pressed!");
+    }
 }
 
 /* Controle of right and left keys
@@ -639,8 +683,11 @@ document.onkeydown = function (e) {
     'use strict';
     var currWin = currentWindow();
     const evt = e ? e : window.event;
-    // console.log(evt.key);
+    console.log(evt.key);
     switch (true) {
+        case evt.key === 'Shift':
+            // listPhotosDownload.setShiftKey(true);
+            break;
         case evt.key === 17:
             // ctrlPressed = true;
             break;
@@ -668,26 +715,32 @@ document.onkeydown = function (e) {
             break;
         case evt.key >= 'a' && evt.key <= 'z':
             if (currWin === 'addFolder.html') {
-                const butt = document.getElementsByClassName('data-box__go-button')[0];
+                const butt =
+                    cument.getElementsByClassName('data-box__go-button')[0];
                 butt.disabled = false;
             }
             if (currWin === 'addPhotos.html') {
-                const butt = document.getElementsByClassName('data-box__go-button')[0];
+                const butt =
+                    document.getElementsByClassName('data-box__go-button')[0];
                 butt.disabled = false;
             }
             break;
         case evt.key === 'Backspace':
             if (currWin === 'addFolder.html') {
-                const titleLength = document.getElementsByClassName('data-box__text--photos');
+                const titleLength =
+                    document.getElementsByClassName('data-box__text--photos');
                 if (titleLength[0].value.length === 1) {
-                    const butt = document.getElementsByClassName('data-box__go-button')[0];
+                    const butt =
+                        document.getElementsByClassName('data-box__go-button')[0];
                     butt.disabled = true;
                 }
             }
             if (currWin === 'addPhotos.html') {
-                const inputLength = document.getElementsByClassName('data-box__text--photos');
+                const inputLength =
+                    document.getElementsByClassName('data-box__text--photos');
                 if (inputLength[0].value.length === 0) {
-                    const butt = document.getElementsByClassName('data-box__go-button')[0];
+                    const butt =
+                        document.getElementsByClassName('data-box__go-button')[0];
                     butt.disabled = true;
                 }
             }
@@ -764,32 +817,83 @@ function imgModal(e) {
         }
     }
     modalCurrentIdx.setIndex(i);
-    const currentIdx = modalCurrentIdx.getIndex();
-    const img = prev.replace('preview', 'full');
 
-    const modalTitle = document.getElementsByClassName('photos__modal-title')[0];
-    const modalImg = document.getElementById('img01');
-    const captionText = document.getElementsByClassName('photos__caption')[0];
-    modal.style.display = 'block';
-    modalTitle.innerHTML = imgs[currentIdx].title;
-    modalImg.src = img;
-    captionText.innerHTML = imgs[currentIdx].alt;
-    const listPhotos = selectedPhotos.getPhotos();
-    const idxList = listPhotos[currentIdx].geneolidx.split(',');
-    const namesList = listPhotos[currentIdx].geneolnames.split(',');
+    const shift = listPhotosDownload.getShiftKey();
+    if (listPhotosDownload.getShiftKey()) {
+        prepareDownload(e);
+        listPhotosDownload.setShiftKey(false);
+    } else {
+        const currentIdx = modalCurrentIdx.getIndex();
+        const img = prev.replace('preview', 'full');
 
-    geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-    photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx].idpho + ")</p>";
+        const modalTitle = document.getElementsByClassName('photos__modal-title')[0];
+        const modalImg = document.getElementById('img01');
+        const captionText = document.getElementsByClassName('photos__caption')[0];
+        modal.style.display = 'block';
+        modalTitle.innerHTML = imgs[currentIdx].title;
+        modalImg.src = img;
+        captionText.innerHTML = imgs[currentIdx].alt;
+        const listPhotos = selectedPhotos.getPhotos();
+        const idxList = listPhotos[currentIdx].geneolidx.split(',');
+        const namesList = listPhotos[currentIdx].geneolnames.split(',');
+
+        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName('close')[0];
+        const span = document.getElementsByClassName('close')[0];
 
 // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = 'none';
-        bdy.style.overflow = 'visible';
-        inFolders.setState(true);
-    };
+        span.onclick = function () {
+            modal.style.display = 'none';
+            bdy.style.overflow = 'visible';
+            inFolders.setState(true);
+        };
+    }
+}
+
+function prepareDownload(e) {
+    'use strict';
+    const redPrev =
+        document.getElementsByClassName(e.target.classList.value)[modalCurrentIdx.getIndex()];
+    const listPhotos = selectedPhotos.getPhotos();
+    const pid = listPhotos[modalCurrentIdx.getIndex()].idpho;
+    const list = listPhotosDownload.getList();
+    const isPidIdxInList = listPhotosDownload.getList().indexOf(pid);
+    if (isPidIdxInList === -1) {
+        listPhotosDownload.addphoto(pid);
+        redPrev.style.border = '2px solid #DD1C1A';
+        document.getElementsByClassName('photos__previous-folder')[0].style.display = 'none';
+        document.getElementsByClassName('photos__next-folder')[0].style.display = 'none';
+        document.getElementsByClassName('photos__download-photos')[0].style.display = 'block';
+    } else {
+        listPhotosDownload.removePhoto(isPidIdxInList);
+        redPrev.style.border = '2px solid  #fdfaf6';
+        if (isPidIdxInList === 0) {
+            document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
+            document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
+            document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
+        }
+    }
+}
+
+function postDownload() {
+    'use strict';
+    const listPid = listPhotosDownload.getList();
+    const listPhotos = selectedPhotos.getPhotos();
+    const imgs = document.querySelectorAll('.photos__imgs img');
+
+    for (let i = 0; i < imgs.length; i++) {
+        imgs[i].style.border = '2px solid  #fdfaf6';
+    }
+
+    while (listPid.length !== 0) {
+        listPhotosDownload.initPid();
+    }
+
+    document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
+    document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
+    document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
 }
 
 function prevImage() {
@@ -815,7 +919,8 @@ function prevImage() {
         const namesList = listPhotos[currentIdx - 1].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx - 1].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx - 1].idpho +
+            ")</p>";
         modalCurrentIdx.subtractOne();
     }
 }
@@ -845,7 +950,8 @@ function nextImage() {
         const namesList = listPhotos[currentIdx + 1].geneolnames.split(',');
 
         geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
-        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx + 1].idpho + ")</p>";
+        photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx + 1].idpho +
+            ")</p>";
         modalCurrentIdx.addOne();
     }
 }
@@ -856,7 +962,8 @@ function buildGeneolLine(idxList, namesList) {
     if (idxList !== '') {
         htmlLine = '<p>Généalogie: ';
         for (var i = 0; i < idxList.length; i++) {
-            htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" + idxList[i] + ".html' target='_blank'>" +
+            htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" +
+                idxList[i] + ".html' target='_blank'>" +
                 namesList[i];
             if (i + 1 < idxList.length) {
                 htmlLine = htmlLine + ",&nbsp </a>";
@@ -875,18 +982,22 @@ function editPhoto() {
     const currentIdx = modalCurrentIdx.getIndex();
     const listPhotos = selectedPhotos.getPhotos();
     localStorage.setItem("photoInfoList", JSON.stringify(listPhotos));
-    window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho + '&currIdx=' + currentIdx);
+    window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho +
+        '&currIdx=' + currentIdx);
     location.reload();
 }
 
 function rotatePhotoNegative() {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
-    const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path + infoList[selectedPhotoIdx.currentIdx()].filename;
-    const full = infoList[selectedPhotoIdx.currentIdx()].path + infoList[selectedPhotoIdx.currentIdx()].filename;
+    const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
+        infoList[selectedPhotoIdx.currentIdx()].filename;
+    const full = infoList[selectedPhotoIdx.currentIdx()].path +
+        infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full + '&direction=90', true);
+    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
+        '&direction=90', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             // document.getElementById("data-box__photo").reload();
@@ -900,11 +1011,14 @@ function rotatePhotoNegative() {
 function rotatePhotoPositive() {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
-    const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path + infoList[selectedPhotoIdx.currentIdx()].filename;
-    const full = infoList[selectedPhotoIdx.currentIdx()].path + infoList[selectedPhotoIdx.currentIdx()].filename;
+    const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
+        infoList[selectedPhotoIdx.currentIdx()].filename;
+    const full = infoList[selectedPhotoIdx.currentIdx()].path +
+        infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full + '&direction=-90', true);
+    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
+        '&direction=-90', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             // document.getElementById("data-box__photo").reload();
@@ -945,7 +1059,8 @@ function assignReadingTitle() {
     const menu0 = menu[0];
     const menu1 = menu[1];
     menu0.innerHTML = "Lectures des Normandeau-Desilets";
-    menu1.innerHTML = "Vers les <span style='font-weight:bold;'>Bernard-Normandeau</span>";
+    menu1.innerHTML = "Vers les <span style='font-weight:bold;'>" +
+        "Bernard-Normandeau</span>";
 }
 
 function getReadings() {
@@ -959,7 +1074,8 @@ function getReadings() {
     if (n !== -1) {
         path = 11;
         menu0.innerHTML = 'Lectures des Bernard-Normandeau';
-        menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>Normandeau-Desilets";
+        menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>" +
+            "Normandeau-Desilets";
     } else {
         path = 10;
         assignReadingTitle();
@@ -1165,7 +1281,8 @@ function getDecades() {
 function getYearsSelected() {
     'use strict';
     const url = currentWindow();
-    const deca = document.getElementsByClassName('data-box__select--add-folder-photo-decade');
+    const deca =
+        document.getElementsByClassName('data-box__select--add-folder-photo-decade');
     const decade = deca[0].value;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'php/getYears.php?decade=' + decade, true);
@@ -1182,23 +1299,27 @@ function getYearsSelected() {
 
 function renderDecades(decades) {
     'use strict';
-    const decadeContainer = document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
+    const decadeContainer =
+        document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
     var htmlString = "";
 
     for (const obj of decades) {
-        htmlString += "<option value=\"" + obj.idDecade + "\">" + obj.decade + "</option>\n";
+        htmlString += "<option value=\"" + obj.idDecade + "\">" + obj.decade +
+            "</option>\n";
     }
     decadeContainer.insertAdjacentHTML("beforeend", htmlString);
 }
 
 function renderYears(data) {
     'use strict';
-    const yearContainer = document.getElementsByClassName('data-box__select--add-folder-photo-year');
+    const yearContainer =
+        document.getElementsByClassName('data-box__select--add-folder-photo-year');
     yearContainer[0].innerHTML = '';
     var htmlString = "";
 
     for (const obj of data) {
-        htmlString += "<option value=\"" + obj.idxYear + "\">" + obj.year + "</option>\n";
+        htmlString += "<option value=\"" + obj.idxYear + "\">" + obj.year +
+            "</option>\n";
     }
     htmlString += "<option value=\"1\">NA</option>";
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
@@ -1208,7 +1329,8 @@ function getFolders(fisrtYear) {
     'use strict';
     var year;
     if (fisrtYear === undefined) {
-        const y = document.getElementsByClassName('data-box__select--add-folder-photo-year');
+        const y =
+            document.getElementsByClassName('data-box__select--add-folder-photo-year');
         year = y[0].value;
     } else {
         year = fisrtYear;
@@ -1226,12 +1348,14 @@ function getFolders(fisrtYear) {
 
 function renderFolders(folderData) {
     'use strict';
-    var folderContainer = document.getElementsByClassName('data-box__select--add-ph-title');
+    var folderContainer =
+        document.getElementsByClassName('data-box__select--add-ph-title');
     var htmlString = "";
     folderContainer[0].innerHTML = '';
 
     for (const obj of folderData) {
-        htmlString += "<option value=\"" + obj.folder + "\">" + obj.title + "</option>";
+        htmlString += "<option value=\"" + obj.folder + "\">" + obj.title +
+            "</option>";
     }
     folderContainer[0].insertAdjacentHTML('beforeend', htmlString);
 }
@@ -1239,7 +1363,8 @@ function renderFolders(folderData) {
 function renderSelectedPhotos() {
     'use strict';
     document.getElementsByClassName('data-box__message')[0].style.display = 'none';
-    document.getElementById('data__box--text-input').value = createFileList(document.getElementById('data-box__input--photos').files);
+    document.getElementById('data__box--text-input').value =
+        createFileList(document.getElementById('data-box__input--photos').files);
 }
 
 function createFileList(files) {
@@ -1267,9 +1392,12 @@ function insertPhotoInfo() {
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
 
-    req.open('POST', 'php/photoInfo.php?photoId=' + inputs.photoId + '&title=' + inputs.title + '&keyWords=' + inputs.keyWords +
-        '&caption=' + inputs.caption + '&year=' + inputs.year + '&geneologyIdxs=' + inputs.geneologyIdxs +
+    req.open('POST', 'php/photoInfo.php?photoId=' + inputs.photoId +
+        '&title=' + inputs.title + '&keyWords=' + inputs.keyWords +
+        '&caption=' + inputs.caption + '&year=' + inputs.year +
+        '&geneologyIdxs=' + inputs.geneologyIdxs +
         '&function=insertPhotoInfo', true);
+
     req.onload = function () {
         let success = true;
     };
@@ -1279,13 +1407,20 @@ function insertPhotoInfo() {
 function getPhotoInfoInputs() {
     'use strict';
     var infoInputs = [];
-    infoInputs.photoId = document.getElementsByClassName('data-box__photo-id')[0].value;
-    infoInputs.title = document.getElementsByClassName('data-box__input--info-title')[0].value;
-    infoInputs.keyWords = document.getElementsByClassName('data-box__input--info-keywords')[0].value;
-    infoInputs.caption = document.getElementsByClassName('data-box__input--info-caption')[0].value;
-    infoInputs.year = document.getElementsByClassName('data-box__input--info-year')[0].value;
-    infoInputs.geneologyIdxs = document.getElementsByClassName('data-box__input--info-geneol')[0].value;
-    infoInputs.geneologyIdxs = validatePhotoInfoIndexes(infoInputs.geneologyIdxs);
+    infoInputs.photoId =
+        document.getElementsByClassName('data-box__photo-id')[0].value;
+    infoInputs.title =
+        document.getElementsByClassName('data-box__input--info-title')[0].value;
+    infoInputs.keyWords =
+        document.getElementsByClassName('data-box__input--info-keywords')[0].value;
+    infoInputs.caption =
+        document.getElementsByClassName('data-box__input--info-caption')[0].value;
+    infoInputs.year =
+        document.getElementsByClassName('data-box__input--info-year')[0].value;
+    infoInputs.geneologyIdxs =
+        document.getElementsByClassName('data-box__input--info-geneol')[0].value;
+    infoInputs.geneologyIdxs =
+        validatePhotoInfoIndexes(infoInputs.geneologyIdxs);
     return infoInputs;
 }
 
@@ -1331,18 +1466,21 @@ function getGeneologyList() {
 
 function renderGeneologyList(rawData) {
     'use strict';
-    var listContainer = document.getElementsByClassName('data-box__geneol-list')[0];
+    var listContainer =
+        document.getElementsByClassName('data-box__geneol-list')[0];
     var optGroup = '';
     var htmlString = "";
     var names = [];
     var listOfNames = [];
 
-    htmlString = '<select onchange="addGeneolNames()" id=\"data-box__geneol-list\" class=\"data-box__ select data-box__select--geneol\" >\n' +
-        '    <option selected value=\"choice\">Faites un choix\n' +
-        '    </option>\n';
+    htmlString =
+        '<select onchange="addGeneolNames()" id=\"data-box__geneol-list\" ' +
+        '        class=\"data-box__ select data-box__select--geneol\" >\n' +
+        '<option selected value=\"choice\">Faites un choix\n' + '</option>\n';
 
     for (const obj of rawData) {
-        htmlString += '<option value=\"' + obj.idgen + '\">' + obj.name + '</option>\n';
+        htmlString += '<option value=\"' + obj.idgen + '\">' + obj.name +
+            '</option>\n';
         const names = {'idx': obj.idgen, 'name': obj.name};
         listOfNames.push(names);
     }
@@ -1433,6 +1571,59 @@ function disableSubmitButton() {
     }
 }
 
+function downloadPhotos() {
+    'use strict';
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'php/photos.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
+        ' charset=UTF-8');
+    xhr.responseType = 'blob';
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var disposition = xhr.getResponseHeader('content-disposition');
+            var matches = /"([^"]*)"/.exec(disposition);
+            var filename =
+                (matches !== null &&
+                 matches[1] ? matches[1] : 'lesnormandeaudesilets.zip');
+            var blob = new Blob([xhr.response], {type: 'application/zip'});
+            var link = document.createElement('a');
+
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            postDownload();
+
+            const xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'php/photos.php?function=removeZipFile', true);
+            xhr1.send();
+        }
+    };
+    let jsonList = JSON.stringify(listPhotosDownload.getList());
+    xhr.send('pids=' + jsonList + '&function=zipAndDownload');
+}
+
+function login() {
+    'use strict';
+    // Form fields, see IDs above
+    const params = {
+        email: document.querySelector('#loginEmail').value,
+        password: document.querySelector('#loginPassword').value
+    };
+
+    const http = new XMLHttpRequest();
+    http.open('POST', '/login');
+    http.setRequestHeader('Content-type', 'application/json');
+    http.send(JSON.stringify(params)); // Make sure to stringify
+    http.onload = function () {
+        // Do whatever with response
+        alert(http.responseText);
+    };
+}
+
 /*** Closures ***/
 function photoInfoIdxIncrementer(pIndex) {
     'use strict';
@@ -1457,7 +1648,7 @@ function listPhotoInfo(pList) {
 
     this.getPhotoInfoList = function () {
         return _list;
-    }
+    };
 }
 
 function listOfAllYears(pYears) {
@@ -1626,7 +1817,7 @@ function folderHierarchy() {
     };
     this.setSubItem = function (sItem) {
         _sbitm = sItem;
-    }
+    };
     this.getSubItem = function () {
         return _sbitm;
     };
@@ -1659,7 +1850,7 @@ function modalCurrentIndex() {
 
     this.setIndex = function (idx) {
         _index = idx;
-    }
+    };
     this.addOne = function () {
         _index++;
     };
@@ -1668,5 +1859,30 @@ function modalCurrentIndex() {
     };
     this.getIndex = function () {
         return _index;
+    };
+}
+
+function photosForDownload() {
+    'use strict';
+    var _pid = [];
+    var _shiftKey = false;
+
+    this.setShiftKey = function (shiftKey) {
+        _shiftKey = shiftKey;
+    };
+    this.getShiftKey = function () {
+        return _shiftKey;
+    };
+    this.addphoto = function (pid) {
+        _pid.push(pid);
+    };
+    this.removePhoto = function (idx) {
+        _pid.splice(idx, 1);
+    };
+    this.getList = function () {
+        return _pid;
+    };
+    this.initPid = function () {
+        _pid.pop();
     };
 }

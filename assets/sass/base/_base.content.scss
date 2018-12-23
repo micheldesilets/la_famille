@@ -507,16 +507,20 @@
     color: #bbbbbb;
   }
 
-  &__next-folder, &__previous-folder {
+  &__next-folder, &__previous-folder, &__download-photos {
     float: left;
     position: relative;
-   //left: 10px;
+    left: 80px;
     background-color: $color1;
     border: none;
     cursor: pointer;
     @include hocus() {
       color: $color3;
     }
+  }
+
+  &__download-photos {
+    left: 300px;
   }
 
   &__thumb-title {
