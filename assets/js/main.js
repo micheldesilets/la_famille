@@ -22,7 +22,7 @@ var listPhotosDownload = new photosForDownload();
 function getFolderTree() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/folders.php?function=getFolders',
+    xhr.open('GET', 'includes/php/folders.php?function=getFolders',
         true);
     xhr.onload = function () {
         const folderData = JSON.parse(xhr.responseText);
@@ -193,7 +193,7 @@ function getPhotos(path, type) {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "php/getPhotos.php?path=" + path, true);
+        xhr.open("GET", "includes/php/getPhotos.php?path=" + path, true);
         xhr.onload = function () {
             if (xhr.readyState === 4) {
                 selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
@@ -214,7 +214,7 @@ function getPhotos(path, type) {
     }
 }
 
-function searchInputs() {
+var searchInputs = function() {
     'use strict';
     searchChoice.setSearchPageStatus(true);
     // searchChoice = true;
@@ -222,7 +222,7 @@ function searchInputs() {
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "php/getSearchedPhotos.php?kwrd=" +
+    xhr.open("GET", "includes/php/getSearchedPhotos.php?kwrd=" +
         searchFormData.kwords + "&startYear=" + searchFormData.startYear +
         "&endYear=" + searchFormData.endYear + "&wExact=" +
         searchFormData.wExact.toString() + "&wPart=" +
@@ -239,7 +239,7 @@ function searchInputs() {
         renderFamilyPhotos();
     };
     xhr.send();
-}
+};
 
 function getSelectedInfoPhoto() {
     'use strict';
@@ -252,7 +252,7 @@ function getSelectedInfoPhoto() {
     selectedPhotoIdx =
         new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/photoInfo.php?pid=' + selectedPhotoId +
+    xhr.open('GET', 'includes/php/photoInfo.php?pid=' + selectedPhotoId +
         '&function=getInfo', true);
     xhr.onload = function () {
         const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -267,7 +267,7 @@ function getPhotoInfoPrevious() {
         const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
         const infoList = photoInfoList.getPhotoInfoList();
-        xhr.open('GET', 'php/photoInfo.php?pid=' +
+        xhr.open('GET', 'includes/php/photoInfo.php?pid=' +
             infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
@@ -284,7 +284,7 @@ function getPhotoInfoNext() {
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'php/photoInfo.php?pid=' +
+        xhr.open('GET', 'includes/php/photoInfo.php?pid=' +
             infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = function () {
@@ -341,7 +341,7 @@ function renderHomePhoto() {
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 }
 
-function renderFamilyPhotos() {
+var renderFamilyPhotos = function() {
     'use strict';
     const imgDisplay =
         document.getElementsByClassName('photos__imgs')[0];
@@ -363,9 +363,9 @@ function renderFamilyPhotos() {
     document.getElementsByClassName('photos__previous-folder')[0].disabled = false;
     document.getElementsByClassName('photos__next-folder')[0].disabled = false;
     animatePhotos();
-}
+};
 
-function turnOffFolders() {
+var turnOffFolders = function() {
     'use strict';
     const titleContainer =
         document.getElementsByClassName('photos__thumb-title')[0];
@@ -395,9 +395,9 @@ function turnOffFolders() {
     } else {
         titleContainer.innerText = '';
     }
-}
+};
 
-function turnOffSearchFolders() {
+var turnOffSearchFolders = function() {
     'use strict';
     const titleContainer =
         document.getElementsByClassName('photos__thumb-title')[0];
@@ -417,23 +417,24 @@ function turnOffSearchFolders() {
     thumbTitle.style.display = 'block';
     const listPhotos = selectedPhotos.getPhotos();
     if (document.getElementById('search__radio-context').checked !== true) {
-        titleContainer.innerText = '';
+        titleContainer.innerText =
+            listPhotos.length + ' photo(s) trouvée(s)';
     } else {
         titleContainer.innerText = listPhotos[0].rptTitle;
     }
     btt.onclick = function () {
         backToSearch();
     };
-}
+};
 
 /*** SEARCH
  **********************************/
-function initSearchForm() {
+var initSearchForm = function() {
     'use strict';
     prepareSearchScreen();
     initAllYears();
     initSearchInputs();
-}
+};
 
 function searchForm() {
     'use strict';
@@ -478,7 +479,7 @@ function initAllYears() {
     if (Object.keys(allYearsData).length === 0) {
         const xhr = new XMLHttpRequest();
 
-        xhr.open('GET', 'php/getAllYears.php', true);
+        xhr.open('GET', 'includes/php/getAllYears.php', true);
         xhr.onload = function () {
             allYearsData = new listOfAllYears(JSON.parse(xhr.responseText));
             renderAllYears();
@@ -852,7 +853,7 @@ function imgModal(e) {
     }
 }
 
-function prepareDownload(e) {
+var prepareDownload = function(e) {
     'use strict';
     const redPrev =
         document.getElementsByClassName(e.target.classList.value)[modalCurrentIdx.getIndex()];
@@ -870,12 +871,14 @@ function prepareDownload(e) {
         listPhotosDownload.removePhoto(isPidIdxInList);
         redPrev.style.border = '2px solid  #fdfaf6';
         if (isPidIdxInList === 0) {
-            document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
-            document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
+            if(!searchChoice.getSearchPageStatus()) {
+               document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
+               document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
+           }
             document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
         }
     }
-}
+};
 
 function postDownload() {
     'use strict';
@@ -891,9 +894,18 @@ function postDownload() {
         listPhotosDownload.initPid();
     }
 
-    document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
-    document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
-    document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
+    document.getElementsByClassName('photos__previous-folder')[0].style.display =
+        'block';
+    document.getElementsByClassName('photos__next-folder')[0].style.display =
+        'block';
+    document.getElementsByClassName('photos__download-photos')[0].style.display =
+        'none';
+    const nextFolder =
+        document.getElementsByClassName('photos__next-folder')[0];
+    nextFolder.style.display = 'none';
+    const previousFolder =
+        document.getElementsByClassName('photos__previous-folder')[0];
+    previousFolder.style.display = 'none';
 }
 
 function prevImage() {
@@ -996,7 +1008,7 @@ function rotatePhotoNegative() {
         infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
+    xhr.open('GET', 'includes/php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
         '&direction=90', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -1017,7 +1029,7 @@ function rotatePhotoPositive() {
         infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
+    xhr.open('GET', 'includes/php/rotatePhoto.php?thumb=' + thumb + '&full=' + full +
         '&direction=-90', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -1082,7 +1094,7 @@ function getReadings() {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/getReadings.php?path=' + path, true);
+    xhr.open('GET', 'includes/php/getReadings.php?path=' + path, true);
     xhr.onload = function () {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1122,7 +1134,7 @@ function renderReadings(data) {
 function getObjects() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/getObjects.php?path=' + 12, true);
+    xhr.open('GET', 'includes/php/getObjects.php?path=' + 12, true);
     xhr.onload = function () {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1206,14 +1218,14 @@ function addFolder() {
     'use strict';
     const folderData = getFolderInputs();
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/folders.php?type=' + folderData.type +
+    xhr.open('GET', 'includes/php/folders.php?type=' + folderData.type +
         '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
         '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolder', true);
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const xhr1 = new XMLHttpRequest();
-                xhr1.open('GET', 'php/folders.php?type=' + folderData.type +
+                xhr1.open('GET', 'includes/php/folders.php?type=' + folderData.type +
                     '&author=' + folderData.author + '&decade=' + folderData.decade + '&year=' + folderData.year +
                     '&title=' + folderData.title + '&levels=' + folderData.levels + '&function=addFolderMysql', true);
                 xhr1.onload = function () {
@@ -1234,7 +1246,7 @@ function uploadPhotos() {
     'use strict';
     const folderData = getFolderInputsPhotos();
 
-    const url = 'php/upload.php';
+    const url = 'includes/php/upload.php';
     const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
@@ -1268,7 +1280,7 @@ function uploadPhotos() {
 function getDecades() {
     'use strict';
     const req = new XMLHttpRequest();
-    req.open('GET', 'php/getDecades.php', true);
+    req.open('GET', 'includes/php/getDecades.php', true);
     req.onload = function () {
         const decadesData = JSON.parse(req.responseText);
         renderDecades(decadesData);
@@ -1285,7 +1297,7 @@ function getYearsSelected() {
         document.getElementsByClassName('data-box__select--add-folder-photo-decade');
     const decade = deca[0].value;
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/getYears.php?decade=' + decade, true);
+    xhr.open('GET', 'includes/php/getYears.php?decade=' + decade, true);
     xhr.onload = function () {
         const yearsData = JSON.parse(xhr.responseText);
         renderYears(yearsData);
@@ -1337,7 +1349,7 @@ function getFolders(fisrtYear) {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/getFolders.php?year=' + year, true);
+    xhr.open('GET', 'includes/php/getFolders.php?year=' + year, true);
     xhr.onload = function () {
         const folderData = JSON.parse(xhr.responseText);
         renderFolders(folderData);
@@ -1392,7 +1404,7 @@ function insertPhotoInfo() {
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
 
-    req.open('POST', 'php/photoInfo.php?photoId=' + inputs.photoId +
+    req.open('POST', 'includes/php/photoInfo.php?photoId=' + inputs.photoId +
         '&title=' + inputs.title + '&keyWords=' + inputs.keyWords +
         '&caption=' + inputs.caption + '&year=' + inputs.year +
         '&geneologyIdxs=' + inputs.geneologyIdxs +
@@ -1450,7 +1462,7 @@ function validatePhotoInfoIndexes(listOfIndexes) {
 function getGeneologyList() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'php/getGeneologyList.php', true);
+    xhr.open('GET', 'includes/php/getGeneologyList.php', true);
     xhr.responseType = 'JSON';
     xhr.onload = function () {
         if (xhr.readyState === 4) {
@@ -1525,7 +1537,7 @@ function getShiftingFolders() {
     'use strict';
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', 'php/folders.php?function=getShiftingFolders');
+    xhr.open('GET', 'includes/php/folders.php?function=getShiftingFolders');
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1574,7 +1586,7 @@ function disableSubmitButton() {
 function downloadPhotos() {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'php/photos.php', true);
+    xhr.open('POST', 'includes/php/photos.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.responseType = 'blob';
@@ -1598,7 +1610,7 @@ function downloadPhotos() {
             postDownload();
 
             const xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', 'php/photos.php?function=removeZipFile', true);
+            xhr1.open('GET', 'includes/php/photos.php?function=removeZipFile', true);
             xhr1.send();
         }
     };

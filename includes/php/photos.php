@@ -11,7 +11,7 @@ if (isset($_POST['function'])) {
     $function = $_GET['function'];
 }
 
-require_once '../classes/database/cl_PhotosDB.php';
+require_once '../../classes/database/cl_PhotosDB.php';
 $db = new photosBD();
 
 if ($function === 'zipAndDownload') {
@@ -63,7 +63,7 @@ if ($function === 'removeZipFile'){
         $file->isDir() ?  rmdir($file) : unlink($file);
     }
 
-    $dir = "photosNormDesi";
+    $dir = "photos_Normandeau_Desilets";
     $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
     $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
     foreach ( $ri as $file ) {

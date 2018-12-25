@@ -5,7 +5,7 @@ $function = $_GET['function'];
 
 if ($function == 'getInfo') {
     $pid = $_GET['pid'];
-    require_once '../classes/database/cl_PhotosDB.php';
+    require_once '../../classes/database/cl_PhotosDB.php';
 
     $db = new photosBD();
     $db->getInfoPhoto($pid);
@@ -23,7 +23,7 @@ if ($function == 'insertPhotoInfo') {
 
     $infoData = array($photoId, $title, $keywords, $caption, $year, $geneologyIdxs);
 
-    require_once '../classes/database/cl_PhotosDB.php';
+    require_once '../../classes/database/cl_PhotosDB.php';
 
     $db = new photosBD();
     $db->insertPhotoInfo($infoData);

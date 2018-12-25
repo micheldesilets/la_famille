@@ -11,7 +11,7 @@ header('content-type: text/javascript');
 $function = $_GET['function'];
 
 if ($function == addFolder) {
-    require_once '../classes/database/cl_foldersDB.php';
+    require_once '../../classes/database/cl_foldersDB.php';
     $type = $_GET['type'];
     $author = $_GET['author'];
     $decade = $_GET['decade'];
@@ -26,7 +26,7 @@ if ($function == addFolder) {
 }
 
 if ($function == addFolderMysql) {
-    require_once '../classes/database/cl_foldersDB.php';
+    require_once '../../classes/database/cl_foldersDB.php';
     $type = $_GET['type'];
     $author = $_GET['author'];
     $decade = $_GET['decade'];
@@ -42,7 +42,7 @@ if ($function == addFolderMysql) {
 
 if ($function === addMetadataToMysql) {
     $meta = json_decode($_GET['meta']);
-    require_once '../classes/database/cl_foldersDB.php';
+    require_once '../../classes/database/cl_foldersDB.php';
 
     $db = new foldersDB();
     $db->addMetadataToMysql($meta);

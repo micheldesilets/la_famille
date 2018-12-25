@@ -175,8 +175,8 @@ class photosBD
     private
     function createJason($sql)
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_photos.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_photos.php';
 
         $photo = new Photos();
 
@@ -318,8 +318,8 @@ class photosBD
     private
     function getName($sql)
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_photos.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_photos.php';
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -340,8 +340,8 @@ class photosBD
     private
     function getIndex($sql)
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_photos.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_photos.php';
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -357,7 +357,7 @@ class photosBD
 
     function insertPhotoInfo($photoInfo)
     {
-        include '../connection/connect.php';
+        include '../../connection/connect.php';
         $con->query('SET NAMES utf8');
 
         $photoId = $photoInfo[0];
@@ -386,8 +386,8 @@ class photosBD
 
     function downloadPhotos($listPids)
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_photos.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_photos.php';
         /*
                 $sql = "SELECT * from photos_pho
                 WHERE id_pho IN (" . implode(',', $listPids) . ")";*/
@@ -413,9 +413,9 @@ class photosBD
             $p = $value->path;
             $f = $value->filename;
             $sourceName = $p . $f;
-            $destName = 'photosNormDesi/' . $f;
+            $destName = 'photos_Normandeau_Desilets/' . $f;
             copy($sourceName,$destName);
-            $value->path = 'photosNormDesi/';
+            $value->path = 'photos_Normandeau_Desilets/';
         }
         $json = json_encode($photosArray);
         return $json;

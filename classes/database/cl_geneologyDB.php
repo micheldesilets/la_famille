@@ -10,8 +10,8 @@ class cl_geneologyDB
 {
     public function getGeneologyList()
     {
-        include_once '../connection/connect.php';
-        require_once '../classes/business/cl_geneology.php';
+        include_once '../../connection/connect.php';
+        require_once '../../classes/business/cl_geneology.php';
 
         $sql = "CALL getGeneologyList()";
 

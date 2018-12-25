@@ -9,7 +9,7 @@ header('content-type: text/javascript');
 
 $function = $_GET['function'];
 
-require_once '../classes/database/cl_foldersDB.php';
+require_once '../../classes/database/cl_foldersDB.php';
 $db = new foldersDB();
 
 if ($function === 'getFolders') {

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'];
 
         $folderData = array($type, $author, $decade, $year, $title);
-        require_once '../classes/database/cl_foldersDB.php';
+        require_once '../../classes/database/cl_foldersDB.php';
         $db = new foldersDB();
         $pathSql = $db->getPath($folderData);
         $path = $pathSql[0];
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 }
                 // Include the file that houses all of our custom image functions
-                include_once("../php/imgLibrary.php");
+                include_once("../includes/php/imgLibrary.php");
 // ---------- Start Universal Image Resizing Function --------
                 $target_file = "../uploads/$file_name";
                 $file = $path . 'full/' . $file_name;

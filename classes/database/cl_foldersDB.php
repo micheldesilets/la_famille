@@ -9,8 +9,8 @@ class foldersDB
 {
     public function getFoldersTree()
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_folders.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_folders.php';
 
         $folder = new folders();
         $sql = "CALL getFoldersTree()";
@@ -55,8 +55,8 @@ class foldersDB
 
     public function getShiftingFolders()
     {
-        include '../connection/connect.php';
-        require_once '../classes/business/cl_folders.php';
+        include '../../connection/connect.php';
+        require_once '../../classes/business/cl_folders.php';
 
         $folder = new folders();
         $sql = "CALL getShiftingFolders()";
@@ -106,8 +106,8 @@ class foldersDB
     {
         // current directory
         $wd = getcwd();
-        require_once '../classes/business/cl_folders.php';
-        include '../connection/connect.php';
+        require_once '../../classes/business/cl_folders.php';
+        include '../../connection/connect.php';
 
         $type = $folderData[0];
         $author = $folderData[1];
@@ -180,7 +180,7 @@ class foldersDB
     function addFolderMysql($folderData)
     {
         $curr = getcwd();
-        include '../connection/connect.php';
+        include '../../connection/connect.php';
 
         $typePhoto = $folderData[0];
         $author = $folderData[1];
@@ -204,8 +204,8 @@ class foldersDB
     {
         $wd = getcwd();
 
-        require_once '../classes/business/cl_folders.php';
-        include '../connection/connect.php';
+        require_once '../../classes/business/cl_folders.php';
+        include '../../connection/connect.php';
 
         $sql = "CALL getFolders($year)";
 
@@ -245,7 +245,7 @@ class foldersDB
     function addMetadataToMysql($idRpt, $file_name)
     {
         $curr = getcwd();
-        include '../connection/connect.php';
+        include '../../connection/connect.php';
 
         $sql = "CALL addPhotoToDB($idRpt,'" . utf8_encode($file_name) . "')";
 
@@ -267,7 +267,7 @@ class foldersDB
         $year = $path[3];
         $title = $path[4];
 
-        include '../connection/connect.php';
+        include '../../connection/connect.php';
 
         $sql = "CALL getPath($typePhoto,$author,$decade,$year,$title)";
 

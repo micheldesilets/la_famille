@@ -12,8 +12,8 @@ class objectsDB
   ***************/
   public function getObjects($path)
   {
-    include_once '../connection/connect.php';
-    require_once '../classes/business/cl_objects.php';
+    include_once '../../connection/connect.php';
+    require_once '../../classes/business/cl_objects.php';
 
     $sql = "SELECT * FROM objects_obj obj
   JOIN photos_folders_pfo pfo
