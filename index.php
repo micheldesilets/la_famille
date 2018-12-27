@@ -1,3 +1,15 @@
+<?php
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+if (login_check($mysqli) == true) {
+    $logged = 'in';
+} else {
+    $logged = 'out';
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +20,8 @@
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="assets/js/main.js"></script>
+    <script type="text/JavaScript" src="assets/js/forms.js"></script>
+    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
     <?php
     require_once 'classes/database/cl_PhotosDB.php';
     $dbSb = new photosBD();
@@ -18,15 +32,30 @@
     ?>
 </head>
 <body>
+<?php
+if (isset($_GET['error'])) {
+    echo '<p class="error">Error Logging In!</p>';
+}
+?>
 <div class="page">
+    <form action="includes/process_login.php" method="post" name="login_form">
+        Email: <input type="text" name="email" />
+        Password: <input type="password"
+                         name="password"
+                         id="password"/>
+        <input type="button"
+               value="Login"
+               onclick="formhash(this.form, this.form.password);" />
+    </form>
+
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
         <div class="masthead__dropdown">
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="addFolder.html">Ajout d'un
+                <a class="masthead__item" href="addFolder.php">Ajout d'un
                     répertoire</a>
-                <a class="masthead__item" href="addPhotos.html">Ajout de
+                <a class="masthead__item" href="addPhotos.php">Ajout de
                     photos</a>
             </div>
         </div>
@@ -42,19 +71,19 @@
                                                 href1="#">Acceuil</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="readings.html">
+                                                href="readings.php">
                         Lectures</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="geneology.html">
+                                                href="geneology.php">
                         Généalogie</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="objects.html">
+                                                href="objects.php">
                         Objets de famille</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="familyPhotos.html">
+                                                href="familyPhotos.php">
                         La famille en photos</a>
                 </li>
             </ul>
@@ -94,5 +123,15 @@
 </main>
 
 <!-- end page -->
+<?php
+if (login_check($mysqli) == true) {
+    echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
+
+    echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
+} else {
+    echo '<p>Currently logged ' . $logged . '.</p>';
+    echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
+}
+?>
 </body>
 </html>

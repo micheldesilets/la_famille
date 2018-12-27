@@ -19,7 +19,7 @@ var inFolders = new inFoldersState(true);
 var folderHierarchy = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
 
-function getFolderTree() {
+var getFolderTree = function() {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/folders.php?function=getFolders',
@@ -29,10 +29,10 @@ function getFolderTree() {
         buildFolderTree(folderData);
     };
     xhr.send();
-}
+};
 
 /*** Family Photos ***/
-function buildFolderTree(data) {
+var buildFolderTree = function(data) {
     'use strict';
     const folderContainer = document.getElementById("photos__folders");
 
@@ -89,9 +89,9 @@ function buildFolderTree(data) {
 
     folderContainer.insertAdjacentHTML("beforeend",
         folderHierarchy.getHtmlString());
-}
+};
 
-function folderLevel2(branch) {
+var folderLevel2 = function(branch) {
     'use strict';
     if (folderHierarchy.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -111,11 +111,11 @@ function folderLevel2(branch) {
             branch.type + ")'>" + branch.title + "</li>\n");
         folderHierarchy.setFolderId(branch.folder);
     }
-}
+};
 
 // TODO Add folder level 3
 
-function folderLevel4(branch) {
+var folderLevel4 = function(branch) {
     'use strict';
     if (folderHierarchy.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -172,9 +172,9 @@ function folderLevel4(branch) {
             branch.type + ")\">" + branch.title + "</li>\n");
         folderHierarchy.setFolderId(branch.folder);
     }
-}
+};
 
-function getFamilyPhotos(obj, path, type) {
+var getFamilyPhotos = function(obj, path, type) {
     'use strict';
     inFolders.setState(true);
     const folders = jsShiftingFolders.getShiftingFolders();
@@ -186,9 +186,9 @@ function getFamilyPhotos(obj, path, type) {
     }
     folderTitle.setTitle(obj.innerHTML);
     getPhotos(path, type);
-}
+};
 
-function getPhotos(path, type) {
+var getPhotos = function(path, type) {
     'use strict';
     searchChoice.setSearchPageStatus(false);
     try {
@@ -212,7 +212,7 @@ function getPhotos(path, type) {
     } catch (err) {
         alert(err.message);
     }
-}
+};
 
 var searchInputs = function() {
     'use strict';
@@ -241,7 +241,7 @@ var searchInputs = function() {
     xhr.send();
 };
 
-function getSelectedInfoPhoto() {
+var getSelectedInfoPhoto = function() {
     'use strict';
     photoInfoList =
         new listPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
@@ -259,9 +259,9 @@ function getSelectedInfoPhoto() {
         renderInfoPhoto(myInfoPhoto);
     };
     xhr.send();
-}
+};
 
-function getPhotoInfoPrevious() {
+var getPhotoInfoPrevious = function() {
     'use strict';
     if (selectedPhotoIdx.currentIdx() > 0) {
         const idx = selectedPhotoIdx.subtract();
@@ -276,9 +276,9 @@ function getPhotoInfoPrevious() {
         };
         xhr.send();
     }
-}
+};
 
-function getPhotoInfoNext() {
+var getPhotoInfoNext = function() {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
@@ -293,9 +293,9 @@ function getPhotoInfoNext() {
         };
         xhr.send();
     }
-}
+};
 
-function renderInfoPhoto(data) {
+var renderInfoPhoto = function(data) {
     'use strict';
     const infoContain =
         document.getElementsByClassName('data-box__photo');
@@ -323,9 +323,9 @@ function renderInfoPhoto(data) {
         getGeneologyList();
     }
 
-}
+};
 
-function renderHomePhoto() {
+var renderHomePhoto = function() {
     'use strict';
     const container = document.getElementsByClassName('home__photo');
     const archivesContainer = container[0];
@@ -339,7 +339,7 @@ function renderHomePhoto() {
             obj.title + "\">";
     }
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
 var renderFamilyPhotos = function() {
     'use strict';
@@ -436,12 +436,12 @@ var initSearchForm = function() {
     initSearchInputs();
 };
 
-function searchForm() {
+var searchForm = function() {
     'use strict';
     prepareSearchScreen();
-}
+};
 
-function prepareSearchScreen() {
+var prepareSearchScreen = function() {
     'use strict';
     const buttn =
         document.getElementsByClassName('search__search-button');
@@ -457,9 +457,9 @@ function prepareSearchScreen() {
     btt.onclick = function () {
         backToTree();
     };
-}
+};
 
-function initSearchInputs() {
+var initSearchInputs = function() {
     'use strict';
     document.getElementsByClassName('search__key-words')[0].value = '';
     /* document.getElementById('search__year-start').value='start';
@@ -472,9 +472,9 @@ function initSearchInputs() {
     document.getElementsByClassName('search__pid')[0].value = '';
     document.getElementById('search__radio-uniq').checked = true;
     document.getElementById('search__radio-context').checked = false;
-}
+};
 
-function initAllYears() {
+var initAllYears = function() {
     'use strict';
     if (Object.keys(allYearsData).length === 0) {
         const xhr = new XMLHttpRequest();
@@ -486,9 +486,9 @@ function initAllYears() {
         };
         xhr.send();
     }
-}
+};
 
-function renderAllYears() {
+var renderAllYears = function() {
     'use strict';
     var yearsFromContainer =
         document.getElementsByClassName('search__from-year')[0];
@@ -550,9 +550,9 @@ function renderAllYears() {
         '</select><br>';
 
     yearsToContainer.insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
-function getFollowingYears() {
+var getFollowingYears = function() {
     'use strict';
     var optGroup = '';
     const fromYear =
@@ -592,9 +592,9 @@ function getFollowingYears() {
         '</select><br>';
 
     yearsToContainer.insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
-function getSearchInputs() {
+var getSearchInputs = function() {
     'use strict';
     const searchData = [];
     searchData.kwords =
@@ -624,9 +624,9 @@ function getSearchInputs() {
     searchData.idContext =
         document.getElementById('search__radio-context').checked;
     return searchData;
-}
+};
 
-function backToTree() {
+var backToTree = function() {
     'use strict';
     // Bring back search and tree and hide 'back to tree(X)' button
     const imgDisplay =
@@ -651,9 +651,9 @@ function backToTree() {
     document.getElementById('photos__folders').style.display = 'block';
     const searchBtn = document.getElementsByClassName('search__search-button');
     searchBtn[0].style.display = 'block';
-}
+};
 
-function backToSearch() {
+var backToSearch = function() {
     'use strict';
     const imgDisplay =
         document.getElementsByClassName('photos__imgs')[0];
@@ -665,9 +665,9 @@ function backToSearch() {
         document.getElementsByClassName('photos__thumb-title')[0];
     thumbTitle.style.display = 'none';
     searchForm();
-}
+};
 
-function isKeyPressed(event) {
+var isKeyPressed = function(event) {
     'use strict';
     if (event.shiftKey) {
         // alert("The SHIFT key was pressed!");
@@ -676,7 +676,7 @@ function isKeyPressed(event) {
         listPhotosDownload.setShiftKey(false);
         // alert("The SHIFT key was NOT pressed!");
     }
-}
+};
 
 /* Controle of right and left keys
 **********************************/
@@ -749,14 +749,14 @@ document.onkeydown = function (e) {
     }
 };
 
-function cancelPid() {
+var cancelPid = function() {
     'use strict';
     const pid = document.getElementsByClassName('search__pid');
     pid[0].value = '';
     document.getElementById('search__radio-uniq').checked = true;
-}
+};
 
-function cancelKeywords() {
+var cancelKeywords = function() {
     'use strict';
     const kw = document.getElementsByClassName('search__key-words');
     kw[0].value = '';
@@ -766,11 +766,11 @@ function cancelKeywords() {
     document.getElementById('search__keys').checked = true;
     document.getElementById('search__titles').checked = true;
     document.getElementById('search__comments').checked = true;
-}
+};
 
 /*********************************/
 
-function animatePhotos() {
+var animatePhotos = function() {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const backward = document.getElementsByClassName('photos__previous')[0];
@@ -779,10 +779,10 @@ function animatePhotos() {
     imgs.forEach(img => img.addEventListener('click', imgModal));
     backward.addEventListener('click', prevImage);
     forward.addEventListener('click', nextImage);
-}
+};
 
 /*** MODAL ***/
-function transformImage(e) {
+var transformImage = function(e) {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const prev = e.target.src;
@@ -794,9 +794,9 @@ function transformImage(e) {
         }
     }
     imgModal(e);
-}
+};
 
-function imgModal(e) {
+var imgModal = function(e) {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const geneolCont = document.getElementsByClassName('photos__geneol')[0];
@@ -851,7 +851,7 @@ function imgModal(e) {
             inFolders.setState(true);
         };
     }
-}
+};
 
 var prepareDownload = function(e) {
     'use strict';
@@ -880,7 +880,7 @@ var prepareDownload = function(e) {
     }
 };
 
-function postDownload() {
+var postDownload = function() {
     'use strict';
     const listPid = listPhotosDownload.getList();
     const listPhotos = selectedPhotos.getPhotos();
@@ -906,9 +906,9 @@ function postDownload() {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'none';
-}
+};
 
-function prevImage() {
+var prevImage = function() {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
@@ -935,9 +935,9 @@ function prevImage() {
             ")</p>";
         modalCurrentIdx.subtractOne();
     }
-}
+};
 
-function nextImage() {
+var nextImage = function() {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
@@ -966,9 +966,9 @@ function nextImage() {
             ")</p>";
         modalCurrentIdx.addOne();
     }
-}
+};
 
-function buildGeneolLine(idxList, namesList) {
+var buildGeneolLine = function(idxList, namesList) {
     'use strict';
     var htmlLine = '';
     if (idxList !== '') {
@@ -985,11 +985,11 @@ function buildGeneolLine(idxList, namesList) {
         }
     }
     return htmlLine;
-}
+};
 
 /*** END MODAL ***/
 
-function editPhoto() {
+var editPhoto = function() {
     'use strict';
     const currentIdx = modalCurrentIdx.getIndex();
     const listPhotos = selectedPhotos.getPhotos();
@@ -997,9 +997,9 @@ function editPhoto() {
     window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho +
         '&currIdx=' + currentIdx);
     location.reload();
-}
+};
 
-function rotatePhotoNegative() {
+var rotatePhotoNegative = function() {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
@@ -1018,9 +1018,9 @@ function rotatePhotoNegative() {
         }
     };
     xhr.send();
-}
+};
 
-function rotatePhotoPositive() {
+var rotatePhotoPositive = function() {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
@@ -1039,9 +1039,9 @@ function rotatePhotoPositive() {
         }
     };
     xhr.send();
-}
+};
 
-function imgClick(e) {
+var imgClick = function(e) {
     'use strict';
     const current = document.querySelector('#current');
     // Reset opacity
@@ -1061,11 +1061,11 @@ function imgClick(e) {
 
     //Change the opacity to opacity variable
     e.target.style.opacity = opacity;
-}
+};
 
 /*** Reading section ***/
 
-function assignReadingTitle() {
+var assignReadingTitle = function() {
     'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
@@ -1073,9 +1073,9 @@ function assignReadingTitle() {
     menu0.innerHTML = "Lectures des Normandeau-Desilets";
     menu1.innerHTML = "Vers les <span style='font-weight:bold;'>" +
         "Bernard-Normandeau</span>";
-}
+};
 
-function getReadings() {
+var getReadings = function() {
     'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
@@ -1101,9 +1101,9 @@ function getReadings() {
         renderReadings(listPhotos);
     };
     xhr.send();
-}
+};
 
-function renderReadings(data) {
+var renderReadings = function(data) {
     'use strict';
     const container = document.getElementsByClassName('readings');
     const readingsContainer = container[0];
@@ -1126,12 +1126,12 @@ function renderReadings(data) {
             obj.sumary + "</p ><br></div>";
     }
     readingsContainer.insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
 /*** OBJECT SECTION
  ******************/
 
-function getObjects() {
+var getObjects = function() {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/getObjects.php?path=' + 12, true);
@@ -1141,9 +1141,9 @@ function getObjects() {
         renderObjects(listPhotos);
     };
     xhr.send();
-}
+};
 
-function renderObjects(data) {
+var renderObjects = function(data) {
     'use strict';
     const container = document.getElementsByClassName('objects__container');
     const objectsContainer = container[0];
@@ -1156,16 +1156,16 @@ function renderObjects(data) {
     }
     objectsContainer.insertAdjacentHTML('beforeend', htmlString);
     animateObjects();
-}
+};
 
-function animateObjects() {
+var animateObjects = function() {
     'use strict';
     const objs = document.querySelectorAll('.objects');
     const opacity = 0.5;
     objs.forEach(obj => obj.addEventListener('click', objModal));
-}
+};
 
-function objModal(e) {
+var objModal = function(e) {
     'use strict';
     const bdy = document.getElementById('bdy');
     var modal = document.getElementsByClassName('objects__modal')[0];
@@ -1185,11 +1185,11 @@ function objModal(e) {
         modal.style.display = 'none';
         bdy.style.overflow = 'visible';
     };
-}
+};
 
 /*** ADD folder
  ********************************/
-function getFolderInputs() {
+var getFolderInputs = function() {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
     var folderData = [];
@@ -1200,9 +1200,9 @@ function getFolderInputs() {
     folderData.year = folderDoc[4].value;
     folderData.title = folderDoc[5].value;
     return folderData;
-}
+};
 
-function getFolderInputsPhotos() {
+var getFolderInputsPhotos = function() {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
     var folderData = [];
@@ -1212,9 +1212,9 @@ function getFolderInputsPhotos() {
     folderData.year = folderDoc[3].value;
     folderData.title = folderDoc[4].value;
     return folderData;
-}
+};
 
-function addFolder() {
+var addFolder = function() {
     'use strict';
     const folderData = getFolderInputs();
     const xhr = new XMLHttpRequest();
@@ -1240,9 +1240,9 @@ function addFolder() {
         }
     };
     xhr.send();
-}
+};
 
-function uploadPhotos() {
+var uploadPhotos = function() {
     'use strict';
     const folderData = getFolderInputsPhotos();
 
@@ -1275,9 +1275,9 @@ function uploadPhotos() {
         butt.disabled = false;
         document.getElementsByClassName('data-box__message')[0].style.display = 'block';
     }
-}
+};
 
-function getDecades() {
+var getDecades = function() {
     'use strict';
     const req = new XMLHttpRequest();
     req.open('GET', 'includes/php/getDecades.php', true);
@@ -1288,9 +1288,9 @@ function getDecades() {
         disableSubmitButton();
     };
     req.send();
-}
+};
 
-function getYearsSelected() {
+var getYearsSelected = function() {
     'use strict';
     const url = currentWindow();
     const deca =
@@ -1307,9 +1307,9 @@ function getYearsSelected() {
         }
     };
     xhr.send();
-}
+};
 
-function renderDecades(decades) {
+var renderDecades = function(decades) {
     'use strict';
     const decadeContainer =
         document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
@@ -1320,9 +1320,9 @@ function renderDecades(decades) {
             "</option>\n";
     }
     decadeContainer.insertAdjacentHTML("beforeend", htmlString);
-}
+};
 
-function renderYears(data) {
+var renderYears = function(data) {
     'use strict';
     const yearContainer =
         document.getElementsByClassName('data-box__select--add-folder-photo-year');
@@ -1335,9 +1335,9 @@ function renderYears(data) {
     }
     htmlString += "<option value=\"1\">NA</option>";
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
-function getFolders(fisrtYear) {
+var getFolders = function(fisrtYear) {
     'use strict';
     var year;
     if (fisrtYear === undefined) {
@@ -1356,9 +1356,9 @@ function getFolders(fisrtYear) {
     };
 
     xhr.send();
-}
+};
 
-function renderFolders(folderData) {
+var renderFolders = function(folderData) {
     'use strict';
     var folderContainer =
         document.getElementsByClassName('data-box__select--add-ph-title');
@@ -1370,16 +1370,16 @@ function renderFolders(folderData) {
             "</option>";
     }
     folderContainer[0].insertAdjacentHTML('beforeend', htmlString);
-}
+};
 
-function renderSelectedPhotos() {
+var renderSelectedPhotos = function() {
     'use strict';
     document.getElementsByClassName('data-box__message')[0].style.display = 'none';
     document.getElementById('data__box--text-input').value =
         createFileList(document.getElementById('data-box__input--photos').files);
-}
+};
 
-function createFileList(files) {
+var createFileList = function(files) {
     'use strict';
     var fileList = '';
     let i = 0;
@@ -1392,14 +1392,14 @@ function createFileList(files) {
         i++;
     }
     return fileList;
-}
+};
 
-function closeWindow() {
+var closeWindow = function() {
     'use strict';
     window.close(window.location.href);
-}
+};
 
-function insertPhotoInfo() {
+var insertPhotoInfo = function() {
     'use strict';
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
@@ -1414,9 +1414,9 @@ function insertPhotoInfo() {
         let success = true;
     };
     req.send();
-}
+};
 
-function getPhotoInfoInputs() {
+var getPhotoInfoInputs = function() {
     'use strict';
     var infoInputs = [];
     infoInputs.photoId =
@@ -1434,9 +1434,9 @@ function getPhotoInfoInputs() {
     infoInputs.geneologyIdxs =
         validatePhotoInfoIndexes(infoInputs.geneologyIdxs);
     return infoInputs;
-}
+};
 
-function validatePhotoInfoIndexes(listOfIndexes) {
+var validatePhotoInfoIndexes = function(listOfIndexes) {
     'use strict';
     const listIdx = listOfIndexes.split(/\s,\s*/);
     var indexes = '';
@@ -1457,9 +1457,9 @@ function validatePhotoInfoIndexes(listOfIndexes) {
         }
     }
     return indexes;
-}
+};
 
-function getGeneologyList() {
+var getGeneologyList = function() {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/getGeneologyList.php', true);
@@ -1474,9 +1474,9 @@ function getGeneologyList() {
         }
     };
     xhr.send();
-}
+};
 
-function renderGeneologyList(rawData) {
+var renderGeneologyList = function(rawData) {
     'use strict';
     var listContainer =
         document.getElementsByClassName('data-box__geneol-list')[0];
@@ -1501,9 +1501,9 @@ function renderGeneologyList(rawData) {
 
     listContainer.insertAdjacentHTML('beforeend', htmlString);
     namesList.setNames(listOfNames);
-}
+};
 
-function addGeneolNames() {
+var addGeneolNames = function() {
     'use strict';
     let geneolList = document.getElementsByClassName('data-box__input--info-geneol');
     var names = geneolList[0].value;
@@ -1524,16 +1524,16 @@ function addGeneolNames() {
         names = name;
     }
     geneolList[0].value = names;
-}
+};
 
-function currentWindow() {
+var currentWindow  = function() {
     'use strict';
     const currWin = window.location.href.match(/^[^\#\?]+/)[0];
     const n = currWin.lastIndexOf('/');
     return currWin.substring(n + 1);
-}
+};
 
-function getShiftingFolders() {
+var getShiftingFolders = function() {
     'use strict';
     const xhr = new XMLHttpRequest();
 
@@ -1546,9 +1546,9 @@ function getShiftingFolders() {
         }
     };
     xhr.send();
-}
+};
 
-function showNextFolder() {
+var showNextFolder = function() {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
@@ -1559,9 +1559,9 @@ function showNextFolder() {
         const path = folders[idx].folder;
         getPhotos(path, 2);
     }
-}
+};
 
-function showPreviousFolder() {
+var showPreviousFolder = function() {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
@@ -1572,18 +1572,18 @@ function showPreviousFolder() {
         folderTitle.setTitle(folders[idx].title);
         getPhotos(path, 2);
     }
-}
+};
 
-function disableSubmitButton() {
+var disableSubmitButton = function() {
     'use strict';
     const currWin = currentWindow();
     if (currWin === 'addFolder.html;') {
         const butt = document.getElementsByClassName('data-box__go-button')[0];
         butt.disabled = true;
     }
-}
+};
 
-function downloadPhotos() {
+var downloadPhotos = function() {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'includes/php/photos.php', true);
@@ -1616,9 +1616,9 @@ function downloadPhotos() {
     };
     let jsonList = JSON.stringify(listPhotosDownload.getList());
     xhr.send('pids=' + jsonList + '&function=zipAndDownload');
-}
+};
 
-function login() {
+var login = function() {
     'use strict';
     // Form fields, see IDs above
     const params = {
@@ -1634,7 +1634,7 @@ function login() {
         // Do whatever with response
         alert(http.responseText);
     };
-}
+};
 
 /*** Closures ***/
 function photoInfoIdxIncrementer(pIndex) {

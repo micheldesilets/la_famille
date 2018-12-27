@@ -1,3 +1,9 @@
+<?php
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,6 +15,7 @@
 </head>
 
 <body>
+<?php if (login_check($mysqli) == true) : ?>
 <div class="page">
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
@@ -19,13 +26,13 @@
             <ul class="c-nav-main">
                 <li class="c-nav-main__item"><a class="c-nav-main__link" href="index.php">Acceuil</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.html">Lectures</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link" href="readings.php">Lectures</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link" href="#">Généalogie</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="objects.html">Objets de famille</a>
+                <li class="c-nav-main__item"><a class="c-nav-main__link" href="objects.php">Objets de famille</a>
                 </li>
-                <li class="c-nav-main__item"><a class="c-nav-main__link" href="familyPhotos.html">La famille en
+                <li class="c-nav-main__item"><a class="c-nav-main__link" href="familyPhotos.php">La famille en
                         photos</a>
                 </li>
             </ul>
@@ -58,5 +65,10 @@
         </section>
     </div>
 </div>
+<?php else : ?>
+    <p>
+        <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
+    </p>
+<?php endif; ?>
 </body>
 </html>

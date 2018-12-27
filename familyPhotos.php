@@ -1,3 +1,9 @@
+<?php
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body id="bdy" onmousedown="isKeyPressed(event)" onload="getShiftingFolders()">
+<?php if (login_check($mysqli) == true) : ?>
 <div class="page ">
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
@@ -20,17 +27,17 @@
                                                 href="index.php">Acceuil</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="readings.html">Lectures</a>
+                                                href="readings.php">Lectures</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="geneology.html">Généalogie</a>
+                                                href="geneology.php">Généalogie</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="objects.html">Objets de
+                                                href="objects.php">Objets de
                         famille</a>
                 </li>
                 <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                                href="familyPhotos.html">La
+                                                href="familyPhotos.php">La
                         famille en photos</a>
                 </li>
             </ul>
@@ -198,5 +205,10 @@
 <script src="assets/js/main.js"></script>
 <script>getFolderTree()</script>
 
+<?php else : ?>
+    <p>
+        <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
+    </p>
+<?php endif; ?>
 </body>
 </html>
