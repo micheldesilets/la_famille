@@ -7,19 +7,19 @@
 var searchChoice = new searchPhotos(false);
 var folderTitle = new directoryTitle();
 var selectedPhotos = new photos();
-var modalCurrentIdx = new modalCurrentIndex();
+// var modalCurrentIdx = new modalCurrentIndex();
 var photoInfoList = {};
 var selectedPhotoIdx = {};
 var currentShiftingFolder = {};
-var jsShiftingFolders = new listShiftingFolders();
+// var jsShiftingFolders = new listShiftingFolders();
 var allYearsData = {};
-var namesList = new listGeneologyNames();
+// var listGeneologyNames = new listGeneologyNames();
 var geneolListDone = new geneologyList(false);
 var inFolders = new inFoldersState(true);
 var folderHierarchy = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
 
-var getFolderTree = function() {
+var getFolderTree = function () {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/folders.php?function=getFolders',
@@ -32,7 +32,7 @@ var getFolderTree = function() {
 };
 
 /*** Family Photos ***/
-var buildFolderTree = function(data) {
+var buildFolderTree = function (data) {
     'use strict';
     const folderContainer = document.getElementById("photos__folders");
 
@@ -91,7 +91,7 @@ var buildFolderTree = function(data) {
         folderHierarchy.getHtmlString());
 };
 
-var folderLevel2 = function(branch) {
+var folderLevel2 = function (branch) {
     'use strict';
     if (folderHierarchy.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -115,7 +115,7 @@ var folderLevel2 = function(branch) {
 
 // TODO Add folder level 3
 
-var folderLevel4 = function(branch) {
+var folderLevel4 = function (branch) {
     'use strict';
     if (folderHierarchy.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -174,10 +174,10 @@ var folderLevel4 = function(branch) {
     }
 };
 
-var getFamilyPhotos = function(obj, path, type) {
+var getFamilyPhotos = function (obj, path, type) {
     'use strict';
     inFolders.setState(true);
-    const folders = jsShiftingFolders.getShiftingFolders();
+    const folders = listShiftingFolders.getShiftingFolders();
     for (let i = 0; i < folders.length; ++i) {
         if (path === parseInt(folders[i].folder)) {
             currentShiftingFolder = new shiftingFoldersIdx(i);
@@ -188,7 +188,7 @@ var getFamilyPhotos = function(obj, path, type) {
     getPhotos(path, type);
 };
 
-var getPhotos = function(path, type) {
+var getPhotos = function (path, type) {
     'use strict';
     searchChoice.setSearchPageStatus(false);
     try {
@@ -214,7 +214,7 @@ var getPhotos = function(path, type) {
     }
 };
 
-var searchInputs = function() {
+var searchInputs = function () {
     'use strict';
     searchChoice.setSearchPageStatus(true);
     // searchChoice = true;
@@ -241,7 +241,7 @@ var searchInputs = function() {
     xhr.send();
 };
 
-var getSelectedInfoPhoto = function() {
+var getSelectedInfoPhoto = function () {
     'use strict';
     photoInfoList =
         new listPhotoInfo(JSON.parse(localStorage.getItem("photoInfoList")));
@@ -261,7 +261,7 @@ var getSelectedInfoPhoto = function() {
     xhr.send();
 };
 
-var getPhotoInfoPrevious = function() {
+var getPhotoInfoPrevious = function () {
     'use strict';
     if (selectedPhotoIdx.currentIdx() > 0) {
         const idx = selectedPhotoIdx.subtract();
@@ -278,7 +278,7 @@ var getPhotoInfoPrevious = function() {
     }
 };
 
-var getPhotoInfoNext = function() {
+var getPhotoInfoNext = function () {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
@@ -295,7 +295,7 @@ var getPhotoInfoNext = function() {
     }
 };
 
-var renderInfoPhoto = function(data) {
+var renderInfoPhoto = function (data) {
     'use strict';
     const infoContain =
         document.getElementsByClassName('data-box__photo');
@@ -325,7 +325,7 @@ var renderInfoPhoto = function(data) {
 
 };
 
-var renderHomePhoto = function() {
+var renderHomePhoto = function () {
     'use strict';
     const container = document.getElementsByClassName('home__photo');
     const archivesContainer = container[0];
@@ -341,7 +341,7 @@ var renderHomePhoto = function() {
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 };
 
-var renderFamilyPhotos = function() {
+var renderFamilyPhotos = function () {
     'use strict';
     const imgDisplay =
         document.getElementsByClassName('photos__imgs')[0];
@@ -365,7 +365,7 @@ var renderFamilyPhotos = function() {
     animatePhotos();
 };
 
-var turnOffFolders = function() {
+var turnOffFolders = function () {
     'use strict';
     const titleContainer =
         document.getElementsByClassName('photos__thumb-title')[0];
@@ -397,7 +397,7 @@ var turnOffFolders = function() {
     }
 };
 
-var turnOffSearchFolders = function() {
+var turnOffSearchFolders = function () {
     'use strict';
     const titleContainer =
         document.getElementsByClassName('photos__thumb-title')[0];
@@ -429,19 +429,19 @@ var turnOffSearchFolders = function() {
 
 /*** SEARCH
  **********************************/
-var initSearchForm = function() {
+var initSearchForm = function () {
     'use strict';
     prepareSearchScreen();
     initAllYears();
     initSearchInputs();
 };
 
-var searchForm = function() {
+var searchForm = function () {
     'use strict';
     prepareSearchScreen();
 };
 
-var prepareSearchScreen = function() {
+var prepareSearchScreen = function () {
     'use strict';
     const buttn =
         document.getElementsByClassName('search__search-button');
@@ -459,7 +459,7 @@ var prepareSearchScreen = function() {
     };
 };
 
-var initSearchInputs = function() {
+var initSearchInputs = function () {
     'use strict';
     document.getElementsByClassName('search__key-words')[0].value = '';
     /* document.getElementById('search__year-start').value='start';
@@ -474,7 +474,7 @@ var initSearchInputs = function() {
     document.getElementById('search__radio-context').checked = false;
 };
 
-var initAllYears = function() {
+var initAllYears = function () {
     'use strict';
     if (Object.keys(allYearsData).length === 0) {
         const xhr = new XMLHttpRequest();
@@ -488,7 +488,7 @@ var initAllYears = function() {
     }
 };
 
-var renderAllYears = function() {
+var renderAllYears = function () {
     'use strict';
     var yearsFromContainer =
         document.getElementsByClassName('search__from-year')[0];
@@ -552,7 +552,7 @@ var renderAllYears = function() {
     yearsToContainer.insertAdjacentHTML('beforeend', htmlString);
 };
 
-var getFollowingYears = function() {
+var getFollowingYears = function () {
     'use strict';
     var optGroup = '';
     const fromYear =
@@ -594,7 +594,7 @@ var getFollowingYears = function() {
     yearsToContainer.insertAdjacentHTML('beforeend', htmlString);
 };
 
-var getSearchInputs = function() {
+var getSearchInputs = function () {
     'use strict';
     const searchData = [];
     searchData.kwords =
@@ -626,7 +626,7 @@ var getSearchInputs = function() {
     return searchData;
 };
 
-var backToTree = function() {
+var backToTree = function () {
     'use strict';
     // Bring back search and tree and hide 'back to tree(X)' button
     const imgDisplay =
@@ -653,7 +653,7 @@ var backToTree = function() {
     searchBtn[0].style.display = 'block';
 };
 
-var backToSearch = function() {
+var backToSearch = function () {
     'use strict';
     const imgDisplay =
         document.getElementsByClassName('photos__imgs')[0];
@@ -667,7 +667,7 @@ var backToSearch = function() {
     searchForm();
 };
 
-var isKeyPressed = function(event) {
+var isKeyPressed = function (event) {
     'use strict';
     if (event.shiftKey) {
         // alert("The SHIFT key was pressed!");
@@ -693,7 +693,7 @@ document.onkeydown = function (e) {
             // ctrlPressed = true;
             break;
         case evt.key === 'ArrowLeft':
-            if (currWin === 'photoInfo.html') {
+            if (currWin === 'photoInfo.php') {
                 getPhotoInfoPrevious();
             } else {
                 if (!inFolders.getState()) {
@@ -704,7 +704,7 @@ document.onkeydown = function (e) {
             }
             break;
         case evt.key === 'ArrowRight':
-            if (currWin === 'photoInfo.html') {
+            if (currWin === 'photoInfo.php') {
                 getPhotoInfoNext();
             } else {
                 if (!inFolders.getState()) {
@@ -749,14 +749,14 @@ document.onkeydown = function (e) {
     }
 };
 
-var cancelPid = function() {
+var cancelPid = function () {
     'use strict';
     const pid = document.getElementsByClassName('search__pid');
     pid[0].value = '';
     document.getElementById('search__radio-uniq').checked = true;
 };
 
-var cancelKeywords = function() {
+var cancelKeywords = function () {
     'use strict';
     const kw = document.getElementsByClassName('search__key-words');
     kw[0].value = '';
@@ -770,7 +770,7 @@ var cancelKeywords = function() {
 
 /*********************************/
 
-var animatePhotos = function() {
+var animatePhotos = function () {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const backward = document.getElementsByClassName('photos__previous')[0];
@@ -782,7 +782,7 @@ var animatePhotos = function() {
 };
 
 /*** MODAL ***/
-var transformImage = function(e) {
+var transformImage = function (e) {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const prev = e.target.src;
@@ -796,7 +796,7 @@ var transformImage = function(e) {
     imgModal(e);
 };
 
-var imgModal = function(e) {
+var imgModal = function (e) {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const geneolCont = document.getElementsByClassName('photos__geneol')[0];
@@ -836,9 +836,9 @@ var imgModal = function(e) {
         captionText.innerHTML = imgs[currentIdx].alt;
         const listPhotos = selectedPhotos.getPhotos();
         const idxList = listPhotos[currentIdx].geneolidx.split(',');
-        const namesList = listPhotos[currentIdx].geneolnames.split(',');
+        const listGeneologyNames = listPhotos[currentIdx].geneolnames.split(',');
 
-        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+        geneolCont.innerHTML = buildGeneolLine(idxList, listGeneologyNames);
         photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx].idpho + ")</p>";
 
 // Get the <span> element that closes the modal
@@ -853,7 +853,7 @@ var imgModal = function(e) {
     }
 };
 
-var prepareDownload = function(e) {
+var prepareDownload = function (e) {
     'use strict';
     const redPrev =
         document.getElementsByClassName(e.target.classList.value)[modalCurrentIdx.getIndex()];
@@ -871,16 +871,16 @@ var prepareDownload = function(e) {
         listPhotosDownload.removePhoto(isPidIdxInList);
         redPrev.style.border = '2px solid  #fdfaf6';
         if (isPidIdxInList === 0) {
-            if(!searchChoice.getSearchPageStatus()) {
-               document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
-               document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
-           }
+            if (!searchChoice.getSearchPageStatus()) {
+                document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
+                document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
+            }
             document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
         }
     }
 };
 
-var postDownload = function() {
+var postDownload = function () {
     'use strict';
     const listPid = listPhotosDownload.getList();
     const listPhotos = selectedPhotos.getPhotos();
@@ -908,7 +908,7 @@ var postDownload = function() {
     previousFolder.style.display = 'none';
 };
 
-var prevImage = function() {
+var prevImage = function () {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
@@ -928,16 +928,16 @@ var prevImage = function() {
 
         const listPhotos = selectedPhotos.getPhotos();
         const idxList = listPhotos[currentIdx - 1].geneolidx.split(',');
-        const namesList = listPhotos[currentIdx - 1].geneolnames.split(',');
+        const listGeneologyNames = listPhotos[currentIdx - 1].geneolnames.split(',');
 
-        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+        geneolCont.innerHTML = buildGeneolLine(idxList, listGeneologyNames);
         photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx - 1].idpho +
             ")</p>";
         modalCurrentIdx.subtractOne();
     }
 };
 
-var nextImage = function() {
+var nextImage = function () {
     'use strict';
     const imgs = document.querySelectorAll('.photos__imgs img');
     const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
@@ -959,16 +959,16 @@ var nextImage = function() {
 
         const listPhotos = selectedPhotos.getPhotos();
         const idxList = listPhotos[currentIdx + 1].geneolidx.split(',');
-        const namesList = listPhotos[currentIdx + 1].geneolnames.split(',');
+        const listGeneologyNames = listPhotos[currentIdx + 1].geneolnames.split(',');
 
-        geneolCont.innerHTML = buildGeneolLine(idxList, namesList);
+        geneolCont.innerHTML = buildGeneolLine(idxList, listGeneologyNames);
         photoIdCont.innerHTML = "<p>(pid-" + listPhotos[currentIdx + 1].idpho +
             ")</p>";
         modalCurrentIdx.addOne();
     }
 };
 
-var buildGeneolLine = function(idxList, namesList) {
+var buildGeneolLine = function (idxList, listGeneologyNames) {
     'use strict';
     var htmlLine = '';
     if (idxList !== '') {
@@ -976,7 +976,7 @@ var buildGeneolLine = function(idxList, namesList) {
         for (var i = 0; i < idxList.length; i++) {
             htmlLine = htmlLine + "<a href='legacy/desilets/asc_tree/" +
                 idxList[i] + ".html' target='_blank'>" +
-                namesList[i];
+                listGeneologyNames[i];
             if (i + 1 < idxList.length) {
                 htmlLine = htmlLine + ",&nbsp </a>";
             } else {
@@ -989,17 +989,17 @@ var buildGeneolLine = function(idxList, namesList) {
 
 /*** END MODAL ***/
 
-var editPhoto = function() {
+var editPhoto = function () {
     'use strict';
     const currentIdx = modalCurrentIdx.getIndex();
     const listPhotos = selectedPhotos.getPhotos();
     localStorage.setItem("photoInfoList", JSON.stringify(listPhotos));
-    window.open('photoInfo.html?pid=' + listPhotos[currentIdx].idpho +
+    window.open('photoInfo.php?pid=' + listPhotos[currentIdx].idpho +
         '&currIdx=' + currentIdx);
     location.reload();
 };
 
-var rotatePhotoNegative = function() {
+var rotatePhotoNegative = function () {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
@@ -1020,7 +1020,7 @@ var rotatePhotoNegative = function() {
     xhr.send();
 };
 
-var rotatePhotoPositive = function() {
+var rotatePhotoPositive = function () {
     'use strict';
     const infoList = photoInfoList.getPhotoInfoList();
     const thumb = infoList[selectedPhotoIdx.currentIdx()].prev_path +
@@ -1041,7 +1041,7 @@ var rotatePhotoPositive = function() {
     xhr.send();
 };
 
-var imgClick = function(e) {
+var imgClick = function (e) {
     'use strict';
     const current = document.querySelector('#current');
     // Reset opacity
@@ -1065,7 +1065,7 @@ var imgClick = function(e) {
 
 /*** Reading section ***/
 
-var assignReadingTitle = function() {
+var assignReadingTitle = function () {
     'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
@@ -1075,7 +1075,7 @@ var assignReadingTitle = function() {
         "Bernard-Normandeau</span>";
 };
 
-var getReadings = function() {
+var getReadings = function () {
     'use strict';
     const menu = document.getElementsByClassName('menu1__item');
     const menu0 = menu[0];
@@ -1103,7 +1103,7 @@ var getReadings = function() {
     xhr.send();
 };
 
-var renderReadings = function(data) {
+var renderReadings = function (data) {
     'use strict';
     const container = document.getElementsByClassName('readings');
     const readingsContainer = container[0];
@@ -1131,7 +1131,7 @@ var renderReadings = function(data) {
 /*** OBJECT SECTION
  ******************/
 
-var getObjects = function() {
+var getObjects = function () {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/getObjects.php?path=' + 12, true);
@@ -1143,7 +1143,7 @@ var getObjects = function() {
     xhr.send();
 };
 
-var renderObjects = function(data) {
+var renderObjects = function (data) {
     'use strict';
     const container = document.getElementsByClassName('objects__container');
     const objectsContainer = container[0];
@@ -1158,14 +1158,14 @@ var renderObjects = function(data) {
     animateObjects();
 };
 
-var animateObjects = function() {
+var animateObjects = function () {
     'use strict';
     const objs = document.querySelectorAll('.objects');
     const opacity = 0.5;
     objs.forEach(obj => obj.addEventListener('click', objModal));
 };
 
-var objModal = function(e) {
+var objModal = function (e) {
     'use strict';
     const bdy = document.getElementById('bdy');
     var modal = document.getElementsByClassName('objects__modal')[0];
@@ -1189,7 +1189,7 @@ var objModal = function(e) {
 
 /*** ADD folder
  ********************************/
-var getFolderInputs = function() {
+var getFolderInputs = function () {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
     var folderData = [];
@@ -1202,7 +1202,7 @@ var getFolderInputs = function() {
     return folderData;
 };
 
-var getFolderInputsPhotos = function() {
+var getFolderInputsPhotos = function () {
     'use strict';
     const folderDoc = document.getElementsByClassName('data-box__select');
     var folderData = [];
@@ -1214,7 +1214,7 @@ var getFolderInputsPhotos = function() {
     return folderData;
 };
 
-var addFolder = function() {
+var addFolder = function () {
     'use strict';
     const folderData = getFolderInputs();
     const xhr = new XMLHttpRequest();
@@ -1242,7 +1242,7 @@ var addFolder = function() {
     xhr.send();
 };
 
-var uploadPhotos = function() {
+var uploadPhotos = function () {
     'use strict';
     const folderData = getFolderInputsPhotos();
 
@@ -1277,7 +1277,7 @@ var uploadPhotos = function() {
     }
 };
 
-var getDecades = function() {
+var getDecades = function () {
     'use strict';
     const req = new XMLHttpRequest();
     req.open('GET', 'includes/php/getDecades.php', true);
@@ -1290,7 +1290,7 @@ var getDecades = function() {
     req.send();
 };
 
-var getYearsSelected = function() {
+var getYearsSelected = function () {
     'use strict';
     const url = currentWindow();
     const deca =
@@ -1309,7 +1309,7 @@ var getYearsSelected = function() {
     xhr.send();
 };
 
-var renderDecades = function(decades) {
+var renderDecades = function (decades) {
     'use strict';
     const decadeContainer =
         document.getElementsByClassName('data-box__select--add-folder-photo-decade')[0];
@@ -1322,7 +1322,7 @@ var renderDecades = function(decades) {
     decadeContainer.insertAdjacentHTML("beforeend", htmlString);
 };
 
-var renderYears = function(data) {
+var renderYears = function (data) {
     'use strict';
     const yearContainer =
         document.getElementsByClassName('data-box__select--add-folder-photo-year');
@@ -1337,7 +1337,7 @@ var renderYears = function(data) {
     yearContainer[0].insertAdjacentHTML('beforeend', htmlString);
 };
 
-var getFolders = function(fisrtYear) {
+var getFolders = function (fisrtYear) {
     'use strict';
     var year;
     if (fisrtYear === undefined) {
@@ -1358,7 +1358,7 @@ var getFolders = function(fisrtYear) {
     xhr.send();
 };
 
-var renderFolders = function(folderData) {
+var renderFolders = function (folderData) {
     'use strict';
     var folderContainer =
         document.getElementsByClassName('data-box__select--add-ph-title');
@@ -1372,14 +1372,14 @@ var renderFolders = function(folderData) {
     folderContainer[0].insertAdjacentHTML('beforeend', htmlString);
 };
 
-var renderSelectedPhotos = function() {
+var renderSelectedPhotos = function () {
     'use strict';
     document.getElementsByClassName('data-box__message')[0].style.display = 'none';
     document.getElementById('data__box--text-input').value =
         createFileList(document.getElementById('data-box__input--photos').files);
 };
 
-var createFileList = function(files) {
+var createFileList = function (files) {
     'use strict';
     var fileList = '';
     let i = 0;
@@ -1394,12 +1394,12 @@ var createFileList = function(files) {
     return fileList;
 };
 
-var closeWindow = function() {
+var closeWindow = function () {
     'use strict';
     window.close(window.location.href);
 };
 
-var insertPhotoInfo = function() {
+var insertPhotoInfo = function () {
     'use strict';
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
@@ -1416,7 +1416,7 @@ var insertPhotoInfo = function() {
     req.send();
 };
 
-var getPhotoInfoInputs = function() {
+var getPhotoInfoInputs = function () {
     'use strict';
     var infoInputs = [];
     infoInputs.photoId =
@@ -1436,13 +1436,13 @@ var getPhotoInfoInputs = function() {
     return infoInputs;
 };
 
-var validatePhotoInfoIndexes = function(listOfIndexes) {
+var validatePhotoInfoIndexes = function (listOfIndexes) {
     'use strict';
     const listIdx = listOfIndexes.split(/\s,\s*/);
     var indexes = '';
     var index = '';
     var names = '';
-    const lisOfNames = namesList.getNames();
+    const lisOfNames = listGeneologyNames.getNames();
     for (var i = 0; i < listIdx.length; i++) {
         for (const obj of lisOfNames) {
             if (listIdx[i] === obj.name) {
@@ -1459,7 +1459,7 @@ var validatePhotoInfoIndexes = function(listOfIndexes) {
     return indexes;
 };
 
-var getGeneologyList = function() {
+var getGeneologyList = function () {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'includes/php/getGeneologyList.php', true);
@@ -1476,7 +1476,7 @@ var getGeneologyList = function() {
     xhr.send();
 };
 
-var renderGeneologyList = function(rawData) {
+var renderGeneologyList = function (rawData) {
     'use strict';
     var listContainer =
         document.getElementsByClassName('data-box__geneol-list')[0];
@@ -1500,16 +1500,16 @@ var renderGeneologyList = function(rawData) {
     htmlString += '</select><br>';
 
     listContainer.insertAdjacentHTML('beforeend', htmlString);
-    namesList.setNames(listOfNames);
+    listGeneologyNames.setNames(listOfNames);
 };
 
-var addGeneolNames = function() {
+var addGeneolNames = function () {
     'use strict';
     let geneolList = document.getElementsByClassName('data-box__input--info-geneol');
     var names = geneolList[0].value;
     var selectGeneol = document.getElementsByClassName('select data-box__select--geneol')[0].value;
     var name = '';
-    const listOfNames = namesList.getNames();
+    const listOfNames = listGeneologyNames.getNames();
 
     for (const obj of listOfNames) {
         if (selectGeneol === obj.idx) {
@@ -1526,14 +1526,14 @@ var addGeneolNames = function() {
     geneolList[0].value = names;
 };
 
-var currentWindow  = function() {
+var currentWindow = function () {
     'use strict';
     const currWin = window.location.href.match(/^[^\#\?]+/)[0];
     const n = currWin.lastIndexOf('/');
     return currWin.substring(n + 1);
 };
 
-var getShiftingFolders = function() {
+var getShiftingFolders = function () {
     'use strict';
     const xhr = new XMLHttpRequest();
 
@@ -1541,18 +1541,18 @@ var getShiftingFolders = function() {
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                jsShiftingFolders = new listShiftingFolders(JSON.parse(xhr.responseText));
+           listShiftingFolders.setShiftingFolders(JSON.parse(xhr.responseText));
             }
         }
     };
     xhr.send();
 };
 
-var showNextFolder = function() {
+var showNextFolder = function () {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
-    const folders = jsShiftingFolders.getShiftingFolders();
+    const folders = listShiftingFolders.getShiftingFolders();
     if (currentShiftingFolder.currentIdx() < folders.length) {
         const idx = currentShiftingFolder.addOne();
         folderTitle.setTitle(folders[idx].title);
@@ -1561,11 +1561,11 @@ var showNextFolder = function() {
     }
 };
 
-var showPreviousFolder = function() {
+var showPreviousFolder = function () {
     'use strict';
     document.getElementsByClassName('photos__previous-folder')[0].disabled = true;
     document.getElementsByClassName('photos__next-folder')[0].disabled = true;
-    const folders = jsShiftingFolders.getShiftingFolders();
+    const folders = listShiftingFolders.getShiftingFolders();
     if (currentShiftingFolder.currentIdx() >= 0) {
         const idx = currentShiftingFolder.subtractOne();
         const path = folders[idx].folder;
@@ -1574,7 +1574,7 @@ var showPreviousFolder = function() {
     }
 };
 
-var disableSubmitButton = function() {
+var disableSubmitButton = function () {
     'use strict';
     const currWin = currentWindow();
     if (currWin === 'addFolder.html;') {
@@ -1583,7 +1583,7 @@ var disableSubmitButton = function() {
     }
 };
 
-var downloadPhotos = function() {
+var downloadPhotos = function () {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'includes/php/photos.php', true);
@@ -1596,7 +1596,7 @@ var downloadPhotos = function() {
             var matches = /"([^"]*)"/.exec(disposition);
             var filename =
                 (matches !== null &&
-                 matches[1] ? matches[1] : 'lesnormandeaudesilets.zip');
+                matches[1] ? matches[1] : 'lesnormandeaudesilets.zip');
             var blob = new Blob([xhr.response], {type: 'application/zip'});
             var link = document.createElement('a');
 
@@ -1618,7 +1618,7 @@ var downloadPhotos = function() {
     xhr.send('pids=' + jsonList + '&function=zipAndDownload');
 };
 
-var login = function() {
+var login = function () {
     'use strict';
     // Form fields, see IDs above
     const params = {
@@ -1737,14 +1737,11 @@ function shiftingFoldersIdx(pIdx) {
     };
 }
 
-function listShiftingFolders(pFolders) {
-    'use strict';
-    var _shiftingFolders = pFolders;
-
-    this.getShiftingFolders = function () {
-        return _shiftingFolders;
-    };
-}
+var listShiftingFolders = {
+    _shiftingFolders: "",
+    setShiftingFolders: (pFolders) => _shiftingFolders = pFolders,
+    getShiftingFolders: () => _shiftingFolders
+};
 
 function geneologyList(pState) {
     'use strict';
@@ -1770,17 +1767,11 @@ function inFoldersState(pState) {
     };
 }
 
-function listGeneologyNames() {
-    'use strict';
-    var _names = "";
-
-    this.setNames = function (names) {
-        _names = names;
-    };
-    this.getNames = function () {
-        return _names;
-    };
-}
+var listGeneologyNames = {
+    _names: "",
+    setNames: (names) => _names = names,
+    getNames: () => _names
+};
 
 function folderHierarchy() {
     'use strict';
@@ -1856,23 +1847,13 @@ function folderHierarchy() {
     };
 }
 
-function modalCurrentIndex() {
-    'use strict';
-    var _index = 0;
-
-    this.setIndex = function (idx) {
-        _index = idx;
-    };
-    this.addOne = function () {
-        _index++;
-    };
-    this.subtractOne = function () {
-        _index--;
-    };
-    this.getIndex = function () {
-        return _index;
-    };
-}
+var modalCurrentIdx = {
+    _index: 0,
+    setIndex: (idx) => _index = idx,
+    addOne: () => _index++,
+    subtractOne: () => _index--,
+    getIndex: () => _index
+};
 
 function photosForDownload() {
     'use strict';
