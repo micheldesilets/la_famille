@@ -7,16 +7,13 @@
 var searchChoice = new searchPhotos(false);
 var folderTitle = new directoryTitle();
 var selectedPhotos = new photos();
-// var modalCurrentIdx = new modalCurrentIndex();
 var photoInfoList = {};
 var selectedPhotoIdx = {};
 var currentShiftingFolder = {};
-// var jsShiftingFolders = new listShiftingFolders();
 var allYearsData = {};
-// var listGeneologyNames = new listGeneologyNames();
 var geneolListDone = new geneologyList(false);
 var inFolders = new inFoldersState(true);
-var folderHierarchy = new folderHierarchy();
+var folderTree = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
 
 var getFolderTree = function () {
@@ -37,37 +34,37 @@ var buildFolderTree = function (data) {
     const folderContainer = document.getElementById("photos__folders");
 
     for (const branch of data) {
-        if (folderHierarchy.getAuthor() !== branch.author &&
+        if (folderTree.getAuthor() !== branch.author &&
             branch.author.length > 0) {
-            if (folderHierarchy.getAuthor() !== "" &&
-                folderHierarchy.getLevel() === "4") {
-                folderHierarchy.addToHtmlString(
+            if (folderTree.getAuthor() !== "" &&
+                folderTree.getLevel() === "4") {
+                folderTree.addToHtmlString(
                     "</ul>\n" +
                     "</li>\n" +
                     "</ul>\n" +
                     "</div>\n" +
                     "</div>\n");
             }
-            if (folderHierarchy.getAuthor() !== "" &&
-                folderHierarchy.getLevel() === "2") {
-                folderHierarchy.addToHtmlString(
+            if (folderTree.getAuthor() !== "" &&
+                folderTree.getLevel() === "2") {
+                folderTree.addToHtmlString(
                     "</ul>\n" +
                     "</div>\n" +
                     "</div>\n");
             }
-            folderHierarchy.addJcounter();
-            const j = folderHierarchy.getJcounter();
-            folderHierarchy.addToHtmlString(
+            folderTree.addJcounter();
+            const j = folderTree.getJcounter();
+            folderTree.addToHtmlString(
                 "<input type=\"checkbox\" id=\"folders__menu" + j +
                 "\"/>\n" + "<label for=\"folders__menu" + j +
                 "\" class=\"folders__names\">" + branch.author + "</label>\n" +
                 "<div class=\"folders__multi-level" + j + "\">\n");
-            folderHierarchy.setAuthor(branch.author);
-            folderHierarchy.setDecade("");
+            folderTree.setAuthor(branch.author);
+            folderTree.setDecade("");
         }
 
-        folderHierarchy.setLevel(branch.levels);
-        switch (folderHierarchy.getLevel()) {
+        folderTree.setLevel(branch.levels);
+        switch (folderTree.getLevel()) {
             case "2":
                 folderLevel2(branch);
                 break;
@@ -77,8 +74,8 @@ var buildFolderTree = function (data) {
         }
     }
 
-    if (folderHierarchy.getLevel() === "4") {
-        folderHierarchy.addToHtmlString(
+    if (folderTree.getLevel() === "4") {
+        folderTree.addToHtmlString(
             "</ul>\n" +
             "</div>\n" +
             "</li>\n" +
@@ -88,28 +85,28 @@ var buildFolderTree = function (data) {
     }
 
     folderContainer.insertAdjacentHTML("beforeend",
-        folderHierarchy.getHtmlString());
+        folderTree.getHtmlString());
 };
 
 var folderLevel2 = function (branch) {
     'use strict';
-    if (folderHierarchy.getDecade() !== branch.decade &&
+    if (folderTree.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
-        folderHierarchy.addToHtmlString(
+        folderTree.addToHtmlString(
             "<div class=\"folders__itemL2\">\n" +
             "<ul>\n");
-        folderHierarchy.setDecade(branch.decade);
+        folderTree.setDecade(branch.decade);
     }
 
-    if ((folderHierarchy.getAuthor() === branch.author &&
+    if ((folderTree.getAuthor() === branch.author &&
         branch.author.length > 0) &&
-        (folderHierarchy.getFolderId() !== branch.folder)) {
+        (folderTree.getFolderId() !== branch.folder)) {
 
-        folderHierarchy.addToHtmlString(
+        folderTree.addToHtmlString(
             "<li class='folders__photofolder L2' " +
             "onclick='getFamilyPhotos(this," + branch.folder + "," +
             branch.type + ")'>" + branch.title + "</li>\n");
-        folderHierarchy.setFolderId(branch.folder);
+        folderTree.setFolderId(branch.folder);
     }
 };
 
@@ -117,40 +114,40 @@ var folderLevel2 = function (branch) {
 
 var folderLevel4 = function (branch) {
     'use strict';
-    if (folderHierarchy.getDecade() !== branch.decade &&
+    if (folderTree.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
-        if (folderHierarchy.getDecade() !== "") {
-            folderHierarchy.addToHtmlString(
+        if (folderTree.getDecade() !== "") {
+            folderTree.addToHtmlString(
                 "</ul>\n" +
                 "</div>\n" +
                 "</li>\n" +
                 "</ul>\n" +
                 "</div>\n");
         }
-        folderHierarchy.addItem();
-        const itm = folderHierarchy.getItem();
-        folderHierarchy.setSubItem(0);
-        folderHierarchy.addToHtmlString(
+        folderTree.addItem();
+        const itm = folderTree.getItem();
+        folderTree.setSubItem(0);
+        folderTree.addToHtmlString(
             "<div class=\"folders__item\">\n" +
             "<input type=\"checkbox\" id=\"IT" + itm + "\"/>\n" +
             "<img src=\"assets/img/icons/arrow.png\" class=\"folders__arrow\">\n" +
             "<label for=\"IT" + itm + "\">" + branch.decade + "</label>\n" +
             "<ul>\n");
-        folderHierarchy.setDecade(branch.decade);
-        folderHierarchy.setYear(0);
+        folderTree.setDecade(branch.decade);
+        folderTree.setYear(0);
     }
 
-    if (folderHierarchy.getYear() !== branch.year && branch.year.length > 0) {
-        if (folderHierarchy.getYear() !== 0) {
-            folderHierarchy.addToHtmlString(
+    if (folderTree.getYear() !== branch.year && branch.year.length > 0) {
+        if (folderTree.getYear() !== 0) {
+            folderTree.addToHtmlString(
                 "</ul>\n" +
                 "</div>\n" +
                 "</li>\n");
         }
-        const itm = folderHierarchy.getItem();
-        folderHierarchy.addSubItem();
-        const sbitm = folderHierarchy.getSubItem();
-        folderHierarchy.addToHtmlString(
+        const itm = folderTree.getItem();
+        folderTree.addSubItem();
+        const sbitm = folderTree.getSubItem();
+        folderTree.addToHtmlString(
             "<li>\n" +
             "<div class=\"folders__sub-item\">\n" +
             "<input type=\"checkbox\" id=\"SIT" + itm + "-" + sbitm + "\"/>\n" +
@@ -158,19 +155,19 @@ var folderLevel4 = function (branch) {
             "<label for=\"SIT" + itm + "-" + sbitm + "\">" + branch.year +
             "</label>\n" +
             "<ul>\n");
-        folderHierarchy.setYear(branch.year);
+        folderTree.setYear(branch.year);
     }
-    if ((folderHierarchy.getAuthor() === branch.author &&
+    if ((folderTree.getAuthor() === branch.author &&
         branch.author.length > 0) &&
-        (folderHierarchy.getDecade() === branch.decade &&
+        (folderTree.getDecade() === branch.decade &&
             branch.decade.length > 0) &&
-        (folderHierarchy.getYear() === branch.year && branch.year.length > 0) &&
-        (folderHierarchy.getFolderId() !== branch.folder)) {
-        folderHierarchy.addToHtmlString(
+        (folderTree.getYear() === branch.year && branch.year.length > 0) &&
+        (folderTree.getFolderId() !== branch.folder)) {
+        folderTree.addToHtmlString(
             "<li class=\"folders__photofolder\" value=\"0\" " +
             "onclick=\"getFamilyPhotos(this," + branch.folder + "," +
             branch.type + ")\">" + branch.title + "</li>\n");
-        folderHierarchy.setFolderId(branch.folder);
+        folderTree.setFolderId(branch.folder);
     }
 };
 
