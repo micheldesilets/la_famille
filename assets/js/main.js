@@ -11,8 +11,8 @@ var photoInfoList = {};
 var selectedPhotoIdx = {};
 var currentShiftingFolder = {};
 var allYearsData = {};
-var geneolListDone = new geneologyList(false);
-var inFolders = new inFoldersState(true);
+// var geneolListDone = new geneologyList(false);
+// var inFolders = new inFoldersState(true);
 var folderTree = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
 
@@ -173,7 +173,7 @@ var folderLevel4 = function (branch) {
 
 var getFamilyPhotos = function (obj, path, type) {
     'use strict';
-    inFolders.setState(true);
+    inFoldersState.setState(true);
     const folders = listShiftingFolders.getShiftingFolders();
     for (let i = 0; i < folders.length; ++i) {
         if (path === parseInt(folders[i].folder)) {
@@ -316,7 +316,7 @@ var renderInfoPhoto = function (data) {
     }
     infoContainer.insertAdjacentHTML('beforeend', htmlString);
 
-    if (geneolListDone.getState() === false) {
+    if (geneologyList.getState() === false) {
         getGeneologyList();
     }
 
@@ -693,7 +693,7 @@ document.onkeydown = function (e) {
             if (currWin === 'photoInfo.php') {
                 getPhotoInfoPrevious();
             } else {
-                if (!inFolders.getState()) {
+                if (!inFoldersState.getState()) {
                     prevImage();
                 } else {
                     showPreviousFolder();
@@ -704,7 +704,7 @@ document.onkeydown = function (e) {
             if (currWin === 'photoInfo.php') {
                 getPhotoInfoNext();
             } else {
-                if (!inFolders.getState()) {
+                if (!inFoldersState.getState()) {
                     nextImage();
                 } else {
                     showNextFolder();
@@ -798,7 +798,7 @@ var imgModal = function (e) {
     const imgs = document.querySelectorAll('.photos__imgs img');
     const geneolCont = document.getElementsByClassName('photos__geneol')[0];
     const photoIdCont = document.getElementsByClassName('photos__photo-id')[0];
-    inFolders.setState(false);
+    inFoldersState.setState(false);
     const currWin = window.location.href;
     const n = currWin.lastIndexOf('/');
     const winResult = currWin.substring(n + 1);
@@ -845,7 +845,7 @@ var imgModal = function (e) {
         span.onclick = function () {
             modal.style.display = 'none';
             bdy.style.overflow = 'visible';
-            inFolders.setState(true);
+            inFoldersState.setState(true);
         };
     }
 };
@@ -1466,7 +1466,7 @@ var getGeneologyList = function () {
             if (xhr.status === 200) {
                 const jsGeneolList = JSON.parse(xhr.responseText);
                 renderGeneologyList(jsGeneolList);
-                geneolListDone.setState(true);
+                geneologyList.setState(true);
             }
         }
     };
@@ -1538,7 +1538,7 @@ var getShiftingFolders = function () {
     xhr.onload = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-           listShiftingFolders.setShiftingFolders(JSON.parse(xhr.responseText));
+                listShiftingFolders.setShiftingFolders(JSON.parse(xhr.responseText));
             }
         }
     };
@@ -1740,29 +1740,17 @@ var listShiftingFolders = {
     getShiftingFolders: () => _shiftingFolders
 };
 
-function geneologyList(pState) {
-    'use strict';
-    var _state = pState;
+var geneologyList = {
+    _state: false,
+    setState: (state) => _state = state,
+    getState: () => _state
+};
 
-    this.setState = function (state) {
-        _state = state;
-    };
-    this.getState = function () {
-        return _state;
-    };
-}
-
-function inFoldersState(pState) {
-    'use strict';
-    var _state = pState;
-
-    this.setState = function (state) {
-        _state = state;
-    };
-    this.getState = function () {
-        return _state;
-    };
-}
+var inFoldersState = {
+    _state: true,
+    setState: (state) => _state = state,
+    getState: () => _state
+};
 
 var listGeneologyNames = {
     _names: "",
