@@ -55,7 +55,7 @@ if ($function === 'zipAndDownload') {
 
 if ($function === 'removeZipFile'){
     $curr = getcwd();
-    chdir('../');
+    chdir('../../');
     $dir = "assets/archives";
     $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
     $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);

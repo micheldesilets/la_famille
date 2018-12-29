@@ -38,6 +38,84 @@ if (isset($_GET['error'])) {
 }
 ?>
 <div class="page">
+    <div class="login">
+
+        <input class="login__input" type='checkbox' id='login__form-switch'>
+        <form class='login__login-form' action="includes/process_login.php"
+              method='post' name="login_form">
+            <input class="login__input" type="text" placeholder="Courriel"
+                   name="email" required>
+            <input class="login__input"
+                   type="password"
+                   placeholder="Mot de passe"
+                   id="password"
+                   name="password"
+                   required>
+            <button class="login__button"
+                    type='button' value="Login"
+                    onclick="formhash(this.form, this.form.password);">
+                Se connecter
+            </button>
+            <label class="login__label"
+                   for='login__form-switch'><span>S'enregistrer</span
+                ></label>
+        </form>
+        <form class='login__register-form'
+              action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>"
+              method='post'
+              name="registration_form">
+            <input class="login__input"
+                   type="text" placeholder="Utilisateur"
+                   name='username'
+                   id='username' required>
+            <input class="login__input"
+                   type="email" placeholder="Courriel"
+                   name="email" id="email" required>
+            <input class="login__input"
+                   type="password" placeholder="Mot de passe"
+                   name="password-register"
+                   id="password-register" required>
+            <input class="login__input"
+                   type="password" placeholder="Re Mot de passe"
+                   name="confirmpwd"
+                   id="confirmpwd" required>
+            <button class="login__button"
+                    type='button'
+                    value="Register"
+                    onclick="return regformhash(this.form,
+                                   this.form.username,
+                                   this.form.email,
+                                   this.form.password-register,
+                                   this.form.confirmpwd);">
+                Enregistrer
+            </button>
+            <label class="login__label" for='login__form-switch'>Déjà
+                membre? Connectez vous.
+            </label>
+        </form>
+    </div>
+    <!--<form action="<?php /*echo esc_url($_SERVER['REQUEST_URI']); */ ?>"
+          method="post"
+          name="registration_form">
+        Username: <input type='text'
+                         name='username'
+                         id='username' /><br>
+        Email: <input type="text" name="email" id="email" /><br>
+        Password: <input type="password"
+                         name="password"
+                         id="password"/><br>
+        Confirm password: <input type="password"
+                                 name="confirmpwd"
+                                 id="confirmpwd" /><br>
+        <input type="button"
+               value="Register"
+               onclick="return regformhash(this.form,
+                                   this.form.username,
+                                   this.form.email,
+                                   this.form.password,
+                                   this.form.confirmpwd);" />
+    </form>-->
+    <!--
     <form action="includes/process_login.php" method="post" name="login_form">
         Email: <input type="text" name="email" />
         Password: <input type="password"
@@ -46,7 +124,7 @@ if (isset($_GET['error'])) {
         <input type="button"
                value="Login"
                onclick="formhash(this.form, this.form.password);" />
-    </form>
+    </form>-->
 
     <!-- ==== START MASTHEAD ==== -->
     <header class="masthead" role="banner">
@@ -59,7 +137,10 @@ if (isset($_GET['error'])) {
                     photos</a>
             </div>
         </div>
-        <input type="button" class="masthead__account" value="Mon compte">
+        <input type="button" class="masthead__connect" value="Se connecter"
+               onclick="login()">
+        <input type="button" class="masthead__disconnect" value="Se déconnecter"
+               onclick="">
 
         <h1 class="masthead__title masthead__title--index">Les
             Normandeau-Desilets</h1>

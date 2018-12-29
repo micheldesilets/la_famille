@@ -1,3 +1,56 @@
+.login {
+  /*  position: relative;
+    z-index: 1;*/
+  display: block;
+  font-family: "raleway";
+  font-size: $font-small;
+
+  &__login-form, &__register-form {
+    margin: 0 auto;
+    width: 250px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    left: 850px;
+    opacity: 1;
+    background-color: $color1;
+  }
+
+  &__register-form {
+    display: none;
+  }
+
+  &__input {
+    margin-bottom: 3px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #CCC
+  }
+
+  &__button {
+    padding: 10px;
+  }
+
+  &__label {
+    cursor: pointer;
+  }
+}
+
+#login {
+  &__form-switch {
+    display: none;
+
+    &:checked ~ .login__login-form {
+      display: none;
+    }
+
+    &:checked ~ .login__login-form {
+      display: none;
+    }
+  }
+}
+
 .masthead {
   // Dropdown button and account
   &__dropdown {
@@ -6,24 +59,29 @@
     font-family: Raleway, "Times New Roman", serif;
     font-style: normal;
     font-size: small;
+
     .masthead__item {
       background-color: $color1;
     }
+
     &:hover {
       .masthead__dropdown-content {
         display: block;
       }
+
       .masthead__dropbtn {
         background-color: $color5;
       }
     }
   }
+
   &__dropbtn {
     margin-top: 8px;
     border: none;
     color: black;
     background-color: $color1;
   }
+
   &__dropdown-content {
     display: none;
     position: absolute;
@@ -31,17 +89,20 @@
     min-width: 200px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
+
     .masthead__item {
       color: black;
       padding-left: 24px;
       text-decoration: none;
       display: block;
+
       &:hover {
         background-color: $color5;
       }
     }
   }
-  &__account {
+
+  &__connect, &__disconnect {
     float: right;
     margin-top: 8px;
     background-color: $color1;
@@ -51,6 +112,11 @@
     font-size: small;
     text-decoration: none;
   }
+
+  &__disconnect {
+    display:block;
+  }
+
   // End dropdown button and account
 
   &__title {
@@ -60,6 +126,7 @@
     margin-bottom: 0;
     text-align: center;
     margin-top: 30px;
+
     &--index {
       margin-top: 5px;
     }
@@ -86,22 +153,27 @@
   border-bottom: 1px solid $color2;
   color: $color4;
   cursor: default;
+
   &__item {
     display: inline-block;
+
     &:first-child {
       border-left: none;
     }
+
     &:last-child {
       .c-nav-main__link {
         padding-right: 0;
       }
     }
   }
+
   &__link {
 
     display: inline-block;
     font-size: 1.2em;
     padding: .2em .9em .5em 1.15em;
+
     &:hover {
       color: $color3;
     }
@@ -119,16 +191,20 @@
     background-color: $color1;
     border: none;
   }
+
   &__h1 {
     font-size: x-large;
     text-align: right;
     float: left;
+
     &--info {
       width: 66%;
     }
+
     &--folder {
       width: 63%;
     }
+
     &--add-photos {
       width: 63%;
     }

@@ -406,7 +406,7 @@ class photosBD
         $photosArray = json_decode($json);
 
         $curr = getcwd();
-        chdir('../');
+        chdir('../../');
         $curr=getcwd();
 
         foreach ($photosArray as $value) {

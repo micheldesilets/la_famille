@@ -1617,20 +1617,11 @@ var downloadPhotos = function () {
 
 var login = function () {
     'use strict';
-    // Form fields, see IDs above
-    const params = {
-        email: document.querySelector('#loginEmail').value,
-        password: document.querySelector('#loginPassword').value
-    };
-
-    const http = new XMLHttpRequest();
-    http.open('POST', '/login');
-    http.setRequestHeader('Content-type', 'application/json');
-    http.send(JSON.stringify(params)); // Make sure to stringify
-    http.onload = function () {
-        // Do whatever with response
-        alert(http.responseText);
-    };
+    document.getElementsByClassName('login__login-form')[0].style.display = 'block';
+    const conn =
+    document.getElementsByClassName('masthead__connect');
+    conn[0].style.display = 'none';
+    document.getElementsByClassName('masthead__disconnect')[0].style.display = 'block';
 };
 
 /*** Closures ***/
@@ -1845,22 +1836,10 @@ function photosForDownload() {
     var _pid = [];
     var _shiftKey = false;
 
-    this.setShiftKey = function (shiftKey) {
-        _shiftKey = shiftKey;
-    };
-    this.getShiftKey = function () {
-        return _shiftKey;
-    };
-    this.addphoto = function (pid) {
-        _pid.push(pid);
-    };
-    this.removePhoto = function (idx) {
-        _pid.splice(idx, 1);
-    };
-    this.getList = function () {
-        return _pid;
-    };
-    this.initPid = function () {
-        _pid.pop();
-    };
+    this.setShiftKey = (shiftKey) => _shiftKey = shiftKey;
+    this.getShiftKey = () => _shiftKey;
+    this.addphoto = (pid) => _pid.push(pid);
+    this.removePhoto = (idx) => _pid.splice(idx, 1);
+    this.getList = () => _pid;
+    this.initPid = () => _pid.pop();
 }
