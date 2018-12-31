@@ -17,10 +17,10 @@ function formhash(form, password) {
 
 function regformhash(form, uid, email, password, conf) {
     // Check each field has a value
-    if (uid.value == ''         ||
-        email.value == ''     ||
-        password.value == ''  ||
-        conf.value == '') {
+    if (uid.value === ''         ||
+        email.value === ''     ||
+        password.value === ''  ||
+        conf.value === '') {
 
         alert('You must provide all the requested details. Please try again');
         return false;
@@ -54,7 +54,7 @@ function regformhash(form, uid, email, password, conf) {
     }
 
     // Check password and confirmation are the same
-    if (password.value != conf.value) {
+    if (password.value !== conf.value) {
         alert('Your password and confirmation do not match. Please try again');
         form.password.focus();
         return false;

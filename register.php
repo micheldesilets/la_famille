@@ -7,9 +7,9 @@ include_once 'includes/functions.php';
 <head>
     <meta charset="UTF-8">
     <title>Secure Login: Registration Form</title>
-    <script type="text/JavaScript" src="js/sha512.js"></script>
-    <script type="text/JavaScript" src="js/forms.js"></script>
-    <link rel="stylesheet" href="styles/main.css" />
+    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
+    <script type="text/JavaScript" src="assets/js/forms.js"></script>
+<!--    <link rel="stylesheet" href="styles/main.css" />-->
 </head>
 <body>
 <!-- Registration form to be output if the POST variables are not
@@ -33,6 +33,7 @@ if (!empty($error_msg)) {
     </li>
     <li>Your password and confirmation must match exactly</li>
 </ul>
+<?php echo getcwd();?>
 <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>"
       method="post"
       name="registration_form">

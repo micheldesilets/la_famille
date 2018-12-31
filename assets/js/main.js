@@ -338,7 +338,7 @@ var renderHomePhoto = function () {
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 };
 
-var renderFamilyPhotos = function () {
+var renderFamilyPhotos = () => {
     'use strict';
     const imgDisplay =
         document.getElementsByClassName('photos__imgs')[0];
@@ -1287,7 +1287,7 @@ var getDecades = function () {
     req.send();
 };
 
-var getYearsSelected = function () {
+var getYearsSelected = () => {
     'use strict';
     const url = currentWindow();
     const deca =
@@ -1615,13 +1615,27 @@ var downloadPhotos = function () {
     xhr.send('pids=' + jsonList + '&function=zipAndDownload');
 };
 
-var login = function () {
+var loginForm = () => {
     'use strict';
     document.getElementsByClassName('login__login-form')[0].style.display = 'block';
-    const conn =
-    document.getElementsByClassName('masthead__connect');
-    conn[0].style.display = 'none';
+    document.getElementsByClassName('login__register-form')[0].style.display = 'none';
+};
+
+var registerForm = () => {
+    'use strict';
+    document.getElementsByClassName('login__login-form')[0].style.display = 'none';
+    document.getElementsByClassName('login__register-form')[0].style.display = 'block';
+};
+
+var logedIn = () => {
+    'use strict';
+    document.getElementsByClassName('masthead__connect')[0].style.display = 'none';
     document.getElementsByClassName('masthead__disconnect')[0].style.display = 'block';
+};
+
+var loginError = () => {
+    'use strict';
+    alert('Erreur');
 };
 
 /*** Closures ***/

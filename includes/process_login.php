@@ -9,6 +9,8 @@ if (isset($_POST['email'], $_POST['p'])) {
     $password = $_POST['p']; // The hashed password.
 
     if (login($email, $password, $mysqli) == true) {
+
+       echo "<script type=\"text/javascript\">logedIn();</script>";
         // Login success
        header('Location: ../index.php');
     } else {

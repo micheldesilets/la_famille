@@ -11,9 +11,9 @@
     display: none;
     position: absolute;
     z-index: 1;
-    top: 6px;
-    left: 850px;
-    opacity: 1;
+    top: 170px;
+    left: 510px;
+    opacity: .95;
     background-color: $color1;
   }
 
@@ -25,16 +25,33 @@
     margin-bottom: 3px;
     padding: 10px;
     width: 100%;
+    height: 5px;
     border: 1px solid #CCC
   }
 
   &__button {
-    padding: 10px;
+    //padding: 0px;
   }
 
   &__label {
     cursor: pointer;
   }
+
+/*  &__connect {
+    float: right;
+    margin-top: 8px;
+    background-color: $color1;
+    border: none;
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: normal;
+    font-size: small;
+    text-decoration: none;
+    @include hocus;
+  }
+
+  &__disconnect {
+    display:block;
+  }*/
 }
 
 #login {
@@ -80,6 +97,7 @@
     border: none;
     color: black;
     background-color: $color1;
+    //display: inline-block;
   }
 
   &__dropdown-content {
@@ -111,10 +129,28 @@
     font-style: normal;
     font-size: small;
     text-decoration: none;
+    width: 100px;
+  }
+
+  &__form-disconnect{
+    float: right;
+    padding-top: 8px;
+    display: inline-block;
+    display: none;
+   }
+
+  &__disconnect{
+    display: none;
+  }
+
+  &__connect{
+    display: block;
   }
 
   &__disconnect {
-    display:block;
+    //display:block;
+    margin: 0;
+    display: block;
   }
 
   // End dropdown button and account
