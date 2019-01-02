@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pathSql = $db->getPath($folderData);
         $path = $pathSql[0];
         $idRpt = $pathSql[1];
-
+$curr = getcwd();
         for ($i = 0; $i < $all_files; $i++) {
             $file_name = $_FILES['files']['name'][$i];
             $file_name = str_replace(' ', '_', $file_name);
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (empty($errors)) {
-                $file = '../uploads/' . $file_name;
+                $file = '../../uploads/' . $file_name;
 //                $file = $path . 'full/' . $file_name;
                 $moveResult = move_uploaded_file($file_tmp, $file);
                 if ($moveResult != true) {
@@ -67,14 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 }
                 // Include the file that houses all of our custom image functions
-                include_once("../includes/php/imgLibrary.php");
+                include_once("../imgLibrary.php");
 // ---------- Start Universal Image Resizing Function --------
-                $target_file = "../uploads/$file_name";
+                $target_file = "../../uploads/$file_name";
                 $file = $path . 'full/' . $file_name;
 //                $resized_file = "uploads/resized_$fileName";
                 $resized_file = $file;
                 $wmax = 800;
                 $hmax = 800;
+                $curr=getcwd();
                 img_resize($target_file, $resized_file, $wmax, $hmax, $file_ext);
 // ----------- End Universal Image Resizing Function ----------
 // ------ Start Universal Image Thumbnail(Crop) Function ------

@@ -135,7 +135,7 @@ class foldersDB
 
     function createFolder($folder)
     {
-        chdir('../');
+        chdir('../../');
         $curr = getcwd();
 
         $typePhoto = $folder[0];
@@ -281,7 +281,8 @@ class foldersDB
         IF ($rowcount > 0) {
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $current = getcwd() . "\n";
-            $path = '../assets/img/' . utf8_encode($row['type_typ']) . '/' . utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
+            $path = '../../assets/img/' . utf8_encode($row['type_typ']) . '/' .
+                utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
                 $row['year_yea'] . '/' . utf8_encode($row['title_fol']) . '/';
             $info = [$path, $row['id_fol']];
             return $info;

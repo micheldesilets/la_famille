@@ -29,29 +29,19 @@
     border: 1px solid #CCC
   }
 
-  &__button {
-    //padding: 0px;
-  }
-
   &__label {
     cursor: pointer;
   }
 
-/*  &__connect {
-    float: right;
-    margin-top: 8px;
-    background-color: $color1;
-    border: none;
-    font-family: Raleway, "Times New Roman", serif;
-    font-style: normal;
-    font-size: small;
-    text-decoration: none;
-    @include hocus;
+  &__label-container{
+    //width: 20px;
   }
 
-  &__disconnect {
-    display:block;
-  }*/
+  &__button {
+    border: none;
+    background-color: $color1;
+    font-weight: $font-weight-darker;
+  }
 }
 
 #login {

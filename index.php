@@ -36,7 +36,7 @@ if (login_check($mysqli) == true) {
 <?php
 if (isset($_GET['error'])) {
 //    echo '<script> loginError()</script>';
-  echo '<p class="error">Error Logging In!</p>';
+    echo '<p class="error">Error Logging In!</p>';
 }
 ?>
 <div class="page">
@@ -66,10 +66,12 @@ if (isset($_GET['error'])) {
                     onclick="formhash(this.form, this.form.password);">
                 Se connecter
             </button>
-            <label class="login__label"
-                   for='login__form-switch'>
-                <span>S'enregistrer</span>
-            </label>
+            <div >
+                <label class="login__label"
+                       for='login__form-switch'>
+                    <span> S'enregistrer</span>
+                </label>
+            </div>
         </form>
         <input class="login__input"
                type='checkbox'
@@ -95,16 +97,19 @@ if (isset($_GET['error'])) {
                    name="confirmpwd"
                    id="confirmpwd" required>
             <input type="button"
+                   class="login__button"
                    value="Enregistrer"
                    onclick="return regformhash(this.form,
                                    this.form.username,
                                    this.form.email,
                                    this.form.passwordReg,
                                    this.form.confirmpwd);"/>
-            <label class="login__label"
-                   for='login__register-switch'>
-                Déjà membre? Connectez vous.
-            </label>
+            <div class="login__label-container">
+                <label class="login__label"
+                       for='login__register-switch'>
+                    Déjà membre? Connectez vous.
+                </label>
+            </div>
         </form>
     </div>
     <!-- ==== START MASTHEAD ==== -->
@@ -121,7 +126,7 @@ if (isset($_GET['error'])) {
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">
         <form class="masthead__form-disconnect"
-                action="includes/logout.php"
+              action="includes/logout.php"
               method="post">
             <input type="submit"
                    class="masthead__disconnect"
@@ -193,12 +198,14 @@ if (isset($_GET['error'])) {
 <!-- end page -->
 <?php
 if (login_check($mysqli) == true) {
-    echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
+    echo '<script>document.getElementsByClassName(\'masthead__connect\')[0].style.display = \'none\'</script>';
+    echo '<script>document.getElementsByClassName(\'masthead__form-disconnect\')[0].style.display = \'block\'</script>';
+//    echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
 
-    echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
+//    echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
 } else {
-    echo '<p>Currently logged ' . $logged . '.</p>';
-    echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
+//    echo '<p>Currently logged ' . $logged . '.</p>';
+//    echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";
 }
 ?>
 </body>

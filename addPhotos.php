@@ -19,83 +19,100 @@ sec_session_start();
 </head>
 <body onload="getDecades();">
 <?php if (login_check($mysqli) == true) : ?>
-<div class="page data-box">
+    <div class="page data-box">
 
-    <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des photos</h1>
-    <div>
-        <a href="index.php" class="data-box__exit">X</a>
+        <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des
+            photos</h1>
+        <div>
+            <a href="index.php" class="data-box__exit">X</a>
+        </div>
+
+        <main role="main">
+            <fieldset class="data-box__fieldset data-box__fieldset--add-photo">
+                <form method="post"
+                      enctype="multipart/form-data"
+                      class="data-box__form data-box__form--add-photos"
+                      action="javascript:uploadPhotos()">
+                    <input type="submit"
+                           value="Soumettre"
+                           class="data-box__go-button"><br>
+
+                    <div>
+                        <label for="data-box__select--add-ph-type"
+                               class="data-box__label">Type de
+                            regroupement</label>
+                        <select class="data-box__select data-box__select--add-ph-type">
+                            <option value="2" selected>Famille</option>
+                            <option value="3">Livres</option>
+                            <option value="6">Objets</option>
+                        </select><br>
+                    </div>
+
+                    <div>
+                        <label for="data-box__select--add-ph-author"
+                               class="data-box__label">Auteur</label>
+                        <select class="data-box__select data-box__select--add-ph-author">
+                            <option value="2" selected>Michel</option>
+                            <option value="3">Amélie</option>
+                            <option value="4">Chantal</option>
+                            <option value="5">Archives</option>
+                            <option value="1">NA</option>
+                        </select><br>
+                    </div>
+
+                    <div>
+                        <label for="data-box__select--add-folder-photo-decade"
+                               class="data-box__label">Décennie</label>
+                        <select class="data-box__select data-box__select--add-folder-photo-decade"
+                                onchange="getYearsSelected();">
+                        </select><br>
+                    </div>
+
+                    <div>
+                        <label for="data-box__select--add-folder-photo-year"
+                               class="data-box__label">Année</label>
+                        <select class="data-box__select data-box__select--add-folder-photo-year"
+                                onchange="getFolders()">
+                        </select><br>
+                    </div>
+
+                    <div>
+                        <label for="data-box__select--add-ph-title"
+                               class="data-box__label">Nom du répertoire</label>
+                        <select class="data-box__select data-box__select--add-ph-title">
+                        </select><br>
+                    </div>
+
+                    <div>
+                        <label for="data-box__input--photos"
+                               class="data-box__label">Sélection des
+                            photos</label>
+                        <input type="file"
+                               multiple
+                               class="data-box__input data-box__input--photos"
+                               id="data-box__input--photos"
+                               name="data-box__data[]"
+                               onchange="renderSelectedPhotos()"><br>
+                        <input type="text"
+                               id="data__box--text-input"
+                               class=" data-box__text data-box__text--photos"
+                               size="75">
+                    </div>
+                </form>
+                <p class='data-box__message' hidden>Svp sélectionner une ou
+                    plusieurs photos.</p>
+            </fieldset>
+        </main>
     </div>
 
-    <main role="main">
-        <fieldset class="data-box__fieldset data-box__fieldset--add-photo">
-            <form method="post"
-                  enctype="multipart/form-data"
-                  class="data-box__form data-box__form--add-photos"
-                  action="javascript:uploadPhotos()">
-                <input type="submit" value="Soumettre" class="data-box__go-button"><br>
-
-                <div>
-                    <label for="data-box__select--add-ph-type" class="data-box__label">Type de regroupement</label>
-                    <select class="data-box__select data-box__select--add-ph-type">
-                        <option value="2" selected>Famille</option>
-                        <option value="3">Livres</option>
-                        <option value="6">Objets</option>
-                    </select><br>
-                </div>
-
-                <div>
-                    <label for="data-box__select--add-ph-author" class="data-box__label">Auteur</label>
-                    <select class="data-box__select data-box__select--add-ph-author">
-                        <option value="2" selected>Michel</option>
-                        <option value="3">Amélie</option>
-                        <option value="4">Chantal</option>
-                        <option value="5">Archives</option>
-                        <option value="1">NA</option>
-                    </select><br>
-                </div>
-
-                <div>
-                    <label for="data-box__select--add-folder-photo-decade" class="data-box__label">Décennie</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-decade"
-                            onchange="getYearsSelected();">
-                    </select><br>
-                </div>
-
-                <div>
-                    <label for="data-box__select--add-folder-photo-year" class="data-box__label">Année</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-year"
-                            onchange="getFolders()">
-                    </select><br>
-                </div>
-
-                <div>
-                    <label for="data-box__select--add-ph-title" class="data-box__label">Nom du répertoire</label>
-                    <select class="data-box__select data-box__select--add-ph-title">
-                    </select><br>
-                </div>
-
-                <div>
-                    <label for="data-box__input--photos" class="data-box__label">Sélection des photos</label>
-                    <input type="file" multiple class="data-box__input data-box__input--photos"
-                           id="data-box__input--photos" name="data-box__data[]"
-                           onchange="renderSelectedPhotos()"><br>
-                    <input type="text"
-                           id="data__box--text-input"
-                           class=" data-box__text data-box__text--photos"
-                           size="75">
-                </div>
-            </form>
-            <p class='data-box__message' hidden>Svp sélectionner une ou plusieurs photos.</p>
-        </fieldset>
-    </main>
-</div>
-
-<script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 
 <?php else : ?>
-<p>
-    <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
-</p>
+    <p>
+        <span class="error">Vous devez être connecté au site pour pouvoir
+            voir le contenu de cette page.</span>
+        Svp <a href="index.php">connectez-vous.</a>.
+    </p>
 <?php endif; ?>
 </body>
 </html>

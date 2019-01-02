@@ -62,7 +62,9 @@ sec_session_start();
 
 <?php else : ?>
 <p>
-    <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
+            <span class="error">Vous devez être connecté au site pour pouvoir
+            voir le contenu de cette page.</span>
+    Svp <a href="index.php">connectez-vous.</a>.
 </p>
 <?php endif; ?>
 </body>

@@ -9,9 +9,7 @@ if (isset($_POST['email'], $_POST['p'])) {
     $password = $_POST['p']; // The hashed password.
 
     if (login($email, $password, $mysqli) == true) {
-
-       echo "<script type=\"text/javascript\">logedIn();</script>";
-        // Login success
+      // Login success
        header('Location: ../index.php');
     } else {
         // Login failed
@@ -20,4 +18,5 @@ if (isset($_POST['email'], $_POST['p'])) {
 } else {
     // The correct POST variables were not sent to this page.
     echo 'Invalid Request';
-}
+} ?>
+

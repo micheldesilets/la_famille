@@ -717,7 +717,7 @@ document.onkeydown = function (e) {
                     cument.getElementsByClassName('data-box__go-button')[0];
                 butt.disabled = false;
             }
-            if (currWin === 'addPhotos.html') {
+            if (currWin === 'addPhotos.php') {
                 const butt =
                     document.getElementsByClassName('data-box__go-button')[0];
                 butt.disabled = false;
@@ -733,7 +733,7 @@ document.onkeydown = function (e) {
                     butt.disabled = true;
                 }
             }
-            if (currWin === 'addPhotos.html') {
+            if (currWin === 'addPhotos.php') {
                 const inputLength =
                     document.getElementsByClassName('data-box__text--photos');
                 if (inputLength[0].value.length === 0) {
@@ -1298,7 +1298,7 @@ var getYearsSelected = () => {
     xhr.onload = function () {
         const yearsData = JSON.parse(xhr.responseText);
         renderYears(yearsData);
-        if (url === 'addPhotos.html') {
+        if (url === 'addPhotos.php') {
             const firstYear = yearsData[0].idxYear;
             getFolders(firstYear);
         }
