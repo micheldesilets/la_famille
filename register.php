@@ -7,8 +7,8 @@ include_once 'includes/functions.php';
 <head>
     <meta charset="UTF-8">
     <title>Secure Login: Registration Form</title>
-    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
-    <script type="text/JavaScript" src="assets/js/forms.js"></script>
+    <script type="text/JavaScript" src="public/js/sha512.js"></script>
+    <script type="text/JavaScript" src="public/js/forms.js"></script>
 <!--    <link rel="stylesheet" href="styles/main.css" />-->
 </head>
 <body>

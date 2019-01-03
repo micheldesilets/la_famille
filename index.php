@@ -22,8 +22,8 @@ if (login_check($mysqli) == true) {
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="public/js/main.js"></script>
-    <script type="text/JavaScript" src="assets/js/forms.js"></script>
-    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
+    <script type="text/JavaScript" src="public/js/forms.js"></script>
+    <script type="text/JavaScript" src="public/js/sha512.js"></script>
     <?php
     include_once 'private/initialize.php';
     require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
