@@ -206,7 +206,7 @@ sec_session_start();
 
     </div>
 
-    <script src="assets/js/main.js"></script>
+    <script src="public/js/main.js"></script>
     <script>getFolderTree()</script>
 
 <?php else : ?>

@@ -21,7 +21,7 @@ if (login_check($mysqli) == true) {
     <title>Famille Normandeau-Desilets - Acceuil</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/main.js"></script>
+    <script src="public/js/main.js"></script>
     <script type="text/JavaScript" src="assets/js/forms.js"></script>
     <script type="text/JavaScript" src="assets/js/sha512.js"></script>
     <?php

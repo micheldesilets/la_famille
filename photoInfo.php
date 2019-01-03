@@ -115,7 +115,7 @@ sec_session_start();
         </main>
     </div>
     <!-- end page -->
-    <script src="assets/js/main.js"></script>
+    <script src="public/js/main.js"></script>
 
 <?php else : ?>
     <p>

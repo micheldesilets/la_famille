@@ -13,7 +13,7 @@ sec_session_start();
     <title>Famille Normandeau-Desilets - Lectures</title>
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/main.js"></script>
+    <script src="public/js/main.js"></script>
 </head>
 <body>
 <?php if (login_check($mysqli) == true) : ?>
