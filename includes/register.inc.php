@@ -1,5 +1,6 @@
 <?php
-include_once 'db_connect.php';
+include_once 'private/initialize.php';
+include_once CONNECTION_PATH . '/connect.php';
 include_once 'psl-config.php';
 
 $error_msg = "";

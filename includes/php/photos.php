@@ -5,13 +5,16 @@
  * Date: 2018-12-21
  * Time: 11:33
  */
+
+include_once '../../private/initialize.php';
+
 if (isset($_POST['function'])) {
     $function = $_POST['function'];
 }else {
     $function = $_GET['function'];
 }
 
-require_once '../../classes/database/cl_PhotosDB.php';
+require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
 $db = new photosBD();
 
 if ($function === 'zipAndDownload') {

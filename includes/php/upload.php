@@ -6,6 +6,8 @@
  * Time: 14:07
  */
 
+include_once '../../private/initialize.php';
+
 echo htmlspecialchars($_SERVER["PHP_SELF"]);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'];
 
         $folderData = array($type, $author, $decade, $year, $title);
-        require_once '../../classes/database/cl_foldersDB.php';
+        require_once CLASSES_PATH . '/database/cl_foldersDB.php';
         $db = new foldersDB();
         $pathSql = $db->getPath($folderData);
         $path = $pathSql[0];

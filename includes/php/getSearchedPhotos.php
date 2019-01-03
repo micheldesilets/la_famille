@@ -5,6 +5,8 @@
  * Date: 2018-09-01
  * Time: 10:07
  */
+include_once '../../private/initialize.php';
+
 header('content-type: text/javascript');
 
 $kwords = $_GET['kwrd']; /* Keywords */
@@ -38,7 +40,7 @@ if ($endYear == 'end') {
 
 $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-require_once '../../classes/database/cl_PhotosDB.php';
+require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
 $db = new photosBD();
 $photo = $db->getSearchPhotos($searchData);
 return;

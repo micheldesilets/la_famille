@@ -1,5 +1,6 @@
 <?php
-include_once 'includes/db_connect.php';
+include_once 'private/initialize.php';
+include_once CONNECTION_PATH . '/connect.php';
 include_once 'includes/functions.php';
 include_once 'includes/register.inc.php';
 
@@ -24,7 +25,8 @@ if (login_check($mysqli) == true) {
     <script type="text/JavaScript" src="assets/js/forms.js"></script>
     <script type="text/JavaScript" src="assets/js/sha512.js"></script>
     <?php
-    require_once 'classes/database/cl_PhotosDB.php';
+    include_once 'private/initialize.php';
+    require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
     $dbSb = new photosBD();
     $photoSb = $dbSb->getSidebarPhoto();
     $fileSb = $photoSb->get_Filename();
