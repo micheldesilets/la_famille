@@ -14,7 +14,7 @@ class cl_yearsDB
     {
         $wd = getcwd();
 
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL getAllYears()";
 
@@ -57,7 +57,7 @@ class cl_yearsDB
     public function getDecades()
     {
         require_once CLASSES_PATH . '/business/cl_decade.php';
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL getDecades()";
 
@@ -102,7 +102,7 @@ class cl_yearsDB
         $wd = getcwd();
 
 //        require_once CLASSES_PATH . '/business/cl_year.php';
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL getYearsSelected($decade)";
 

@@ -1,0 +1,695 @@
+//
+// Reference table entries
+//
+.data-box {
+  &__fieldset {
+    width: 97.3%;
+    height: 200px;
+
+    &--folder {
+      height: 400px;
+    }
+
+    &--add-photo {
+      height: 400px;
+    }
+
+    &--info {
+      height: 500px;
+    }
+  }
+
+  &__message {
+    text-align: center;
+
+    &--link {
+      color: blue;
+      font-weight: bold;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    text-align: center;
+    //position: relative;
+    //top: 8px;
+    //left: 354px;
+    font-size: $font-small;
+  }
+
+  &__go-button {
+    background-color: $color1;
+    float: right;
+    margin-right: 13px;
+  }
+
+  &__button-prev, &__button-next, &__rotate-photo-90degres-negative, &__rotate-photo-90degres-positive {
+    background-color: $color1;
+    border: none;
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+
+  &__rotate-photo-90degres-negative {
+    padding-left: 22px;
+  }
+
+  &__label {
+    color: black;
+    background-color: $color1;
+    width: 20%;
+    float: left;
+    text-align: right;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  &__select {
+    display: block;
+    background-color: $color5;
+
+    &--geneol {
+      float: right;
+      background-color: $color1;
+      height: 20px;
+      @include wsh-02;
+      margin-right: 12px;
+    }
+  }
+
+  &__input {
+    position: relative;
+    font-size: small;
+    background-color: $color5;
+
+    &--photos {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &--info-geneol {
+      float: left;
+    }
+  }
+
+  &__photo-container {
+    margin: auto;
+    margin-top: 35px;
+    width: 150px;
+    height: 165px;
+  }
+
+  &__photo {
+    width: auto;
+    margin-top: 10px;
+    text-align: center;
+    height: 150px;
+
+    &:hover {
+      position: relative;
+      z-index: 1;
+      transform: scale(1.5, 1.5);
+      transform-origin: 0 0;
+    }
+  }
+
+  &__text {
+    position: relative;
+    top: -19px;
+    font-size: small;
+    background-color: $color5;
+
+    &--photos {
+      top: -25px;
+    }
+  }
+}
+
+//
+// Index.php
+//
+.about {
+  width: 18%;
+  float: left;
+  border: 1px solid black;;
+  padding: 0.313em 0.625em 0.625em;
+  margin-right: 0.5em;
+
+  &__img-me {
+    display: block;
+    width: 75%;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 18% 18% 7% 7%;
+    box-shadow: 4px 4px 20px grey;
+  }
+
+  &__signature {
+    box-shadow: none;
+    border-radius: unset;
+    border: none;
+    float: right;
+  }
+
+  &__text {
+    color: black;
+    text-align: left;
+    @include wsh-02;
+  }
+}
+
+.home {
+  &__img {
+    display: block;
+    max-width: 760px;
+    box-shadow: 6px 6px 10px grey;
+    opacity: 1;
+  }
+}
+
+//
+// Readings - menu and content
+//
+.menu1 {
+  &__item {
+    display: block;
+    font-style: italic;
+    font-size: .9em;
+    margin-bottom: .7em;
+
+    &--right {
+      text-align: right;
+      font-weight: normal;
+    }
+
+    &--left {
+      float: left;
+      margin-left: -3em;
+      font-weight: bold;
+      //text-decoration: underline;
+    }
+  }
+}
+
+.readings {
+  font-weight: bold;
+
+  &__books {
+    @include templateImgTxt;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  &__summary {
+    text-align: justify;
+    @include wsh-01;
+
+    a {
+      text-decoration: underline;
+      color: blue;
+    }
+  }
+}
+
+//
+// Legacy
+//
+
+.legacy {
+  &__left {
+    width: 50%;
+    float: left;
+  }
+
+  &__right {
+    width: 50%;
+    float: left;
+  }
+
+  &__title {
+    margin-left: $spacing-normal;
+  }
+
+  &__items {
+    list-style-type: circle;
+    font-style: italic;
+    @include wsh-01();
+  }
+
+  &__item {
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+}
+
+// Objects
+.objects {
+  &__img {
+    @include templateImgTxt;
+  }
+
+  &__description {
+    margin-top: 0;
+    @include wsh-01;
+  }
+
+  &__modal-content {
+    @include modal-content;
+    @include animate01;
+  }
+}
+
+// Family photos - Search
+.search {
+  padding-bottom: 1em;
+  font-size: $font-small;
+
+  &__go-button {
+    width: auto;
+    background-color: $color1;
+    float: right;
+    padding: 5px;
+    margin-top: -1.4em;
+  }
+
+  &__section {
+    padding-left: 0.4em;
+  }
+
+  &__fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 0.35em 0.75em 0.625em;
+    border: 1px groove;
+  }
+
+  &__search-button {
+    float: right;
+    background-color: $color1;
+    border: none;
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: normal;
+    font-size: $font-small;
+    text-decoration: none;
+    font-weight: $font-weight-bold;
+  }
+
+  &__key-words {
+    background-color: $color1;
+    margin: .5em 0 0 0;
+    width: 70%;
+    float: left;
+  }
+
+  &__year-start {
+    width: 100%;
+    margin-top: 1.4em;
+  }
+
+  &__select {
+    margin-left: 8px;
+    background-color: $color1;
+  }
+
+  &__year-end {
+    margin-right: .6em; /* to align boxes */
+  }
+
+  &__pid {
+    background-color: $color1;
+  }
+
+  &__pid-context {
+    width: 50%;
+  }
+
+  &__radio-button {
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  &__rb-label {
+    margin-left: 9px;
+  }
+
+  &__check-box {
+    margin-bottom: 1.3em;
+    text-align: left
+  }
+
+  &__cb-label {
+    margin-left: 9px;
+  }
+
+  &__check-box input[type="checkbox"] {
+    display: inline-block;
+  }
+
+  &__check-box input {
+    margin: 0 0 .6em 1px;
+  }
+
+  &__back-to-tree {
+    float: right;
+    cursor: pointer;
+    border: none;
+    background: none;
+    display: none;
+    margin-bottom: .5em;
+  }
+
+  &__keyword {
+    display: none;
+  }
+}
+
+// Family photos - Photos
+.photos {
+  &__thumb-container {
+    text-align: justify;
+    margin-top: -.2em;
+    overflow: hidden;
+  }
+
+  &__imgs {
+    text-align: justify;
+
+    & > div {
+      display: inline-block;
+      vertical-align: top;
+      margin-bottom: 10px;
+      margin-right: 13px;
+      margin-left: 0;
+      padding: 7px;
+      box-shadow: 4px 4px 10px grey;
+      zoom: 1;
+    }
+
+    & .thumbimg {
+      margin: 1px;
+    }
+
+    &:after {
+      content: "";
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
+  &__modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 20px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(255, 255, 255, 1); /* Black w/ opacity */
+    & a {
+      color: white;
+    }
+  }
+
+  &__edit-photo {
+    height: 25px;
+    width: 25px;
+    float: right;
+    position: relative;
+    right: 40px;
+  }
+
+  &__modal-content {
+    @include modal-content;
+    @include animate01;
+  }
+
+  &__next {
+    position: relative;
+    float: right;
+    top: 40%;
+    font-weight: $font-weight-darker;
+  }
+
+  &__previous {
+    position: relative;
+    float: left;
+    top: 40%;
+    font-weight: $font-weight-darker;
+  }
+
+  &__modal-title {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    padding: 10px 0 0;
+    @include animate01;
+  }
+
+  &__caption {
+    margin: auto;
+    margin-top: 0;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    @include animate01;
+  }
+
+  &__id-geneol {
+    width: 80%;
+    margin: auto;
+  }
+
+  &__geneol {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    height: 150px;
+    font-size: .8em;
+
+    & a {
+      color: rgba(0, 0, 0, 1);
+      font-weight: $font-weight-normal;
+    }
+
+    & p {
+      color: rgba(255, 0, 0, 1);
+      font-weight: $font-weight-darker;
+    }
+  }
+
+  &__photo-id p {
+    position: fixed;
+    bottom: 30px;
+    left: 45px;
+    margin: 0;
+    font-size: small;
+    color: #bbbbbb;
+  }
+
+  &__next-folder, &__previous-folder, &__download-photos {
+    float: left;
+    position: relative;
+    left: 80px;
+    background-color: $color1;
+    border: none;
+    cursor: pointer;
+    @include hocus() {
+      color: $color3;
+    }
+  }
+
+  &__download-photos {
+    left: 300px;
+  }
+
+  &__thumb-title {
+    min-width: 55%;
+    max-width: 55%;
+    float: left;
+    display: none;
+    font-weight: bold;
+    border: none;
+    margin: 0;
+  }
+}
+
+.folders {
+  &__arrow {
+    width: 6px;
+    height: 6px;
+    vertical-align: middle;
+    float: left;
+    z-index: 0;
+    margin: 8px .5em 0 10em;
+  }
+
+  &__multi-level0, &__multi-level1, &__multi-level2, &__multi-level3,
+  &__multi-level4, &__multi-level5, &__multi-level6, &__multi-level7,
+  &__multi-level8, &__multi-level9 {
+    display: none;
+  }
+
+  &__sub-item ul li:hover, &__itemL2 li:hover {
+    @include hocus() {
+      color: $color3;
+    }
+    cursor: pointer;
+  }
+
+  &__sub-item {
+    padding: 0 .2em;
+  }
+
+  &__item {
+    & input + .folders__arrow {
+      transform: rotate(-90deg);
+      transition: 0.1s;
+    }
+
+    & input:checked + .folders__arrow {
+      transform: rotate(0deg);
+      transition: 0.1s;
+    }
+
+    & ul {
+      padding: 0 0.25em;
+    }
+  }
+
+  &__item input:checked ~ ul {
+    display: block;
+  }
+
+  &__item ul {
+    display: none;
+  }
+
+  &__drop-down {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #fdfaf6;
+
+    & label {
+      width: 100%;
+      display: block;
+      z-index: 3;
+      position: relative;
+    }
+
+    & ul {
+      line-height: 20px;
+      margin: 0;
+      padding: 0 2em;
+      list-style: none;
+      text-decoration: none;
+      font-weight: 100;
+      width: 100%;
+    }
+
+    & li {
+      line-height: 20px;
+      margin: 0;
+      padding: 0 2em 0 5em;
+      list-style: none;
+      text-decoration: none;
+      font-weight: 100;
+      width: 100%;
+    }
+  }
+
+  &__photofolder:before {
+    content: "-";
+    margin-right: 0.5em;
+  }
+
+  &__drop-down &__photofolder.L2 {
+    padding-left: 8em;
+  }
+
+  &__drop-down &__photofolder {
+    margin: 0;
+    padding-left: 13em;
+    padding-bottom: 0.15em;
+    font-style: italic;
+  }
+
+  &__names {
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: italic;
+    font-size: medium;
+    display: block;
+    text-align: left;
+
+    &:before {
+      content: "-";
+      margin-right: 0.5em;
+    }
+  }
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  line-height: 20px;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+  font-weight: 100;
+  width: 100%;
+  padding-bottom: .4em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#folders {
+  &__menu0:checked ~ .folders__multi-level0,
+  &__menu1:checked ~ .folders__multi-level1,
+  &__menu2:checked ~ .folders__multi-level2,
+  &__menu3:checked ~ .folders__multi-level3,
+  &__menu4:checked ~ .folders__multi-level4,
+  &__menu5:checked ~ .folders__multi-level5,
+  &__menu6:checked ~ .folders__multi-level6,
+  &__menu7:checked ~ .folders__multi-level7,
+  &__menu8:checked ~ .folders__multi-level8,
+  &__menu9:checked ~ .folders__multi-level9 {
+    display: block;
+  }
+}
+
+.clearfix {
+  *zoom: 1;
+
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

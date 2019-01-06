@@ -19,8 +19,8 @@ if (login_check($mysqli) == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Famille Normandeau-Desilets - Acceuil</title>
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href= "public/css/normalize.css">
+    <link rel="stylesheet" href="public/css/main.css">
     <script src="public/js/main.js"></script>
     <script type="text/JavaScript" src="public/js/forms.js"></script>
     <script type="text/JavaScript" src="public/js/sha512.js"></script>
@@ -119,9 +119,9 @@ if (isset($_GET['error'])) {
         <div class="masthead__dropdown">
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="addFolder.php">Ajout d'un
+                <a class="masthead__item" href="public/php/addFolder.php">Ajout d'un
                     répertoire</a>
-                <a class="masthead__item" href="addPhotos.php">Ajout de
+                <a class="masthead__item" href="public/php/addPhotos.php">Ajout de
                     photos</a>
             </div>
         </div>
@@ -146,19 +146,19 @@ if (isset($_GET['error'])) {
                                             href1="#">Acceuil</a>
             </li>
             <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                            href="readings.php">
+                                            href="public/php/readings.php">
                     Lectures</a>
             </li>
             <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                            href="geneology.php">
+                                            href="public/php/geneology.php">
                     Généalogie</a>
             </li>
             <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                            href="objects.php">
+                                            href="public/php/objects.php">
                     Objets de famille</a>
             </li>
             <li class="c-nav-main__item"><a class="c-nav-main__link"
-                                            href="familyPhotos.php">
+                                            href="public/php/familyPhotos.php">
                     La famille en photos</a>
             </li>
         </ul>
@@ -172,7 +172,7 @@ if (isset($_GET['error'])) {
         <p class="about__text">En construisant ce site, j'ai voulu conserver
             l'histoire de ma famille et un peu celle de ceux avec qui j'ai
             partagé ma vie.</p>
-        <img src="assets/img/home/TransparantSignature02.jpg" alt=""
+        <img src="public/img/home/TransparantSignature02.jpg" alt=""
              class="about__signature">
     </article>
     <!-- end sidebar -->
@@ -182,10 +182,10 @@ if (isset($_GET['error'])) {
 <main role="main">
     <section class="home">
         <img class='home__img'
-             src="assets\img\home\2015-01-06_Parc_Lafontaine1.jpg"
-             srcset="assets\img\home\2015-01-06_Parc_Lafontaine_400.jpg 400w,
-        assets\img\home\2015-01-06_Parc_Lafontaine_800.jpg 800w,
-        assets\img\home\2015-01-06_Parc_Lafontaine_1600.jpg 1600w"
+             src="public\img\home\2015-01-06_Parc_Lafontaine1.jpg"
+             srcset="public\img\home\2015-01-06_Parc_Lafontaine_400.jpg 400w,
+        public\img\home\2015-01-06_Parc_Lafontaine_800.jpg 800w,
+        public\img\home\2015-01-06_Parc_Lafontaine_1600.jpg 1600w"
              sizes="(min-width: 900px) 1000px,
             (max-width: 900px) and (min-width: 400px) 50em,
             ( not (orientation: portrait) ) 300px,

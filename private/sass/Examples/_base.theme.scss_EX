@@ -1,0 +1,16 @@
+@import "base.mixins";
+
+html {
+  background: $color1;
+  color: $color2;
+}
+
+a {
+  color: $color2;
+
+  @include hocus() {
+    color: $color2;
+  }
+  text-decoration: none;
+}
+

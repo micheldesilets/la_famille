@@ -5,13 +5,14 @@
  * Date: 2018-10-19
  * Time: 10:04
  */
+
 require_once CLASSES_PATH . '/business/cl_folders.php';
 
 class foldersDB
 {
     public function getFoldersTree()
     {
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $folder = new folders();
         $sql = "CALL getFoldersTree()";
@@ -56,7 +57,7 @@ class foldersDB
 
     public function getShiftingFolders()
     {
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $folder = new folders();
         $sql = "CALL getShiftingFolders()";
@@ -106,7 +107,7 @@ class foldersDB
     {
         // current directory
         $wd = getcwd();
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $type = $folderData[0];
         $author = $folderData[1];
@@ -143,7 +144,7 @@ class foldersDB
         $year = $folder[3];
         $title = $folder[4];
 
-        $path = $curr . '/assets/img';
+        $path = $curr . '/public/img';
 
         $path = $path . "/" . $typePhoto[type_typ];
         if (!file_exists($path)) {
@@ -179,7 +180,7 @@ class foldersDB
     function addFolderMysql($folderData)
     {
         $curr = getcwd();
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $typePhoto = $folderData[0];
         $author = $folderData[1];
@@ -202,7 +203,7 @@ class foldersDB
     function getFolders($year)
     {
         $wd = getcwd();
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL getFolders($year)";
 
@@ -242,7 +243,7 @@ class foldersDB
     function addMetadataToMysql($idRpt, $file_name)
     {
         $curr = getcwd();
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL addPhotoToDB($idRpt,'" . utf8_encode($file_name) . "')";
 
@@ -264,7 +265,7 @@ class foldersDB
         $year = $path[3];
         $title = $path[4];
 
-        require_once CONNECTION_PATH . '/connect.php';
+        include CONNECTION_PATH . '/connect.php';
 
         $sql = "CALL getPath($typePhoto,$author,$decade,$year,$title)";
 
@@ -278,7 +279,7 @@ class foldersDB
         IF ($rowcount > 0) {
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
             $current = getcwd() . "\n";
-            $path = '../../assets/img/' . utf8_encode($row['type_typ']) . '/' .
+            $path = PUBLIC_PATH . '/img/' . utf8_encode($row['type_typ']) . '/' .
                 utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
                 $row['year_yea'] . '/' . utf8_encode($row['title_fol']) . '/';
             $info = [$path, $row['id_fol']];

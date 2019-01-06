@@ -1,0 +1,238 @@
+.login {
+  /*  position: relative;
+    z-index: 1;*/
+  display: block;
+  font-family: "raleway";
+  font-size: $font-small;
+
+  &__login-form, &__register-form {
+    margin: 0 auto;
+    width: 250px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 170px;
+    left: 510px;
+    opacity: .95;
+    background-color: $color1;
+  }
+
+  &__register-form {
+    display: none;
+  }
+
+  &__input {
+    margin-bottom: 3px;
+    padding: 10px;
+    width: 100%;
+    height: 5px;
+    border: 1px solid #CCC
+  }
+
+  &__label {
+    cursor: pointer;
+  }
+
+  &__label-container{
+    //width: 20px;
+  }
+
+  &__button {
+    border: none;
+    background-color: $color1;
+    font-weight: $font-weight-darker;
+  }
+}
+
+#login {
+  &__form-switch {
+    display: none;
+
+    &:checked ~ .login__login-form {
+      display: none;
+    }
+
+    &:checked ~ .login__login-form {
+      display: none;
+    }
+  }
+}
+
+.masthead {
+  // Dropdown button and account
+  &__dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: normal;
+    font-size: small;
+
+    .masthead__item {
+      background-color: $color1;
+    }
+
+    &:hover {
+      .masthead__dropdown-content {
+        display: block;
+      }
+
+      .masthead__dropbtn {
+        background-color: $color5;
+      }
+    }
+  }
+
+  &__dropbtn {
+    margin-top: 8px;
+    border: none;
+    color: black;
+    background-color: $color1;
+    //display: inline-block;
+  }
+
+  &__dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    .masthead__item {
+      color: black;
+      padding-left: 24px;
+      text-decoration: none;
+      display: block;
+
+      &:hover {
+        background-color: $color5;
+      }
+    }
+  }
+
+  &__connect, &__disconnect {
+    float: right;
+    margin-top: 8px;
+    background-color: $color1;
+    border: none;
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: normal;
+    font-size: small;
+    text-decoration: none;
+    width: 100px;
+  }
+
+  &__form-disconnect{
+    float: right;
+    padding-top: 8px;
+    display: inline-block;
+    display: none;
+   }
+
+  &__disconnect{
+    display: none;
+  }
+
+  &__connect{
+    display: block;
+  }
+
+  &__disconnect {
+    //display:block;
+    margin: 0;
+    display: block;
+  }
+
+  // End dropdown button and account
+
+  &__title {
+    font-family: Alex Brush, "Times New Roman", serif;
+    font-weight: $font-weight-darker;
+    font-size: $font-larger;
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 30px;
+
+    &--index {
+      margin-top: 5px;
+    }
+  }
+
+  &__sub-title {
+    font-family: Raleway, "Times New Roman", serif;
+    font-style: italic;
+    @include wsh-02;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+}
+
+// Main navigation
+.c-nav-main {
+  font-family: Alex Brush, "Times New Roman", serif;
+  font-weight: $font-weight-normal;
+  font-size: $font-large;
+  text-align: center;
+  margin-top: 9px;
+  border-bottom: 1px solid $color2;
+  color: $color4;
+  cursor: default;
+
+  &__item {
+    display: inline-block;
+
+    &:first-child {
+      border-left: none;
+    }
+
+    &:last-child {
+      .c-nav-main__link {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__link {
+
+    display: inline-block;
+    font-size: 1.2em;
+    padding: .2em .9em .5em 1.15em;
+
+    &:hover {
+      color: $color3;
+    }
+  }
+}
+
+.data-box {
+  &__exit {
+    font-weight: $font-weight-bold;
+    width: 15%;
+    float: right;
+    text-align: right;
+    cursor: pointer;
+    padding-top: 25px;
+    background-color: $color1;
+    border: none;
+  }
+
+  &__h1 {
+    font-size: x-large;
+    text-align: right;
+    float: left;
+
+    &--info {
+      width: 66%;
+    }
+
+    &--folder {
+      width: 63%;
+    }
+
+    &--add-photos {
+      width: 63%;
+    }
+  }
+}

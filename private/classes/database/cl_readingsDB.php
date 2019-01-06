@@ -11,7 +11,7 @@ class readingsDB
   /* Get readings */
   public function getReadings($path)
   {
-      require_once CONNECTION_PATH . '/connect.php';
+      include CONNECTION_PATH . '/connect.php';
       require_once CLASSES_PATH . '/business/cl_readings.php';
 
 //    $lectures = new Readings();

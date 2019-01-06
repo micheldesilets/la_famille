@@ -12,7 +12,7 @@ class objectsDB
   ***************/
   public function getObjects($path)
   {
-      require_once CONNECTION_PATH . '/connect.php';
+      include CONNECTION_PATH . '/connect.php';
       require_once CLASSES_PATH . '/business/cl_objects.php';
 
     $sql = "SELECT * FROM objects_obj obj

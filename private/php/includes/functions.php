@@ -1,4 +1,5 @@
 <?php
+include_once 'private/initialize.php';
 include_once 'psl-config.php';
 
 function sec_session_start() {
