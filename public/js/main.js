@@ -29,7 +29,7 @@ var getFolderTree = () => {
 };
 
 /*** Family Photos ***/
-var buildFolderTree = function (data) {
+var buildFolderTree = (data) => {
     'use strict';
     const folderContainer = document.getElementById("photos__folders");
 
@@ -88,7 +88,7 @@ var buildFolderTree = function (data) {
         folderTree.getHtmlString());
 };
 
-var folderLevel2 = function (branch) {
+var folderLevel2 = (branch) => {
     'use strict';
     if (folderTree.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -112,7 +112,7 @@ var folderLevel2 = function (branch) {
 
 // TODO Add folder level 3
 
-var folderLevel4 = function (branch) {
+var folderLevel4 = (branch) => {
     'use strict';
     if (folderTree.getDecade() !== branch.decade &&
         branch.decade.length > 0) {
@@ -173,7 +173,7 @@ var folderLevel4 = function (branch) {
     }
 };
 
-var getFamilyPhotos = function (obj, path, type) {
+var getFamilyPhotos = (obj, path, type) => {
     'use strict';
     inFoldersState.setState(true);
     const folders = listShiftingFolders.getShiftingFolders();
@@ -187,7 +187,7 @@ var getFamilyPhotos = function (obj, path, type) {
     getPhotos(path, type);
 };
 
-var getPhotos = function (path, type) {
+var getPhotos = (path, type) => {
     'use strict';
     searchChoice.setSearchPageStatus(false);
     try {
@@ -336,7 +336,7 @@ var renderHomePhoto = () => {
         const imageURL = obj.path + obj.filename;
 
         htmlString += "<img class='home__img' src=\"../../" + imageURL +
-            "\" alt=\"" +  obj.title + "\">";
+            "\" alt=\"" + obj.title + "\">";
     }
     archivesContainer.insertAdjacentHTML('beforeend', htmlString);
 };
@@ -1425,7 +1425,12 @@ var insertPhotoInfo = () => {
         '&function=insertPhotoInfo', true);
 
     req.onload = () => {
-        let success = true;
+        if (req.readyState === 4) {
+            if (req.status === 200) {
+                const folderData = req.responseText;
+                let success = true;
+            }
+        }
     };
     req.send();
 };
@@ -1727,10 +1732,10 @@ function photos() {
     'use strict';
     var _photos = "";
 
-    this.setPhotos = (list)=> {
+    this.setPhotos = (list) => {
         _photos = list;
     };
-    this.getPhotos = ()=> {
+    this.getPhotos = () => {
         return _photos;
     };
 }
@@ -1739,10 +1744,10 @@ function images() {
     'use strict';
     var _images = "";
 
-    this.setImages = (img)=> {
+    this.setImages = (img) => {
         _images = img;
     };
-    this.getImages = ()=> {
+    this.getImages = () => {
         return _images;
     };
 }
@@ -1751,7 +1756,7 @@ function shiftingFoldersIdx(pIdx) {
     'use strict';
     var _folderIdx = pIdx;
 
-    this.addOne = ()=> {
+    this.addOne = () => {
         _folderIdx += 1;
         return _folderIdx;
     };

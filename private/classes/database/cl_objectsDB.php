@@ -15,11 +15,7 @@ class objectsDB
       include INCLUDES_PATH . 'db_connect.php';
       require_once CLASSES_PATH . '/business/cl_objects.php';
 
-    $sql = "SELECT * FROM objects_obj obj
-  JOIN photos_folders_pfo pfo
-  ON pfo.idfol_pfo = obj.idfol_obj
-  WHERE pfo.idfol_pfo = $path
-    ORDER BY order_obj";
+      $sql = "CALL getObjects($path)";
 
     if ($result = mysqli_query($con, $sql)) {
       // Return the number of rows in result set

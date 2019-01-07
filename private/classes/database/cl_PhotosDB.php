@@ -366,13 +366,16 @@ class photosBD
         $year = $photoInfo[4];
         $geneologyIdxs = '"' . $photoInfo[5] . '"';
 
-        $sql = 'UPDATE photos_pho SET title_pho= ' . $title . ',keywords_pho= ' . $keywords . ',caption_pho= '
-            . $caption . ',year_pho= ' . $year . ',idgen_pho= ' . $geneologyIdxs .
-            ' WHERE id_pho= ' . $photoId;
+        $sql = "CALL insertPhotoInfo($photoId,$title,$keywords,$caption,$year,$geneologyIdxs)";
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
+        $result = mysqli_query($con, $sql);
+        if (mysqli_affected_rows($con)) {
+            /*            $cars = array("Volvo", "BMW", "Toyota");
+                        header("Content-Type: application/json");
+                        $json = json_encode($cars, JSON_PRETTY_PRINT |
+                            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                                    return $json;*/
+            echo 'success';
         } else {
             echo("nothing");
         };
@@ -386,15 +389,14 @@ class photosBD
     {
         include INCLUDES_PATH . 'db_connect.php';
 
-        $sql = "SELECT
-        *
-        FROM photos_folders_pfo pfo
-        INNER JOIN photos_pho pho
-        ON pfo.idfol_pfo = pho.idfol_pho
-        JOIN folders_fol rpt
-        ON pfo.idfol_pfo = rpt.id_fol
-        WHERE id_pho IN (" . implode(',', $listPids) . ")
-        ORDER BY pho.year_pho";
+        $sql = "SELECT *
+                FROM photos_folders_pfo pfo
+                INNER JOIN photos_pho pho
+                ON pfo.idfol_pfo = pho.idfol_pho
+                JOIN folders_fol rpt
+                ON pfo.idfol_pfo = rpt.id_fol
+                WHERE id_pho IN (" . implode(',', $listPids) . ")
+                ORDER BY pho.year_pho";
 
         $json = $this->createJason($sql);
         $photosArray = json_decode($json);
