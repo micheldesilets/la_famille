@@ -1,5 +1,6 @@
 <?php
-include_once 'functions.php';
+include_once '../../../private/initialize.php';
+include_once INCLUDES_PATH . 'functions.php';
 sec_session_start();
 
 // Unset all session values
@@ -18,4 +19,4 @@ setcookie(session_name(),
 
 // Destroy session
 session_destroy();
-header('Location: ../index.php');
+header('Location: ../../../index.php');

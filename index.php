@@ -1,8 +1,9 @@
 <?php
 include_once 'private/initialize.php';
-include_once CONNECTION_PATH . '/connect.php';
-include_once 'includes/functions.php';
-include_once 'includes/register.inc.php';
+include_once INCLUDES_PATH . 'psl-config.php';
+include_once INCLUDES_PATH . 'db_connect.php';
+include_once INCLUDES_PATH . 'functions.php';
+include_once INCLUDES_PATH . 'register.inc.php';
 
 sec_session_start();
 
@@ -48,7 +49,7 @@ if (isset($_GET['error'])) {
                id='login__form-switch'
                onclick="registerForm()">
         <form class='login__login-form'
-              action="includes/process_login.php"
+              action="private/php/includes/process_login.php"
               method='post'
               name="login_form">
             <input class="login__input"
@@ -128,7 +129,7 @@ if (isset($_GET['error'])) {
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">
         <form class="masthead__form-disconnect"
-              action="includes/logout.php"
+              action="private/php/includes/logout.php"
               method="post">
             <input type="submit"
                    class="masthead__disconnect"

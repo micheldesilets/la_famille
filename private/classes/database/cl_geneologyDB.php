@@ -10,7 +10,7 @@ class cl_geneologyDB
 {
     public function getGeneologyList()
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
         require_once CLASSES_PATH . '/business/cl_geneology.php';
 
         $sql = "CALL getGeneologyList()";

@@ -1,7 +1,7 @@
 <?php
 include_once '../../private/initialize.php';
-include_once CONNECTION_PATH . '/connect.php';
-include_once '../../includes/functions.php';
+include_once INCLUDES_PATH . 'db_connect.php';
+include_once INCLUDES_PATH . 'functions.php';
 
 sec_session_start();
 ?>

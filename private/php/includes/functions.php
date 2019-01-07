@@ -1,6 +1,6 @@
 <?php
-include_once 'private/initialize.php';
-include_once 'psl-config.php';
+
+include_once INCLUDES_PATH . 'psl-config.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name

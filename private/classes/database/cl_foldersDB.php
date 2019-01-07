@@ -12,7 +12,7 @@ class foldersDB
 {
     public function getFoldersTree()
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $folder = new folders();
         $sql = "CALL getFoldersTree()";
@@ -57,7 +57,7 @@ class foldersDB
 
     public function getShiftingFolders()
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $folder = new folders();
         $sql = "CALL getShiftingFolders()";
@@ -107,7 +107,7 @@ class foldersDB
     {
         // current directory
         $wd = getcwd();
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $type = $folderData[0];
         $author = $folderData[1];
@@ -180,7 +180,7 @@ class foldersDB
     function addFolderMysql($folderData)
     {
         $curr = getcwd();
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $typePhoto = $folderData[0];
         $author = $folderData[1];
@@ -203,7 +203,7 @@ class foldersDB
     function getFolders($year)
     {
         $wd = getcwd();
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $sql = "CALL getFolders($year)";
 
@@ -243,7 +243,7 @@ class foldersDB
     function addMetadataToMysql($idRpt, $file_name)
     {
         $curr = getcwd();
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $sql = "CALL addPhotoToDB($idRpt,'" . utf8_encode($file_name) . "')";
 
@@ -265,7 +265,7 @@ class foldersDB
         $year = $path[3];
         $title = $path[4];
 
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $sql = "CALL getPath($typePhoto,$author,$decade,$year,$title)";
 

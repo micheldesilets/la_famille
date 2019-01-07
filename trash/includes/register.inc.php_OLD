@@ -1,7 +1,7 @@
 <?php
 include_once 'private/initialize.php';
 include_once CONNECTION_PATH . '/connect.php';
-include_once 'psl-config.php';
+include_once 'psl-config.php_OLD';
 
 $error_msg = "";
 

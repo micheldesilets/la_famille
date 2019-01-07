@@ -7,7 +7,7 @@ class photosBD
     /* --- GETSIDEBARPHOTO --- */
     public function getSidebarPhoto()
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $photoSb = new Photos();
 
@@ -175,7 +175,7 @@ class photosBD
     private
     function createJason($sql)
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
 
         $photo = new Photos();
@@ -318,7 +318,7 @@ class photosBD
     private
     function getName($sql)
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -339,7 +339,7 @@ class photosBD
     private
     function getIndex($sql)
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         if ($result = mysqli_query($con, $sql)) {
             // Return the number of rows in result set
@@ -355,7 +355,7 @@ class photosBD
 
     function insertPhotoInfo($photoInfo)
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
         $con->query('SET NAMES utf8');
 
         $photoId = $photoInfo[0];
@@ -384,7 +384,7 @@ class photosBD
 
     function downloadPhotos($listPids)
     {
-        include CONNECTION_PATH . '/connect.php';
+        include INCLUDES_PATH . 'db_connect.php';
 
         $sql = "SELECT
         *
