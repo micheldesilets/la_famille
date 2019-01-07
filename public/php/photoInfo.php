@@ -1,10 +1,10 @@
 <?php
-/*include_once '../../private/initialize.php';
+include_once '../../private/initialize.php';
 include_once CONNECTION_PATH . '/connect.php';
 include_once '../../includes/functions.php';
 
 sec_session_start();
-*/?>
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,7 +18,7 @@ sec_session_start();
 </head>
 
 <body onload="getSelectedInfoPhoto()">
-<?php //if (login_check($mysqli) == true) : ?>
+<?php if (login_check($mysqli) == true) : ?>
     <div class="page data-box">
 
         <div>
@@ -116,12 +116,11 @@ sec_session_start();
     <!-- end page -->
     <script src="../js/main.js"></script>
 
-<?php /*else : */?><!--
+<?php else : ?>
     <p>
                 <span class="error">Vous devez être connecté au site pour pouvoir
             voir le contenu de cette page.</span>
         Svp <a href="../../index.php">connectez-vous.</a>.
-    </p>
---><?php /*endif; */?>
+    </p><?php endif; ?>
 </body>
 </html>
