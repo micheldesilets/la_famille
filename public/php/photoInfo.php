@@ -71,7 +71,8 @@ sec_session_start();
                         <input type="text"
                                class="data-box__input data-box__input--info-year"
                                size="10"
-                               placeholder="ex.: 2019">
+                               placeholder="ex.: 2019"
+                               required>
                     </div>
                     <br>
                     <div>

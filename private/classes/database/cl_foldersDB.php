@@ -181,6 +181,7 @@ class foldersDB
     {
         $curr = getcwd();
         include INCLUDES_PATH . 'db_connect.php';
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
         $typePhoto = $folderData[0];
         $author = $folderData[1];
@@ -189,15 +190,81 @@ class foldersDB
         $title = $folderData[4];
         $levels = $folderData[5];
 
-        $sql = "CALL addFolder($typePhoto,'" . $title . "',$author,$decade,$year,$levels)";
+        try {
+            $stmt = $con->prepare("INSERT INTO folders_fol (idtyp_fol, title_fol, 
+                                   idaut_fol, iddec_fol, idyea_fol, levels_fol)
+                    VALUES (?,?,?,?,?,?)");
+                $stmt->bind_param("isiiii", $typePhoto, $title, $author,
+                    $decade, $year, $levels);
+            $stmt->execute();
+            $stmt->close();
 
-        if (mysqli_query($con, $sql)) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . " < br>" . mysqli_error($con);
+            $stmt = $con->prepare("  TRUNCATE TABLE photos_folders_pfo");
+            $stmt->execute();
+            $stmt->close();
+
+            $sql="INSERT INTO photos_folders_pfo (full_pfo, preview_pfo, 
+                              idfol_pfo, dummy_pfo)
+                  SELECT
+                      CASE WHEN typ.id_typ = 1 
+                               THEN CONCAT('public/img/', 
+                                typ.type_typ, '/', fol.title_fol, '/full/') 
+                           WHEN typ.id_typ = 6 
+                               THEN CONCAT('public/img/', typ.type_typ, '/full/') 
+                           WHEN typ.id_typ = 3 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    fol.title_fol, '/') 
+                           WHEN typ.id_typ = 2 AND fol.levels_fol = 4 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    aut.first_name_aut, '/', deca.decade_deca, 
+                                    '/', yea.year_yea, '/', fol.title_fol, 
+                                    '/full/') 
+                           WHEN typ.id_typ = 2 AND fol.levels_fol = 2 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    aut.first_name_aut, '/', fol.title_fol, 
+                                    '/full/') ELSE CONCAT('public/img/', 
+                                    typ.type_typ, '/') 
+                           END,
+                      CASE WHEN typ.id_typ = 1 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    fol.title_fol, '/preview/') 
+                           WHEN typ.id_typ = 6 
+                               THEN CONCAT('public/img/', typ.type_typ, 
+                                    '/preview/') 
+                           WHEN typ.id_typ = 3 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    fol.title_fol, '/') 
+                           WHEN typ.id_typ = 2 AND fol.levels_fol = 4 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    aut.first_name_aut, '/', deca.decade_deca, 
+                                    '/', yea.year_yea, '/', fol.title_fol, 
+                                    '/preview/') 
+                           WHEN typ.id_typ = 2 AND fol.levels_fol = 2 
+                               THEN CONCAT('public/img/', typ.type_typ, '/', 
+                                    aut.first_name_aut, '/', fol.title_fol, 
+                                    '/preview/') ELSE CONCAT('img/', 
+                                    typ.type_typ, '/') 
+                           END,
+                           fol.id_fol,
+                           fol.levels_fol
+                      FROM folders_fol fol
+                          JOIN type_typ typ
+                              ON fol.idtyp_fol = typ.id_typ
+                          JOIN author_aut aut
+                              ON fol.idaut_fol = aut.id_aut
+                          JOIN decade_deca deca
+                              ON fol.iddec_fol = deca.id_deca
+                          JOIN year_yea yea
+                              ON fol.idyea_fol = yea.id_yea
+                      WHERE fol.id_fol = fol.id_fol";
+            $stmt=$con->prepare("$sql");
+            $stmt->execute();
+            $stmt->close();
+
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit(); //Should be a message a typical user could understand
         }
-
-        mysqli_close($con);
     }
 
     function getFolders($year)
@@ -238,23 +305,6 @@ class foldersDB
 
         $json = createJson($folderArray);
         echo $json;
-    }
-
-    function addMetadataToMysql($idRpt, $file_name)
-    {
-        $curr = getcwd();
-        include INCLUDES_PATH . 'db_connect.php';
-
-        $sql = "CALL addPhotoToDB($idRpt,'" . utf8_encode($file_name) . "')";
-
-        if (mysqli_query($con, $sql)) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . " < br>" . mysqli_error($con);
-        }
-
-        mysqli_close($con);
-        return;
     }
 
     function getPath($path)

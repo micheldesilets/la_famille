@@ -97,9 +97,11 @@ sec_session_start();
                         <input type="text"
                                id="data__box--text-input"
                                class=" data-box__text data-box__text--photos"
-                               size="75">
+                               size="75"
+                               readonly>
                     </div>
                 </form>
+                <p class="data-box__upload-done" hidden> Opération terminée.</p>
                 <p class='data-box__message' hidden>Svp sélectionner une ou
                     plusieurs photos.</p>
             </fieldset>
@@ -110,8 +112,8 @@ sec_session_start();
 
 <?php else : ?>
     <p>
-        <span class="error">Vous devez être connecté au site pour pouvoir
-            voir le contenu de cette page.</span>
+       <span class="error">Vous devez être connecté au site pour pouvoir
+           voir le contenu de cette page.</span>
         Svp <a href="../../index.php">connectez-vous.</a>.
     </p>
 <?php endif; ?>

@@ -239,9 +239,9 @@ a {
     height: 400px; }
   .data-box__fieldset--info {
     height: 500px; }
-.data-box__message {
+.data-box__message, .data-box__upload-done {
   text-align: center; }
-  .data-box__message--link {
+  .data-box__message--link, .data-box__upload-done--link {
     color: blue;
     font-weight: bold; }
 .data-box__button {

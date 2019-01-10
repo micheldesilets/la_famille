@@ -28,7 +28,7 @@ if (login_check($mysqli) == true) {
     <?php
     include_once 'private/initialize.php';
     require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    $dbSb = new photosBD();
+    $dbSb = new photosDB();
     $photoSb = $dbSb->getSidebarPhoto();
     $fileSb = $photoSb->get_Filename();
     $pathSb = $photoSb->get_P_Path();
@@ -120,10 +120,10 @@ if (isset($_GET['error'])) {
         <div class="masthead__dropdown">
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="public/php/addFolder.php">Ajout d'un
-                    répertoire</a>
-                <a class="masthead__item" href="public/php/addPhotos.php">Ajout de
-                    photos</a>
+                <a class="masthead__item" href="public/php/addFolder.php">
+                    Ajouter un répertoire</a>
+                <a class="masthead__item" href="public/php/addPhotos.php">
+                Ajouter des photos</a>
             </div>
         </div>
         <input type="button" class="masthead__connect" value="Se connecter"

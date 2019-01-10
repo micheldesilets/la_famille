@@ -49,15 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file_name = str_replace('É', 'E', $file_name);
             $file_name = str_replace('ô', 'o', $file_name);
             $file_name = str_replace('ç', 'c', $file_name);
+            $file_name = str_replace('ë', 'e', $file_name);
 
 //            $file = $path . $file_name;
 
             if (!in_array($file_ext, $extensions)) {
-                $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+                $errors[] = 'Extension not allowed: ' . $file_name . ' ' .
+                    $file_type;
             }
 
             if ($file_size > 10485760) {
-                $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+                $errors[] = 'File size exceeds limit: ' . $file_name . ' ' .
+                    $file_type;
             }
 
             if (empty($errors)) {
@@ -119,18 +122,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // ------- End Universal Image Thumbnail(Crop) Function -------
 // ---------- Start Convert to JPG Function --------
                 if (strtolower($file_ext) != "jpg") {
-                    $target_file = PUBLIC_PATH ."/uploads/resized_$fileName";
+                    $target_file = PUBLIC_PATH . "/uploads/resized_$fileName";
                     $new_jpg = PUBLIC_PATH . "/uploads/resized_" .
-                    $kaboom[0] . ".jpg";
+                        $kaboom[0] . ".jpg";
                     img_convert_to_jpg($target_file, $new_jpg, $file_ext);
                 }
 // ----------- End Convert to JPG Function -----------
                 unlink(PUBLIC_PATH . "/uploads/$file_name");
 
                 /*** Write info to mysql ***/
-                $mySql = $db->addMetadataToMysql($idRpt, $file_name);
+                require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
+                $db = new photosDB();
+                $db->addMetadataToMysql($idRpt, $file_name);
             }
         }
         if ($errors) print_r($errors);
     }
+    echo('hehe');
 }

@@ -56,14 +56,6 @@ if ($function == 'addFolderMysql') {
     return;
 }
 
-if ($function === 'addMetadataToMysql') {
-    $meta = json_decode($_GET['meta']);
-
-//    $db = new foldersDB();
-    $db->addMetadataToMysql($meta);
-    return;
-}
-
 if ($function === 'getFolders'){
     $year = $_GET['year'];
 

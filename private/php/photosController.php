@@ -15,7 +15,7 @@ if (isset($_POST['function'])) {
 }
 
 require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-$db = new photosBD();
+$db = new photosDB();
 
 if ($function === 'zipAndDownload') {
     if (isset($_POST['pids'])) {
@@ -77,13 +77,13 @@ if ($function === 'removeZipFile') {
 
 if ($function === 'getPhotos') {
     $path = $_GET['path']; /* Répertoire des photos */
-    $db = new photosBD();
+    $db = new photosDB();
     $db->getPhotos($path);
 }
 
 if ($function == 'getInfo') {
     $pid = $_GET['pid'];
-    $db = new photosBD();
+    $db = new photosDB();
     $db->getInfoPhoto($pid);
 }
 
@@ -97,7 +97,7 @@ if ($function == 'insertPhotoInfo') {
 
     $infoData = array($photoId, $title, $keywords, $caption, $year, $geneologyIdxs);
 
-    $db = new photosBD();
+    $db = new photosDB();
     $db->insertPhotoInfo($infoData);
 }
 
@@ -134,7 +134,7 @@ if ($function === 'getSearchPhotos'){
     $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
     require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    $db = new photosBD();
+    $db = new photosDB();
     $db->getSearchPhotos($searchData);
     return;
 }

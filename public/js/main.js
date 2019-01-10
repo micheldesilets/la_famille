@@ -743,7 +743,7 @@ document.onkeydown = (e) => {
                 if (inputLength[0].value.length === 0) {
                     const butt =
                         document.getElementsByClassName('data-box__go-button')[0];
-                    butt.disabled = true;
+                    butt.disabled = false;
                 }
             }
             break;
@@ -1261,8 +1261,8 @@ var uploadPhotos = () => {
     const formData = new FormData();
 
     if (files.length > 0) {
-        const butt = document.getElementsByClassName('data-box__go-button')[0];
-        butt.disabled = false;
+/*        const butt = document.getElementsByClassName('data-box__go-button')[0];
+        butt.disabled = false;*/
 
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
@@ -1279,10 +1279,16 @@ var uploadPhotos = () => {
             method: 'POST',
             body: formData
         }).then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                const resp = response.text();
+                document.getElementsByClassName('data-box__upload-done')[0].style.display = 'block';
+                // document.getElementById('data-box__input--photos').files = [];
+                // document.getElementById('data-box__text-input').textContent = '';
+            }
         });
     } else {
-        const butt = document.getElementsByClassName('data-box__go-button')[0];
-        butt.disabled = false;
+/*        const butt = document.getElementsByClassName('data-box__go-button')[0];
+        butt.disabled = false;*/
         document.getElementsByClassName('data-box__message')[0].style.display =
             'block';
     }
@@ -1388,6 +1394,9 @@ var renderFolders = (folderData) => {
 
 var renderSelectedPhotos = () => {
     'use strict';
+    const butt = document.getElementsByClassName('data-box__go-button')[0];
+    butt.disabled = false;
+    document.getElementsByClassName('data-box__upload-done')[0].style.display = 'none';
     document.getElementsByClassName('data-box__message')[0].style.display = 'none';
     document.getElementById('data__box--text-input').value =
         createFileList(document.getElementById('data-box__input--photos').files);
