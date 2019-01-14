@@ -12,161 +12,188 @@ class foldersDB
 {
     public function getFoldersTree()
     {
-        include INCLUDES_PATH . 'db_connect.php';
-
-        $folder = new folders();
-        $sql = "CALL getFoldersTree()";
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
-
-        $folderArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        try {
+            include INCLUDES_PATH . 'db_connect.php';
 
             $folder = new folders();
 
-            $folder->setFolderId($row["id_fol"]);
-            $folder->setTypeId($row["id_typ"]);
-            $folder->setAuthor($row["prefix_aut"] . $row["first_name_aut"]);
-            $folder->setDecade($row["decade_deca"]);
-            $folder->setYear($row["year_yea"]);
-            $folder->setTitle($row["title_fol"]);
-            $folder->setLevels($row["levels_fol"]);
+            $sql = "  SELECT rpt.id_fol, typ.id_typ, aut.first_name_aut,
+                       deca.decade_deca, yea.year_yea, rpt.title_fol,
+                       rpt.levels_fol, aut.prefix_aut 
+                FROM folders_fol rpt
+                    INNER JOIN author_aut aut
+                        ON rpt.idaut_fol = aut.id_aut
+                    INNER JOIN decade_deca deca
+                        ON rpt.iddec_fol = deca.id_deca
+                    INNER JOIN year_yea yea
+                        ON rpt.idyea_fol = yea.id_yea
+                    INNER JOIN type_typ typ
+                        ON rpt.idtyp_fol = typ.id_typ
+                WHERE typ.id_typ = ?
+                ORDER BY typ.id_typ, aut.first_name_aut, deca.decade_deca, 
+                         yea.year_yea, rpt.title_fol";
 
-            array_push($folderArray, $folder);
+            $stmt = $con->prepare($sql);
+            $typ = 2;
+            $stmt->bind_param("i", $typ);
+            $stmt->execute();
+            $stmt->bind_result($idfol, $idtyp, $firstname,
+                $decade, $year, $title, $levels, $prefix);
 
-            $l++;
-        endwhile;
+            $folderArray = array();
+            while ($stmt->fetch()) {
+                $folder = new folders();
 
-        // Free result set
-        mysqli_free_result($result);
+                $folder->setFolderId(strval($idfol));
+                $folder->setTypeId(strval($idtyp));
+                $folder->setAuthor($prefix . $firstname);
+                $folder->setDecade(strval($decade));
+                $folder->setYear(strval($year));
+                $folder->setTitle($title);
+                $folder->setLevels(strval($levels));
 
-        mysqli_close($con);
+                array_push($folderArray, $folder);
+            }
 
-        $json = createJson($folderArray);
-        echo $json;
+            $stmt->close();
+
+            $json = createJson($folderArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
 
     public function getShiftingFolders()
     {
-        include INCLUDES_PATH . 'db_connect.php';
-
-        $folder = new folders();
-        $sql = "CALL getShiftingFolders()";
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
-
-
-        $folderArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        try {
+            include INCLUDES_PATH . 'db_connect.php';
 
             $folder = new folders();
 
-            $folder->setFolderId($row["id_fol"]);
-            $folder->setTypeId("2");
-            $folder->setAuthor("");
-            $folder->setDecade("");
-            $folder->setYear("");
-            $folder->setTitle($row['title_fol']);
-            $folder->setLevels("");
+            $sql = "SELECT rtr.id_fol, tt.type_typ, aa.first_name_aut, 
+                           dd.decade_deca, yy.year_yea, rtr.title_fol
+                FROM folders_fol rtr
+                    JOIN author_aut aa
+                        ON rtr.idaut_fol = aa.id_aut
+                    JOIN type_typ tt
+                        ON rtr.idtyp_fol = tt.id_typ
+                    JOIN decade_deca dd
+                        ON rtr.iddec_fol = dd.id_deca
+                    JOIN year_yea yy
+                        ON rtr.idyea_fol = yy.id_yea
+                ORDER BY aa.first_name_aut, tt.type_typ, dd.decade_deca, 
+                         yy.year_yea, rtr.title_fol";
 
-            array_push($folderArray, $folder);
+            $stmt = $con->prepare($sql);
+            $stmt->execute();
+            $stmt->bind_result($idfol, $idtyp, $firstname,
+                $decade, $year, $title);
 
-            $l++;
-        endwhile;
+            $folderArray = array();
 
-        // Free result set
-        mysqli_free_result($result);
+            while ($stmt->fetch()) {
+                $folder = new folders();
 
-        mysqli_close($con);
-        unset($conn);
+                $folder->setFolderId(strval($idfol));
+                $folder->setTypeId("2");
+                $folder->setAuthor("");
+                $folder->setDecade("");
+                $folder->setYear("");
+                $folder->setTitle($title);
+                $folder->setLevels("");
 
-        unset($stmt);
-        $json = createJson($folderArray);
-        echo $json;
+                array_push($folderArray, $folder);
+            }
+
+            $stmt->close();
+            unset($conn);
+            unset($stmt);
+
+            $json = createJson($folderArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
 
     function addFolder($folderData)
     {
-        // current directory
-        $wd = getcwd();
         include INCLUDES_PATH . 'db_connect.php';
+        try {
+            $type = $folderData[0];
+            $author = $folderData[1];
+            $decade = $folderData[2];
+            $year = $folderData[3];
+            $title = $folderData[4];
+            $levels = $folderData[5];
 
-        $type = $folderData[0];
-        $author = $folderData[1];
-        $decade = $folderData[2];
-        $year = $folderData[3];
-        $title = $folderData[4];
-        $levels = $folderData[5];
+            $sql = "  SELECT typ.type_typ
+                FROM type_typ typ
+                WHERE typ.id_typ = ?
+                UNION ALL
+                SELECT aut.first_name_aut
+                FROM author_aut aut
+                WHERE aut.id_aut = ?
+                UNION ALL
+                SELECT decade_deca
+                FROM decade_deca deca
+                WHERE deca.id_deca = ?
+                UNION ALL
+                SELECT year_yea
+                FROM year_yea yea
+                WHERE yea.id_yea = ?";
 
-        $sql = "CALL getFolderDescriptions($type,$author,$decade,$year)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("iiii", $type, $author, $decade, $year);
+            $stmt->execute();
+            $stmt->bind_result($data);
 
-        if ($result = mysqli_query($con, $sql)) {
-        } else {
-            echo("nothing");
-        };
+            $folderArray = [];
+            while ($stmt->fetch()) {
+                array_push($folderArray, $data);
+            }
+            array_push($folderArray, $title);
+            array_push($folderArray, $levels);
 
-        $folderArray = array(mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC),
-            mysqli_fetch_array($result, MYSQLI_ASSOC), mysqli_fetch_array($result, MYSQLI_ASSOC), $title, $levels);
+            $stmt->close();
+            unset($stmt);
 
-        mysqli_close($con);
-
-        $this->createFolder($folderArray);
-
-        return;
+            $this->createFolder($folderArray);
+            return;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
 
     function createFolder($folder)
     {
-        chdir('../../');
-        $curr = getcwd();
+        $path = PUBLIC_PATH . '/img';
 
-        $typePhoto = $folder[0];
-        $author = $folder[1];
-        $decade = $folder[2];
-        $year = $folder[3];
-        $title = $folder[4];
-
-        $path = $curr . '/public/img';
-
-        $path = $path . "/" . $typePhoto[type_typ];
+        $path = $path . "/" . $folder[0];
         if (!file_exists($path)) {
             mkdir($path);
         };
 
-        $path = $path . '/' . $author[type_typ];
+        $path = $path . '/' . $folder[1];
         if (!file_exists($path)) {
             mkdir($path);
         };
 
-        $path = $path . '/' . $decade[type_typ];
+        $path = $path . '/' . $folder[2];
         if (!file_exists($path)) {
             mkdir($path);
         };
 
-        $path = $path . '/' . $year[type_typ];
+        $path = $path . '/' . $folder[3];
         if (!file_exists($path)) {
             mkdir($path);
         };
 
-        $path = $path . '/' . $title;
+        $path = $path . '/' . $folder[4];
         if (!file_exists($path)) {
             mkdir($path);
             chdir($path);
@@ -194,8 +221,8 @@ class foldersDB
             $stmt = $con->prepare("INSERT INTO folders_fol (idtyp_fol, title_fol, 
                                    idaut_fol, iddec_fol, idyea_fol, levels_fol)
                     VALUES (?,?,?,?,?,?)");
-                $stmt->bind_param("isiiii", $typePhoto, $title, $author,
-                    $decade, $year, $levels);
+            $stmt->bind_param("isiiii", $typePhoto, $title, $author,
+                $decade, $year, $levels);
             $stmt->execute();
             $stmt->close();
 
@@ -203,7 +230,7 @@ class foldersDB
             $stmt->execute();
             $stmt->close();
 
-            $sql="INSERT INTO photos_folders_pfo (full_pfo, preview_pfo, 
+            $sql = "INSERT INTO photos_folders_pfo (full_pfo, preview_pfo, 
                               idfol_pfo, dummy_pfo)
                   SELECT
                       CASE WHEN typ.id_typ = 1 
@@ -257,7 +284,7 @@ class foldersDB
                           JOIN year_yea yea
                               ON fol.idyea_fol = yea.id_yea
                       WHERE fol.id_fol = fol.id_fol";
-            $stmt=$con->prepare("$sql");
+            $stmt = $con->prepare("$sql");
             $stmt->execute();
             $stmt->close();
 
@@ -269,42 +296,36 @@ class foldersDB
 
     function getFolders($year)
     {
-        $wd = getcwd();
         include INCLUDES_PATH . 'db_connect.php';
+        try {
+            $sql = "SELECT id_fol, title_fol
+                    FROM folders_fol rpt
+                        JOIN year_yea yea
+                            ON rpt.idyea_fol = yea.id_yea
+                    WHERE yea.id_yea = ?";
 
-        $sql = "CALL getFolders($year)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $year);
+            $stmt->bind_result($idfol, $title);
+            $stmt->execute();
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
+            $folderArray = [];
+            while ($stmt->fetch()) {
+                $folder = new folders();
 
-        $folderArray = array();
-        $l = 1;
+                $folder->setFolderId($idfol);
+                $folder->setTitle($title);
 
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                array_push($folderArray, $folder);
+            }
 
-            $folder = new folders();
-
-            $folder->setFolderId($row['id_fol']);
-            $folder->setTitle($row["title_fol"]);
-
-            array_push($folderArray, $folder);
-
-            $l++;
-        endwhile;
-
-        // Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        $json = createJson($folderArray);
-        echo $json;
+            header("Content-Type:application/json");
+            $json = createJson($folderArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
 
     function getPath($path)
@@ -316,24 +337,32 @@ class foldersDB
         $title = $path[4];
 
         include INCLUDES_PATH . 'db_connect.php';
+        try {
+            $sql = "SELECT rpt.id_fol, typ.type_typ, aut.first_name_aut,
+                       deca.decade_deca, yea.year_yea, rpt.title_fol
+                    FROM type_typ typ, author_aut aut, decade_deca deca,
+                         year_yea yea, folders_fol rpt
+                    WHERE typ.id_typ = ?
+                        AND aut.id_aut = ?
+                        AND deca.id_deca = ? 
+                        AND yea.id_yea = ?
+                        AND rpt.id_fol = ?";
 
-        $sql = "CALL getPath($typePhoto,$author,$decade,$year,$title)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("iiiii", $typePhoto, $author, $decade, $year, $title);
+            $stmt->bind_result($idfol, $type, $firstname, $decade, $year, $title);
+            $stmt->execute();
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
+            $stmt->fetch();
 
-        IF ($rowcount > 0) {
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            $current = getcwd() . "\n";
-            $path = PUBLIC_PATH . '/img/' . utf8_encode($row['type_typ']) . '/' .
-                utf8_encode($row['first_name_aut']) . '/' . $row['decade_deca'] . '/' .
-                $row['year_yea'] . '/' . utf8_encode($row['title_fol']) . '/';
-            $info = [$path, $row['id_fol']];
+            $path = PUBLIC_PATH . '/img/' . utf8_encode($type) . '/' .
+                utf8_encode($firstname) . '/' . $decade . '/' .
+                strval($year) . '/' . utf8_encode($title) . '/';
+            $info = [$path, $idfol];
             return $info;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
         }
     }
 }

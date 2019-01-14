@@ -35,7 +35,6 @@ if ($function == 'addFolder') {
 
     $folderData = array($type, $author, $decade, $year, $title, $levels, $title);
 
-//    $db = new foldersDB();
     $db->addFolder($folderData);
     return;
 }
@@ -51,7 +50,6 @@ if ($function == 'addFolderMysql') {
 
     $folderData = array($type, $author, $decade, $year, $title, $levels);
 
-//    $db = new foldersDB();
     $db->addFolderMysql($folderData);
     return;
 }

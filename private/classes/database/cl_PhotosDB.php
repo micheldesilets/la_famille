@@ -44,13 +44,13 @@ class photosDB
             $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
                        preview_pfo, filename_pho, pdf_pho, idgen_pho,
                        title_fol, year_pho
-                FROM photos_folders_pfo pfo
-                    INNER JOIN photos_pho pho
-                        ON pfo.idfol_pfo = pho.idfol_pho
-                    JOIN folders_fol rpt
-                        ON pfo.idfol_pfo = rpt.id_fol
-                WHERE pfo.idfol_pfo = ?
-                ORDER BY pho.year_pho";
+                    FROM photos_folders_pfo pfo
+                        INNER JOIN photos_pho pho
+                            ON pfo.idfol_pfo = pho.idfol_pho
+                        JOIN folders_fol rpt
+                            ON pfo.idfol_pfo = rpt.id_fol
+                    WHERE pfo.idfol_pfo = ?
+                    ORDER BY pho.year_pho";
 
             $stmt = $con->prepare($sql);
             $i = "i";
@@ -85,15 +85,15 @@ class photosDB
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $sql = "SELECT  id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
-                       preview_pfo, filename_pho, pdf_pho, idgen_pho,
-                       title_fol, year_pho
-                FROM photos_pho pho
+            $sql = "SELECT  id_pho, title_pho, keywords_pho, caption_pho, 
+                            full_pfo, preview_pfo, filename_pho, pdf_pho, 
+                            idgen_pho, title_fol, year_pho
+                    FROM photos_pho pho
                     JOIN photos_folders_pfo pfo
                         ON pfo.idfol_pfo = pho.idfol_pho
                     JOIN folders_fol rpt
                         ON pfo.idfol_pfo = rpt.id_fol
-                WHERE pho.id_pho = ?";
+                    WHERE pho.id_pho = ?";
 
             $stmt = $con->prepare($sql);
             $stmt->bind_param("i", $pid);
@@ -116,7 +116,7 @@ class photosDB
             echo $json;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
     }
 
@@ -152,12 +152,12 @@ class photosDB
                            caption_pho, full_pfo, preview_pfo,
                            filename_pho, pdf_pho, idgen_pho,
                            title_fol, year_pho
-            FROM photos_pho pho
-            INNER JOIN photos_folders_pfo pfo
-            ON pfo.idfol_pfo = pho.idfol_pho
-            JOIN folders_fol rpt 
-            ON pfo.idfol_pfo = rpt.id_fol
-            WHERE  ";
+                    FROM photos_pho pho
+                        INNER JOIN photos_folders_pfo pfo
+                            ON pfo.idfol_pfo = pho.idfol_pho
+                        JOIN folders_fol rpt 
+                            ON pfo.idfol_pfo = rpt.id_fol
+                    WHERE  ";
 
             if ($photoPid != "") {
                 if ($idContext == "true") {
@@ -351,189 +351,75 @@ class photosDB
             echo $json;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
-    }
-
-    private
-    function createJason($sql)
-    {
-        include INCLUDES_PATH . 'db_connect.php';
-
-
-        $photo = new Photos();
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
-        $photoArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-            $photo = new Photos();
-
-            $photo->set_Idpho($row["id_pho"]);
-            if ($row["title_pho"] == null) {
-                $photo->set_Title("");
-            } else {
-                $photo->set_Title($row["title_pho"]);
-            }
-            if ($row["keywords_pho"] == null) {
-                $photo->set_Keywords("");
-            } else {
-                $photo->set_Keywords($row["keywords_pho"]);
-            }
-            /*      $photo->set_Height($row["height_pho"]);
-                  $photo->set_Width($row["width_pho"]);*/
-            if ($row["caption_pho"] == null) {
-                $photo->set_Caption("");
-            } else {
-                $photo->set_Caption($row["caption_pho"]);
-            }
-            if ($row["full_pfo"] == null) {
-                $photo->set_F_Path("");
-            } else {
-                $photo->set_F_Path($row["full_pfo"]);
-            }
-            if ($row["preview_pfo"] == null) {
-                $photo->set_P_Path("");
-            } else {
-                $photo->set_P_Path($row["preview_pfo"]);
-            }
-            $photo->set_Filename($row["filename_pho"]);
-            if ($row["pdf_pho"] == null) {
-                $photo->set_Pdf("");
-            } else {
-                $photo->set_Pdf($row['pdf_pho']);
-            }
-            if ($row["idgen_pho"] == null) {
-                $photo->set_GeneolIdx("");
-                $photo->set_GeneolNames("");
-            } else {
-                $gIdx = $this->buildIdxList($row["idgen_pho"]);
-                $photo->set_GeneolIdx($gIdx);
-                $gName = $this->buildNamesList($row['idgen_pho']);
-                $photo->set_GeneolNames($gName);
-            }
-            if ($row['title_fol'] == null) {
-                $photo->set_rptTitle("");
-            } else {
-                $photo->set_rptTitle($row['title_fol']);
-            }
-            if ($row['year_pho'] == null) {
-                $photo->set_Year("");
-            } else {
-                $photo->set_Year($row['year_pho']);
-            }
-
-            array_push($photoArray, $photo);
-
-            $l++;
-        endwhile;
-
-        // Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        header("Content-Type:application/json");
-        $json = json_encode($photoArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        if ($json === false) {
-            // Avoid echo of empty string (which is invalid JSON), and
-            // JSONify the error message instead:
-            $json = json_encode(array("jsonError", json_last_error_msg()));
-            if ($json === false) {
-                // This should not happen, but we go all the way now:
-                $json = '{"jsonError": "unknown"}';
-            }
-            // Set HTTP response status code to: 500 - Internal Server Error
-            http_response_code(500);
-        }
-        return $json;
     }
 
     private
     function buildNamesList($idxs)
     {
+        include INCLUDES_PATH . 'db_connect.php';
+
         $namesList = "";
         $array = explode(',', $idxs);
-        foreach ($array as $value) {
-            $sql = "SELECT name_gen
-            FROM geneology_idx_gen gen
-            WHERE gen.id_gen = $value";
 
-            $name = $this->getName($sql);
-            if ($namesList == "") {
-                $namesList = $name;
-            } else {
-                $namesList = $namesList . ',' . $name;
+        $sql = "SELECT name_gen
+                FROM geneology_idx_gen gen
+                WHERE gen.id_gen = ?";
+        $stmt = $con->prepare($sql);
+        try {
+            foreach ($array as $value) {
+                $stmt->bind_param("s", $value);
+                $stmt->execute();
+                $data = $stmt->get_result()->fetch_all();
+
+                $n = $data[0];
+
+                if ($namesList === "") {
+                    $namesList = $n[0];
+                } else {
+                    $namesList = $namesList . ',' . $n[0];
+                }
             }
+            return $namesList;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit(); //Should be a message a typical user could understand
         }
-        return $namesList;
     }
 
     private
     function buildIdxList($idxs)
     {
+        include INCLUDES_PATH . 'db_connect.php';
+
         $idxList = "";
+        $list = "";
         $array = explode(',', $idxs);
-        foreach ($array as $value) {
+        try {
             $sql = "SELECT index_gen
             FROM geneology_idx_gen gen
-            WHERE gen.id_gen = $value";
+            WHERE gen.id_gen = ?";
+            $stmt = $con->prepare($sql);
 
-            $ind = $this->getIndex($sql);
-            if ($idxList == "") {
-                $idxList = $ind;
-            } else {
-                $idxList = $idxList . ',' . $ind;
+            foreach ($array as $value) {
+                $stmt->bind_param("s", $value);
+                $stmt->execute();
+                $data = $stmt->get_result()->fetch_all();
+
+                $n = $data[0];
+
+                if ($idxList == "") {
+                    $idxList = strval($n[0]);
+                } else {
+                    $idxList = $idxList . ',' . strval($n[0]);
+                }
             }
+            return $idxList;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit(); //Should be a message a typical user could understand
         }
-        return $idxList;
-    }
-
-    private
-    function getName($sql)
-    {
-        include INCLUDES_PATH . 'db_connect.php';
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
-
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-        if ($row['name_gen'] == NULL) {
-            return "";
-        } else {
-            return $row['name_gen'];
-        }
-    }
-
-    private
-    function getIndex($sql)
-    {
-        include INCLUDES_PATH . 'db_connect.php';
-
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-        } else {
-            echo("nothing");
-        };
-
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-        return $row['index_gen'];
     }
 
     function insertPhotoInfo($photoInfo)
@@ -565,9 +451,10 @@ class photosDB
 
     function downloadPhotos($listPids)
     {
-        include INCLUDES_PATH . 'db_connect.php';
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         try {
+            include INCLUDES_PATH . 'db_connect.php';
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
             $stmt = $con->prepare("SELECT id_pho, title_pho, keywords_pho,
                                           caption_pho, full_pfo, preview_pfo,
                                           filename_pho, pdf_pho, idgen_pho,
@@ -620,11 +507,10 @@ class photosDB
 
     function addMetadataToMysql($idRpt, $file_name)
     {
-        $curr = getcwd();
-        include INCLUDES_PATH . 'db_connect.php';
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
         try {
+            include INCLUDES_PATH . 'db_connect.php';
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
             $stmt = $con->prepare("INSERT INTO photos_pho (idfol_pho, filename_pho)
                                VALUES (?,?)");
             $stmt->bind_param("is", $idRpt, utf8_encode($file_name));

@@ -13,48 +13,47 @@ class cl_yearsDB
     public function getAllYears()
     {
         $wd = getcwd();
+        try {
+            include INCLUDES_PATH . 'db_connect.php';
 
-        include INCLUDES_PATH . 'db_connect.php';
+            $sql = "  SELECT id_yea,iddeca_yea,decade_deca,year_yea
+                  FROM year_yea yy
+                  JOIN decade_deca dd
+                      ON dd.id_deca = yy.iddeca_yea
+                  ORDER BY dd.decade_deca, yy.year_yea";
 
-        $sql = "CALL getAllYears()";
+            $stmt = $con->prepare($sql);
+            $stmt->execute();
+            $stmt->bind_result($idyea, $iddeca, $decade, $year);
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has % d rows . \n", $rowcount); */
-        } else {
-            echo("nothing");
-        };
+            $yearArray = array();
 
-        $yearArray = array();
-        $l = 1;
+            while ($stmt->fetch()) {
 
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $yearUnit = new cl_year();
 
-            $year = new cl_year();
+                $yearUnit->set_Idyea($idyea);
+                $yearUnit->set_Iddeca($iddeca);
+                $yearUnit->set_Decade($decade);
+                $yearUnit->set_Year($year);
 
-            $year->set_Idyea($row["id_yea"]);
-            $year->set_Iddeca($row['iddeca_yea']);
-            $year->set_Decade($row["decade_deca"]);
-            $year->set_Year($row["year_yea"]);
+                array_push($yearArray, $yearUnit);
+            }
 
-            array_push($yearArray, $year);
+            $stmt->close();
+            unset($stmt);
 
-            $l++;
-        endwhile;
-
-// Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        $json = createJson($yearArray);
-        echo $json;
+            header("Content-Type:application/json");
+            $json = createJson($yearArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
 
-    public function getDecades()
+    public
+    function getDecades()
     {
         require_once CLASSES_PATH . '/business/cl_decade.php';
         include INCLUDES_PATH . 'db_connect.php';
@@ -97,7 +96,8 @@ class cl_yearsDB
         echo $json;
     }
 
-    public function getYearsSelected($decade)
+    public
+    function getYearsSelected($decade)
     {
         $wd = getcwd();
 
