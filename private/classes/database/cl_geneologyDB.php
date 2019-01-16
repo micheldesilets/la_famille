@@ -13,39 +13,27 @@ class cl_geneologyDB
         include INCLUDES_PATH . 'db_connect.php';
         require_once CLASSES_PATH . '/business/cl_geneology.php';
 
-        $sql = "CALL getGeneologyList()";
+        $sql = "SELECT id_gen,name_gen,index_gen
+                  FROM geneology_idx_gen gig
+              ORDER BY gig.name_gen ASC";
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has %d rows.\n", $rowcount); */
-        } else {
-            echo("nothing");
-        };
-
+        $stmt = $con->prepare($sql);
+        $stmt->bind_result($idgen, $name, $index);
+        $stmt->execute();
 
         $geneologyArray = array();
-        $l = 1;
-
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
+        while ($stmt->fetch()) {
             $geneology = new cl_geneology();
 
-            $geneology->set_Idgen($row["id_gen"]);
-            $geneology->set_Name($row["name_gen"]);
-            $geneology->set_Index($row["index_gen"]);
+            $geneology->set_Idgen($idgen);
+            $geneology->set_Name($name);
+            $geneology->set_Index($index);
 
             array_push($geneologyArray, $geneology);
+        }
 
-            $l++;
-        endwhile;
-
-// Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
+        $stmt->close();
+        unset($stmt);
 
         $json = createJson($geneologyArray);
         echo $json;

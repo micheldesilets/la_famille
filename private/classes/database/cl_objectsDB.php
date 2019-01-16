@@ -8,63 +8,49 @@
 
 class objectsDB
 {
-  /* Get readings
-  ***************/
-  public function getObjects($path)
-  {
-      include INCLUDES_PATH . 'db_connect.php';
-      require_once CLASSES_PATH . '/business/cl_objects.php';
+    public function getObjects($path)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        require_once CLASSES_PATH . '/business/cl_objects.php';
 
-      $sql = "CALL getObjects($path)";
+        try {
+            $sql = "SELECT description_obj,preview_pfo,file_obj
+                      FROM objects_obj obj
+                           JOIN photos_folders_pfo pfo
+                             ON pfo.idfol_pfo = obj.idfol_obj
+                     WHERE pfo.idfol_pfo = ?
+                  ORDER BY order_obj";
 
-    if ($result = mysqli_query($con, $sql)) {
-      // Return the number of rows in result set
-      $rowcount = mysqli_num_rows($result);
-      /* printf("Result set has %d rows.\n", $rowcount); */
-    } else {
-      echo("nothing");
-    };
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $path);
+            $stmt->bind_result($description, $preview, $file);
+            $stmt->execute();
 
+            $objectArray = array();
+            while ($stmt->fetch()) {
+                $object = new Objects();
 
-    $objectArray = array();
-    $l = 1;
+                $object->set_description($description);
+                $object->set_File($preview . $file);
+                array_push($objectArray, $object);
+            }
 
-    while ($l <= $rowcount):
-      // Associative array
-      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $stmt->close();
+            unset($stmt);
 
-      $object = new Objects();
-
-      $object->set_description($row["description_obj"]);
-        $object->set_File($row['preview_pfo'] . $row['file_obj']);
-      array_push($objectArray, $object);
-
-      $l++;
-    endwhile;
-
-    // Free result set
-    mysqli_free_result($result);
-
-    mysqli_close($con);
-
-    header("Content-Type: application/json");
-    $json = json_encode($objectArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-      // Avoid echo of empty string (which is invalid JSON), and
-      // JSONify the error message instead:
-      $json = json_encode(array("jsonError", json_last_error_msg()));
-      if ($json === false) {
-        // This should not happen, but we go all the way now:
-        $json = '{"jsonError": "unknown"}';
-      }
-      // Set HTTP response status code to: 500 - Internal Server Error
-      http_response_code(500);
+            header("Content-Type: application/json");
+            $json = json_encode($objectArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            if ($json === false) {
+                $json = json_encode(array("jsonError", json_last_error_msg()));
+                if ($json === false) {
+                    $json = '{"jsonError": "unknown"}';
+                }
+                http_response_code(500);
+            }
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
-    echo $json;
-//    echo count($photoArray);
-
-
-//    return $readingArray;
-
-  }
 }

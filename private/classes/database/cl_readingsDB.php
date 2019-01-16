@@ -8,71 +8,57 @@
 
 class readingsDB
 {
-  /* Get readings */
-  public function getReadings($path)
-  {
-      include INCLUDES_PATH . 'db_connect.php';
-      require_once CLASSES_PATH . '/business/cl_readings.php';
+    public function getReadings($path)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        require_once CLASSES_PATH . '/business/cl_readings.php';
 
-//    $lectures = new Readings();
+        try {
+            $sql = "SELECT title_rea,address_rea,intro_rea,summary_rea,full_pfo,
+                           file_rea
+                      FROM readings_rea rr
+                           JOIN photos_folders_pfo pfp
+                             ON pfp.idfol_pfo = rr.idfol_rea
+                     WHERE pfp.idfol_pfo = ?
+                     ORDER BY rr.order_rea";
 
-      $sql = "CALL getReadings($path)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $path);
+            $stmt->bind_result($title, $address, $intro, $summary, $full, $file);
+            $stmt->execute();
 
-    if ($result = mysqli_query($con, $sql)) {
-      // Return the number of rows in result set
-      $rowcount = mysqli_num_rows($result);
-      /* printf("Result set has %d rows.\n", $rowcount); */
-    } else {
-      echo("nothing");
-    };
+            $readingArray = [];
+            while ($stmt->fetch()) {
+                $reading = new Readings();
 
+                $reading->set_Title($title);
+                $reading->set_Address($address);
+                if (!empty($intro)) {
+                    $reading->set_Intro($intro);
+                }
+                if (!empty($summary)) {
+                    $reading->set_sumary($summary);
+                }
+                $reading->set_File($full . $file);
+                array_push($readingArray, $reading);
+            }
 
-    $readingArray = array();
-    $l = 1;
+            $stmt->close();
+            unset($stmt);
 
-    while ($l <= $rowcount):
-      // Associative array
-      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-      $reading = new Readings();
-
-      $reading->set_Title($row["title_rea"]);
-      $reading->set_Address($row["address_rea"]);
-      if (!empty($row["intro_rea"])) {
-        $reading->set_Intro($row["intro_rea"]);
-      }
-      if (!empty($row['summary_rea'])) {
-        $reading->set_sumary($row['summary_rea']);
-      }
-        $reading->set_File($row['full_pfo'] . $row['file_rea']);
-      array_push($readingArray, $reading);
-
-      $l++;
-    endwhile;
-
-    // Free result set
-    mysqli_free_result($result);
-
-    mysqli_close($con);
-
-    header("Content-Type: application/json");
-    $json = json_encode($readingArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-      // Avoid echo of empty string (which is invalid JSON), and
-      // JSONify the error message instead:
-      $json = json_encode(array("jsonError", json_last_error_msg()));
-      if ($json === false) {
-        // This should not happen, but we go all the way now:
-        $json = '{"jsonError": "unknown"}';
-      }
-      // Set HTTP response status code to: 500 - Internal Server Error
-      http_response_code(500);
+            header("Content-Type: application/json");
+            $json = json_encode($readingArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            if ($json === false) {
+                $json = json_encode(array("jsonError", json_last_error_msg()));
+                if ($json === false) {
+                    $json = '{"jsonError": "unknown"}';
+                }
+                http_response_code(500);
+            }
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit();
+        }
     }
-    echo $json;
-//    echo count($photoArray);
-
-
-//    return $readingArray;
-
-  }
 }

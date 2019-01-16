@@ -11,14 +11,15 @@ class photosDB
         try {
             $photoSb = new Photos();
 
-            $stmt = $con->prepare("SELECT pho.filename_pho, pfo.full_pfo
+            $sql="SELECT pho.filename_pho, pfo.full_pfo
                                    FROM photos_pho pho
                                        JOIN parameters_par pp
                                        ON id_pho = pp.home_sidebar_par   
                                        JOIN photos_folders_pfo pfo
                                        ON pfo.idfol_pfo = pho.idfol_pho
-                                   WHERE pp.id_par = ?");
+                                   WHERE pp.id_par = ?";
 
+            $stmt = $con->prepare($sql);
             $i = 1;
             $stmt->bind_param("i", $i);
             $stmt->execute();
@@ -32,7 +33,7 @@ class photosDB
             return $photoSb;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
     }
 
@@ -41,16 +42,16 @@ class photosDB
     {
         include INCLUDES_PATH . 'db_connect.php';
         try {
-            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
-                       preview_pfo, filename_pho, pdf_pho, idgen_pho,
-                       title_fol, year_pho
-                    FROM photos_folders_pfo pfo
-                        INNER JOIN photos_pho pho
-                            ON pfo.idfol_pfo = pho.idfol_pho
-                        JOIN folders_fol rpt
-                            ON pfo.idfol_pfo = rpt.id_fol
-                    WHERE pfo.idfol_pfo = ?
-                    ORDER BY pho.year_pho";
+            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
+                           full_pfo, preview_pfo, filename_pho, pdf_pho, 
+                           idgen_pho, title_fol, year_pho
+                      FROM photos_folders_pfo pfo
+                           INNER JOIN photos_pho pho
+                                   ON pfo.idfol_pfo = pho.idfol_pho
+                                 JOIN folders_fol rpt
+                                   ON pfo.idfol_pfo = rpt.id_fol
+                     WHERE pfo.idfol_pfo = ?
+                  ORDER BY pho.year_pho";
 
             $stmt = $con->prepare($sql);
             $i = "i";
@@ -75,7 +76,7 @@ class photosDB
             echo $json;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
     }
 
@@ -85,15 +86,15 @@ class photosDB
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $sql = "SELECT  id_pho, title_pho, keywords_pho, caption_pho, 
-                            full_pfo, preview_pfo, filename_pho, pdf_pho, 
-                            idgen_pho, title_fol, year_pho
-                    FROM photos_pho pho
-                    JOIN photos_folders_pfo pfo
-                        ON pfo.idfol_pfo = pho.idfol_pho
-                    JOIN folders_fol rpt
-                        ON pfo.idfol_pfo = rpt.id_fol
-                    WHERE pho.id_pho = ?";
+            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
+                           full_pfo, preview_pfo, filename_pho, pdf_pho, 
+                           idgen_pho, title_fol, year_pho
+                      FROM photos_pho pho
+                           JOIN photos_folders_pfo pfo
+                             ON pfo.idfol_pfo = pho.idfol_pho
+                           JOIN folders_fol rpt
+                             ON pfo.idfol_pfo = rpt.id_fol
+                     WHERE pho.id_pho = ?";
 
             $stmt = $con->prepare($sql);
             $stmt->bind_param("i", $pid);
@@ -152,12 +153,12 @@ class photosDB
                            caption_pho, full_pfo, preview_pfo,
                            filename_pho, pdf_pho, idgen_pho,
                            title_fol, year_pho
-                    FROM photos_pho pho
-                        INNER JOIN photos_folders_pfo pfo
-                            ON pfo.idfol_pfo = pho.idfol_pho
-                        JOIN folders_fol rpt 
-                            ON pfo.idfol_pfo = rpt.id_fol
-                    WHERE  ";
+                      FROM photos_pho pho
+                           INNER JOIN photos_folders_pfo pfo
+                                   ON pfo.idfol_pfo = pho.idfol_pho
+                                 JOIN folders_fol rpt 
+                                   ON pfo.idfol_pfo = rpt.id_fol
+                     WHERE";
 
             if ($photoPid != "") {
                 if ($idContext == "true") {
@@ -364,8 +365,8 @@ class photosDB
         $array = explode(',', $idxs);
 
         $sql = "SELECT name_gen
-                FROM geneology_idx_gen gen
-                WHERE gen.id_gen = ?";
+                  FROM geneology_idx_gen gen
+                 WHERE gen.id_gen = ?";
         $stmt = $con->prepare($sql);
         try {
             foreach ($array as $value) {
@@ -384,12 +385,11 @@ class photosDB
             return $namesList;
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
     }
 
-    private
-    function buildIdxList($idxs)
+    private function buildIdxList($idxs)
     {
         include INCLUDES_PATH . 'db_connect.php';
 
@@ -398,8 +398,9 @@ class photosDB
         $array = explode(',', $idxs);
         try {
             $sql = "SELECT index_gen
-            FROM geneology_idx_gen gen
-            WHERE gen.id_gen = ?";
+                      FROM geneology_idx_gen gen
+                     WHERE gen.id_gen = ?";
+
             $stmt = $con->prepare($sql);
 
             foreach ($array as $value) {
@@ -435,17 +436,18 @@ class photosDB
             $geneologyIdxs = $photoInfo[5];
 
             $sql = "UPDATE photos_pho pp
-                SET pp.title_pho = ?, pp.keywords_pho = ?, pp.caption_pho = ?,
-                    pp.year_pho = ?, pp.idgen_pho = ?
-                WHERE pp.id_pho = ?";
+                       SET pp.title_pho = ?, pp.keywords_pho = ?, 
+                           pp.caption_pho = ?, pp.year_pho = ?, pp.idgen_pho = ?
+                     WHERE pp.id_pho = ?";
+
             $stmt = $con->prepare($sql);
             $stmt->bind_param("sssisi", $title, $keywords, $caption, $year,
-                $geneologyIdxs, $photoId);
+                              $geneologyIdxs, $photoId);
             $stmt->execute();
             $stmt->close();
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit(); //Should be a message a typical user could understand
+            exit();
         }
     }
 
@@ -455,17 +457,18 @@ class photosDB
             include INCLUDES_PATH . 'db_connect.php';
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-            $stmt = $con->prepare("SELECT id_pho, title_pho, keywords_pho,
-                                          caption_pho, full_pfo, preview_pfo,
-                                          filename_pho, pdf_pho, idgen_pho,
-                                          title_fol, year_pho
-                             FROM photos_folders_pfo pfo
-                             INNER JOIN photos_pho pho
+            $sql="SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
+                         preview_pfo, filename_pho, pdf_pho, idgen_pho,
+                         title_fol, year_pho
+                    FROM photos_folders_pfo pfo
+                         INNER JOIN photos_pho pho
                                  ON pfo.idfol_pfo = pho.idfol_pho
-                             JOIN folders_fol rpt
+                               JOIN folders_fol rpt
                                  ON pfo.idfol_pfo = rpt.id_fol
-                             WHERE id_pho IN (?)
-                             ORDER BY pho.year_pho");
+                   WHERE id_pho IN (?)
+                ORDER BY pho.year_pho";
+
+            $stmt = $con->prepare($sql);
 
             $listPhotos = [];
 
@@ -511,8 +514,11 @@ class photosDB
             include INCLUDES_PATH . 'db_connect.php';
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-            $stmt = $con->prepare("INSERT INTO photos_pho (idfol_pho, filename_pho)
-                               VALUES (?,?)");
+            $sql="INSERT INTO photos_pho (
+                              idfol_pho, filename_pho)
+                       VALUES (?,?)";
+
+            $stmt = $con->prepare($sql);
             $stmt->bind_param("is", $idRpt, utf8_encode($file_name));
             $stmt->execute();
             $stmt->close();

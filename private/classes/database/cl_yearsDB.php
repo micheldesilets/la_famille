@@ -12,15 +12,14 @@ class cl_yearsDB
 {
     public function getAllYears()
     {
-        $wd = getcwd();
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $sql = "  SELECT id_yea,iddeca_yea,decade_deca,year_yea
-                  FROM year_yea yy
-                  JOIN decade_deca dd
-                      ON dd.id_deca = yy.iddeca_yea
-                  ORDER BY dd.decade_deca, yy.year_yea";
+            $sql = "SELECT id_yea,iddeca_yea,decade_deca,year_yea
+                      FROM year_yea yy
+                           JOIN decade_deca dd
+                             ON dd.id_deca = yy.iddeca_yea
+                     ORDER BY dd.decade_deca, yy.year_yea";
 
             $stmt = $con->prepare($sql);
             $stmt->execute();
@@ -43,7 +42,6 @@ class cl_yearsDB
             $stmt->close();
             unset($stmt);
 
-            header("Content-Type:application/json");
             $json = createJson($yearArray);
             echo $json;
         } catch (Exception $e) {
@@ -52,111 +50,94 @@ class cl_yearsDB
         }
     }
 
-    public
-    function getDecades()
+    public function getDecades()
     {
         require_once CLASSES_PATH . '/business/cl_decade.php';
         include INCLUDES_PATH . 'db_connect.php';
 
-        $sql = "CALL getDecades()";
+        try {
+            $sql = "SELECT id_deca,decade_deca,fromYear_deca,toYear_deca
+                      FROM decade_deca dd
+                  ORDER BY dd.decade_deca";
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has % d rows . \n", $rowcount); */
-        } else {
-            echo("nothing");
-        };
+            $stmt = $con->prepare($sql);
+            $stmt->bind_result($iddecaR, $decadeR, $fromYearR, $toYearR);
+            $stmt->execute();
 
-        $decadeArray = array();
-        $l = 1;
+            $decadeArray = [];
+            while ($stmt->fetch()) {
+                $decade = new decade();
 
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $decade->set_Iddeca($iddecaR);
+                $decade->set_Decade($decadeR);
+                $decade->set_FromYear($fromYearR);
+                $decade->set_ToYear($toYearR);
 
-            $decade = new decade();
+                array_push($decadeArray, $decade);
+            }
 
-            $decade->set_Iddeca($row['id_deca']);
-            $decade->set_Decade($row{'decade_deca'});
-            $decade->set_FromYear($row["fromYear_deca"]);
-            $decade->set_ToYear($row['toYear_deca']);
+            $stmt->close();
+            unset($stmt);
 
-            array_push($decadeArray, $decade);
-
-            $l++;
-        endwhile;
-
-// Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        $json = createJson($decadeArray);
-        echo $json;
+            $json = createJson($decadeArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit;
+        }
     }
 
     public
     function getYearsSelected($decade)
     {
-        $wd = getcwd();
+        try {
+            include INCLUDES_PATH . 'db_connect.php';
 
-//        require_once CLASSES_PATH . '/business/cl_year.php';
-        include INCLUDES_PATH . 'db_connect.php';
+            $sql = "SELECT id_yea,iddeca_yea,decade_deca,year_yea
+                     FROM year_yea yy
+                          JOIN decade_deca dd
+                            ON dd.id_deca = yy.iddeca_yea
+                    WHERE yy.iddeca_yea = ?
+                 ORDER BY yy.year_yea";
 
-        $sql = "CALL getYearsSelected($decade)";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $decade);
+            $stmt->bind_result($idyeaR, $iddecaR, $decadeR, $yearR);
+            $stmt->execute();
 
-        if ($result = mysqli_query($con, $sql)) {
-            // Return the number of rows in result set
-            $rowcount = mysqli_num_rows($result);
-            /* printf("Result set has % d rows . \n", $rowcount); */
-        } else {
-            echo("nothing");
-        };
+            $yearArray = [];
+            while ($stmt->fetch()) {
+                $year = new cl_year();
 
-        $yearArray = array();
-        $l = 1;
+                $year->set_Idyea($idyeaR);
+                $year->set_Iddeca($iddecaR);
+                $year->set_Decade($decadeR);
+                $year->set_Year($yearR);
 
-        while ($l <= $rowcount):
-            // Associative array
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                array_push($yearArray, $year);
+            }
 
-            $year = new cl_year();
+            $stmt->close();
+            unset($stmt);
 
-            $year->set_Idyea($row["id_yea"]);
-            $year->set_Iddeca($row['iddeca_yea']);
-            $year->set_Decade($row["decade_deca"]);
-            $year->set_Year($row["year_yea"]);
-
-            array_push($yearArray, $year);
-
-            $l++;
-        endwhile;
-
-        // Free result set
-        mysqli_free_result($result);
-
-        mysqli_close($con);
-
-        $json = createJson($yearArray);
-        echo $json;
+            $json = createJson($yearArray);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit;
+        }
     }
 }
-
 
 function createJson($rawData)
 {
     header("Content-Type: application/json");
     $json = json_encode($rawData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     if ($json === false) {
-        // Avoid echo of empty string (which is invalid JSON), and
-        // JSONify the error message instead:
         $json = json_encode(array("jsonError", json_last_error_msg()));
         if ($json === false) {
-            // This should not happen, but we go all the way now:
             $json = '{"jsonError": "unknown"}';
         }
-        // Set HTTP response status code to: 500 - Internal Server Error
         http_response_code(500);
     }
     return $json;
