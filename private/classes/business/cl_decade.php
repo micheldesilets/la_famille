@@ -13,12 +13,12 @@ class decade implements JsonSerializable
     private $m_fromYear;
     private $m_toYear;
 
-    /**
-     * @param mixed $m_iddeca
-     */
-    public function set_Iddeca($m_iddeca): void
+    public function __construct($iddecaR, $decadeR, $fromYearR, $toYearR)
     {
-        $this->m_iddeca = $m_iddeca;
+        $this->m_iddeca = $iddecaR;
+        $this->m_decade = $decadeR;
+        $this->m_fromYear = $fromYearR;
+        $this->m_toYear = $toYearR;
     }
 
     /**
@@ -30,14 +30,6 @@ class decade implements JsonSerializable
     }
 
     /**
-     * @param mixed $m_decade
-     */
-    public function set_Decade($m_decade): void
-    {
-        $this->m_decade = $m_decade;
-    }
-
-    /**
      * @return mixed
      */
     public function get_Decade()
@@ -46,27 +38,11 @@ class decade implements JsonSerializable
     }
 
     /**
-     * @param mixed $m_fromYear
-     */
-    public function set_FromYear($m_fromYear): void
-    {
-        $this->m_fromYear = $m_fromYear;
-    }
-
-    /**
      * @return mixed
      */
     public function get_FromYear()
     {
         return $this->m_fromYear;
-    }
-
-    /**
-     * @param mixed $m_toYear
-     */
-    public function set_ToYear($m_toYear): void
-    {
-        $this->m_toYear = $m_toYear;
     }
 
     /**

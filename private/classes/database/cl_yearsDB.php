@@ -23,19 +23,12 @@ class cl_yearsDB
 
             $stmt = $con->prepare($sql);
             $stmt->execute();
-            $stmt->bind_result($idyea, $iddeca, $decade, $year);
+            $stmt->bind_result($idyeaR, $iddecaR, $decadeR, $yearR);
 
             $yearArray = array();
 
             while ($stmt->fetch()) {
-
-                $yearUnit = new cl_year();
-
-                $yearUnit->set_Idyea($idyea);
-                $yearUnit->set_Iddeca($iddeca);
-                $yearUnit->set_Decade($decade);
-                $yearUnit->set_Year($year);
-
+                $yearUnit = new cl_year($idyeaR, $iddecaR, $decadeR, $yearR);
                 array_push($yearArray, $yearUnit);
             }
 
@@ -66,13 +59,7 @@ class cl_yearsDB
 
             $decadeArray = [];
             while ($stmt->fetch()) {
-                $decade = new decade();
-
-                $decade->set_Iddeca($iddecaR);
-                $decade->set_Decade($decadeR);
-                $decade->set_FromYear($fromYearR);
-                $decade->set_ToYear($toYearR);
-
+                $decade = new decade($iddecaR, $decadeR, $fromYearR, $toYearR);
                 array_push($decadeArray, $decade);
             }
 
@@ -107,13 +94,7 @@ class cl_yearsDB
 
             $yearArray = [];
             while ($stmt->fetch()) {
-                $year = new cl_year();
-
-                $year->set_Idyea($idyeaR);
-                $year->set_Iddeca($iddecaR);
-                $year->set_Decade($decadeR);
-                $year->set_Year($yearR);
-
+                $year = new cl_year($idyeaR, $iddecaR, $decadeR, $yearR);
                 array_push($yearArray, $year);
             }
 

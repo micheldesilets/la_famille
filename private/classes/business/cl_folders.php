@@ -8,112 +8,124 @@
 
 class Folders implements JsonSerializable
 {
-  private $m_idpfo;
-  private $m_idrpt;
-  private $m_idtyp;
-  private $m_author;
-  private $m_decade;
-  private $m_year;
-  private $m_title;
-  private $m_levels;
+    private $m_idpfo;
+    private $m_idrpt;
+    private $m_idtyp;
+    private $m_author;
+    private $m_decade;
+    private $m_year;
+    private $m_title;
+    private $m_levels;
 
-  public function setIdpfo($m_idpfo): void
-  {
-    $this->m_idpfo = $m_idpfo;
-  }
+/*    public function __construct($idfol, $idtyp, $firstname, $decade, $year,
+                                $title, $levels, $prefix)
+    {
+        $m_idpfo = $idfol;
+        $m_idtyp = $idtyp;
+        $m_author = $prefix . $firstname;
+        $m_decade = $decade;
+        $m_year = $year;
+        $m_title = $title;
+        $m_levels = $levels;
+    }*/
 
-  public function getIdpfo()
-  {
-    return $this->m_idpfo;
-  }
+    public function setIdpfo($m_idpfo): void
+    {
+        $this->m_idpfo = $m_idpfo;
+    }
 
-  public function setFolderId($m_idrpt): void
-  {
-    $this->m_idrpt = $m_idrpt;
-  }
+    public function getIdpfo()
+    {
+        return $this->m_idpfo;
+    }
 
-  public function getFolderId()
-  {
-    return $this->m_idrpt;
-  }
+    public function setFolderId($m_idrpt): void
+    {
+        $this->m_idrpt = $m_idrpt;
+    }
 
-  public function setTypeId($m_idtyp): void
-  {
-    $this->m_idtyp = $m_idtyp;
-  }
+    public function getFolderId()
+    {
+        return $this->m_idrpt;
+    }
 
-  public function getTypeId()
-  {
-    return $this->m_idtyp;
-  }
+    public function setTypeId($m_idtyp): void
+    {
+        $this->m_idtyp = $m_idtyp;
+    }
 
-  public function setAuthor($m_author): void
-  {
-    $this->m_author = utf8_encode($m_author);
-  }
+    public function getTypeId()
+    {
+        return $this->m_idtyp;
+    }
 
-  public function getAuthor()
-  {
-    return $this->m_author;
-  }
+    public function setAuthor($m_author): void
+    {
+        $this->m_author = utf8_encode($m_author);
+    }
 
-  public function setDecade($m_decade): void
-  {
-    $this->m_decade = $m_decade;
-  }
+    public function getAuthor()
+    {
+        return $this->m_author;
+    }
 
-  public function getDecade()
-  {
-    return $this->m_decade;
-  }
+    public function setDecade($m_decade): void
+    {
+        $this->m_decade = $m_decade;
+    }
 
-  public function setYear($m_year): void
-  {
-    $this->m_year = $m_year;
-  }
+    public function getDecade()
+    {
+        return $this->m_decade;
+    }
 
-  public function getYear()
-  {
-    return $this->m_year;
-  }
+    public function setYear($m_year): void
+    {
+        $this->m_year = $m_year;
+    }
 
-  public function setTitle($m_title): void
-  {
-    $this->m_title = utf8_encode($m_title);
-  }
+    public function getYear()
+    {
+        return $this->m_year;
+    }
 
-  public function getTitle()
-  {
-    return $this->m_title;
-  }
+    public function setTitle($m_title): void
+    {
+        $this->m_title = utf8_encode($m_title);
+    }
 
-  /**
-   * @param mixed $m_levels
-   */
-  public function setLevels($m_levels): void
-  {
-    $this->m_levels = $m_levels;
-  }
+    public function getTitle()
+    {
+        return $this->m_title;
+    }
 
-  /**
-   * @return mixed
-   */
-  public function getLevels()
-  {
-    return $this->m_levels;
-  }
+    /**
+     * @param mixed $m_levels
+     */
+    public function setLevels($m_levels): void
+    {
+        $this->m_levels = $m_levels;
+    }
 
-  public function jsonSerialize()
-  {
-    return [
-      'folderId' => $this->getIdpfo(),
-      'folder' => $this->getFolderId(),
-      'type' => $this->getTypeId(),
-      'author' => $this->getAuthor(),
-      'decade' => $this->getDecade(),
-      'year' => $this->getYear(),
-      'title' => $this->getTitle(),
-      'levels' => $this->getLevels()
-    ];
-  }
+    /**
+     * @return mixed
+     */
+    public function getLevels()
+    {
+        return $this->m_levels;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'folderId' => $this->getIdpfo(),
+            'folder' => $this->getFolderId(),
+            'type' => $this->getTypeId(),
+            'author' => $this->getAuthor(),
+            'decade' => $this->getDecade(),
+            'year' => $this->getYear(),
+            'title' => $this->getTitle(),
+            'levels' => $this->getLevels()
+        ];
+    }
 }

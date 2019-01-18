@@ -27,7 +27,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // breaking these rules.
     //
 
-    $prep_stmt = "SELECT id FROM members WHERE email = ? LIMIT 1";
+    $prep_stmt = "SELECT id_usr FROM users_usr WHERE email_usr = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
 
     // check existing email
@@ -47,7 +47,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     }
 
     // check existing username
-    $prep_stmt = "SELECT id FROM members WHERE username = ? LIMIT 1";
+    $prep_stmt = "SELECT id_usr FROM users_usr WHERE username_usr = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
 
     if ($stmt) {
@@ -78,7 +78,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $password = password_hash($password, PASSWORD_BCRYPT);
 
         // Insert the new user into the database
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password) VALUES (?, ?, ?)")) {
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO users_usr (username_usr, email_usr, password_usr) VALUES (?, ?, ?)")) {
             $insert_stmt->bind_param('sss', $username, $email, $password);
             // Execute the prepared query.
             if (! $insert_stmt->execute()) {

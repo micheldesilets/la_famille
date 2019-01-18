@@ -13,12 +13,12 @@ class cl_year implements JsonSerializable
     private $m_decade;
     private $m_year;
 
-    /**
-     * @param mixed $m_idyea
-     */
-    public function set_Idyea($m_idyea): void
+    public function __construct($idyeaR, $iddecaR, $decadeR, $yearR)
     {
-        $this->m_idyea = $m_idyea;
+        $this->m_idyea = $idyeaR;
+        $this->m_iddeca = $iddecaR;
+        $this->m_decade = $decadeR;
+        $this->m_year = $yearR;
     }
 
     /**
@@ -30,14 +30,6 @@ class cl_year implements JsonSerializable
     }
 
     /**
-     * @param mixed $m_iddeca
-     */
-    public function set_Iddeca($m_iddeca): void
-    {
-        $this->m_iddeca = $m_iddeca;
-    }
-
-    /**
      * @return mixed
      */
     public function get_Iddeca()
@@ -46,27 +38,11 @@ class cl_year implements JsonSerializable
     }
 
     /**
-     * @param mixed $m_decade
-     */
-    public function set_Decade($m_decade): void
-    {
-        $this->m_decade = $m_decade;
-    }
-
-    /**
      * @return mixed
      */
     public function get_Decade()
     {
         return $this->m_decade;
-    }
-
-    /**
-     * @param mixed $m_year
-     */
-    public function set_Year($m_year): void
-    {
-        $this->m_year = $m_year;
     }
 
     /**

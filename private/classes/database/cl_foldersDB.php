@@ -15,8 +15,6 @@ class foldersDB
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $folder = new folders();
-
             $sql = "SELECT rpt.id_fol, typ.id_typ, aut.first_name_aut,
                            deca.decade_deca, yea.year_yea, rpt.title_fol,
                            rpt.levels_fol, aut.prefix_aut 

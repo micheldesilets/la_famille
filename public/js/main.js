@@ -1261,9 +1261,6 @@ var uploadPhotos = () => {
     const formData = new FormData();
 
     if (files.length > 0) {
-/*        const butt = document.getElementsByClassName('data-box__go-button')[0];
-        butt.disabled = false;*/
-
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
             formData.append('files[]', file);
@@ -1282,13 +1279,9 @@ var uploadPhotos = () => {
             if (response.status >= 200 && response.status < 300) {
                 const resp = response.text();
                 document.getElementsByClassName('data-box__upload-done')[0].style.display = 'block';
-                // document.getElementById('data-box__input--photos').files = [];
-                // document.getElementById('data-box__text-input').textContent = '';
             }
         });
     } else {
-/*        const butt = document.getElementsByClassName('data-box__go-button')[0];
-        butt.disabled = false;*/
         document.getElementsByClassName('data-box__message')[0].style.display =
             'block';
     }
@@ -1305,6 +1298,38 @@ var getDecades = () => {
         disableSubmitButton();
     };
     req.send();
+};
+
+var getAuthors = () => {
+    'use strict';
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../private/php/authorsController.php?function=getAuthors', true);
+    xhr.onload = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const authors = JSON.parse(xhr.responseText);
+                renderAuthors(authors);
+            }
+        }
+    };
+    xhr.send();
+};
+
+var renderAuthors = (authors) => {
+    'use strict';
+    var htmlString = "";
+    const anchor =
+        document.getElementById('data-box__select--author');
+    for (const obj of authors) {
+        if (htmlString.length === 0) {
+            htmlString = '<option value=' + obj.idaut + '>' + obj.firstName +
+                '</option>\n';
+        } else {
+            htmlString += '<option value=' + obj.idaut + '>' + obj.firstName +
+                '</option>\n';
+        }
+    }
+    anchor.insertAdjacentHTML("beforeend", htmlString);
 };
 
 var getYearsSelected = () => {

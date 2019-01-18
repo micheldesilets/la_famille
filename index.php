@@ -4,6 +4,8 @@ include_once INCLUDES_PATH . 'psl-config.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . 'register.inc.php';
+require_once INCLUDES_PATH . 'Role.php';
+require_once INCLUDES_PATH . 'PrivilegedUser.php';
 
 sec_session_start();
 
@@ -20,7 +22,7 @@ if (login_check($mysqli) == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Famille Normandeau-Desilets - Acceuil</title>
-    <link rel="stylesheet" href= "public/css/normalize.css">
+    <link rel="stylesheet" href="public/css/normalize.css">
     <link rel="stylesheet" href="public/css/main.css">
     <script src="public/js/main.js"></script>
     <script type="text/JavaScript" src="public/js/forms.js"></script>
@@ -41,6 +43,7 @@ if (isset($_GET['error'])) {
 //    echo '<script> loginError()</script>';
     echo '<p class="error">Error Logging In!</p>';
 }
+$u = PrivilegedUser::getByUsername($_SESSION["username"]);
 ?>
 <div class="page">
     <div class="login">
@@ -69,7 +72,7 @@ if (isset($_GET['error'])) {
                     onclick="formhash(this.form, this.form.password);">
                 Se connecter
             </button>
-            <div >
+            <div>
                 <label class="login__label"
                        for='login__form-switch'>
                     <span> S'enregistrer</span>
@@ -118,13 +121,15 @@ if (isset($_GET['error'])) {
     <!-- ==== START MASTHEAD ==== -->
     <submit class="masthead" role="banner">
         <div class="masthead__dropdown">
+            <?php if ($u->hasPrivilege("write")): ?>
             <button class="masthead__dropbtn">Gestion des photos</button>
             <div class="masthead__dropdown-content">
                 <a class="masthead__item" href="public/php/addFolder.php">
                     Ajouter un répertoire</a>
                 <a class="masthead__item" href="public/php/addPhotos.php">
-                Ajouter des photos</a>
+                    Ajouter des photos</a>
             </div>
+            <?php endif; ?>
         </div>
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">

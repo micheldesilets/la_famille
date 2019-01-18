@@ -9,35 +9,34 @@
 class privilegedUser
 {
     private $roles;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    private $user_id;
+    private $username;
+    private $email_addr;
+    private $password;
 
     // override User method
     public static function getByUsername($username)
     {
         include INCLUDES_PATH . 'db_connect.php';
+
         try {
-            $sql = "SELECT id,username
-                      FROM members 
-                     WHERE username = ?";
+            $sql = "SELECT id_usr,username_usr,password_usr,email_usr
+                      FROM users_usr 
+                     WHERE username_usr = ?";
 
             $sth = $con->prepare($sql);
             $sth->bind_param("s", $username);
-            $sth->bind_result($idR,$usernameR);
+            $sth->bind_result($idR, $usernameR, $passwR, $emailR);
             $sth->execute();
-            mysqli_fetch_all($result,MYSQLI_ASSOC);
+            $sth->fetch();
 
-            while ($sth->fetch()) {
-                $privUser = new privilegedUser();
-                $privUser->user_id = $result[0]["user_id"];
-                $privUser->username = $username;
-                /*            $privUser->password = $result[0]["password"];
-                            $privUser->email_addr = $result[0]["email_addr"];
-                            $privUser->initRoles();*/
-            }
+            $privUser = new PrivilegedUser();
+            $privUser->user_id = $idR;
+            $privUser->username = $usernameR;
+            $privUser->password = $passwR;
+            $privUser->email_addr = $emailR;
+            $privUser->initRoles();
+
             return $privUser;
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -51,16 +50,19 @@ class privilegedUser
         include INCLUDES_PATH . 'db_connect.php';
 
         $this->roles = array();
-        $sql = "SELECT t1.role_id, t2.role_name 
-                  FROM user_role as t1
-                       JOIN roles as t2 ON t1.role_id = t2.role_id
-                 WHERE t1.user_id = :user_id";
+        $sql = "SELECT t1.idrol_uro, t2.name_rol 
+                  FROM user_role_uro as t1
+                       JOIN roles_rol as t2 ON t1.idrol_uro = t2.id_rol
+                 WHERE t1.idusr_uro = ?";
 
         $sth = $con->prepare($sql);
-        $sth->execute(array(":user_id" => $this->user_id));
+        $idUsr = $this->user_id;
+        $sth->bind_param("i", $idUsr);
+        $sth->bind_result($idrolR, $nameR);
+        $sth->execute();
 
-        while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $this->roles[$row["role_name"]] = Role::getRolePerms($row["role_id"]);
+        while ($sth->fetch()) {
+            $this->roles[$nameR] = Role::getRolePerms($idrolR);
         }
     }
 
@@ -73,5 +75,32 @@ class privilegedUser
             }
         }
         return false;
+    }
+
+    // check if a user has a specific role
+    public function hasRole($role_name) {
+        return isset($this->roles[$role_name]);
+    }
+
+// insert a new role permission association
+    public static function insertPerm($role_id, $perm_id) {
+        $sql = "INSERT INTO role_perm (role_id, perm_id) VALUES (:role_id, :perm_id)";
+        $sth = $GLOBALS["DB"]->prepare($sql);
+        return $sth->execute(array(":role_id" => $role_id, ":perm_id" => $perm_id));
+    }
+
+// delete ALL role permissions
+    public static function deletePerms() {
+        $sql = "TRUNCATE role_perm";
+        $sth = $GLOBALS["DB"]->prepare($sql);
+        return $sth->execute();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 }

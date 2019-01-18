@@ -17,13 +17,14 @@ sec_session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/main.js"></script>
     <!--    <link rel="stylesheet" href="public/css/media_query.css" media="screen">-->
 </head>
 
-<body onload="getDecades();">
+<body>
 <?php if (login_check($mysqli) == true) :
     $u = PrivilegedUser::getByUsername($_SESSION["username"]);
-   ?>
+    ?>
     <div class="page data-box">
 
         <h1 class="data-box__h1 data-box__h1--folder">Ajouter un répertoire</h1>
@@ -67,11 +68,6 @@ sec_session_start();
                                class="data-box__label">Auteur</label>
                         <select class="data-box__select data-box__select--add-folder-author"
                                 id="data-box__select--author">
-                            <option value="2" selected>Michel</option>
-                            <option value="3">Amélie</option>
-                            <option value="4">Chantal</option>
-                            <option value="5">Archives</option>
-                            <option value="1">NA</option>
                         </select>
                     </div>
                     <br>
@@ -108,12 +104,12 @@ sec_session_start();
             </fieldset>
         </main>
     </div>
-    <!-- end page -->
-    <script src="../js/main.js"></script>
-
+    <script>
+        getDecades();
+        getAuthors();
+    </script>
 <?php else : ?>
-    <p>
-               <span class="error">Vous devez être connecté au site pour pouvoir
+    <p><span class="error">Vous devez être connecté au site pour pouvoir
             voir le contenu de cette page.</span>
         Svp <a href="../../index.php">connectez-vous.</a>.
     </p>
