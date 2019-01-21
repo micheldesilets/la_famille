@@ -7,13 +7,15 @@
  */
 
 include_once '../../private/initialize.php';
-include_once CLASSES_PATH . '/database/cl_authorsDB.php';
+include_once CLASSES_PATH . '/database/cl_usersDB.php';
 
 $function = $_GET['function'];
+$user = $_GET['user'];
+
 try {
-    if ($function === 'getAuthors') {
-        $db = new cl_authorsDB();
-        $db->GetAuthors();
+    if ($function === 'getUsers') {
+        $db = new cl_usersDB();
+        $db->GetUsers($user);
     }
 } catch (Exception $e) {
     error_log($e->getMessage());

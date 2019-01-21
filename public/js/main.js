@@ -1300,13 +1300,15 @@ var getDecades = () => {
     req.send();
 };
 
-var getAuthors = () => {
+var getAuthors = (user) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/authorsController.php?function=getAuthors', true);
+    xhr.open('GET', '../../private/php/usersController.php?function=getUsers' + '&user=' + user , true);
     xhr.onload = () => {
+        console.log(xhr.status);
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
+                console.log(xhr.responseText);
                 const authors = JSON.parse(xhr.responseText);
                 renderAuthors(authors);
             }
@@ -1322,10 +1324,10 @@ var renderAuthors = (authors) => {
         document.getElementById('data-box__select--author');
     for (const obj of authors) {
         if (htmlString.length === 0) {
-            htmlString = '<option value=' + obj.idaut + '>' + obj.firstName +
+            htmlString = '<option value=' + obj.idusr + '>' + obj.userName +
                 '</option>\n';
         } else {
-            htmlString += '<option value=' + obj.idaut + '>' + obj.firstName +
+            htmlString += '<option value=' + obj.idusr + '>' + obj.userName +
                 '</option>\n';
         }
     }
