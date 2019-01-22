@@ -17,9 +17,9 @@ function formhash(form, password) {
 
 function regformhash(form, uid, email, password, conf) {
     // Check each field has a value
-    if (uid.value === ''         ||
-        email.value === ''     ||
-        password.value === ''  ||
+    if (uid.value === '' ||
+        email.value === '' ||
+        password.value === '' ||
         conf.value === '') {
 
         alert('You must provide all the requested details. Please try again');
@@ -28,8 +28,9 @@ function regformhash(form, uid, email, password, conf) {
 
     // Check the username
 
-    re = /^\w+$/;
-    if(!re.test(form.username.value)) {
+    // re = /^\w+$/;
+    re = /^[a-zA-ZÀ-ÿ-. ]*$/;
+    if (!re.test(form.username.value)) {
         alert("Username must contain only letters, numbers and underscores. Please try again");
         form.username.focus();
         return false;

@@ -196,7 +196,8 @@ a {
   margin-top: 9px;
   border-bottom: 1px solid #000;
   color: #747474;
-  cursor: default; }
+  cursor: default;
+  padding-inline-start: 0; }
   .c-nav-main__item {
     display: inline-block; }
     .c-nav-main__item:first-child {

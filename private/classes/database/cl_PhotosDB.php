@@ -1,6 +1,11 @@
 <?php
 
 require_once CLASSES_PATH . '/business/cl_photos.php';
+include_once INCLUDES_PATH . 'functions.php';
+require_once INCLUDES_PATH . "Role.php";
+require_once INCLUDES_PATH . "PrivilegedUser.php";
+
+sec_session_start();
 
 class photosDB
 {
@@ -514,12 +519,15 @@ class photosDB
             include INCLUDES_PATH . 'db_connect.php';
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+            $u = PrivilegedUser::getByUsername($_SESSION["username"]);
+            $email = $u->getEmail();
+
             $sql="INSERT INTO photos_pho (
-                              idfol_pho, filename_pho)
-                       VALUES (?,?)";
+                              idfol_pho, filename_pho,owner_pho)
+                       VALUES (?,?,?)";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("is", $idRpt, utf8_encode($file_name));
+            $stmt->bind_param("iss", $idRpt, utf8_encode($file_name),$email);
             $stmt->execute();
             $stmt->close();
             return;

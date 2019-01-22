@@ -2,6 +2,8 @@
 include_once '../../private/initialize.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
+require_once INCLUDES_PATH . 'Role.php';
+require_once INCLUDES_PATH . 'PrivilegedUser.php';
 
 sec_session_start();
 ?>
@@ -15,7 +17,8 @@ sec_session_start();
     <link rel="stylesheet" href="../css/main.css">
 </head>
 <body id="bdy" onmousedown="isKeyPressed(event)" onload="getShiftingFolders()">
-<?php if (login_check($mysqli) == true) : ?>
+<?php if (login_check($mysqli) == true) :
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]); ?>
     <div class="page ">
         <!-- ==== START MASTHEAD ==== -->
         <header class="masthead" role="banner">
@@ -186,10 +189,13 @@ sec_session_start();
                     <button class="photos__previous"><</button>
                     <button class="photos__next">></button>
 
+                    <?php if ($u->hasPrivilege("write")): ?>
                     <img src="../img/icons/iconfinder_Streamline-22_185042.png"
                          class="photos__edit-photo"
                          alt="Edition"
                          onclick="editPhoto()">
+                    <?php endif; ?>
+
                     <span class="close">x</span>
 
 

@@ -17,7 +17,7 @@ class users implements JsonSerializable
 
     public function __construct($username, $email)
     {
-        $this->m_username = utf8_encode($username);
+        $this->m_username = $username;
         $this->m_email_addr = $email;
     }
 

@@ -9,7 +9,7 @@ define("PASSWORD", "ehf4EaQ_CU(N");    // The database password.
 define("DATABASE", "lesnormandeaudesilets_DEV");    // The database name.
 
 define("CAN_REGISTER", "any");
-define("DEFAULT_ROLE", "member");
+//define("DEFAULT_ROLE", "member");
 
 define("SECURE", FALSE);    // FOR DEVELOPMENT ONLY!!!!
 ?>

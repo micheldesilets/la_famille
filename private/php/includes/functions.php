@@ -23,6 +23,7 @@ function sec_session_start() {
 
 function login($email, $password, $mysqli) {
     // Using prepared statements means that SQL injection is not possible.
+    mysqli_set_charset($mysqli,"utf8");
     if ($stmt = $mysqli->prepare("SELECT id_usr, username_usr, password_usr 
         FROM users_usr
        WHERE email_usr = ?
@@ -55,9 +56,9 @@ function login($email, $password, $mysqli) {
                     $user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
                     // XSS protection as we might print this value
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/",
+/*                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/",
                         "",
-                        $username);
+                        $username);*/
                     $_SESSION['username'] = $username;
                     $_SESSION['login_string'] = hash('sha512',
                         $db_password . $user_browser);

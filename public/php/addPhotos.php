@@ -2,6 +2,8 @@
 include_once '../../private/initialize.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
+require_once INCLUDES_PATH . "Role.php";
+require_once INCLUDES_PATH . "PrivilegedUser.php";
 
 sec_session_start();
 ?>
@@ -19,7 +21,8 @@ sec_session_start();
     <![endif]-->
 </head>
 <body onload="getDecades();">
-<?php if (login_check($mysqli) == true) : ?>
+<?php if (login_check($mysqli) == true) :
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]);?>
     <div class="page data-box">
 
         <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des

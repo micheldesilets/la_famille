@@ -40,7 +40,6 @@ if (login_check($mysqli) == true) {
 <body>
 <?php
 if (isset($_GET['error'])) {
-//    echo '<script> loginError()</script>';
     echo '<p class="error">Error Logging In!</p>';
 }
 $u = PrivilegedUser::getByUsername($_SESSION["username"]);

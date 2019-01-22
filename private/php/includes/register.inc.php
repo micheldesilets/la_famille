@@ -70,6 +70,28 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // rights to do registration, by checking what type of user is attempting to
     // perform the operation.
 
+    // check if member
+    $prep_stmt = "SELECT id_mem FROM members_mem WHERE email_mem = ? LIMIT 1";
+    $stmt = $mysqli->prepare($prep_stmt);
+
+    if ($stmt) {
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($idmem);
+        $stmt->fetch();
+
+        if ($stmt->num_rows == 1) {
+            // A user with this email exists
+            $member = 2;
+        } else {
+            $member = 3;
+        }
+    } else {
+        $error_msg .= '<p class="error">Database error line 79</p>';
+        $stmt->close();
+    }
+
     if (empty($error_msg)) {
 
         // Create hashed password using the password_hash function.
@@ -77,14 +99,29 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         // the password_verify function.
         $password = password_hash($password, PASSWORD_BCRYPT);
 
+        mysqli_set_charset($mysqli, "utf8");
         // Insert the new user into the database
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO users_usr (username_usr, email_usr, password_usr) VALUES (?, ?, ?)")) {
-            $insert_stmt->bind_param('sss', $username, $email, $password);
+        $sql = "INSERT INTO users_usr (username_usr, email_usr, password_usr,
+                          idmem_usr) VALUES (?, ?, ?,?)";
+        if ($insert_stmt = $mysqli->prepare($sql)) {
+            $insert_stmt->bind_param('sssi', $username, $email, $password,
+                $idmem);
             // Execute the prepared query.
-            if (! $insert_stmt->execute()) {
+            if (!$insert_stmt->execute()) {
+                header('Location: ../error.php?err=Registration failure: INSERT');
+            } else {
+                $last_id = $mysqli->insert_id;
+            }
+        }
+
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO user_role_uro (idusr_uro, idrol_uro) VALUES (?, ?)")) {
+            $insert_stmt->bind_param('ii', $last_id, $member);
+            // Execute the prepared query.
+            if (!$insert_stmt->execute()) {
                 header('Location: ../error.php?err=Registration failure: INSERT');
             }
         }
+
         header('Location: ./register_success.php');
     }
 }

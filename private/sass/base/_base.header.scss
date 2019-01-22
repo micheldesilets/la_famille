@@ -179,6 +179,7 @@
   border-bottom: 1px solid $color2;
   color: $color4;
   cursor: default;
+  padding-inline-start: 0;
 
   &__item {
     display: inline-block;

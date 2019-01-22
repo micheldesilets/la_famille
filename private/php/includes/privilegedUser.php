@@ -18,8 +18,8 @@ class privilegedUser
     public static function getByUsername($username)
     {
         include INCLUDES_PATH . 'db_connect.php';
-
-        try {
+        mysqli_set_charset($con,"utf8");
+          try {
             $sql = "SELECT id_usr,username_usr,password_usr,email_usr
                       FROM users_usr 
                      WHERE username_usr = ?";
@@ -102,5 +102,8 @@ class privilegedUser
     public function getUsername()
     {
         return $this->username;
+    }
+    public function getEmail(){
+        return $this->email_addr;
     }
 }

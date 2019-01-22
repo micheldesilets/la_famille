@@ -13,6 +13,7 @@ class cl_usersDB
     public function GetUsers($user)
     {
         include INCLUDES_PATH . 'db_connect.php';
+        mysqli_set_charset($con,"utf8");
         try {
             $userIdRole = $this->getUserRole($user);
 
@@ -54,6 +55,7 @@ class cl_usersDB
     function getUserRole($user)
     {
         include INCLUDES_PATH . 'db_connect.php';
+        mysqli_set_charset($con,"utf8");
 
         $sql = "SELECT rol.id_rol
                   FROM users_usr usr
