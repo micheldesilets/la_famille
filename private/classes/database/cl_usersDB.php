@@ -17,11 +17,11 @@ class cl_usersDB
         try {
             $userIdRole = $this->getUserRole($user);
 
-            $sql = "SELECT id_usr,username_usr,email_usr
+            $sql = "SELECT id_usr,username_usr,email_usr,idmem_usr
                       FROM users_usr";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_result($idusr, $username, $email);
+            $stmt->bind_result($idusr, $username, $email,$idmem);
             $stmt->execute();
 
             $arrayAut = [];
@@ -32,6 +32,7 @@ class cl_usersDB
                     $usr->set_Permission("");
                     $usr->set_Password("");
                     $usr->set_Roles("");
+                    $usr->set_Idmem($idmem);
                     array_push($arrayAut, $usr);
                 elseif ($username === $user):
                     $usr = new users($username, $email);
@@ -39,6 +40,7 @@ class cl_usersDB
                     $usr->set_Permission("");
                     $usr->set_Password("");
                     $usr->set_Roles("");
+                    $usr->set_Idmem($idmem);
                     array_push($arrayAut, $usr);
                 endif;
             }

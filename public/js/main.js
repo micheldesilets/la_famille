@@ -1213,7 +1213,7 @@ var getFolderInputsPhotos = () => {
     const folderDoc = document.getElementsByClassName('data-box__select');
     var folderData = [];
     folderData.type = folderDoc[0].value;
-    folderData.author = folderDoc[1].value;
+    folderData.member = folderDoc[1].value;
     folderData.decade = folderDoc[2].value;
     folderData.year = folderDoc[3].value;
     folderData.title = folderDoc[4].value;
@@ -1267,7 +1267,7 @@ var uploadPhotos = () => {
         }
 
         formData.append('type', folderData.type);
-        formData.append('author', folderData.author);
+        formData.append('member', folderData.member);
         formData.append('decade', folderData.decade);
         formData.append('year', folderData.year);
         formData.append('title', folderData.title);
@@ -1309,25 +1309,25 @@ var getAuthors = (user) => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log(xhr.responseText);
-                const authors = JSON.parse(xhr.responseText);
-                renderAuthors(authors);
+                const members = JSON.parse(xhr.responseText);
+                renderMembers(members);
             }
         }
     };
     xhr.send();
 };
 
-var renderAuthors = (authors) => {
+var renderMembers = (members) => {
     'use strict';
     var htmlString = "";
     const anchor =
         document.getElementById('data-box__select--author');
-    for (const obj of authors) {
+    for (const obj of members) {
         if (htmlString.length === 0) {
-            htmlString = '<option value=' + obj.idusr + '>' + obj.userName +
+            htmlString = '<option value=' + obj.idmem + '>' + obj.userName +
                 '</option>\n';
         } else {
-            htmlString += '<option value=' + obj.idusr + '>' + obj.userName +
+            htmlString += '<option value=' + obj.idmem + '>' + obj.userName +
                 '</option>\n';
         }
     }

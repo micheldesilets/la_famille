@@ -14,6 +14,7 @@ class users implements JsonSerializable
     private $m_password;
     private $m_roles;
     private $m_permission;
+    private $m_idmem;
 
     public function __construct($username, $email)
     {
@@ -101,6 +102,22 @@ class users implements JsonSerializable
         return $this->m_permission;
     }
 
+    /**
+     * @param mixed $m_idmem
+     */
+    public function set_Idmem($m_idmem): void
+    {
+        $this->m_idmem = $m_idmem;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function get_Idmem()
+    {
+        return $this->m_idmem;
+    }
+
     public function jsonSerialize()
     {
         return [
@@ -109,7 +126,8 @@ class users implements JsonSerializable
             'email' => $this->get_EmailAddr(),
             'password' => $this->get_Password(),
             'roles' => $this->get_Roles(),
-            'permission' => $this->get_Permission()
+            'permission' => $this->get_Permission(),
+            'idmem' => $this->get_Idmem()
         ];
     }
 }

@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $all_files = count($_FILES['files']['tmp_name']);
 
         $type = $_POST['type'];
-        $author = $_POST['author'];
+        $member = $_POST['member'];
         $decade = $_POST['decade'];
         $year = $_POST['year'];
         $title = $_POST['title'];
 
-        $folderData = array($type, $author, $decade, $year, $title);
+        $folderData = array($type, $member, $decade, $year, $title);
         require_once CLASSES_PATH . '/database/cl_foldersDB.php';
         $db = new foldersDB();
         $pathSql = $db->getPath($folderData);

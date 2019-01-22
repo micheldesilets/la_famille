@@ -26,14 +26,14 @@ if ($function === 'getShiftingFolders') {
 
 if ($function == 'addFolder') {
     $type = $_GET['type'];
-    $author = $_GET['author'];
+    $member = $_GET['author'];
     $decade = $_GET['decade'];
     $year = $_GET['year'];
     $title = $_GET['title'];
     $levels = $_GET['levels'];
     $title = carReplace($title);
 
-    $folderData = array($type, $author, $decade, $year, $title, $levels, $title);
+    $folderData = array($type, $member, $decade, $year, $title, $levels, $title);
 
     $db->addFolder($folderData);
     return;
@@ -41,14 +41,14 @@ if ($function == 'addFolder') {
 
 if ($function == 'addFolderMysql') {
     $type = $_GET['type'];
-    $author = $_GET['author'];
+    $member = $_GET['author'];
     $decade = $_GET['decade'];
     $year = $_GET['year'];
     $title = $_GET['title'];
     $levels = $_GET['levels'];
     $title = carReplace($title);
 
-    $folderData = array($type, $author, $decade, $year, $title, $levels);
+    $folderData = array($type, $member, $decade, $year, $title, $levels);
 
     $db->addFolderMysql($folderData);
     return;

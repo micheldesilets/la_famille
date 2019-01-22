@@ -65,7 +65,7 @@ sec_session_start();
                 <br>
                 <div>
                     <label for="data-box__select--author"
-                           class="data-box__label">Auteur</label>
+                           class="data-box__label">Membre</label>
                     <select class="data-box__select data-box__select--add-folder-author"
                             id="data-box__select--author">
                     </select>

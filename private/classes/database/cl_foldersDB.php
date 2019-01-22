@@ -15,21 +15,21 @@ class foldersDB
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $sql = "SELECT rpt.id_fol, typ.id_typ, aut.first_name_aut,
-                           deca.decade_deca, yea.year_yea, rpt.title_fol,
-                           rpt.levels_fol, aut.prefix_aut 
-                      FROM folders_fol rpt
-                           INNER JOIN author_aut aut
-                                   ON rpt.idaut_fol = aut.id_aut
+            $sql = "SELECT fol.id_fol, typ.id_typ, mem.first_name_mem,
+                           deca.decade_deca, yea.year_yea, fol.title_fol,
+                           fol.levels_fol, mem.prefix_mem 
+                      FROM folders_fol fol
+                           INNER JOIN members_mem mem
+                                   ON fol.idmem_fol = mem.id_mem
                            INNER JOIN decade_deca deca
-                                   ON rpt.iddec_fol = deca.id_deca
+                                   ON fol.iddec_fol = deca.id_deca
                            INNER JOIN year_yea yea
-                                   ON rpt.idyea_fol = yea.id_yea
+                                   ON fol.idyea_fol = yea.id_yea
                            INNER JOIN type_typ typ
-                                   ON rpt.idtyp_fol = typ.id_typ
+                                   ON fol.idtyp_fol = typ.id_typ
                      WHERE typ.id_typ = ?
-                  ORDER BY typ.id_typ, aut.first_name_aut, deca.decade_deca, 
-                           yea.year_yea, rpt.title_fol";
+                  ORDER BY binary mem.first_name_mem desc, deca.decade_deca, 
+                           yea.year_yea, fol.title_fol";
 
             $stmt = $con->prepare($sql);
             $typ = 2;
@@ -70,19 +70,19 @@ class foldersDB
 
             $folder = new folders();
 
-            $sql = "SELECT rtr.id_fol, tt.type_typ, aa.first_name_aut, 
-                           dd.decade_deca, yy.year_yea, rtr.title_fol
-                      FROM folders_fol rtr
-                           JOIN author_aut aa
-                             ON rtr.idaut_fol = aa.id_aut
+            $sql = "SELECT fol.id_fol, tt.type_typ, mem.first_name_mem, 
+                           dd.decade_deca, yy.year_yea, fol.title_fol
+                      FROM folders_fol fol
+                           JOIN members_mem mem
+                             ON fol.idmem_fol = mem.id_mem
                            JOIN type_typ tt
-                             ON rtr.idtyp_fol = tt.id_typ
+                             ON fol.idtyp_fol = tt.id_typ
                            JOIN decade_deca dd
-                             ON rtr.iddec_fol = dd.id_deca
+                             ON fol.iddec_fol = dd.id_deca
                            JOIN year_yea yy
-                             ON rtr.idyea_fol = yy.id_yea
-                  ORDER BY aa.first_name_aut, tt.type_typ, dd.decade_deca, 
-                           yy.year_yea, rtr.title_fol";
+                             ON fol.idyea_fol = yy.id_yea
+                  ORDER BY mem.first_name_mem, tt.type_typ, dd.decade_deca, 
+                           yy.year_yea, fol.title_fol";
 
             $stmt = $con->prepare($sql);
             $stmt->execute();
@@ -122,7 +122,7 @@ class foldersDB
         include INCLUDES_PATH . 'db_connect.php';
         try {
             $type = $folderData[0];
-            $author = $folderData[1];
+            $member = $folderData[1];
             $decade = $folderData[2];
             $year = $folderData[3];
             $title = $folderData[4];
@@ -132,9 +132,9 @@ class foldersDB
                       FROM type_typ typ
                      WHERE typ.id_typ = ?
                            UNION ALL
-                           SELECT aut.first_name_aut
-                             FROM author_aut aut
-                            WHERE aut.id_aut = ?
+                           SELECT mem.first_name_mem
+                             FROM members_mem mem
+                            WHERE mem.id_mem = ?
                             UNION ALL
                            SELECT decade_deca
                              FROM decade_deca deca
@@ -145,7 +145,7 @@ class foldersDB
                      WHERE yea.id_yea = ?";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("iiii", $type, $author, $decade, $year);
+            $stmt->bind_param("iiii", $type, $member, $decade, $year);
             $stmt->execute();
             $stmt->bind_result($data);
 
@@ -209,7 +209,7 @@ class foldersDB
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
         $typePhoto = $folderData[0];
-        $author = $folderData[1];
+        $member = $folderData[1];
         $decade = $folderData[2];
         $year = $folderData[3];
         $title = $folderData[4];
@@ -218,11 +218,12 @@ class foldersDB
         try {
             $sql = "INSERT INTO folders_fol (
                               idtyp_fol, title_fol, 
-                              idaut_fol, iddec_fol, idyea_fol, levels_fol)
-                       VALUES (?,?,?,?,?,?)";
+                              idaut_fol, iddec_fol, idyea_fol, levels_fol,
+                              idmem_fol)
+                       VALUES (?,?,?,?,?,?,?)";
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("isiiii", $typePhoto, $title, $author,
-                $decade, $year, $levels);
+            $stmt->bind_param("isiiiii", $typePhoto, $title, $member,
+                $decade, $year, $levels, $member);
             $stmt->execute();
             $stmt->close();
 
@@ -241,12 +242,12 @@ class foldersDB
                                 typ.type_typ, '/', fol.title_fol, '/') 
                            WHEN typ.id_typ = 2 
                                 AND fol.levels_fol = 4 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', aut.first_name_aut, '/', 
+                                typ.type_typ, '/', mem.first_name_mem, '/', 
                                 deca.decade_deca, '/', yea.year_yea, '/', 
                                 fol.title_fol, '/full/') 
                            WHEN typ.id_typ = 2 
                                 AND fol.levels_fol = 2 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', aut.first_name_aut, '/', 
+                                typ.type_typ, '/', mem.first_name_mem, '/', 
                                 fol.title_fol, '/full/') 
                            ELSE CONCAT('public/img/', typ.type_typ, '/') 
                            END,
@@ -260,12 +261,12 @@ class foldersDB
                            WHEN typ.id_typ = 2 
                                 AND fol.levels_fol = 4 THEN CONCAT('public/img/', 
                                 typ.type_typ, '/', 
-                                aut.first_name_aut, '/', deca.decade_deca, 
+                                mem.first_name_mem, '/', deca.decade_deca, 
                                 '/', yea.year_yea, '/', fol.title_fol, 
                                 '/preview/') 
                            WHEN typ.id_typ = 2 
                                 AND fol.levels_fol = 2 THEN CONCAT('public/img/', 
-                                    typ.type_typ, '/', aut.first_name_aut, '/', 
+                                    typ.type_typ, '/', mem.first_name_mem, '/', 
                                     fol.title_fol, '/preview/') 
                            ELSE CONCAT('img/', typ.type_typ, '/') 
                            END,
@@ -274,8 +275,8 @@ class foldersDB
                       FROM folders_fol fol
                            JOIN type_typ typ
                              ON fol.idtyp_fol = typ.id_typ
-                           JOIN author_aut aut
-                             ON fol.idaut_fol = aut.id_aut
+                           JOIN members_mem mem
+                             ON fol.idmem_fol = mem.id_mem
                            JOIN decade_deca deca
                              ON fol.iddec_fol = deca.id_deca
                            JOIN year_yea yea
@@ -296,9 +297,9 @@ class foldersDB
         include INCLUDES_PATH . 'db_connect.php';
         try {
             $sql = "SELECT id_fol, title_fol
-                      FROM folders_fol rpt
+                      FROM folders_fol fol
                            JOIN year_yea yea
-                             ON rpt.idyea_fol = yea.id_yea
+                             ON fol.idyea_fol = yea.id_yea
                      WHERE yea.id_yea = ?";
 
             $stmt = $con->prepare($sql);
@@ -328,25 +329,26 @@ class foldersDB
     function getPath($path)
     {
         $typePhoto = $path[0];
-        $author = $path[1];
+        $member = $path[1];
         $decade = $path[2];
         $year = $path[3];
         $title = $path[4];
 
         include INCLUDES_PATH . 'db_connect.php';
         try {
-            $sql = "SELECT rpt.id_fol, typ.type_typ, aut.first_name_aut,
-                           deca.decade_deca, yea.year_yea, rpt.title_fol
-                      FROM type_typ typ, author_aut aut, decade_deca deca,
-                           year_yea yea, folders_fol rpt
+            $sql = "SELECT fol.id_fol, typ.type_typ, mem.first_name_mem,
+                           deca.decade_deca, yea.year_yea, fol.title_fol
+                      FROM type_typ typ, members_mem mem, decade_deca deca,
+                           year_yea yea, folders_fol fol
                      WHERE typ.id_typ = ?
-                       AND aut.id_aut = ?
+                       AND mem.id_mem = ?
                        AND deca.id_deca = ? 
                        AND yea.id_yea = ?
-                       AND rpt.id_fol = ?";
+                       AND fol.id_fol = ?";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("iiiii", $typePhoto, $author, $decade, $year, $title);
+            $stmt->bind_param("iiiii", $typePhoto, $member , $decade, $year,
+                $title);
             $stmt->bind_result($idfol, $type, $firstname, $decade, $year, $title);
             $stmt->execute();
 

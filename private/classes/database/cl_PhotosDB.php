@@ -17,12 +17,12 @@ class photosDB
             $photoSb = new Photos();
 
             $sql="SELECT pho.filename_pho, pfo.full_pfo
-                                   FROM photos_pho pho
-                                       JOIN parameters_par pp
-                                       ON id_pho = pp.home_sidebar_par   
-                                       JOIN photos_folders_pfo pfo
-                                       ON pfo.idfol_pfo = pho.idfol_pho
-                                   WHERE pp.id_par = ?";
+                    FROM photos_pho pho
+                         JOIN parameters_par pp
+                           ON id_pho = pp.home_sidebar_par   
+                         JOIN photos_folders_pfo pfo
+                           ON pfo.idfol_pfo = pho.idfol_pho
+                        WHERE pp.id_par = ?";
 
             $stmt = $con->prepare($sql);
             $i = 1;
