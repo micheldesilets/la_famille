@@ -64,27 +64,36 @@ sec_session_start();
                 </div>
                 <br>
                 <div>
-                    <label for="data-box__select--author"
-                           class="data-box__label">Membre</label>
-                    <select class="data-box__select data-box__select--add-folder-author"
-                            id="data-box__select--author">
+                    <label for="data-box__select--member"
+                         class="data-box__label">
+                                Membre
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--add-folder-member"
+                               id="data-box__select--member">
                     </select>
                 </div>
                 <br>
                 <div>
                     <label for="data-box__select--decade"
-                           class="data-box__label">Décennie</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-decade"
-                            id="data-box__select--decade"
-                            onchange="getYearsSelected();">
+                         class="data-box__label">
+                                Décennie
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--add-folder-photo-decade"
+                               id="data-box__select--decade"
+                         onchange="getYearsSelected()">
                     </select>
                 </div>
                 <br>
                 <div>
                     <label for="data-box__select--year"
-                           class="data-box__label">Année</label>
-                    <select class="data-box__select data-box__select--add-folder-photo-year"
-                            id="data-box__select--year">
+                         class="data-box__label">
+                                Année
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--add-folder-photo-year"
+                               id="data-box__select--year">
                     </select>
                 </div>
                 <br>
@@ -107,7 +116,7 @@ sec_session_start();
 <script>
     var user = '<?php echo $u->getUsername();?>';
     getDecades();
-    getAuthors(user);
+    getMembers(user);
 </script>
 <?php else: ?>
 <p><span class="error">Vous devez être connecté au site pour pouvoir

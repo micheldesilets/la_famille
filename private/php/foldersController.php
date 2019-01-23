@@ -26,7 +26,7 @@ if ($function === 'getShiftingFolders') {
 
 if ($function == 'addFolder') {
     $type = $_GET['type'];
-    $member = $_GET['author'];
+    $member = $_GET['member'];
     $decade = $_GET['decade'];
     $year = $_GET['year'];
     $title = $_GET['title'];
@@ -41,7 +41,7 @@ if ($function == 'addFolder') {
 
 if ($function == 'addFolderMysql') {
     $type = $_GET['type'];
-    $member = $_GET['author'];
+    $member = $_GET['member'];
     $decade = $_GET['decade'];
     $year = $_GET['year'];
     $title = $_GET['title'];

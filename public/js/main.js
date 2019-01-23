@@ -1201,7 +1201,7 @@ var getFolderInputs = () => {
     var folderData = [];
     folderData.levels = folderDoc[0].value;
     folderData.type = folderDoc[1].value;
-    folderData.author = folderDoc[2].value;
+    folderData.member = folderDoc[2].value;
     folderData.decade = folderDoc[3].value;
     folderData.year = folderDoc[4].value;
     folderData.title = folderDoc[5].value;
@@ -1225,7 +1225,7 @@ var addFolder = () => {
     const folderData = getFolderInputs();
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../private/php/foldersController.php?type=' +
-        folderData.type + '&author=' + folderData.author + '&decade=' +
+        folderData.type + '&member=' + folderData.member + '&decade=' +
         folderData.decade + '&year=' + folderData.year +
         '&title=' + folderData.title + '&levels=' + folderData.levels +
         '&function=addFolder', true);
@@ -1234,7 +1234,7 @@ var addFolder = () => {
             if (xhr.status === 200) {
                 const xhr1 = new XMLHttpRequest();
                 xhr1.open('GET', '../../private/php/foldersController.php?type=' +
-                    folderData.type + '&author=' + folderData.author +
+                    folderData.type + '&member=' + folderData.member +
                     '&decade=' + folderData.decade + '&year=' + folderData.year +
                     '&title=' + folderData.title + '&levels=' +
                     folderData.levels + '&function=addFolderMysql', true);
@@ -1300,10 +1300,10 @@ var getDecades = () => {
     req.send();
 };
 
-var getAuthors = (user) => {
+var getMembers = (user) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/usersController.php?function=getUsers' + '&user=' + user , true);
+    xhr.open('GET', '../../private/php/usersController.php?function=getUsers' + '&user=' + user, true);
     xhr.onload = () => {
         console.log(xhr.status);
         if (xhr.readyState === 4) {
@@ -1320,14 +1320,21 @@ var getAuthors = (user) => {
 var renderMembers = (members) => {
     'use strict';
     var htmlString = "";
-    const anchor =
-        document.getElementById('data-box__select--author');
+    var anchor;
+    var curr = currentWindow();
+    if (curr === 'addFolder.php') {
+        anchor =
+            document.getElementById('data-box__select--member');
+    } else if (curr === 'addPhotos.php') {
+        anchor =
+            document.getElementById('data-box__select--add-ph-member');
+    }
     for (const obj of members) {
         if (htmlString.length === 0) {
-            htmlString = '<option value=' + obj.idmem + '>' + obj.userName +
+            htmlString = '<option value=' + obj.idmem + '>' + obj.firstName +
                 '</option>\n';
         } else {
-            htmlString += '<option value=' + obj.idmem + '>' + obj.userName +
+            htmlString += '<option value=' + obj.idmem + '>' + obj.firstName +
                 '</option>\n';
         }
     }

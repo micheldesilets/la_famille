@@ -20,9 +20,9 @@ sec_session_start();
     <!--[if lt IE 9]>
     <![endif]-->
 </head>
-<body onload="getDecades();">
+<body>
 <?php if (login_check($mysqli) == true) :
-    $u = PrivilegedUser::getByUsername($_SESSION["username"]);?>
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]); ?>
     <div class="page data-box">
 
         <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des
@@ -54,13 +54,9 @@ sec_session_start();
 
                     <div>
                         <label for="data-box__select--add-ph-author"
-                               class="data-box__label">Auteur</label>
-                        <select class="data-box__select data-box__select--add-ph-author">
-                            <option value="2" selected>Michel</option>
-                            <option value="3">Amélie</option>
-                            <option value="4">Chantal</option>
-                            <option value="5">Archives</option>
-                            <option value="1">NA</option>
+                             class="data-box__label">Membre</label>
+                        <select class="data-box__select"
+                                   id="data-box__select--add-ph-member">
                         </select><br>
                     </div>
 
@@ -112,7 +108,11 @@ sec_session_start();
     </div>
 
     <script src="../js/main.js"></script>
-
+    <script>
+        var user = '<?php echo $u->getUsername();?>';
+        getDecades();
+        getMembers(user);
+    </script>
 <?php else : ?>
     <p>
        <span class="error">Vous devez être connecté au site pour pouvoir

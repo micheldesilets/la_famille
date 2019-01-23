@@ -13,15 +13,18 @@ class cl_usersDB
     public function GetUsers($user)
     {
         include INCLUDES_PATH . 'db_connect.php';
-        mysqli_set_charset($con,"utf8");
+        mysqli_set_charset($con, "utf8");
         try {
             $userIdRole = $this->getUserRole($user);
 
-            $sql = "SELECT id_usr,username_usr,email_usr,idmem_usr
-                      FROM users_usr";
+            $sql = "SELECT id_usr,username_usr,email_usr,idmem_usr,
+                           first_name_mem
+                      FROM users_usr usr
+                           JOIN members_mem mem
+                             ON mem.id_mem = usr.idmem_usr";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_result($idusr, $username, $email,$idmem);
+            $stmt->bind_result($idusr, $username, $email, $idmem, $firstName);
             $stmt->execute();
 
             $arrayAut = [];
@@ -33,6 +36,7 @@ class cl_usersDB
                     $usr->set_Password("");
                     $usr->set_Roles("");
                     $usr->set_Idmem($idmem);
+                    $usr->set_Firstname($firstName);
                     array_push($arrayAut, $usr);
                 elseif ($username === $user):
                     $usr = new users($username, $email);
@@ -41,6 +45,7 @@ class cl_usersDB
                     $usr->set_Password("");
                     $usr->set_Roles("");
                     $usr->set_Idmem($idmem);
+                    $usr->set_Firstname($firstName);
                     array_push($arrayAut, $usr);
                 endif;
             }
@@ -57,7 +62,7 @@ class cl_usersDB
     function getUserRole($user)
     {
         include INCLUDES_PATH . 'db_connect.php';
-        mysqli_set_charset($con,"utf8");
+        mysqli_set_charset($con, "utf8");
 
         $sql = "SELECT rol.id_rol
                   FROM users_usr usr
