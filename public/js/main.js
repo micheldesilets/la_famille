@@ -34,9 +34,9 @@ var buildFolderTree = (data) => {
     const folderContainer = document.getElementById("photos__folders");
 
     for (const branch of data) {
-        if (folderTree.getAuthor() !== branch.author &&
-            branch.author.length > 0) {
-            if (folderTree.getAuthor() !== "" &&
+        if (folderTree.getMember() !== branch.member &&
+            branch.member.length > 0) {
+            if (folderTree.getMember() !== "" &&
                 folderTree.getLevel() === "4") {
                 folderTree.addToHtmlString(
                     "</ul>\n" +
@@ -45,7 +45,7 @@ var buildFolderTree = (data) => {
                     "</div>\n" +
                     "</div>\n");
             }
-            if (folderTree.getAuthor() !== "" &&
+            if (folderTree.getMember() !== "" &&
                 folderTree.getLevel() === "2") {
                 folderTree.addToHtmlString(
                     "</ul>\n" +
@@ -57,9 +57,9 @@ var buildFolderTree = (data) => {
             folderTree.addToHtmlString(
                 "<input type=\"checkbox\" id=\"folders__menu" + j +
                 "\"/>\n" + "<label for=\"folders__menu" + j +
-                "\" class=\"folders__names\">" + branch.author + "</label>\n" +
+                "\" class=\"folders__names\">" + branch.member + "</label>\n" +
                 "<div class=\"folders__multi-level" + j + "\">\n");
-            folderTree.setAuthor(branch.author);
+            folderTree.setMember(branch.member);
             folderTree.setDecade("");
         }
 
@@ -98,8 +98,8 @@ var folderLevel2 = (branch) => {
         folderTree.setDecade(branch.decade);
     }
 
-    if ((folderTree.getAuthor() === branch.author &&
-        branch.author.length > 0) &&
+    if ((folderTree.getMember() === branch.member &&
+        branch.member.length > 0) &&
         (folderTree.getFolderId() !== branch.folder)) {
 
         folderTree.addToHtmlString(
@@ -159,8 +159,8 @@ var folderLevel4 = (branch) => {
             "<ul>\n");
         folderTree.setYear(branch.year);
     }
-    if ((folderTree.getAuthor() === branch.author &&
-        branch.author.length > 0) &&
+    if ((folderTree.getMember() === branch.member &&
+        branch.member.length > 0) &&
         (folderTree.getDecade() === branch.decade &&
             branch.decade.length > 0) &&
         (folderTree.getYear() === branch.year && branch.year.length > 0) &&
@@ -1848,10 +1848,10 @@ function folderHierarchy() {
     var _j = -1;
     var _level = 0;
 
-    this.setAuthor = function (author) {
-        _author = author;
+    this.setMember = function (member) {
+        _author = member;
     };
-    this.getAuthor = () => {
+    this.getMember = () => {
         return _author;
     };
     this.setDecade = function (decade) {

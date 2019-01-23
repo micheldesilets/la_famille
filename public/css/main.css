@@ -493,141 +493,147 @@ a {
   .search__keyword {
     display: none; }
 
-.photos__thumb-container {
-  text-align: justify;
-  margin-top: -.2em;
-  overflow: hidden; }
-.photos__imgs {
-  text-align: justify; }
-  .photos__imgs > div {
-    display: inline-block;
-    vertical-align: top;
-    margin-bottom: 10px;
-    margin-right: 13px;
-    margin-left: 0;
-    padding: 7px;
-    box-shadow: 4px 4px 10px grey;
-    zoom: 1; }
-  .photos__imgs .thumbimg {
-    margin: 1px; }
-  .photos__imgs:after {
-    content: "";
-    width: 100%;
-    display: inline-block; }
-.photos__modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  padding-top: 20px;
-  /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  /* Fallback color */
-  background-color: white;
-  /* Black w/ opacity */ }
-  .photos__modal a {
-    color: white; }
-.photos__edit-photo {
-  height: 25px;
-  width: 25px;
-  float: right;
-  position: relative;
-  right: 40px; }
-.photos__modal-content {
-  background-color: #fefefe;
-  padding: 5px;
-  border: 2px solid #888;
-  margin: auto;
-  display: block;
-  max-width: 100%;
-  max-height: 80%;
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s; }
-.photos__next {
-  position: relative;
-  float: right;
-  top: 40%;
-  font-weight: 600; }
-.photos__previous {
-  position: relative;
-  float: left;
-  top: 40%;
-  font-weight: 600; }
-.photos__modal-title {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: black;
-  padding: 10px 0 0;
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s; }
-.photos__caption {
-  margin: auto;
-  margin-top: 0;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: black;
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s; }
-.photos__id-geneol {
-  width: 80%;
-  margin: auto; }
-.photos__geneol {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  height: 150px;
-  font-size: .8em; }
-  .photos__geneol a {
-    color: black;
-    font-weight: 400; }
-  .photos__geneol p {
-    color: red;
+.photos {
+  /*
+    &__download-photos {
+      position: relative;
+      left: 210px;
+    }*/ }
+  .photos__thumb-container {
+    text-align: justify;
+    margin-top: -.2em;
+    overflow: hidden; }
+  .photos__imgs {
+    text-align: justify; }
+    .photos__imgs > div {
+      display: inline-block;
+      vertical-align: top;
+      margin-bottom: 10px;
+      margin-right: 13px;
+      margin-left: 0;
+      padding: 7px;
+      box-shadow: 4px 4px 10px grey;
+      zoom: 1; }
+    .photos__imgs .thumbimg {
+      margin: 1px; }
+    .photos__imgs:after {
+      content: "";
+      width: 100%;
+      display: inline-block; }
+  .photos__modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 20px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    /* Fallback color */
+    background-color: white;
+    /* Black w/ opacity */ }
+    .photos__modal a {
+      color: white; }
+  .photos__edit-photo {
+    height: 25px;
+    width: 25px;
+    float: right;
+    position: relative;
+    right: 40px; }
+  .photos__modal-content {
+    background-color: #fefefe;
+    padding: 5px;
+    border: 2px solid #888;
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    max-height: 80%;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s; }
+  .photos__next {
+    position: relative;
+    float: right;
+    top: 40%;
     font-weight: 600; }
-.photos__photo-id p {
-  position: fixed;
-  bottom: 30px;
-  left: 45px;
-  margin: 0;
-  font-size: small;
-  color: #bbbbbb; }
-.photos__next-folder, .photos__previous-folder, .photos__download-photos {
-  float: left;
-  position: relative;
-  left: 80px;
-  background-color: #fdfaf6;
-  border: none;
-  cursor: pointer; }
-  .photos__next-folder:hover, .photos__next-folder:focus, .photos__previous-folder:hover, .photos__previous-folder:focus, .photos__download-photos:hover, .photos__download-photos:focus {
-    color: #029443; }
-.photos__download-photos {
-  left: 300px; }
-.photos__thumb-title {
-  min-width: 55%;
-  max-width: 55%;
-  float: left;
-  display: none;
-  font-weight: bold;
-  border: none;
-  margin: 0; }
+  .photos__previous {
+    position: relative;
+    float: left;
+    top: 40%;
+    font-weight: 600; }
+  .photos__modal-title {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: black;
+    padding: 10px 0 0;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s; }
+  .photos__caption {
+    margin: auto;
+    margin-top: 0;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: black;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s; }
+  .photos__id-geneol {
+    width: 80%;
+    margin: auto; }
+  .photos__geneol {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    height: 150px;
+    font-size: .8em; }
+    .photos__geneol a {
+      color: black;
+      font-weight: 400; }
+    .photos__geneol p {
+      color: red;
+      font-weight: 600; }
+  .photos__photo-id p {
+    position: fixed;
+    bottom: 30px;
+    left: 45px;
+    margin: 0;
+    font-size: small;
+    color: #bbbbbb; }
+  .photos__next-folder, .photos__previous-folder, .photos__download-photos, .photos__delete-photos {
+    float: left;
+    position: relative;
+    left: 80px;
+    background-color: #fdfaf6;
+    border: none;
+    cursor: pointer; }
+    .photos__next-folder:hover, .photos__next-folder:focus, .photos__previous-folder:hover, .photos__previous-folder:focus, .photos__download-photos:hover, .photos__download-photos:focus, .photos__delete-photos:hover, .photos__delete-photos:focus {
+      color: #029443; }
+  .photos__download-photos, .photos__delete-photos {
+    left: 290px; }
+  .photos__thumb-title {
+    min-width: 55%;
+    max-width: 55%;
+    float: left;
+    display: none;
+    font-weight: bold;
+    border: none;
+    margin: 0; }
 
 .folders__arrow {
   width: 6px;

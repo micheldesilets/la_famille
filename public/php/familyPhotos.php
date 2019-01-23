@@ -50,7 +50,13 @@ sec_session_start();
         <!-- end masthead -->
 
         <div class="clearfix">
-            <div><p class="photos__thumb-title"></p>
+            <div id="fPswitches"><p class="photos__thumb-title"></p>
+                <?php if ($u->hasPrivilege("delete")): ?>
+                <button onclick="deletePhotos()"
+                        class="photos__delete-photos"
+                        style="display:none">Supprimer
+                </button>
+                <?php endif; ?>
                 <button onclick="downloadPhotos()"
                         class="photos__download-photos"
                         style="display:none">Télécharger

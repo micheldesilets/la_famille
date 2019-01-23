@@ -504,7 +504,7 @@
     color: #bbbbbb;
   }
 
-  &__next-folder, &__previous-folder, &__download-photos {
+  &__next-folder, &__previous-folder, &__download-photos, &__delete-photos {
     float: left;
     position: relative;
     left: 80px;
@@ -516,9 +516,15 @@
     }
   }
 
-  &__download-photos {
-    left: 300px;
+  &__download-photos, &__delete-photos {
+    left: 290px;
   }
+
+  /*
+    &__download-photos {
+      position: relative;
+      left: 210px;
+    }*/
 
   &__thumb-title {
     min-width: 55%;

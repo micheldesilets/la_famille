@@ -44,7 +44,7 @@ class foldersDB
 
                 $folder->setFolderId(strval($idfol));
                 $folder->setTypeId(strval($idtyp));
-                $folder->setAuthor($prefix . $firstname);
+                $folder->setMember($prefix . $firstname);
                 $folder->setDecade(strval($decade));
                 $folder->setYear(strval($year));
                 $folder->setTitle($title);
@@ -96,7 +96,7 @@ class foldersDB
 
                 $folder->setFolderId(strval($idfol));
                 $folder->setTypeId("2");
-                $folder->setAuthor("");
+                $folder->setMember("");
                 $folder->setDecade("");
                 $folder->setYear("");
                 $folder->setTitle($title);
