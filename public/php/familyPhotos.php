@@ -18,7 +18,9 @@ sec_session_start();
 </head>
 <body id="bdy" onmousedown="isKeyPressed(event)" onload="getShiftingFolders()">
 <?php if (login_check($mysqli) == true) :
-    $u = PrivilegedUser::getByUsername($_SESSION["username"]); ?>
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]);
+    $canDelete = $u->hasPrivilege("write"); ?>
+<input type="hidden" id="userPerm" value="<?php echo $canDelete ?>">
     <div class="page ">
         <!-- ==== START MASTHEAD ==== -->
         <header class="masthead" role="banner">
@@ -57,7 +59,7 @@ sec_session_start();
                 </button>
                 <button onclick="downloadPhotos()"
                         class="photos__download-photos"
-                        style="display:none">Télécharger
+                        style="display:none;">Télécharger
                 </button>
                 <button onclick="showPreviousFolder()"
                         class="photos__previous-folder"
@@ -194,10 +196,10 @@ sec_session_start();
                     <button class="photos__next">></button>
 
                     <?php if ($u->hasPrivilege("write")): ?>
-                    <img src="../img/icons/iconfinder_Streamline-22_185042.png"
-                         class="photos__edit-photo"
-                         alt="Edition"
-                         onclick="editPhoto()">
+                        <img src="../img/icons/iconfinder_Streamline-22_185042.png"
+                             class="photos__edit-photo"
+                             alt="Edition"
+                             onclick="editPhoto()">
                     <?php endif; ?>
 
                     <span class="close">x</span>
@@ -217,7 +219,8 @@ sec_session_start();
     </div>
 
     <script src="../js/main.js"></script>
-    <script>getFolderTree()</script>
+    <script>getFolderTree();
+        getUserPerm();</script>
 
 <?php else : ?>
     <p>

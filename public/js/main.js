@@ -16,6 +16,13 @@ var allYearsData = {};
 var folderTree = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
 
+var getUserPerm = () => {
+    'use strict';
+    const perm = document.getElementById('userPerm').value;
+    user.setPerm(perm);
+    console.log(perm);
+};
+
 var getFolderTree = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
@@ -385,9 +392,7 @@ var turnOffFolders = () => {
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'block';
 
-    const contain =
-        document.getElementsByClassName('photos__delete-photos').length;
-    if (contain) {
+    if (user.getPerm() === '1') {
         document.getElementsByClassName('photos__delete-photos')[0].style.display =
             'none';
     }
@@ -648,12 +653,10 @@ var backToTree = () => {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'none';
-/*    const contain =
-        document.getElementById("fPswitches").classList.contains("photos__delete-photos");
-    if (contain) {*/
+    if (user.getPerm() === '1') {
         document.getElementsByClassName('photos__delete-photos')[0].style.display =
             'none';
-    // }
+    }
     document.getElementsByClassName('photos__download-photos')[0].style.display =
         'none';
     const btt =
@@ -881,13 +884,13 @@ var prepareDownload = (e) => {
         redPrev.style.border = '2px solid #DD1C1A';
         document.getElementsByClassName('photos__previous-folder')[0].style.display = 'none';
         document.getElementsByClassName('photos__next-folder')[0].style.display = 'none';
-/*        const contain =
-            document.getElementById("fPswitches").classList.contains("photos__delete-photos");
-        if (contain) {*/
+        if (user.getPerm() === '1') {
             document.getElementsByClassName('photos__delete-photos')[0].style.display =
                 'block';
-        // }
-        document.getElementsByClassName('photos__download-photos')[0].style.display = 'block';
+            document.getElementsByClassName('photos__download-photos')[0].style.display = 'block';
+        } else {
+            document.getElementsByClassName('photos__download-photos')[0].setAttribute('style', 'display:block;left:300px');
+        }
     } else {
         listPhotosDownload.removePhoto(isPidIdxInList);
         redPrev.style.border = '2px solid  #fdfaf6';
@@ -896,12 +899,10 @@ var prepareDownload = (e) => {
                 document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
                 document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
             }
-/*            const contain =
-                document.getElementById("fPswitches").classList.contains("photos__delete-photos");
-            if (contain) {*/
+            if (user.getPerm() === '1') {
                 document.getElementsByClassName('photos__delete-photos')[0].style.display =
                     'none';
-            // }
+            }
             document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
         }
     }
@@ -925,12 +926,10 @@ var postDownload = () => {
         'block';
     document.getElementsByClassName('photos__next-folder')[0].style.display =
         'block';
-/*    const contain =
-        document.getElementById("fPswitches").classList.contains("photos__delete-photos");
-    if (contain) {*/
+    if (user.getPerm() === '1') {
         document.getElementsByClassName('photos__delete-photos')[0].style.display =
             'none';
-    // }
+    }
     document.getElementsByClassName('photos__download-photos')[0].style.display =
         'none';
     const nextFolder =
@@ -939,6 +938,11 @@ var postDownload = () => {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'none';
+};
+
+var deletePhotos = (perm) => {
+    'use strict';
+
 };
 
 var prevImage = () => {
@@ -1859,6 +1863,12 @@ var inFoldersState = {
     _state: true,
     setState: (state) => _state = state,
     getState: () => _state
+};
+
+var user = {
+    _hasPerm: "",
+    setPerm: (hasPerm) => _hasPerm = hasPerm,
+    getPerm: () => _hasPerm
 };
 
 var listGeneologyNames = {

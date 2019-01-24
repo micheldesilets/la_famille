@@ -8,6 +8,7 @@
 
 include_once '../../private/initialize.php';
 include_once CLASSES_PATH . '/database/cl_usersDB.php';
+require_once INCLUDES_PATH . 'PrivilegedUser.php';
 
 $function = $_GET['function'];
 $user = $_GET['user'];
