@@ -384,6 +384,13 @@ var turnOffFolders = () => {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'block';
+
+    const contain =
+        document.getElementsByClassName('photos__delete-photos').length;
+    if (contain) {
+        document.getElementsByClassName('photos__delete-photos')[0].style.display =
+            'none';
+    }
     document.getElementsByClassName('photos__download-photos')[0].style.display =
         'none';
     const btt =
@@ -641,6 +648,12 @@ var backToTree = () => {
     const previousFolder =
         document.getElementsByClassName('photos__previous-folder')[0];
     previousFolder.style.display = 'none';
+/*    const contain =
+        document.getElementById("fPswitches").classList.contains("photos__delete-photos");
+    if (contain) {*/
+        document.getElementsByClassName('photos__delete-photos')[0].style.display =
+            'none';
+    // }
     document.getElementsByClassName('photos__download-photos')[0].style.display =
         'none';
     const btt =
@@ -868,6 +881,12 @@ var prepareDownload = (e) => {
         redPrev.style.border = '2px solid #DD1C1A';
         document.getElementsByClassName('photos__previous-folder')[0].style.display = 'none';
         document.getElementsByClassName('photos__next-folder')[0].style.display = 'none';
+/*        const contain =
+            document.getElementById("fPswitches").classList.contains("photos__delete-photos");
+        if (contain) {*/
+            document.getElementsByClassName('photos__delete-photos')[0].style.display =
+                'block';
+        // }
         document.getElementsByClassName('photos__download-photos')[0].style.display = 'block';
     } else {
         listPhotosDownload.removePhoto(isPidIdxInList);
@@ -877,6 +896,12 @@ var prepareDownload = (e) => {
                 document.getElementsByClassName('photos__previous-folder')[0].style.display = 'block';
                 document.getElementsByClassName('photos__next-folder')[0].style.display = 'block';
             }
+/*            const contain =
+                document.getElementById("fPswitches").classList.contains("photos__delete-photos");
+            if (contain) {*/
+                document.getElementsByClassName('photos__delete-photos')[0].style.display =
+                    'none';
+            // }
             document.getElementsByClassName('photos__download-photos')[0].style.display = 'none';
         }
     }
@@ -900,6 +925,12 @@ var postDownload = () => {
         'block';
     document.getElementsByClassName('photos__next-folder')[0].style.display =
         'block';
+/*    const contain =
+        document.getElementById("fPswitches").classList.contains("photos__delete-photos");
+    if (contain) {*/
+        document.getElementsByClassName('photos__delete-photos')[0].style.display =
+            'none';
+    // }
     document.getElementsByClassName('photos__download-photos')[0].style.display =
         'none';
     const nextFolder =

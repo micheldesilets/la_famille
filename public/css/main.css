@@ -625,7 +625,7 @@ a {
     .photos__next-folder:hover, .photos__next-folder:focus, .photos__previous-folder:hover, .photos__previous-folder:focus, .photos__download-photos:hover, .photos__download-photos:focus, .photos__delete-photos:hover, .photos__delete-photos:focus {
       color: #029443; }
   .photos__download-photos, .photos__delete-photos {
-    left: 290px; }
+    left: 210px; }
   .photos__thumb-title {
     min-width: 55%;
     max-width: 55%;
