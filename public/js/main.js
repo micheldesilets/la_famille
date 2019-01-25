@@ -874,7 +874,8 @@ var imgModal = (e) => {
 var prepareDownload = (e) => {
     'use strict';
     const redPrev =
-        document.getElementsByClassName(e.target.classList.value)[modalCurrentIdx.getIndex()];
+        document.getElementsByClassName(e.target.classList.value)
+            [modalCurrentIdx.getIndex()];
     const listPhotos = selectedPhotos.getPhotos();
     const pid = listPhotos[modalCurrentIdx.getIndex()].idpho;
     const list = listPhotosDownload.getList();
@@ -885,8 +886,7 @@ var prepareDownload = (e) => {
         document.getElementsByClassName('photos__previous-folder')[0].style.display = 'none';
         document.getElementsByClassName('photos__next-folder')[0].style.display = 'none';
         if (user.getPerm() === '1') {
-            document.getElementsByClassName('photos__delete-photos')[0].style.display =
-                'block';
+            document.getElementsByClassName('photos__delete-photos')[0].style.display = 'block';
             document.getElementsByClassName('photos__download-photos')[0].style.display = 'block';
         } else {
             document.getElementsByClassName('photos__download-photos')[0].setAttribute('style', 'display:block;left:300px');
@@ -940,9 +940,15 @@ var postDownload = () => {
     previousFolder.style.display = 'none';
 };
 
-var deletePhotos = (perm) => {
+var deletePhotos = () => {
     'use strict';
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../../private/php/photosController.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
+        ' charset=UTF-8');
 
+    let jsonList = JSON.stringify(listPhotosDownload.getList());
+    xhr.send('pids=' + jsonList + '&function=deletePhotos');
 };
 
 var prevImage = () => {
@@ -1709,7 +1715,8 @@ var downloadPhotos = () => {
             postDownload();
 
             const xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', '../../private/php/photosController.php?function=removeZipFile', true);
+            xhr1.open('GET', '../../private/php/photosController.php?function=' +
+                'removeZipFile', true);
             xhr1.send();
         }
     };

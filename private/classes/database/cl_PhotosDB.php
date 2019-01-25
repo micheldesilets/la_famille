@@ -16,7 +16,7 @@ class photosDB
         try {
             $photoSb = new Photos();
 
-            $sql="SELECT pho.filename_pho, pfo.full_pfo
+            $sql = "SELECT pho.filename_pho, pfo.full_pfo
                     FROM photos_pho pho
                          JOIN parameters_par pp
                            ON id_pho = pp.home_sidebar_par   
@@ -447,7 +447,7 @@ class photosDB
 
             $stmt = $con->prepare($sql);
             $stmt->bind_param("sssisi", $title, $keywords, $caption, $year,
-                              $geneologyIdxs, $photoId);
+                $geneologyIdxs, $photoId);
             $stmt->execute();
             $stmt->close();
         } catch (Exception $e) {
@@ -461,8 +461,9 @@ class photosDB
         try {
             include INCLUDES_PATH . 'db_connect.php';
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            mysqli_autocommit($con, FALSE);
 
-            $sql="SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
+            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
                          preview_pfo, filename_pho, pdf_pho, idgen_pho,
                          title_fol, year_pho
                     FROM photos_folders_pfo pfo
@@ -490,6 +491,7 @@ class photosDB
                 array_push($listPhotos, $photo);
             }
 
+            mysqli_commit($con);
             $stmt->close();
 
             $curr = getcwd();
@@ -513,6 +515,68 @@ class photosDB
         }
     }
 
+    function deletePhotos($listPids)
+    {
+        try {
+            include INCLUDES_PATH . 'db_connect.php';
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            mysqli_autocommit($con, FALSE);
+
+            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, full_pfo, 
+                         preview_pfo, filename_pho, pdf_pho, idgen_pho,
+                         title_fol, year_pho
+                    FROM photos_folders_pfo pfo
+                         INNER JOIN photos_pho pho
+                                 ON pfo.idfol_pfo = pho.idfol_pho
+                               JOIN folders_fol rpt
+                                 ON pfo.idfol_pfo = rpt.id_fol
+                   WHERE id_pho IN (?)
+                ORDER BY pho.year_pho";
+
+            $stmt = $con->prepare($sql);
+
+            $listPhotos = [];
+
+            for ($i = 0; $i < count($listPids); $i++) {
+                $stmt->bind_param("i", $listPids[$i]);
+                $stmt->execute();
+                $stmt->bind_result($id, $titlePho, $keywords, $caption,
+                    $full, $preview, $filename, $pdf, $idgen, $titleFol,
+                    $year);
+                $stmt->fetch();
+                $photo = $this->setToClass($id, $titlePho, $keywords, $caption,
+                    $full, $preview, $filename, $pdf, $idgen, $titleFol,
+                    $year);
+                array_push($listPhotos, $photo);
+            }
+
+            mysqli_commit($con);
+            $stmt->close();
+
+            $curr = getcwd();
+            chdir('../../');
+            $curr = getcwd();
+
+            foreach ($listPhotos as $value) {
+                $p = $value->get_F_Path();
+                $f = $value->get_Filename();
+                $sourceName = $p . $f;
+                unlink($sourceName);
+                $p = $value->get_P_Path();
+                $sourceName = $p . $f;
+                unlink($sourceName);
+            }
+
+            header("Content-Type:application/json");
+            $json = json_encode($listPhotos);
+            return $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit(); //Should be a message a typical user could understand
+        }
+    }
+
+
     function addMetadataToMysql($idRpt, $file_name)
     {
         try {
@@ -522,12 +586,12 @@ class photosDB
             $u = PrivilegedUser::getByUsername($_SESSION["username"]);
             $email = $u->getEmail();
 
-            $sql="INSERT INTO photos_pho (
+            $sql = "INSERT INTO photos_pho (
                               idfol_pho, filename_pho,owner_pho)
                        VALUES (?,?,?)";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("iss", $idRpt, utf8_encode($file_name),$email);
+            $stmt->bind_param("iss", $idRpt, utf8_encode($file_name), $email);
             $stmt->execute();
             $stmt->close();
             return;

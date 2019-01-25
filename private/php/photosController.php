@@ -101,7 +101,7 @@ if ($function == 'insertPhotoInfo') {
     $db->insertPhotoInfo($infoData);
 }
 
-if ($function === 'getSearchPhotos'){
+if ($function === 'getSearchPhotos') {
     $kwords = $_GET['kwrd']; /* Keywords */
     $startYear = $_GET['startYear'];
     $endYear = $_GET['endYear'];
@@ -137,6 +137,13 @@ if ($function === 'getSearchPhotos'){
     $db = new photosDB();
     $db->getSearchPhotos($searchData);
     return;
+}
+
+if ($function === 'deletePhotos') {
+    if (isset($_POST['pids'])) {
+        $listPids = json_decode($_POST['pids']);
+        $photos = $db->deletePhotos($listPids);
+    }
 }
 
 function trimValue(&$value)
