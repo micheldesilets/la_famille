@@ -142,7 +142,7 @@ if ($function === 'getSearchPhotos') {
 if ($function === 'deletePhotos') {
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
-        $photos = $db->deletePhotos($listPids);
+        $db->deletePhotos($listPids);
     }
 }
 

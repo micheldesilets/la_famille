@@ -113,7 +113,6 @@ var folderLevel2 = (branch) => {
             "<li class='folders__photofolder L2' " +
             "onclick='getFamilyPhotos(this," + branch.folder + "," +
             branch.type + ")'>" + branch.title + "</li>\n");
-        folderTree.setFolderId(branch.folder);
     }
 };
 
@@ -176,12 +175,12 @@ var folderLevel4 = (branch) => {
             "<li class=\"folders__photofolder\" value=\"0\" " +
             "onclick=\"getFamilyPhotos(this," + branch.folder + "," +
             branch.type + ")\">" + branch.title + "</li>\n");
-        folderTree.setFolderId(branch.folder);
     }
 };
 
 var getFamilyPhotos = (obj, path, type) => {
     'use strict';
+    folderTree.setFolderId(path);
     inFoldersState.setState(true);
     const folders = listShiftingFolders.getShiftingFolders();
     for (let i = 0; i < folders.length; ++i) {
@@ -942,11 +941,20 @@ var postDownload = () => {
 
 var deletePhotos = () => {
     'use strict';
+    var path = folderTree.getFolderId();
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '../../private/php/photosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
-
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const listPid = listPhotosDownload.getList();
+            while (listPid.length !== 0) {
+                listPhotosDownload.initPid();
+            }
+            getPhotos(path, 2);
+        }
+    };
     let jsonList = JSON.stringify(listPhotosDownload.getList());
     xhr.send('pids=' + jsonList + '&function=deletePhotos');
 };

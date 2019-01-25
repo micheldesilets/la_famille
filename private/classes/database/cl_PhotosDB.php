@@ -553,29 +553,49 @@ class photosDB
             mysqli_commit($con);
             $stmt->close();
 
-            $curr = getcwd();
-            chdir('../../');
-            $curr = getcwd();
+            $validList = $this->DeleteMysqlPhotos($listPhotos);
 
-            foreach ($listPhotos as $value) {
+            $pids = array();
+            foreach ($validList as $value) {
+                array_push($pids, $value->get_idpho());
                 $p = $value->get_F_Path();
                 $f = $value->get_Filename();
-                $sourceName = $p . $f;
+                $sourceName = PROJECT_PATH . '/' . $p . $f;
                 unlink($sourceName);
                 $p = $value->get_P_Path();
-                $sourceName = $p . $f;
+                $sourceName = PROJECT_PATH . '/' . $p . $f;
                 unlink($sourceName);
             }
 
-            header("Content-Type:application/json");
-            $json = json_encode($listPhotos);
-            return $json;
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit(); //Should be a message a typical user could understand
         }
     }
 
+    function DeleteMysqlPhotos($listPhotos)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        $u = PrivilegedUser::getByUsername($_SESSION["username"]);
+        $user = $u->getEmail();
+        $validList = array();
+
+        $sql = "DELETE FROM photos_pho
+                      WHERE photos_pho.id_pho = ?
+                        AND photos_pho.owner_pho = ?";
+        $stmt = $con->prepare($sql);
+
+        foreach ($listPhotos as $value) {
+            $pid = $value->get_idpho();
+            $stmt->bind_param("is", $pid, $user);
+            $stmt->execute();
+            $stmt->fetch();
+            if ($stmt->affected_rows === 1) {
+                array_push($validList, $value);
+            }
+        }
+        return $validList;
+    }
 
     function addMetadataToMysql($idRpt, $file_name)
     {
