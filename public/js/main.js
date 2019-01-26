@@ -1045,9 +1045,21 @@ var editPhoto = () => {
     const currentIdx = modalCurrentIdx.getIndex();
     const listPhotos = selectedPhotos.getPhotos();
     localStorage.setItem("photoInfoList", JSON.stringify(listPhotos));
-    window.open('photoInfo.php?pid=' + listPhotos[currentIdx].idpho +
+    const newWindow = window.open('photoInfo.php?pid=' + listPhotos[currentIdx].idpho +
         '&currIdx=' + currentIdx);
-    location.reload();
+    // location.reload();
+    newWindow.onbeforeunload = function () {
+        // processing event here
+        const bdy = document.getElementById('bdy');
+        var modal = document.getElementsByClassName('photos__modal')[0];
+
+        modal.style.display = 'none';
+        bdy.style.overflow = 'visible';
+        inFoldersState.setState(true);
+
+        var path = folderTree.getFolderId();
+        getPhotos(path, 2);
+    };
 };
 
 var rotatePhotoNegative = () => {
@@ -1574,7 +1586,7 @@ var getGeneologyList = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../private/php/geneologyController.php?function=getGeneologyList', true);
-    xhr.responseType = 'JSON';
+    // xhr.responseType = 'JSON';
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1625,7 +1637,7 @@ var addGeneolNames = () => {
     const listOfNames = listGeneologyNames.getNames();
 
     for (const obj of listOfNames) {
-        if (selectGeneol === obj.idx) {
+        if (selectGeneol === obj.idx.toString()) {
             name = obj.name;
             break;
         }
