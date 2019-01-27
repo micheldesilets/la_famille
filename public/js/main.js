@@ -700,7 +700,6 @@ document.onkeydown = (e) => {
     'use strict';
     var currWin = currentWindow();
     const evt = e ? e : window.event;
-    console.log(evt.key);
     switch (true) {
         case evt.key === 'Shift':
             // listPhotosDownload.setShiftKey(true);
@@ -1366,8 +1365,7 @@ var getMembers = (user) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../private/php/usersController.php?function=getUsers' + '&user=' + user, true);
     xhr.onload = () => {
-        console.log(xhr.status);
-        if (xhr.readyState === 4) {
+            if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log(xhr.responseText);
                 const members = JSON.parse(xhr.responseText);

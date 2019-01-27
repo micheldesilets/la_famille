@@ -2,8 +2,8 @@
 include_once '../../private/initialize.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
-require_once INCLUDES_PATH . "Role.php";
-require_once INCLUDES_PATH . "PrivilegedUser.php";
+require_once INCLUDES_PATH . "role.php";
+require_once INCLUDES_PATH . "privilegedUser.php";
 
 sec_session_start();
 ?>
@@ -43,7 +43,8 @@ sec_session_start();
                 <div>
                     <label for="data-box__select--level"
                            class="data-box__label">Nombre de niveaux</label>
-                    <select class="data-box__select data-box__select--add-folder-level"
+                    <select class=
+                           "data-box__select data-box__select--add-folder-level"
                             id="data-box__select--level">
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -55,7 +56,8 @@ sec_session_start();
                     <label for="data-box__select--family"
                            class="data-box__label">Type de
                         regroupement</label>
-                    <select class="data-box__select data-box__select--add-folder-family"
+                    <select class=
+                          "data-box__select data-box__select--add-folder-family"
                             id="data-box__select--family">
                         <option value="2" selected>Famille</option>
                         <option value="3">Livres</option>

@@ -4,8 +4,8 @@ include_once INCLUDES_PATH . 'psl-config.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . 'register.inc.php';
-require_once INCLUDES_PATH . 'Role.php';
-require_once INCLUDES_PATH . 'PrivilegedUser.php';
+require_once INCLUDES_PATH . 'role.php';
+require_once INCLUDES_PATH . 'privilegedUser.php';
 
 sec_session_start();
 

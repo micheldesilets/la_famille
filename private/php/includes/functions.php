@@ -2,12 +2,14 @@
 
 include_once INCLUDES_PATH . 'psl-config.php';
 
-function sec_session_start() {
+function sec_session_start()
+{
     $session_name = 'sec_session_id';   // Set a custom session name
     $secure = SECURE;
     // This stops JavaScript being able to access the session id.
     $httponly = true;
     // Forces sessions to only use cookies.
+
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
         header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
         exit();
@@ -21,9 +23,10 @@ function sec_session_start() {
     session_regenerate_id();    // regenerated the session, delete the old one.
 }
 
-function login($email, $password, $mysqli) {
+function login($email, $password, $mysqli)
+{
     // Using prepared statements means that SQL injection is not possible.
-    mysqli_set_charset($mysqli,"utf8");
+    mysqli_set_charset($mysqli, "utf8");
     if ($stmt = $mysqli->prepare("SELECT id_usr, username_usr, password_usr 
         FROM users_usr
        WHERE email_usr = ?
@@ -56,9 +59,9 @@ function login($email, $password, $mysqli) {
                     $user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
                     // XSS protection as we might print this value
-/*                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/",
-                        "",
-                        $username);*/
+                    /*                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/",
+                                            "",
+                                            $username);*/
                     $_SESSION['username'] = $username;
                     $_SESSION['login_string'] = hash('sha512',
                         $db_password . $user_browser);
@@ -80,7 +83,8 @@ function login($email, $password, $mysqli) {
     }
 }
 
-function checkbrute($user_id, $mysqli) {
+function checkbrute($user_id, $mysqli)
+{
     // Get timestamp of current time
     $now = time();
 
@@ -106,7 +110,8 @@ function checkbrute($user_id, $mysqli) {
     }
 }
 
-function login_check($mysqli) {
+function login_check($mysqli)
+{
     // Check if all session variables are set
     if (isset($_SESSION['user_id'],
         $_SESSION['username'],
@@ -133,7 +138,7 @@ function login_check($mysqli) {
                 $stmt->fetch();
                 $login_check = hash('sha512', $password . $user_browser);
 
-                if (hash_equals($login_check, $login_string) ){
+                if (hash_equals($login_check, $login_string)) {
                     // Logged In!!!!
                     return true;
                 } else {
@@ -154,7 +159,8 @@ function login_check($mysqli) {
     }
 }
 
-function esc_url($url) {
+function esc_url($url)
+{
 
     if ('' == $url) {
         return $url;
@@ -163,7 +169,7 @@ function esc_url($url) {
     $url = preg_replace('|[^a-z0-9-~+_.?#=!&;,/:%@$\|*\'()\\x80-\\xff]|i', '', $url);
 
     $strip = array('%0d', '%0a', '%0D', '%0A');
-    $url = (string) $url;
+    $url = (string)$url;
 
     $count = 1;
     while ($count) {

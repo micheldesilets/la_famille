@@ -217,13 +217,12 @@ class foldersDB
 
         try {
             $sql = "INSERT INTO folders_fol (
-                              idtyp_fol, title_fol, 
-                              idaut_fol, iddec_fol, idyea_fol, levels_fol,
-                              idmem_fol)
-                       VALUES (?,?,?,?,?,?,?)";
+                                idtyp_fol, title_fol,iddec_fol, idyea_fol, 
+                                levels_fol, idmem_fol)
+                         VALUES (?,?,?,?,?,?)";
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("isiiiii", $typePhoto, $title, $member,
-                $decade, $year, $levels, $member);
+            $stmt->bind_param("isiiii", $typePhoto, $title, $decade, $year,
+                                        $levels, $member);
             $stmt->execute();
             $stmt->close();
 

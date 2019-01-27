@@ -2,8 +2,8 @@
 
 require_once CLASSES_PATH . '/business/cl_photos.php';
 include_once INCLUDES_PATH . 'functions.php';
-require_once INCLUDES_PATH . "Role.php";
-require_once INCLUDES_PATH . "PrivilegedUser.php";
+require_once INCLUDES_PATH . "role.php";
+require_once INCLUDES_PATH . "privilegedUser.php";
 
 sec_session_start();
 
@@ -28,12 +28,12 @@ class photosDB
             $i = 1;
             $stmt->bind_param("i", $i);
             $stmt->execute();
-            $data = $stmt->get_result()->fetch_all();
+            $stmt->bind_result($fileName,$fullPath);
+            $stmt->fetch();
             $stmt->close();
 
-            $sidebar = $data[0];
-            $photoSb->set_P_Path($sidebar[1]);
-            $photoSb->set_Filename($sidebar[0]);
+            $photoSb->set_P_Path($fullPath);
+            $photoSb->set_Filename($fileName);
 
             return $photoSb;
         } catch (Exception $e) {
