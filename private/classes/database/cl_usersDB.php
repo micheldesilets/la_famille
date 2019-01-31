@@ -10,45 +10,48 @@ require_once CLASSES_PATH . '/business/cl_users.php';
 
 class cl_usersDB
 {
-    public function GetUsers($user)
+    public function GetMaimFolder($member)
     {
         include INCLUDES_PATH . 'db_connect.php';
         mysqli_set_charset($con, "utf8");
         try {
-            $userIdRole = $this->getUserRole($user);
+            $userIdRole = $this->getUserRole($member);
 
             $sql = "SELECT id_usr,username_usr,email_usr,idmem_usr,
                            first_name_mem
                       FROM users_usr usr
                            JOIN members_mem mem
-                             ON mem.id_mem = usr.idmem_usr";
+                             ON mem.id_mem = usr.idmem_usr
+                     WHERE mem.first_name_mem = ?";
 
             $stmt = $con->prepare($sql);
+            $stmt->bind_param("s", $member);
             $stmt->bind_result($idusr, $username, $email, $idmem, $firstName);
             $stmt->execute();
+            $stmt->fetch();
 
             $arrayAut = [];
-            while ($stmt->fetch()) {
-                if ($userIdRole === 1):
-                    $usr = new users($username, $email);
-                    $usr->set_UserId($idusr);
-                    $usr->set_Permission("");
-                    $usr->set_Password("");
-                    $usr->set_Roles("");
-                    $usr->set_Idmem($idmem);
-                    $usr->set_Firstname($firstName);
-                    array_push($arrayAut, $usr);
-                elseif ($username === $user):
-                    $usr = new users($username, $email);
-                    $usr->set_UserId($idusr);
-                    $usr->set_Permission("");
-                    $usr->set_Password("");
-                    $usr->set_Roles("");
-                    $usr->set_Idmem($idmem);
-                    $usr->set_Firstname($firstName);
-                    array_push($arrayAut, $usr);
-                endif;
-            }
+//            while ($stmt->fetch()) {
+            /*               if ($userIdRole === 1):
+                               $usr = new users($username, $email);
+                               $usr->set_UserId($idusr);
+                               $usr->set_Permission("");
+                               $usr->set_Password("");
+                               $usr->set_Roles("");
+                               $usr->set_Idmem($idmem);
+                               $usr->set_Firstname($firstName);
+                               array_push($arrayAut, $usr);
+                           elseif ($username === $user):*/
+            $usr = new users($username, $email);
+            $usr->set_UserId($idusr);
+            $usr->set_Permission("");
+            $usr->set_Password("");
+            $usr->set_Roles("");
+            $usr->set_Idmem($idmem);
+            $usr->set_Firstname($firstName);
+            array_push($arrayAut, $usr);
+//                endif;
+//            }
 
             $json = createJson($arrayAut);
             echo $json;

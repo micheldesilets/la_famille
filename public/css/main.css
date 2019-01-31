@@ -269,9 +269,26 @@ a {
   text-align: right;
   margin-left: 0;
   margin-right: 10px; }
+  .data-box__label--level0 {
+    width: 18%; }
+  .data-box__label--level1 {
+    width: 25%;
+    margin-left: 10px; }
+  .data-box__label--level2 {
+    width: 25%;
+    margin-left: 90px;
+    position: relative;
+    top: -22px; }
+  .data-box__label--level3 {
+    width: 25%;
+    margin-left: 170px;
+    position: relative;
+    top: -44px; }
 .data-box__select {
   display: block;
-  background-color: #F8F8F8; }
+  background-color: #F8F8F8;
+  border: 1px solid #ccc;
+  border-radius: 4px; }
   .data-box__select--geneol {
     float: right;
     background-color: #fdfaf6;
@@ -280,10 +297,21 @@ a {
     font-size: 13.3333333333px;
     line-height: 16px;
     margin-right: 12px; }
+  .data-box__select--level0, .data-box__select--level1, .data-box__select--level2, .data-box__select--level3 {
+    width: 305px; }
+  .data-box__select--level2, .data-box__select--level3 {
+    position: relative;
+    top: -22px; }
+  .data-box__select--level3 {
+    position: relative;
+    top: -44px; }
 .data-box__input {
   position: relative;
   font-size: small;
-  background-color: #F8F8F8; }
+  background-color: #F8F8F8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding-left: 5px; }
   .data-box__input--photos {
     width: 0.1px;
     height: 0.1px;
@@ -293,6 +321,22 @@ a {
     z-index: -1; }
   .data-box__input--info-geneol {
     float: left; }
+  .data-box__input--level0 {
+    height: 19px;
+    width: 280px;
+    font-size: 15.5px; }
+  .data-box__input--level1, .data-box__input--level2, .data-box__input--level3 {
+    position: relative;
+    top: -23px;
+    height: 19px;
+    width: 280px;
+    font-size: 15.5px; }
+  .data-box__input--level2, .data-box__input--level3 {
+    position: relative;
+    top: -45px; }
+  .data-box__input--level3 {
+    position: relative;
+    top: -45px; }
 .data-box__photo-container {
   margin: auto;
   margin-top: 35px;

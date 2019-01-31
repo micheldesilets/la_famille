@@ -24,16 +24,40 @@ if ($function === 'getShiftingFolders') {
     return;
 }
 
-if ($function == 'addFolder') {
-    $type = $_GET['type'];
-    $member = $_GET['member'];
-    $decade = $_GET['decade'];
-    $year = $_GET['year'];
-    $title = $_GET['title'];
-    $levels = $_GET['levels'];
-    $title = carReplace($title);
+if ($function === 'GetFoldersLevel1') {
+    $member = $_GET['idmem'];
+    $db->GetFoldersLevel1($member);
+}
 
-    $folderData = array($type, $member, $decade, $year, $title, $levels, $title);
+if ($function === 'GetFoldersLevel2') {
+    $idParent = $_GET['idParent'];
+    $db->GetFoldersLevel2($idParent);
+}
+
+if ($function === 'GetFoldersLevel3') {
+    $idParent = $_GET['idParent'];
+    $db->GetFoldersLevel3($idParent);
+}
+
+// Add a folder for storing photos
+if ($function == 'addFolder') {
+    /*    $type = $_GET['type'];
+        $member = $_GET['member'];
+        $decade = $_GET['decade'];
+        $year = $_GET['year'];
+        $title = $_GET['title'];
+        $levels = $_GET['levels'];
+        $title = carReplace($title);*/
+    $level0Id = $_GET['level0Id'];
+    $level0Name = $_GET['level0Name'];
+    $level1Id = $_GET['level1Id'];
+    $level1Name = $_GET['level1Name'];
+    $level2Id = $_GET['level2Id'];
+    $level2Name = $_GET['level2Name'];
+    $level3Name = $_GET['level3Name'];
+
+    $folderData = array($level0Id, $level0Name, $level1Id, $level1Name,
+        $level2Id, $level2Name, $level3Name);
 
     $db->addFolder($folderData);
     return;
@@ -54,7 +78,7 @@ if ($function == 'addFolderMysql') {
     return;
 }
 
-if ($function === 'getFolders'){
+if ($function === 'getFolders') {
     $year = $_GET['year'];
 
     $db = new foldersDB();

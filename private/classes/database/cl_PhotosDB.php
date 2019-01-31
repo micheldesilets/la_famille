@@ -1,11 +1,10 @@
 <?php
-
 require_once CLASSES_PATH . '/business/cl_photos.php';
 include_once INCLUDES_PATH . 'functions.php';
 require_once INCLUDES_PATH . "role.php";
 require_once INCLUDES_PATH . "privilegedUser.php";
 
-sec_session_start();
+//sec_session_start();
 
 class photosDB
 {

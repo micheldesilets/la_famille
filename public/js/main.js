@@ -11,10 +11,12 @@ var photoInfoList = {};
 var selectedPhotoIdx = {};
 var currentShiftingFolder = {};
 var allYearsData = {};
-// var geneolListDone = new geneologyList(false);
-// var inFolders = new inFoldersState(true);
 var folderTree = new folderHierarchy();
 var listPhotosDownload = new photosForDownload();
+var memberInfo = new Member();
+var FolderFirstLevel = new FolderLevel1();
+var FolderSecondLevel = new FolderLevel2();
+var FolderThirdLevel = new FolderLevel3();
 
 var getUserPerm = () => {
     'use strict';
@@ -26,7 +28,7 @@ var getUserPerm = () => {
 var getFolderTree = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/foldersController.php?function=getFoldersTree',
+    xhr.open('GET', '../../private/php/FoldersController.php?function=getFoldersTree',
         true);
     xhr.onload = () => {
         const folderData = JSON.parse(xhr.responseText);
@@ -198,7 +200,7 @@ var getPhotos = (path, type) => {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../private/php/photosController.php?path=" + path +
+        xhr.open("GET", "../../private/php/PhotosController.php?path=" + path +
             '&function=getPhotos', true);
         xhr.onload = () => {
             if (xhr.readyState === 4) {
@@ -228,7 +230,7 @@ var searchInputs = () => {
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../private/php/photosController.php?kwrd=" +
+    xhr.open("GET", "../../private/php/PhotosController.php?kwrd=" +
         searchFormData.kwords + "&startYear=" + searchFormData.startYear +
         "&endYear=" + searchFormData.endYear + "&wExact=" +
         searchFormData.wExact.toString() + "&wPart=" +
@@ -259,7 +261,7 @@ var getSelectedInfoPhoto = () => {
     selectedPhotoIdx =
         new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/photosController.php?pid=' +
+    xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
         selectedPhotoId + '&function=getInfo', true);
     xhr.onload = () => {
         const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -274,7 +276,7 @@ var getPhotoInfoPrevious = () => {
         const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
         const infoList = photoInfoList.getPhotoInfoList();
-        xhr.open('GET', '../../private/php/photosController.php?pid=' +
+        xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = () => {
@@ -291,7 +293,7 @@ var getPhotoInfoNext = () => {
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/photosController.php?pid=' +
+        xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getInfo', true);
         xhr.onload = () => {
@@ -490,7 +492,7 @@ var initAllYears = () => {
     'use strict';
     if (Object.keys(allYearsData).length === 0) {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/yearsController.php?function=getAllYears', true);
+        xhr.open('GET', '../../private/php/YearsController.php?function=getAllYears', true);
         xhr.onload = () => {
             allYearsData = new listOfAllYears(JSON.parse(xhr.responseText));
             renderAllYears();
@@ -942,7 +944,7 @@ var deletePhotos = () => {
     'use strict';
     var path = folderTree.getFolderId();
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/photosController.php', true);
+    xhr.open('POST', '../../private/php/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.onreadystatechange = () => {
@@ -1156,7 +1158,7 @@ var getReadings = () => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/readingsController.php?path=' + path, true);
+    xhr.open('GET', '../../private/php/ReadingsController.php?path=' + path, true);
     xhr.onload = () => {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1197,7 +1199,7 @@ var renderReadings = (data) => {
 var getObjects = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/objectsController.php?path=' + 12, true);
+    xhr.open('GET', '../../private/php/ObjectsController.php?path=' + 12, true);
     xhr.onload = () => {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1257,15 +1259,24 @@ var objModal = (e) => {
  ********************************/
 var getFolderInputs = () => {
     'use strict';
-    const folderDoc = document.getElementsByClassName('data-box__select');
+    const folderDoc = document.getElementsByClassName('data-box__input');
     var folderData = [];
-    folderData.levels = folderDoc[0].value;
-    folderData.type = folderDoc[1].value;
-    folderData.member = folderDoc[2].value;
-    folderData.decade = folderDoc[3].value;
-    folderData.year = folderDoc[4].value;
-    folderData.title = folderDoc[5].value;
+    folderData.level0 = folderDoc[0].value;
+    folderData.level1 = folderDoc[1].value;
+    folderData.level2 = folderDoc[2].value;
+    folderData.level3 = folderDoc[3].value;
+    /* folderData.year = folderDoc[4].value;
+     folderData.title = folderDoc[5].value;*/
     return folderData;
+};
+
+var GetFolderValues = (folders) => {
+    'use strict';
+    folders.idLevel0 = memberInfo.GetMemberId();
+    folders.member = memberInfo.GetMemberName();
+    folders.idLevel1 = FolderFirstLevel.searchName(folders.level1);
+    folders.idLevel2 = FolderSecondLevel.searchName(folders.level2);
+    return folders;
 };
 
 var getFolderInputsPhotos = () => {
@@ -1282,30 +1293,50 @@ var getFolderInputsPhotos = () => {
 
 var addFolder = () => {
     'use strict';
-    const folderData = getFolderInputs();
+    var folderData = getFolderInputs();
+    folderData = GetFolderValues(folderData);
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/foldersController.php?type=' +
-        folderData.type + '&member=' + folderData.member + '&decade=' +
-        folderData.decade + '&year=' + folderData.year +
-        '&title=' + folderData.title + '&levels=' + folderData.levels +
+    /*    xhr.open('GET', '../../private/php/FoldersController.php?type=' +
+            folderData.type + '&member=' + folderData.member + '&decade=' +
+            folderData.decade + '&year=' + folderData.year +
+            '&title=' + folderData.title + '&levels=' + folderData.levels +
+            '&function=addFolder', true);*/
+    xhr.open('GET', '../../private/php/FoldersController.php' +
+        '?level0Id=' + folderData.idLevel0 +
+        '&level0Name=' + folderData.level0 +
+        '&level1Id=' + folderData.idLevel1 +
+        '&level1Name=' + folderData.level1 +
+        '&level2Id=' + folderData.idLevel2 +
+        '&level2Name=' + folderData.level2 +
+        '&level3Name=' + folderData.level3 +
         '&function=addFolder', true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                const xhr1 = new XMLHttpRequest();
-                xhr1.open('GET', '../../private/php/foldersController.php?type=' +
-                    folderData.type + '&member=' + folderData.member +
-                    '&decade=' + folderData.decade + '&year=' + folderData.year +
-                    '&title=' + folderData.title + '&levels=' +
-                    folderData.levels + '&function=addFolderMysql', true);
+/*                const xhr1 = new XMLHttpRequest();
+                /!*                xhr1.open('GET', '../../private/php/FoldersController.php?type=' +
+                                    folderData.type + '&member=' + folderData.member +
+                                    '&decade=' + folderData.decade + '&year=' + folderData.year +
+                                    '&title=' + folderData.title + '&levels=' +
+                                    folderData.levels + '&function=addFolderMysql', true);*!/
+                /!*                xhr1.open('GET', '../../private/php/FoldersController.php +' +
+                                    '?level0Id=' + folderData.idLevel0 +
+                                    '&level1Id=' + folderData.idLevel1 +
+                                    '&level1Name=' + folderData.level1 +
+                                    '&level2Id=' + folderData.idLevel2 +
+                                    '&level2Name=' + folderData.level2 +
+                                    '&level3Name=' + folderData.level3 +
+                                    '&function=addFolderMysql', true);*!/
                 xhr1.onload = () => {
                     if (xhr1.readyState === 4) {
                         if (xhr1.status === 200) {
                             document.getElementsByClassName('data-box__message')[0].style.display = 'block';
+                            // TODO: Rediriger l usater vers l ajout de photos
+                            //     - dans le bon repertoire
                         }
                     }
                 };
-                xhr1.send();
+                xhr1.send();*/
             }
         }
     };
@@ -1350,74 +1381,236 @@ var uploadPhotos = () => {
 var getDecades = () => {
     'use strict';
     const req = new XMLHttpRequest();
-    req.open('GET', '../../private/php/decadesController.php?function=getDecades', true);
+    req.open('GET', '../../private/php/DecadesController.php?function=getDecades', true);
     req.onload = () => {
         const decadesData = JSON.parse(req.responseText);
         renderDecades(decadesData);
-        getYearsSelected();
+        // getYearsSelected();
         disableSubmitButton();
     };
     req.send();
 };
 
-var getMembers = (user) => {
+var FirstLevelOnChange = () => {
+    'use strict';
+    const listIdx = document.getElementsByClassName('data-box__select--level1');
+    const selectIndex = listIdx[0].selectedIndex;
+    const inputLevel1 =
+        document.getElementsByClassName('data-box__input--level1');
+    inputLevel1[0].value = FolderFirstLevel.getName(selectIndex);
+    const FirstLevelId = FolderFirstLevel.getId(selectIndex);
+    GetFolderLevel2(FirstLevelId);
+};
+
+var SecondLevelOnChange = () => {
+    'use strict';
+    const listIdx = document.getElementsByClassName('data-box__select--level2');
+    const selectIndex = listIdx[0].selectedIndex;
+    const inputLevel2 =
+        document.getElementsByClassName('data-box__input--level2');
+    inputLevel2[0].value = FolderSecondLevel.getName(selectIndex);
+    // const FirstLevelId = FolderFirstLevel.getId(selectIndex);
+    // GetFolderLevel2(FirstLevelId);
+};
+
+var GetFolderLevel0 = (member) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/usersController.php?function=getUsers' + '&user=' + user, true);
+    xhr.open('GET', '../../private/php/UsersController.php?function=getMainFolder' +
+        '&member=' + member, true);
     xhr.onload = () => {
-            if (xhr.readyState === 4) {
+        if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 console.log(xhr.responseText);
-                const members = JSON.parse(xhr.responseText);
-                renderMembers(members);
+                const FolderLevel0 = JSON.parse(xhr.responseText);
+                renderFolderLevel0(FolderLevel0);
+                GetFolderLevel1(FolderLevel0[0].idmem);
             }
         }
     };
     xhr.send();
 };
 
-var renderMembers = (members) => {
+var GetFolderLevel1 = (idmem) => {
     'use strict';
-    var htmlString = "";
-    var anchor;
-    var curr = currentWindow();
-    if (curr === 'addFolder.php') {
-        anchor =
-            document.getElementById('data-box__select--member');
-    } else if (curr === 'addPhotos.php') {
-        anchor =
-            document.getElementById('data-box__select--add-ph-member');
-    }
-    for (const obj of members) {
-        if (htmlString.length === 0) {
-            htmlString = '<option value=' + obj.idmem + '>' + obj.firstName +
-                '</option>\n';
-        } else {
-            htmlString += '<option value=' + obj.idmem + '>' + obj.firstName +
-                '</option>\n';
-        }
-    }
-    anchor.insertAdjacentHTML("beforeend", htmlString);
-};
-
-var getYearsSelected = () => {
-    'use strict';
-    const url = currentWindow();
-    const deca =
-        document.getElementsByClassName('data-box__select--add-folder-photo-decade');
-    const decade = deca[0].value;
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/yearsController.php?decade=' + decade +
-        '&function=getYearsSelected', true);
+    xhr.open('GET', '../../private/php/FoldersController.php?function=' +
+        'GetFoldersLevel1&idmem=' + idmem, true);
     xhr.onload = () => {
-        const yearsData = JSON.parse(xhr.responseText);
-        renderYears(yearsData);
-        if (url === 'addPhotos.php') {
-            const firstYear = yearsData[0].idxYear;
-            getFolders(firstYear);
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                const level1 = JSON.parse(xhr.responseText);
+                if (level1.length !== 0) {
+                    RenderFolderLevel1(level1);
+                    GetFolderLevel2(level1[0].id);
+                }
+            }
         }
     };
     xhr.send();
+};
+
+var GetFolderLevel2 = (idFo1) => {
+    'use strict';
+    const url = currentWindow();
+    /*    var lev1 =
+            document.getElementsByClassName('data-box__id-value1');
+        var idParent = lev1[0].value;*/
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../private/php/FoldersController.php?idParent=' + idFo1 +
+        '&function=GetFoldersLevel2', true);
+    xhr.onload = () => {
+        const level2 = JSON.parse(xhr.responseText);
+        if (level2.length !== 0) {
+            RenderFolderLevel2(level2);
+            GetFolderLevel3(level2[0].id);
+        }
+    };
+    xhr.send();
+};
+
+var GetFolderLevel3 = (idFo2) => {
+    'use strict';
+    const url = currentWindow();
+    /*    var lev2 =
+            document.getElementsByClassName('data-box__id-value2');
+        var idParent = lev2[0].value;*/
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '../../private/php/FoldersController.php?idParent=' + idFo2 +
+        '&function=GetFoldersLevel3', true);
+    xhr.onload = () => {
+        const level3 = JSON.parse(xhr.responseText);
+        if(level3.length!==0) {
+            RenderFolderLevel3(level3);
+        }
+    };
+    xhr.send();
+};
+
+var renderFolderLevel0 = (folderLevel0) => {
+    'use strict';
+    var htmlString = "";
+    var inputAnchor;
+    var inputIdAnchor;
+    var curr = currentWindow();
+    if (curr === 'addFolder.php') {
+        inputAnchor =
+            document.getElementsByClassName('data-box__input--level0')[0];
+        inputAnchor.value = folderLevel0[0].firstName;
+        memberInfo.setMemberId(folderLevel0[0].idmem);
+        memberInfo.setMemberName(folderLevel0[0].firstName);
+    } else if (curr === 'addPhotos.php') {
+        inputAnchor =
+            document.getElementById('data-box__select--add-ph-member');
+    }
+};
+
+var RenderFolderLevel1 = (level1) => {
+    'use strict';
+    var htmlString = "";
+    var inputAnchor;
+    var selectAnchor;
+    var idAnchor;
+    var curr = currentWindow();
+    if (curr === 'addFolder.php') {
+        inputAnchor =
+            document.getElementsByClassName('data-box__input--level1')[0];
+        inputAnchor.value = level1[0].name;
+        selectAnchor = document.getElementsByClassName(' data-box__select--level1')[0];
+    } else if (curr === 'addPhotos.php') {
+        inputAnchor =
+            document.getElementById('data-box__select--add-ph-member');
+    }
+    var i = 0;
+    for (const obj of level1) {
+        if (htmlString.length === 0) {
+            htmlString = '<option >' + obj.name +
+                '</option>\n';
+        } else {
+            htmlString += '<option value=>' + obj.name +
+                '</option>\n';
+        }
+        FolderFirstLevel.setId(i, obj.id);
+        FolderFirstLevel.setIdParent(i, obj.idParent);
+        FolderFirstLevel.setName(i, obj.name);
+        i += 1;
+    }
+    selectAnchor.insertAdjacentHTML("beforeend", htmlString);
+};
+
+var RenderFolderLevel2 = (level2) => {
+    'use strict';
+    var htmlString = "";
+    var inputAnchor;
+    var selectAnchor;
+    var idAnchor;
+    var curr = currentWindow();
+    if (curr === 'addFolder.php') {
+        inputAnchor =
+            document.getElementsByClassName('data-box__input--level2')[0];
+        inputAnchor.value = level2[0].name;
+        selectAnchor = document.getElementsByClassName(' data-box__select--level2')[0];
+    } else if (curr === 'addPhotos.php') {
+        inputAnchor =
+            document.getElementById('data-box__select--add-ph-member');
+    }
+
+    var i = 0;
+    FolderSecondLevel.init();
+    selectAnchor.innerHTML = "";
+    for (const obj of level2) {
+        if (htmlString.length === 0) {
+            htmlString = '<option >' + obj.name +
+                '</option>\n';
+        } else {
+            htmlString += '<option value=>' + obj.name +
+                '</option>\n';
+        }
+        FolderSecondLevel.setId(i, obj.id);
+        FolderSecondLevel.setIdParent(i, obj.idParent);
+        FolderSecondLevel.setName(i, obj.name);
+        i += 1;
+    }
+    selectAnchor.insertAdjacentHTML("beforeend", htmlString);
+};
+
+var RenderFolderLevel3 = (level3) => {
+    'use strict';
+    var htmlString = "";
+    var inputAnchor;
+    var selectAnchor;
+    var idAnchor;
+    var curr = currentWindow();
+    if (curr === 'addFolder.php') {
+        /*        inputAnchor =
+                    document.getElementsByClassName('data-box__input--level3')[0];
+                inputAnchor.value = level3[0].name;
+                selectAnchor = document.getElementsByClassName(' data-box__select--level3')[0];
+                idAnchor=document.getElementsByClassName('data-box__id-value3')[0];
+                idAnchor.value = level3[0].id;*/
+    } else if (curr === 'addPhotos.php') {
+        inputAnchor =
+            document.getElementById('data-box__select--add-ph-member');
+    }
+
+    var i = 0;
+    for (const obj of level3) {
+        if (htmlString.length === 0) {
+            htmlString = '<option >' + obj.name +
+                '</option>\n';
+        } else {
+            htmlString += '<option value=>' + obj.name +
+                '</option>\n';
+        }
+        FolderThirdLevel.setId(i, obj.id);
+        FolderThirdLevel.setIdParent(i, obj.idParent);
+        FolderThirdLevel.setName(i, obj.name);
+        i += 1;
+    }
+    if (curr === 'addPhotos.php') {
+        inputAnchor.insertAdjacentHTML("beforeend", htmlString);
+    }
 };
 
 var renderDecades = (decades) => {
@@ -1430,7 +1623,7 @@ var renderDecades = (decades) => {
         htmlString += "<option value=\"" + obj.idDecade + "\">" + obj.decade +
             "</option>\n";
     }
-    decadeContainer.insertAdjacentHTML("beforeend", htmlString);
+    // decadeContainer.insertAdjacentHTML("beforeend", htmlString);
 };
 
 var renderYears = (data) => {
@@ -1460,7 +1653,7 @@ var getFolders = (fisrtYear) => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/foldersController.php?year=' + year +
+    xhr.open('GET', '../../private/php/FoldersController.php?year=' + year +
         '&function=getFolders', true);
     xhr.onload = () => {
         console.log(xhr.responseText);
@@ -1520,7 +1713,7 @@ var insertPhotoInfo = () => {
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
 
-    req.open('POST', '../../private/php/photosController.php?photoId=' +
+    req.open('POST', '../../private/php/PhotosController.php?photoId=' +
         inputs.photoId + '&title=' + inputs.title + '&keyWords=' +
         inputs.keyWords + '&caption=' + inputs.caption + '&year=' + inputs.year +
         '&geneologyIdxs=' + inputs.geneologyIdxs +
@@ -1583,7 +1776,7 @@ var validatePhotoInfoIndexes = (listOfIndexes) => {
 var getGeneologyList = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/geneologyController.php?function=getGeneologyList', true);
+    xhr.open('GET', '../../private/php/GeneologyController.php?function=getGeneologyList', true);
     // xhr.responseType = 'JSON';
     xhr.onload = () => {
         if (xhr.readyState === 4) {
@@ -1660,7 +1853,7 @@ var getShiftingFolders = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../../private/php/foldersController.php?function=getShiftingFolders');
+    xhr.open('GET', '../../private/php/FoldersController.php?function=getShiftingFolders');
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1709,7 +1902,7 @@ var disableSubmitButton = () => {
 var downloadPhotos = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/photosController.php', true);
+    xhr.open('POST', '../../private/php/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.responseType = 'blob';
@@ -1733,7 +1926,7 @@ var downloadPhotos = () => {
             postDownload();
 
             const xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', '../../private/php/photosController.php?function=' +
+            xhr1.open('GET', '../../private/php/PhotosController.php?function=' +
                 'removeZipFile', true);
             xhr1.send();
         }
@@ -1901,6 +2094,134 @@ var listGeneologyNames = {
     setNames: (names) => _names = names,
     getNames: () => _names
 };
+
+function Member() {
+    'use strict';
+    var _memberId = 0;
+    var _memberName = "";
+
+    this.setMemberId = (id) => {
+        _memberId = id;
+    };
+    this.setMemberName = (name) => {
+        _memberName = name;
+    };
+    this.GetMemberId = () => {
+        return _memberId;
+    };
+    this.GetMemberName = () => {
+        return _memberName;
+    };
+}
+
+function FolderLevel1() {
+    'use strict';
+    var _id = [];
+    var _idParent = [];
+    var _name = [];
+
+    this.setId = (idx, id) => {
+        _id[idx] = id;
+    };
+    this.setIdParent = (idx, idParent) => {
+        _idParent[idx] = idParent;
+    };
+    this.setName = (idx, name) => {
+        _name[idx] = name;
+    };
+    this.getId = (idx) => {
+        return _id[idx];
+    };
+    this.getIdParent = (idx) => {
+        return _idParent[idx];
+    };
+    this.getName = (idx) => {
+        return _name[idx];
+    };
+    this.searchName = (name) => {
+        for (var i = 0; i < _name.length; i++) {
+            if (name === _name[i]) {
+                return _id[i];
+            }
+        }
+        return 0;
+    };
+}
+
+function FolderLevel2() {
+    'use strict';
+    var _id = [];
+    var _idParent = [];
+    var _name = [];
+
+    this.setId = (idx, id) => {
+        _id[idx] = id;
+    };
+    this.setIdParent = (idx, idParent) => {
+        _idParent[idx] = idParent;
+    };
+    this.setName = (idx, name) => {
+        _name[idx] = name;
+    };
+    this.init = () => {
+        for (var i = _id.length; i > 0; i--) {
+            _id.pop();
+            _idParent.pop();
+            _name.pop();
+        }
+    };
+    this.getId = (idx) => {
+        return _id[idx];
+    };
+    this.getIdParent = (idx) => {
+        return _idParent[idx];
+    };
+    this.getName = (idx) => {
+        return _name[idx];
+    };
+    this.searchName = (name) => {
+        for (var i = 0; i < _name.length; i++) {
+            if (name === _name[i]) {
+                return _id[i];
+            }
+        }
+        return 0;
+    };
+}
+
+function FolderLevel3() {
+    'use strict';
+    var _id = [];
+    var _idParent = [];
+    var _name = [];
+
+    this.setId = (idx, id) => {
+        _id[idx] = id;
+    };
+    this.setIdParent = (idx, idParent) => {
+        _idParent[idx] = idParent;
+    };
+    this.setName = (idx, name) => {
+        _name[idx] = name;
+    };
+    this.getId = (idx) => {
+        return _id[idx];
+    };
+    this.getIdParent = (idx) => {
+        return _idParent[idx];
+    };
+    this.getName = (idx) => {
+        return _name[idx];
+    };
+    this.searchName = (name) => {
+        for (var i = 0; i < _name.length; i++) {
+            if (name === _name[i]) {
+                return _id[i];
+            }
+        }
+        return 0;
+    };
+}
 
 function folderHierarchy() {
     'use strict';

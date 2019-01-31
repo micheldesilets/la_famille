@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 }
                 // Include the file that houses all of our custom image functions
-                include_once(PRIVATE_PATH . "/php/imgLibrary.php");
+                include_once(PRIVATE_PATH . "/php/ImgLibrary.php");
 // ---------- Start Universal Image Resizing Function --------
                 $target_file = PUBLIC_PATH . "/uploads/" . $file_name;
                 $file = $path . 'full/' . $file_name;

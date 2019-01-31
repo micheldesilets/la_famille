@@ -11,12 +11,12 @@ include_once CLASSES_PATH . '/database/cl_usersDB.php';
 require_once INCLUDES_PATH . 'privilegedUser.php';
 
 $function = $_GET['function'];
-$user = $_GET['user'];
+$member = $_GET['member'];
 
 try {
-    if ($function === 'getUsers') {
+    if ($function === 'getMainFolder') {
         $db = new cl_usersDB();
-        $db->GetUsers($user);
+        $db->GetMaimFolder($member);
     }
 } catch (Exception $e) {
     error_log($e->getMessage());

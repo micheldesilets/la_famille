@@ -61,11 +61,36 @@
     text-align: right;
     margin-left: 0;
     margin-right: 10px;
+
+    &--level0 {
+      width: 18%;
+    }
+
+    &--level1 {
+      width: 25%;
+      margin-left: 10px;
+    }
+
+    &--level2 {
+      width: 25%;
+      margin-left: 90px;
+      position: relative;
+      top: -22px;
+    }
+
+    &--level3 {
+      width: 25%;
+      margin-left: 170px;
+      position: relative;
+      top: -44px;
+    }
   }
 
   &__select {
     display: block;
     background-color: $color5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 
     &--geneol {
       float: right;
@@ -74,12 +99,29 @@
       @include wsh-02;
       margin-right: 12px;
     }
+
+    &--level0, &--level1, &--level2, &--level3 {
+      width: 305px;
+    }
+
+    &--level2, &--level3 {
+      position: relative;
+      top: -22px;
+    }
+
+    &--level3 {
+      position: relative;
+      top: -44px;
+    }
   }
 
   &__input {
     position: relative;
     font-size: small;
     background-color: $color5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-left: 5px;
 
     &--photos {
       width: 0.1px;
@@ -92,6 +134,30 @@
 
     &--info-geneol {
       float: left;
+    }
+
+    &--level0 {
+      height: 19px;
+      width: 280px;
+      font-size: 15.5px;
+    }
+
+    &--level1, &--level2, &--level3 {
+      position: relative;
+      top: -23px;
+      height: 19px;
+      width: 280px;
+      font-size: 15.5px;
+    }
+
+    &--level2, &--level3 {
+      position: relative;
+      top: -45px;
+    }
+
+    &--level3 {
+      position: relative;
+      top: -45px;
     }
   }
 

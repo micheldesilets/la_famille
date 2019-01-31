@@ -42,7 +42,9 @@ if (login_check($mysqli) == true) {
 if (isset($_GET['error'])) {
     echo '<p class="error">Error Logging In!</p>';
 }
-$u = PrivilegedUser::getByUsername($_SESSION["username"]);
+if ($logged === "in") {
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]);
+}
 ?>
 <div class="page">
     <div class="login">
@@ -120,15 +122,15 @@ $u = PrivilegedUser::getByUsername($_SESSION["username"]);
     <!-- ==== START MASTHEAD ==== -->
     <submit class="masthead" role="banner">
         <div class="masthead__dropdown">
-            <?php if ($u->hasPrivilege("write")): ?>
-            <button class="masthead__dropbtn">Gestion des photos</button>
-            <div class="masthead__dropdown-content">
-                <a class="masthead__item" href="public/php/addFolder.php">
-                    Ajouter un répertoire</a>
-                <a class="masthead__item" href="public/php/addPhotos.php">
-                    Ajouter des photos</a>
-            </div>
-            <?php endif; ?>
+            <?php if ($logged === "in"): if ($u->hasPrivilege("write")): ?>
+                <button class="masthead__dropbtn">Gestion des photos</button>
+                <div class="masthead__dropdown-content">
+                    <a class="masthead__item" href="public/php/addFolder.php">
+                        Ajouter un répertoire</a>
+                    <a class="masthead__item" href="public/php/addPhotos.php">
+                        Ajouter des photos</a>
+                </div>
+            <?php endif; endif;?>
         </div>
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">

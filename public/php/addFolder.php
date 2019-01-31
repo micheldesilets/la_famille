@@ -22,9 +22,9 @@ sec_session_start();
 </head>
 
 <body>
-<?php if (login_check($mysqli) == true) :
+<?php /*if (login_check($mysqli) == true) :
     $u = PrivilegedUser::getByUsername($_SESSION["username"]);
-    ?>
+    */ ?>
 <div class="page data-box">
 
     <h1 class="data-box__h1 data-box__h1--folder">Ajouter un répertoire</h1>
@@ -40,73 +40,90 @@ sec_session_start();
                        value="Soumettre"
                        class="data-box__go-button"><br>
 
+                <!--                <div>
+                                    <label for="data-box__select--level"
+                                           class="data-box__label">Nombre de niveaux</label>
+                                    <select class=
+                                            "data-box__select data-box__select--add-folder-level"
+                                            id="data-box__select--level">
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4" selected>4</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="data-box__select--family"
+                                           class="data-box__label">Type de
+                                        regroupement</label>
+                                    <select class=
+                                            "data-box__select data-box__select--add-folder-family"
+                                            id="data-box__select--family">
+                                        <option value="2" selected>Famille</option>
+                                        <option value="3">Livres</option>
+                                        <option value="6">Objets</option>
+                                    </select>
+                                </div>
+                                <br>-->
                 <div>
-                    <label for="data-box__select--level"
-                           class="data-box__label">Nombre de niveaux</label>
-                    <select class=
-                           "data-box__select data-box__select--add-folder-level"
-                            id="data-box__select--level">
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4" selected>4</option>
-                    </select>
+                    <label for="data-box__select--level0"
+                           class="data-box__label data-box__label--level0">
+                        Répertoire principal
+                    </label>
+                    <input type="text" class="data-box__input
+                                              data-box__input--level0" readonly>
                 </div>
                 <br>
                 <div>
-                    <label for="data-box__select--family"
-                           class="data-box__label">Type de
-                        regroupement</label>
-                    <select class=
-                          "data-box__select data-box__select--add-folder-family"
-                            id="data-box__select--family">
-                        <option value="2" selected>Famille</option>
-                        <option value="3">Livres</option>
-                        <option value="6">Objets</option>
-                    </select>
-                </div>
-                <br>
-                <div>
-                    <label for="data-box__select--member"
-                         class="data-box__label">
-                                Membre
+                    <label for="data-box__select--level1"
+                           class="data-box__label data-box__label--level1">
+                        Sous-répertoire - niveau 1
                     </label>
                     <select class="data-box__select
-                                   data-box__select--add-folder-member"
-                               id="data-box__select--member">
+                                   data-box__select--level1"
+                            id="data-box__select--level1"
+                            onchange="FirstLevelOnChange()">
                     </select>
+                    <input type="text" class="data-box__input
+                               data-box__input--level1">
                 </div>
                 <br>
                 <div>
-                    <label for="data-box__select--decade"
-                         class="data-box__label">
-                                Décennie
+                    <label for="data-box__select--level2"
+                           class="data-box__label data-box__label--level2">
+                        Sous-répertoire - niveau 2
                     </label>
                     <select class="data-box__select
-                                   data-box__select--add-folder-photo-decade"
-                               id="data-box__select--decade"
-                         onchange="getYearsSelected()">
+                                   data-box__select--level2"
+                            id="data-box__select--level2"
+                            onchange="SecondLevelOnChange()">
                     </select>
+                    <input type="text" class="data-box__input
+                               data-box__input--level2">
                 </div>
                 <br>
                 <div>
-                    <label for="data-box__select--year"
-                         class="data-box__label">
-                                Année
+                    <label for="data-box__select--level3"
+                           class="data-box__label data-box__label--level3">
+                        Sous-répertoire - niveau 3
                     </label>
-                    <select class="data-box__select
-                                   data-box__select--add-folder-photo-year"
-                               id="data-box__select--year">
-                    </select>
+                    <!--              <select class="data-box__select
+                                                 data-box__select--level3"
+                                          id="data-box__select--level3">
+                                  </select>-->
+                    <input type="text" class="data-box__input
+                               data-box__input--level3">
                 </div>
-                <br>
-                <div>
+                <!--<div>
                     <label for="data-box__select--title"
-                           class="data-box__label">Nom du répertoire</label>
+                           class="data-box__label data-box__label--level3">
+                        Sous-répertoire - niveau 3
+                    </label>
                     <input type="text"
                            class="data-box__select data-box__select--title"
                            id="data-box__select--title"
-                           size="50">
-                </div>
+                           >
+                </div>-->
             </form>
 
             <p class='data-box__message' hidden>Cliquer
@@ -116,15 +133,15 @@ sec_session_start();
     </main>
 </div>
 <script>
-    var user = '<?php echo $u->getUsername();?>';
+    //var user = '<?php //echo $u->getUsername();?>//';
     getDecades();
-    getMembers(user);
+    GetFolderLevel0('Michel');
 </script>
-<?php else: ?>
-<p><span class="error">Vous devez être connecté au site pour pouvoir
+<?php /*else: */ ?><!--
+    <p><span class="error">Vous devez être connecté au site pour pouvoir
             voir le contenu de cette page.</span>
-    Svp <a href="../../index.php">connectez-vous.</a>.
-</p>
-<?php endif; ?>
+        Svp <a href="../../index.php">connectez-vous.</a>.
+    </p>
+--><?php /*endif; */ ?>
 </body>
 </html>

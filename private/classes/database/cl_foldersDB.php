@@ -7,6 +7,7 @@
  */
 
 require_once CLASSES_PATH . '/business/cl_folders.php';
+require_once CLASSES_PATH . '/business/FolderLevels.php';
 
 class foldersDB
 {
@@ -121,14 +122,67 @@ class foldersDB
     {
         include INCLUDES_PATH . 'db_connect.php';
         try {
-            $type = $folderData[0];
-            $member = $folderData[1];
-            $decade = $folderData[2];
-            $year = $folderData[3];
-            $title = $folderData[4];
-            $levels = $folderData[5];
+            /*         $type = $folderData[0];
+                     $member = $folderData[1];
+                     $decade = $folderData[2];
+                     $year = $folderData[3];
+                     $title = $folderData[4];
+                     $levels = $folderData[5];*/
 
-            $sql = "SELECT typ.type_typ
+            $level0Id = $folderData[0];
+            $level0Name = $folderData[1];
+            $level1Id = $folderData[2];
+            $level1Name = $folderData[3];
+            $level2Id = $folderData[4];
+            $level2Name = $folderData[5];
+            $level3Name = $folderData[6];
+
+            $path = PUBLIC_PATH . '/img/family';
+
+            /*            $path = $path . "/" . $folder[0];
+                        if (!file_exists($path)) {
+                            mkdir($path);
+                        };*/
+
+            $path = $path . '/' . $level0Name;
+            if (!file_exists($path)) {
+                mkdir($path);
+            };
+
+            $path = $path . '/' . $level1Name;
+            if (!file_exists($path)) {
+                mkdir($path);
+            };
+
+            if ($level2Name === "") {
+                chdir($path);
+                mkdir('full');
+                mkdir('preview');
+            } else {
+                $path = $path . '/' . $level2Name;
+                if (!file_exists($path)) {
+                    mkdir($path);
+                }
+                if ($level3Name === "") {
+                    chdir($path);
+                    mkdir('full');
+                    mkdir('preview');
+                } else {
+                    $path = $path . '/' . $level3Name;
+                    if (!file_exists($path)) {
+                        mkdir($path);
+                        chdir($path);
+                        mkdir('full');
+                        mkdir('preview');
+                    } else {
+                        echo 'Le répertoire existe dans la base de données.';
+                    }
+                }
+            };
+
+
+            $this->addFolderMysql($folderData);
+            /*$sql = "SELECT typ.type_typ
                       FROM type_typ typ
                      WHERE typ.id_typ = ?
                            UNION ALL
@@ -160,131 +214,184 @@ class foldersDB
             unset($stmt);
 
             $this->createFolder($folderArray);
-            return;
+            return;*/
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
     }
 
-    function createFolder($folder)
-    {
-        $path = PUBLIC_PATH . '/img';
 
-        $path = $path . "/" . $folder[0];
-        if (!file_exists($path)) {
-            mkdir($path);
-        };
+    /* function createFolder($folder)
+     {
+         $path = PUBLIC_PATH . '/img/family';
 
-        $path = $path . '/' . $folder[1];
-        if (!file_exists($path)) {
-            mkdir($path);
-        };
+         $path = $path . "/" . $folder[0];
+         if (!file_exists($path)) {
+             mkdir($path);
+         };
 
-        $path = $path . '/' . $folder[2];
-        if (!file_exists($path)) {
-            mkdir($path);
-        };
+         $path = $path . '/' . $folder[1];
+         if (!file_exists($path)) {
+             mkdir($path);
+         };
 
-        $path = $path . '/' . $folder[3];
-        if (!file_exists($path)) {
-            mkdir($path);
-        };
+         $path = $path . '/' . $folder[2];
+         if (!file_exists($path)) {
+             mkdir($path);
+         };
 
-        $path = $path . '/' . $folder[4];
-        if (!file_exists($path)) {
-            mkdir($path);
-            chdir($path);
-            mkdir('full');
-            mkdir('preview');
-        } else {
-            echo 'Le répertoire existe dans la base de données.';
-        };
-    }
+         $path = $path . '/' . $folder[3];
+         if (!file_exists($path)) {
+             mkdir($path);
+         };
+
+         $path = $path . '/' . $folder[4];
+         if (!file_exists($path)) {
+             mkdir($path);
+             chdir($path);
+             mkdir('full');
+             mkdir('preview');
+         } else {
+             echo 'Le répertoire existe dans la base de données.';
+         };
+     }*/
 
     function addFolderMysql($folderData)
     {
         $curr = getcwd();
         include INCLUDES_PATH . 'db_connect.php';
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        /*
+                $typePhoto = $folderData[0];
+                $member = $folderData[1];
+                $decade = $folderData[2];
+                $year = $folderData[3];
+                $title = $folderData[4];
+                $levels = $folderData[5];*/
 
-        $typePhoto = $folderData[0];
-        $member = $folderData[1];
-        $decade = $folderData[2];
-        $year = $folderData[3];
-        $title = $folderData[4];
-        $levels = $folderData[5];
+        $level0Id = $folderData[0];
+        $level0Name = $folderData[1];
+        $level1Id = $folderData[2];
+        $level1Name = $folderData[3];
+        $level2Id = $folderData[4];
+        $level2Name = $folderData[5];
+        $level3Name = $folderData[6];
 
         try {
-            $sql = "INSERT INTO folders_fol (
-                                idtyp_fol, title_fol,iddec_fol, idyea_fol, 
-                                levels_fol, idmem_fol)
-                         VALUES (?,?,?,?,?,?)";
-            $stmt = $con->prepare($sql);
-            $stmt->bind_param("isiiii", $typePhoto, $title, $decade, $year,
-                                        $levels, $member);
-            $stmt->execute();
-            $stmt->close();
+            if ($level1Id === "0") {
+                $sql = "INSERT INTO folders_level1_fo1 (
+                                idmem_fo1, name_fo1)
+                         VALUES (?,?)";
+                $stmt = $con->prepare($sql);
+                $stmt->bind_param("is", $level0Id, $level1Name);
+                $stmt->execute();
+                $stmt->close();
+            }
 
-            $stmt = $con->prepare("  TRUNCATE TABLE photos_folders_pfo");
-            $stmt->execute();
-            $stmt->close();
+            if (@$level2Name === "") {
+                return;
+            }
 
-            $sql = "INSERT INTO photos_folders_pfo (
-                                full_pfo, preview_pfo, idfol_pfo, dummy_pfo)
-                    SELECT CASE 
-                           WHEN typ.id_typ = 1 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', fol.title_fol, '/full/') 
-                           WHEN typ.id_typ = 6 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/full/') 
-                           WHEN typ.id_typ = 3 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', fol.title_fol, '/') 
-                           WHEN typ.id_typ = 2 
-                                AND fol.levels_fol = 4 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', mem.first_name_mem, '/', 
-                                deca.decade_deca, '/', yea.year_yea, '/', 
-                                fol.title_fol, '/full/') 
-                           WHEN typ.id_typ = 2 
-                                AND fol.levels_fol = 2 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', mem.first_name_mem, '/', 
-                                fol.title_fol, '/full/') 
-                           ELSE CONCAT('public/img/', typ.type_typ, '/') 
-                           END,
-                           CASE 
-                           WHEN typ.id_typ = 1 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', fol.title_fol, '/preview/') 
-                           WHEN typ.id_typ = 6 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/preview/') 
-                           WHEN typ.id_typ = 3 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', fol.title_fol, '/') 
-                           WHEN typ.id_typ = 2 
-                                AND fol.levels_fol = 4 THEN CONCAT('public/img/', 
-                                typ.type_typ, '/', 
-                                mem.first_name_mem, '/', deca.decade_deca, 
-                                '/', yea.year_yea, '/', fol.title_fol, 
-                                '/preview/') 
-                           WHEN typ.id_typ = 2 
-                                AND fol.levels_fol = 2 THEN CONCAT('public/img/', 
-                                    typ.type_typ, '/', mem.first_name_mem, '/', 
-                                    fol.title_fol, '/preview/') 
-                           ELSE CONCAT('img/', typ.type_typ, '/') 
-                           END,
-                           fol.id_fol,
-                           fol.levels_fol
-                      FROM folders_fol fol
-                           JOIN type_typ typ
-                             ON fol.idtyp_fol = typ.id_typ
-                           JOIN members_mem mem
-                             ON fol.idmem_fol = mem.id_mem
-                           JOIN decade_deca deca
-                             ON fol.iddec_fol = deca.id_deca
-                           JOIN year_yea yea
-                             ON fol.idyea_fol = yea.id_yea
-                     WHERE fol.id_fol = fol.id_fol";
-            $stmt = $con->prepare("$sql");
-            $stmt->execute();
-            $stmt->close();
+            if ($level2Id === "0") {
+                $sql = "INSERT INTO folders_level2_fo2 (
+                                idfo1_fo2, name_fo2)
+                         VALUES (?,?)";
+                $stmt = $con->prepare($sql);
+                $stmt->bind_param("is", $level1Id, $level2Name);
+                $stmt->execute();
+                $stmt->close();
+            }
 
+            if ($level3Name === "") {
+                return;
+            }
+
+            if ($level3Name != "") {
+                $sql = "INSERT INTO folders_level3_fo3 (
+                                idfo2_fo3, name_fo3)
+                         VALUES (?,?)";
+                $stmt = $con->prepare($sql);
+                $stmt->bind_param("is", $level2Id, $level3Name);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+            /*
+                        $stmt = $con->prepare("  TRUNCATE TABLE photos_folders_pfo");
+                        $stmt->execute();
+                        $stmt->close();
+
+
+                        $sql = "INSERT INTO folders_fol (
+                                            idtyp_fol, title_fol,iddec_fol, idyea_fol,
+                                            levels_fol, idmem_fol)
+                                     VALUES (?,?,?,?,?,?)";
+                        $stmt = $con->prepare($sql);
+                        $stmt->bind_param("isiiii", $typePhoto, $title, $decade, $year,
+                            $levels, $member);
+                        $stmt->execute();
+                        $stmt->close();
+
+                        $stmt = $con->prepare("  TRUNCATE TABLE photos_folders_pfo");
+                        $stmt->execute();
+                        $stmt->close();
+
+                        $sql = "INSERT INTO photos_folders_pfo (
+                                            full_pfo, preview_pfo, idfol_pfo, dummy_pfo)
+                                SELECT CASE
+                                       WHEN typ.id_typ = 1 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', fol.title_fol, '/full/')
+                                       WHEN typ.id_typ = 6 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/full/')
+                                       WHEN typ.id_typ = 3 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', fol.title_fol, '/')
+                                       WHEN typ.id_typ = 2
+                                            AND fol.levels_fol = 4 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', mem.first_name_mem, '/',
+                                            deca.decade_deca, '/', yea.year_yea, '/',
+                                            fol.title_fol, '/full/')
+                                       WHEN typ.id_typ = 2
+                                            AND fol.levels_fol = 2 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', mem.first_name_mem, '/',
+                                            fol.title_fol, '/full/')
+                                       ELSE CONCAT('public/img/', typ.type_typ, '/')
+                                       END,
+                                       CASE
+                                       WHEN typ.id_typ = 1 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', fol.title_fol, '/preview/')
+                                       WHEN typ.id_typ = 6 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/preview/')
+                                       WHEN typ.id_typ = 3 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/', fol.title_fol, '/')
+                                       WHEN typ.id_typ = 2
+                                            AND fol.levels_fol = 4 THEN CONCAT('public/img/',
+                                            typ.type_typ, '/',
+                                            mem.first_name_mem, '/', deca.decade_deca,
+                                            '/', yea.year_yea, '/', fol.title_fol,
+                                            '/preview/')
+                                       WHEN typ.id_typ = 2
+                                            AND fol.levels_fol = 2 THEN CONCAT('public/img/',
+                                                typ.type_typ, '/', mem.first_name_mem, '/',
+                                                fol.title_fol, '/preview/')
+                                       ELSE CONCAT('img/', typ.type_typ, '/')
+                                       END,
+                                       fol.id_fol,
+                                       fol.levels_fol
+                                  FROM folders_fol fol
+                                       JOIN type_typ typ
+                                         ON fol.idtyp_fol = typ.id_typ
+                                       JOIN members_mem mem
+                                         ON fol.idmem_fol = mem.id_mem
+                                       JOIN decade_deca deca
+                                         ON fol.iddec_fol = deca.id_deca
+                                       JOIN year_yea yea
+                                         ON fol.idyea_fol = yea.id_yea
+                                 WHERE fol.id_fol = fol.id_fol";
+                        $stmt = $con->prepare("$sql");
+                        $stmt->execute();
+                        $stmt->close();
+            */
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -346,7 +453,7 @@ class foldersDB
                        AND fol.id_fol = ?";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("iiiii", $typePhoto, $member , $decade, $year,
+            $stmt->bind_param("iiiii", $typePhoto, $member, $decade, $year,
                 $title);
             $stmt->bind_result($idfol, $type, $firstname, $decade, $year, $title);
             $stmt->execute();
@@ -363,7 +470,98 @@ class foldersDB
             exit();
         }
     }
+
+    public
+    function GetFoldersLevel1($idmem)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        mysqli_set_charset($con, "utf8");
+
+        try {
+            $sql = "SELECT id_fo1,idmem_fo1,name_fo1
+                      FROM folders_level1_fo1
+                     WHERE idmem_fo1 = ?";
+
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $idmem);
+            $stmt->bind_result($idfo1, $idmem, $name);
+            $stmt->execute();
+
+            $arrayFol = [];
+            while ($stmt->fetch()) {
+                $fol = new FolderLevels($idfo1, $idmem, $name);
+                array_push($arrayFol, $fol);
+            }
+
+            $json = createJson($arrayFol);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit;
+        }
+    }
+
+    public
+    function GetFoldersLevel2($idParent)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        mysqli_set_charset($con, "utf8");
+
+        try {
+            $sql = "SELECT id_fo2,idfo1_fo2,name_fo2
+                      FROM folders_level2_fo2
+                     WHERE idfo1_fo2 = ?";
+
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $idParent);
+            $stmt->bind_result($idfo2, $idfo1, $name);
+            $stmt->execute();
+
+            $arrayFo2 = [];
+            while ($stmt->fetch()) {
+                $fo2 = new FolderLevels($idfo2, $idfo1, $name);
+                array_push($arrayFo2, $fo2);
+            }
+
+            $json = createJson($arrayFo2);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit;
+        }
+    }
+
+    public
+    function GetFoldersLevel3($idParent)
+    {
+        include INCLUDES_PATH . 'db_connect.php';
+        mysqli_set_charset($con, "utf8");
+
+        try {
+            $sql = "SELECT id_fo3,idfo2_fo3,name_fo3
+                      FROM folders_level3_fo3
+                     WHERE idfo2_fo3 = ?";
+
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param("i", $idParent);
+            $stmt->bind_result($idfo3, $idfo2, $name);
+            $stmt->execute();
+
+            $arrayFo3 = [];
+            while ($stmt->fetch()) {
+                $fo3 = new FolderLevels($idfo3, $idfo2, $name);
+                array_push($arrayFo3, $fo3);
+            }
+
+            $json = createJson($arrayFo3);
+            echo $json;
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            exit;
+        }
+    }
 }
+
 
 function createJson($rawData)
 {

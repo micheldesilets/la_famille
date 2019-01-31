@@ -55,7 +55,8 @@ sec_session_start();
                         <input type="text"
                                class="data-box__input data-box__input--info-keywords"
                                size="75"
-                               placeholder="Série de mots-clefs, séparés par une virgule, permettant une recherche">
+                               placeholder=
+                               "Série de mots-clefs, séparés par une virgule, permettant une recherche">
                     </div>
                     <br>
                     <div>
