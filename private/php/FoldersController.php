@@ -6,12 +6,15 @@
  */
 
 include_once '../../private/initialize.php';
+require_once CLASSES_PATH . '/database/cl_foldersDB.php';
+require_once CLASSES_PATH . '/business/cl_folders.php';
+require_once CLASSES_PATH . '/business/FolderLevels.php';
+include_once CLASSES_PATH . '/createJson.php';
 
 header('content-type: text/javascript');
 
 $function = $_GET['function'];
 
-require_once CLASSES_PATH . '/database/cl_foldersDB.php';
 $db = new foldersDB();
 
 if ($function === 'getFoldersTree') {

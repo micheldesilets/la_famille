@@ -11,7 +11,7 @@ class readingsDB
     public function getReadings($path)
     {
         include INCLUDES_PATH . 'db_connect.php';
-        require_once CLASSES_PATH . '/business/cl_readings.php';
+        //    require_once CLASSES_PATH . '/business/cl_readings.php';
 
         try {
             $sql = "SELECT title_rea,address_rea,intro_rea,summary_rea,full_pfo,
@@ -46,19 +46,18 @@ class readingsDB
             $stmt->close();
             unset($stmt);
 
-            header("Content-Type: application/json");
-            $json = json_encode($readingArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-            if ($json === false) {
-                $json = json_encode(array("jsonError", json_last_error_msg()));
-                if ($json === false) {
-                    $json = '{"jsonError": "unknown"}';
-                }
-                http_response_code(500);
-            }
-            echo $json;
+            $this->returnJson($readingArray);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
+    }
+
+    private function returnJson($data)
+    {
+        $jsonClass = new createJson($data);
+        $json = $jsonClass->createJson();
+        echo $json;
     }
 }

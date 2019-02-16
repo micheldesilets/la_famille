@@ -5,10 +5,11 @@
  * Time: 11:38
  */
 include_once '../../private/initialize.php';
-header('content-type: text/javascript');
+include_once CLASSES_PATH . '/database/cl_objectsDB.php';
+include_once CLASSES_PATH . '/business/cl_objects.php';
+include_once CLASSES_PATH . '/createJson.php';
 
-$path = $_GET['path']; /* Reading path  */
+$path = $_GET['path'];
 
-require_once CLASSES_PATH . '/database/cl_objectsDB.php';
 $db = new objectsDB();
-$reading = $db->getObjects($path);
+$db->getObjects($path);

@@ -11,7 +11,6 @@ class objectsDB
     public function getObjects($path)
     {
         include INCLUDES_PATH . 'db_connect.php';
-        require_once CLASSES_PATH . '/business/cl_objects.php';
 
         try {
             $sql = "SELECT description_obj,preview_pfo,file_obj
@@ -38,19 +37,18 @@ class objectsDB
             $stmt->close();
             unset($stmt);
 
-            header("Content-Type: application/json");
-            $json = json_encode($objectArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-            if ($json === false) {
-                $json = json_encode(array("jsonError", json_last_error_msg()));
-                if ($json === false) {
-                    $json = '{"jsonError": "unknown"}';
-                }
-                http_response_code(500);
-            }
-            echo $json;
+            $this->returnJson($objectArray);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
+    }
+
+    private function returnJson($data)
+    {
+        $jsonClass = new createJson($data);
+        $json = $jsonClass->createJson();
+        echo $json;
     }
 }

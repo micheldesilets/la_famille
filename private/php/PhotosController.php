@@ -7,6 +7,15 @@
  */
 
 include_once '../../private/initialize.php';
+include_once CLASSES_PATH . '/returnJson.php';
+include_once CLASSES_PATH . '/database/cl_PhotosDB.php';
+include_once CLASSES_PATH . '/business/cl_photos.php';
+include_once INCLUDES_PATH . 'functions.php';
+include_once INCLUDES_PATH . "role.php";
+include_once INCLUDES_PATH . "privilegedUser.php";
+
+include_once CLASSES_PATH . '/createJson.php';
+//include_once CLASSES_PATH . '/returnJson.php';
 
 if (isset($_POST['function'])) {
     $function = $_POST['function'];
@@ -14,7 +23,6 @@ if (isset($_POST['function'])) {
     $function = $_GET['function'];
 }
 
-require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
 $db = new photosDB();
 
 if ($function === 'zipAndDownload') {

@@ -1,10 +1,4 @@
 <?php
-require_once CLASSES_PATH . '/business/cl_photos.php';
-include_once INCLUDES_PATH . 'functions.php';
-require_once INCLUDES_PATH . "role.php";
-require_once INCLUDES_PATH . "privilegedUser.php";
-
-//sec_session_start();
 
 class photosDB
 {
@@ -27,7 +21,7 @@ class photosDB
             $i = 1;
             $stmt->bind_param("i", $i);
             $stmt->execute();
-            $stmt->bind_result($fileName,$fullPath);
+            $stmt->bind_result($fileName, $fullPath);
             $stmt->fetch();
             $stmt->close();
 
@@ -75,9 +69,8 @@ class photosDB
 
             $stmt->close();
 
-            header("Content-Type:application/json");
-            $json = json_encode($listPhotos);
-            echo $json;
+            $this->returnJson($listPhotos);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -116,9 +109,8 @@ class photosDB
 
             $stmt->close();
 
-            header("Content-Type:application/json");
-            $json = json_encode($listPhotos);
-            echo $json;
+            $this->returnJson($listPhotos);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -351,9 +343,8 @@ class photosDB
 
             $stmt->close();
 
-            header("Content-Type:application/json");
-            $json = json_encode($listPhotos);
-            echo $json;
+            $this->returnJson($listPhotos);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -505,9 +496,9 @@ class photosDB
                 copy($sourceName, $destName);
                 $value->path = 'photos_Normandeau_Desilets/';
             }
-            header("Content-Type:application/json");
-            $json = json_encode($listPhotos);
-            return $json;
+
+            $this->returnJson($listPhotos);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit(); //Should be a message a typical user could understand
@@ -678,5 +669,12 @@ class photosDB
             $photo->set_Year($year);
         }
         return $photo;
+    }
+
+    private function returnJson($data)
+    {
+        $jsonClass = new createJson($data);
+        $json = $jsonClass->createJson();
+        echo $json;
     }
 }

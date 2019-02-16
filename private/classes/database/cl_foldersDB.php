@@ -6,9 +6,6 @@
  * Time: 10:04
  */
 
-require_once CLASSES_PATH . '/business/cl_folders.php';
-require_once CLASSES_PATH . '/business/FolderLevels.php';
-
 class foldersDB
 {
     public function getFoldersTree()
@@ -56,8 +53,8 @@ class foldersDB
 
             $stmt->close();
 
-            $json = createJson($folderArray);
-            echo $json;
+            $this->returnJson($folderArray);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -110,8 +107,8 @@ class foldersDB
             unset($conn);
             unset($stmt);
 
-            $json = createJson($folderArray);
-            echo $json;
+            $this->returnJson($folderArray);
+
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -129,6 +126,8 @@ class foldersDB
                      $title = $folderData[4];
                      $levels = $folderData[5];*/
 
+            $path = PUBLIC_PATH . '/img/family';
+
             $level0Id = $folderData[0];
             $level0Name = $folderData[1];
             $level1Id = $folderData[2];
@@ -136,8 +135,6 @@ class foldersDB
             $level2Id = $folderData[4];
             $level2Name = $folderData[5];
             $level3Name = $folderData[6];
-
-            $path = PUBLIC_PATH . '/img/family';
 
             /*            $path = $path . "/" . $folder[0];
                         if (!file_exists($path)) {
@@ -423,9 +420,7 @@ class foldersDB
                 array_push($folderArray, $folder);
             }
 
-            header("Content-Type:application/json");
-            $json = createJson($folderArray);
-            echo $json;
+            $this->returnJson($folderArray);
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
@@ -493,8 +488,7 @@ class foldersDB
                 array_push($arrayFol, $fol);
             }
 
-            $json = createJson($arrayFol);
-            echo $json;
+            $this->returnJson($arrayFol);
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit;
@@ -523,8 +517,7 @@ class foldersDB
                 array_push($arrayFo2, $fo2);
             }
 
-            $json = createJson($arrayFo2);
-            echo $json;
+            $this->returnJson($arrayFo2);
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit;
@@ -553,30 +546,18 @@ class foldersDB
                 array_push($arrayFo3, $fo3);
             }
 
-            $json = createJson($arrayFo3);
-            echo $json;
+            $this->returnJson($arrayFo3);
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit;
         }
     }
-}
 
-
-function createJson($rawData)
-{
-    header("Content-Type: application/json");
-    $json = json_encode($rawData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-        // Avoid echo of empty string (which is invalid JSON), and
-        // JSONify the error message instead:
-        $json = json_encode(array("jsonError", json_last_error_msg()));
-        if ($json === false) {
-            // This should not happen, but we go all the way now:
-            $json = '{"jsonError": "unknown"}';
-        }
-        // Set HTTP response status code to: 500 - Internal Server Error
-        http_response_code(500);
+    private function returnJson($data)
+    {
+        $jsonClass = new createJson($data);
+        $json = $jsonClass->createJson();
+        echo $json;
     }
-    return $json;
 }
+

@@ -10,6 +10,9 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="ab856b40-65af-411f-9f2e-be7af257742c" name="localhost" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="E:\xampp\htdocs\lesnormandeaudesilets" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>

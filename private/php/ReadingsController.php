@@ -6,10 +6,12 @@
  * Time: 11:38
  */
 include_once '../../private/initialize.php';
-header('content-type: text/javascript');
+require_once CLASSES_PATH . '/database/cl_readingsDB.php';
+require_once CLASSES_PATH . '/business/cl_readings.php';
+include_once CLASSES_PATH . '/createJson.php';
 
 $path = $_GET['path']; /* Reading path  */
 
-require_once CLASSES_PATH . '/database/cl_readingsDB.php';
+
 $db = new readingsDB();
-$reading = $db->getReadings($path);
+$db->getReadings($path);

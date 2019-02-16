@@ -1160,6 +1160,7 @@ var getReadings = () => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../private/php/ReadingsController.php?path=' + path, true);
     xhr.onload = () => {
+        console.log(xhr.responseText);
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
         renderReadings(listPhotos);
@@ -1313,30 +1314,30 @@ var addFolder = () => {
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-/*                const xhr1 = new XMLHttpRequest();
-                /!*                xhr1.open('GET', '../../private/php/FoldersController.php?type=' +
-                                    folderData.type + '&member=' + folderData.member +
-                                    '&decade=' + folderData.decade + '&year=' + folderData.year +
-                                    '&title=' + folderData.title + '&levels=' +
-                                    folderData.levels + '&function=addFolderMysql', true);*!/
-                /!*                xhr1.open('GET', '../../private/php/FoldersController.php +' +
-                                    '?level0Id=' + folderData.idLevel0 +
-                                    '&level1Id=' + folderData.idLevel1 +
-                                    '&level1Name=' + folderData.level1 +
-                                    '&level2Id=' + folderData.idLevel2 +
-                                    '&level2Name=' + folderData.level2 +
-                                    '&level3Name=' + folderData.level3 +
-                                    '&function=addFolderMysql', true);*!/
-                xhr1.onload = () => {
-                    if (xhr1.readyState === 4) {
-                        if (xhr1.status === 200) {
-                            document.getElementsByClassName('data-box__message')[0].style.display = 'block';
-                            // TODO: Rediriger l usater vers l ajout de photos
-                            //     - dans le bon repertoire
-                        }
-                    }
-                };
-                xhr1.send();*/
+                /*                const xhr1 = new XMLHttpRequest();
+                                /!*                xhr1.open('GET', '../../private/php/FoldersController.php?type=' +
+                                                    folderData.type + '&member=' + folderData.member +
+                                                    '&decade=' + folderData.decade + '&year=' + folderData.year +
+                                                    '&title=' + folderData.title + '&levels=' +
+                                                    folderData.levels + '&function=addFolderMysql', true);*!/
+                                /!*                xhr1.open('GET', '../../private/php/FoldersController.php +' +
+                                                    '?level0Id=' + folderData.idLevel0 +
+                                                    '&level1Id=' + folderData.idLevel1 +
+                                                    '&level1Name=' + folderData.level1 +
+                                                    '&level2Id=' + folderData.idLevel2 +
+                                                    '&level2Name=' + folderData.level2 +
+                                                    '&level3Name=' + folderData.level3 +
+                                                    '&function=addFolderMysql', true);*!/
+                                xhr1.onload = () => {
+                                    if (xhr1.readyState === 4) {
+                                        if (xhr1.status === 200) {
+                                            document.getElementsByClassName('data-box__message')[0].style.display = 'block';
+                                            // TODO: Rediriger l usater vers l ajout de photos
+                                            //     - dans le bon repertoire
+                                        }
+                                    }
+                                };
+                                xhr1.send();*/
             }
         }
     };
@@ -1481,7 +1482,7 @@ var GetFolderLevel3 = (idFo2) => {
         '&function=GetFoldersLevel3', true);
     xhr.onload = () => {
         const level3 = JSON.parse(xhr.responseText);
-        if(level3.length!==0) {
+        if (level3.length !== 0) {
             RenderFolderLevel3(level3);
         }
     };
