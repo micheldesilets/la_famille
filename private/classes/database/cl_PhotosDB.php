@@ -1,11 +1,21 @@
 <?php
 
+include_once CLASSES_PATH . '/DbConnection.php';
 class photosDB
 {
-    /* --- GETSIDEBARPHOTO --- */
-    public function getSidebarPhoto()
+/*    private $con;
+
+    public function __construct()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $db = new DbConnection();
+        $this->con = $db->Connect();
+    }*/
+
+    /* --- GETSIDEBARPHOTO --- */
+  /*  public function getSidebarPhoto()
+    {
+     include INCLUDES_PATH . 'db_connect.php';
+
         try {
             $photoSb = new Photos();
 
@@ -33,55 +43,55 @@ class photosDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
     /* --- GETPHOTOS --- */
-    public function getPhotos($path)
-    {
-        include INCLUDES_PATH . 'db_connect.php';
-        try {
-            $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
-                           full_pfo, preview_pfo, filename_pho, pdf_pho, 
-                           idgen_pho, title_fol, year_pho
-                      FROM photos_folders_pfo pfo
-                           INNER JOIN photos_pho pho
-                                   ON pfo.idfol_pfo = pho.idfol_pho
-                                 JOIN folders_fol rpt
-                                   ON pfo.idfol_pfo = rpt.id_fol
-                     WHERE pfo.idfol_pfo = ?
-                  ORDER BY pho.year_pho";
+/*    public function getPhotos($path)
+        {
+          include INCLUDES_PATH . 'db_connect.php';
+            try {
+                $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho,
+                               full_pfo, preview_pfo, filename_pho, pdf_pho,
+                               idgen_pho, title_fol, year_pho
+                          FROM photos_folders_pfo pfo
+                               INNER JOIN photos_pho pho
+                                       ON pfo.idfol_pfo = pho.idfol_pho
+                                     JOIN folders_fol rpt
+                                       ON pfo.idfol_pfo = rpt.id_fol
+                         WHERE pfo.idfol_pfo = ?
+                      ORDER BY pho.year_pho";
 
-            $stmt = $con->prepare($sql);
-            $i = "i";
-            $stmt->bind_param($i, $path);
-            $stmt->execute();
-            $stmt->bind_result($id, $titlePho, $keywords, $caption,
-                $full, $preview, $filename, $pdf, $idgen, $titleFol,
-                $year);
-
-            $listPhotos = [];
-            while ($stmt->fetch()) {
-                $photo = $this->setToClass($id, $titlePho, $keywords, $caption,
+                $stmt = $con->prepare($sql);
+                $i = "i";
+                $stmt->bind_param($i, $path);
+                $stmt->execute();
+                $stmt->bind_result($id, $titlePho, $keywords, $caption,
                     $full, $preview, $filename, $pdf, $idgen, $titleFol,
                     $year);
-                array_push($listPhotos, $photo);
+
+                $listPhotos = [];
+                while ($stmt->fetch()) {
+                    $photo = $this->setToClass($id, $titlePho, $keywords, $caption,
+                        $full, $preview, $filename, $pdf, $idgen, $titleFol,
+                        $year);
+                    array_push($listPhotos, $photo);
+                }
+
+                $stmt->close();
+
+                $this->returnJson($listPhotos);
+
+            } catch (Exception $e) {
+                error_log($e->getMessage());
+                exit();
             }
-
-            $stmt->close();
-
-            $this->returnJson($listPhotos);
-
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-            exit();
-        }
-    }
+        }*/
 
     /* --- GETINFOPHOTOS --- */
-    public function getInfoPhoto($pid)
+  /*  public function getInfoPhoto($pid)
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+           include INCLUDES_PATH . 'db_connect.php';
 
             $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
                            full_pfo, preview_pfo, filename_pho, pdf_pho, 
@@ -115,13 +125,13 @@ class photosDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
     /* --- GETSEARCHPHOTOS --- */
-    public function getSearchPhotos($searchData)
+  /*  public function getSearchPhotos($searchData)
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+           include INCLUDES_PATH . 'db_connect.php';
 
             $kwords = $searchData[0];
             $startYear = $searchData[1];
@@ -349,9 +359,9 @@ class photosDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
-    private
+ /*   private
     function buildNamesList($idxs)
     {
         include INCLUDES_PATH . 'db_connect.php';
@@ -382,9 +392,9 @@ class photosDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
-    private function buildIdxList($idxs)
+   /* private function buildIdxList($idxs)
     {
         include INCLUDES_PATH . 'db_connect.php';
 
@@ -396,12 +406,12 @@ class photosDB
                       FROM geneology_idx_gen gen
                      WHERE gen.id_gen = ?";
 
-            $stmt = $con->prepare($sql);
+            $stmt1 = $con->prepare($sql);
 
             foreach ($array as $value) {
-                $stmt->bind_param("s", $value);
-                $stmt->execute();
-                $data = $stmt->get_result()->fetch_all();
+                $stmt1->bind_param("i", $value);
+                $stmt1->execute();
+                $data = $stmt1->get_result()->fetch_all();
 
                 $n = $data[0];
 
@@ -416,9 +426,9 @@ class photosDB
             error_log($e->getMessage());
             exit(); //Should be a message a typical user could understand
         }
-    }
+    }*/
 
-    function insertPhotoInfo($photoInfo)
+/*    function insertPhotoInfo($photoInfo)
     {
         include INCLUDES_PATH . 'db_connect.php';
         $con->query('SET NAMES utf8');
@@ -444,9 +454,9 @@ class photosDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
-    function downloadPhotos($listPids)
+  /*  function downloadPhotos($listPids)
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';
@@ -503,12 +513,12 @@ class photosDB
             error_log($e->getMessage());
             exit(); //Should be a message a typical user could understand
         }
-    }
+    }*/
 
     function deletePhotos($listPids)
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+           include INCLUDES_PATH . 'db_connect.php';
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             mysqli_autocommit($con, FALSE);
 
@@ -611,7 +621,7 @@ class photosDB
         }
     }
 
-    private function setToClass($id, $titlePho, $keywords, $caption,
+ /*   private function setToClass($id, $titlePho, $keywords, $caption,
                                 $full, $preview, $filename, $pdf, $idgen,
                                 $titleFol, $year)
     {
@@ -676,5 +686,5 @@ class photosDB
         $jsonClass = new createJson($data);
         $json = $jsonClass->createJson();
         echo $json;
-    }
+    }*/
 }

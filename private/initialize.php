@@ -9,4 +9,5 @@ define("SHARED_PATH", PRIVATE_PATH . '/shared');
 define("INCLUDES_PATH", PRIVATE_PATH . '/php/includes/');
 define("CLASSES_PATH", PRIVATE_PATH . '/classes');
 define("PUBLIC_PATH", PROJECT_PATH . '/public');
+define("PHP_PATH", PROJECT_PATH . '/private/php');
 ?>

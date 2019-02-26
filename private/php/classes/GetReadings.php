@@ -2,16 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: User
- * Date: 2018-07-21
- * Time: 10:54
+ * Date: 2019-02-26
+ * Time: 08:48
  */
 
-class readingsDB
+class GetReadings
 {
-    public function getReadings($path)
+    private $path;
+    private $json;
+
+
+    public function __construct($path)
+    {
+        $this->path=$path;
+    }
+
+    public function getReadings()
     {
         include INCLUDES_PATH . 'db_connect.php';
-        //    require_once CLASSES_PATH . '/business/cl_readings.php';
 
         try {
             $sql = "SELECT title_rea,address_rea,intro_rea,summary_rea,full_pfo,
@@ -23,7 +31,7 @@ class readingsDB
                      ORDER BY rr.order_rea";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("i", $path);
+            $stmt->bind_param("i", $this->path);
             $stmt->bind_result($title, $address, $intro, $summary, $full, $file);
             $stmt->execute();
 
@@ -46,7 +54,8 @@ class readingsDB
             $stmt->close();
             unset($stmt);
 
-            $this->returnJson($readingArray);
+            $this->json = new CreateJson($readingArray);
+            echo $this->json->createJsonMethod();
 
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -54,10 +63,4 @@ class readingsDB
         }
     }
 
-    private function returnJson($data)
-    {
-        $jsonClass = new createJson($data);
-        $json = $jsonClass->createJson();
-        echo $json;
-    }
 }

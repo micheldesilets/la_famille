@@ -29,9 +29,11 @@ if (login_check($mysqli) == true) {
     <script type="text/JavaScript" src="public/js/sha512.js"></script>
     <?php
     include_once 'private/initialize.php';
-    require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
+    //require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
+    require_once PHP_PATH . '/classes/SidebarPhoto.php';
     require_once CLASSES_PATH . '/business/cl_photos.php';
-    $dbSb = new photosDB();
+  //  $dbSb = new photosDB();
+    $dbSb = new SidebarPhoto();
     $photoSb = $dbSb->getSidebarPhoto();
     $fileSb = $photoSb->get_Filename();
     $pathSb = $photoSb->get_P_Path();
@@ -131,7 +133,7 @@ if ($logged === "in") {
                     <a class="masthead__item" href="public/php/addPhotos.php">
                         Ajouter des photos</a>
                 </div>
-            <?php endif; endif;?>
+            <?php endif; endif; ?>
         </div>
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">

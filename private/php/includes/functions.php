@@ -1,5 +1,4 @@
 <?php
-
 include_once INCLUDES_PATH . 'psl-config.php';
 
 function sec_session_start()
@@ -66,6 +65,7 @@ function login($email, $password, $mysqli)
                     $_SESSION['login_string'] = hash('sha512',
                         $db_password . $user_browser);
                     // Login successful.
+
                     return true;
                 } else {
                     // Password is not correct

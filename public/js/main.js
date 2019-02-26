@@ -200,7 +200,7 @@ var getPhotos = (path, type) => {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../private/php/PhotosController.php?path=" + path +
+        xhr.open("GET", "../../private/php/controllers/PhotosController.php?path=" + path +
             '&function=getPhotos', true);
         xhr.onload = () => {
             if (xhr.readyState === 4) {
@@ -230,7 +230,7 @@ var searchInputs = () => {
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../private/php/PhotosController.php?kwrd=" +
+    xhr.open("GET", "../../private/php/controllers/PhotosController.php?kwrd=" +
         searchFormData.kwords + "&startYear=" + searchFormData.startYear +
         "&endYear=" + searchFormData.endYear + "&wExact=" +
         searchFormData.wExact.toString() + "&wPart=" +
@@ -261,7 +261,7 @@ var getSelectedInfoPhoto = () => {
     selectedPhotoIdx =
         new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
+    xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
         selectedPhotoId + '&function=getInfo', true);
     xhr.onload = () => {
         const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -1158,7 +1158,7 @@ var getReadings = () => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/ReadingsController.php?path=' + path, true);
+    xhr.open('GET', '../../private/php/controllers/ReadingsController.php?path=' + path, true);
     xhr.onload = () => {
         console.log(xhr.responseText);
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
@@ -1200,7 +1200,7 @@ var renderReadings = (data) => {
 var getObjects = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/ObjectsController.php?path=' + 12, true);
+    xhr.open('GET', '../../private/php/Controllers/ObjectsController.php?path=' + 12, true);
     xhr.onload = () => {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1714,7 +1714,7 @@ var insertPhotoInfo = () => {
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
 
-    req.open('POST', '../../private/php/PhotosController.php?photoId=' +
+    req.open('POST', '../../private/php/controllers/PhotosController.php?photoId=' +
         inputs.photoId + '&title=' + inputs.title + '&keyWords=' +
         inputs.keyWords + '&caption=' + inputs.caption + '&year=' + inputs.year +
         '&geneologyIdxs=' + inputs.geneologyIdxs +
@@ -1903,7 +1903,7 @@ var disableSubmitButton = () => {
 var downloadPhotos = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/PhotosController.php', true);
+    xhr.open('POST', '../../private/php/controllers/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.responseType = 'blob';

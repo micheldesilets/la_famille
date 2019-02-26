@@ -6,7 +6,8 @@
  * Time: 11:33
  */
 
-include_once '../../private/initialize.php';
+include_once '../../initialize.php';
+include_once CLASSES_PATH . '/returnJson.php';
 include_once CLASSES_PATH . '/database/cl_PhotosDB.php';
 include_once CLASSES_PATH . '/business/cl_photos.php';
 include_once INCLUDES_PATH . 'functions.php';
@@ -14,7 +15,8 @@ include_once INCLUDES_PATH . "role.php";
 include_once INCLUDES_PATH . "privilegedUser.php";
 include_once CLASSES_PATH . '/DbConnection.php';
 include_once PHP_PATH . '/classes/CreateJson.php';
-
+include_once PHP_PATH . '/classes/JsonClient.php';
+include_once PHP_PATH . '/classes/GetPhotoMetadata.php';
 
 if (isset($_POST['function'])) {
     $function = $_POST['function'];
@@ -22,14 +24,28 @@ if (isset($_POST['function'])) {
     $function = $_GET['function'];
 }
 
-$db = new photosDB();
+//$db = new photosDB();
+
+/*switch ($function){
+    case 'getPhotos':
+        $path = $_GET['path']; /* Répertoire des photos */
+//     $worker=new JsonClient(1,$path);
+//      break;
+//}
 
 if ($function === 'zipAndDownload') {
+    include_once PHP_PATH . '/classes/GetSelectedDownloadPhotos.php';
+    include_once PHP_PATH . '/classes/CreateZipFile.php';
+
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
-        $photos = $db->downloadPhotos($listPids);
+        $db = new GetSelectedDownloadPhotos($listPids);
+        $photos = $db->getDownloadPhotos();
         $listPhotos = json_decode($photos, true);
 
+        $zip=new CreateZipFile($listPhotos);
+        $zip->createZip();
+        /*
 // Checking files are selected
         $curr = getcwd();
 
@@ -59,7 +75,7 @@ if ($function === 'zipAndDownload') {
             header("Content-Disposition: attachment; filename=$zip_name");
             header("Content-Transfer-Encoding: binary");
             readfile($zip_name);
-        }
+        }*/
     }
 }
 
@@ -83,16 +99,15 @@ if ($function === 'removeZipFile') {
 }
 
 if ($function === 'getPhotos') {
-    $path = $_GET['path']; /* Répertoire des photos */
-    $db = new photosDB();
-    $db->getPhotos($path);
+    $path = $_GET['path'];
+    $worker = new JsonClient(1,$path); /* Factory Method Design Pattern */
 }
 
-/*if ($function == 'getInfo') {
+if ($function == 'getInfo') {
     $pid = $_GET['pid'];
-    $db = new photosDB();
-    $db->getInfoPhoto($pid);
-}*/
+    $db = new GetPhotoMetadata($pid);
+    $db->getPhotoInfo();
+}
 
 if ($function == 'insertPhotoInfo') {
     $photoId = $_GET['photoId'];
@@ -104,8 +119,9 @@ if ($function == 'insertPhotoInfo') {
 
     $infoData = array($photoId, $title, $keywords, $caption, $year, $geneologyIdxs);
 
-    $db = new photosDB();
-    $db->insertPhotoInfo($infoData);
+    include_once PHP_PATH . '/classes/AddPhotoMetadata.php';
+    $db = new AddPhotoMetadata($infoData);
+    //$db->insertPhotoInfo();
 }
 
 if ($function === 'getSearchPhotos') {
@@ -140,8 +156,8 @@ if ($function === 'getSearchPhotos') {
 
     $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-    require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    $db = new photosDB();
+    include_once PHP_PATH . '/classes/GetSearchedPhotos.php';
+    $db = new GetSearchedPhotos();
     $db->getSearchPhotos($searchData);
     return;
 }

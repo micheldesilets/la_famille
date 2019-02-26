@@ -2,13 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: User
- * Date: 2018-07-21
- * Time: 10:54
+ * Date: 2019-02-26
+ * Time: 08:34
  */
 
-class objectsDB
+class GetObjects
 {
-    public function getObjects($path)
+    private $path;
+    private $json;
+
+    public function __construct($path)
+    {
+        $this->path=$path;
+    }
+
+    public function getObjects()
     {
         include INCLUDES_PATH . 'db_connect.php';
 
@@ -21,7 +29,7 @@ class objectsDB
                   ORDER BY order_obj";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("i", $path);
+            $stmt->bind_param("i", $this->path);
             $stmt->bind_result($description, $preview, $file);
             $stmt->execute();
 
@@ -37,18 +45,12 @@ class objectsDB
             $stmt->close();
             unset($stmt);
 
-            $this->returnJson($objectArray);
+            $this->json = new CreateJson($objectArray);
+            echo $this->json->createJsonMethod();
 
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
-    }
-
-    private function returnJson($data)
-    {
-        $jsonClass = new createJson($data);
-        $json = $jsonClass->createJson();
-        echo $json;
     }
 }

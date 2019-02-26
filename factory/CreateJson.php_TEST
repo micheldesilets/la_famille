@@ -6,7 +6,7 @@
  * Time: 10:37
  */
 
-class createJson
+class CreateJson
 {
     private $arrayData;
 
@@ -15,7 +15,7 @@ class createJson
         $this->arrayData = $arrayData;
     }
 
-    public function createJson()
+    public function createJsonMethod()
     {
   //      header("Content-Type: application/json");
         $json = json_encode($this->arrayData, JSON_PRETTY_PRINT |

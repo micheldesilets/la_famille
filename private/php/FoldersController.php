@@ -9,7 +9,7 @@ include_once '../../private/initialize.php';
 require_once CLASSES_PATH . '/database/cl_foldersDB.php';
 require_once CLASSES_PATH . '/business/cl_folders.php';
 require_once CLASSES_PATH . '/business/FolderLevels.php';
-include_once CLASSES_PATH . '/createJson.php';
+include_once PHP_PATH . '/classes/CreateJson.php';
 
 header('content-type: text/javascript');
 
@@ -19,7 +19,7 @@ $db = new foldersDB();
 
 if ($function === 'getFoldersTree') {
     $db->getFoldersTree();
-    return;
+    exit;
 }
 
 if ($function === 'getShiftingFolders') {

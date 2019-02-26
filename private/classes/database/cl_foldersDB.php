@@ -8,6 +8,8 @@
 
 class foldersDB
 {
+    private $jsonString;
+
     public function getFoldersTree()
     {
         try {
@@ -107,7 +109,8 @@ class foldersDB
             unset($conn);
             unset($stmt);
 
-            $this->returnJson($folderArray);
+            $this->jsonString = $this->returnJson($folderArray);
+            echo $this->jsonString;
 
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -555,8 +558,8 @@ class foldersDB
 
     private function returnJson($data)
     {
-        $jsonClass = new createJson($data);
-        $json = $jsonClass->createJson();
+        $json = new createJson($data);
+        $json = $json->createJsonMethod();
         echo $json;
     }
 }
