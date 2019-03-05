@@ -8,8 +8,6 @@
 
 abstract class returnJson
 {
-
-
     function __construct($data)
     {
     }

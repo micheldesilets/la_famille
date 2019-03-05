@@ -15,12 +15,12 @@ class GetSelectedDownloadPhotosProduct implements JsonProduct
     private $initClass;
     private $param;
 
-    public function __construct($listPids)
+    public function __construct($param)
     {
-        $this->param = $listPids;
+        $this->param = $param;
     }
 
-    public function getProperties($param)
+    public function getProperties()
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';

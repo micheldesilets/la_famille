@@ -13,9 +13,9 @@ class JsonFactory extends JsonCreator
 {
     private $json;
 
-    protected function factoryMethod(JsonProduct $product,$param)
+    protected function factoryMethod(JsonProduct $product)
     {
         $this->json = $product;
-        return ($this->json->getProperties($param));
+        return ($this->json->getProperties());
     }
 }

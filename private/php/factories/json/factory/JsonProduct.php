@@ -10,7 +10,7 @@ interface JsonProduct
 {
     function __construct($param);
 
-    function getProperties($param);
+    function getProperties();
 
     function createJson($json);
 }

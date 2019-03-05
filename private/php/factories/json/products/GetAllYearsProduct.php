@@ -19,7 +19,7 @@ class GetAllYearsProduct implements JsonProduct
         $this->param=$param;
     }
 
-    public function getProperties($param)
+    public function getProperties()
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';

@@ -18,7 +18,7 @@ class GetFoldersTreeProduct implements JsonProduct
         $this->param = $param;
     }
 
-    public function getProperties($param)
+    public function getProperties()
     {
         // TODO: Implement getProperties() method.
     }

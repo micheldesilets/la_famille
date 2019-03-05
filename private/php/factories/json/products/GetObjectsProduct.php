@@ -18,7 +18,7 @@ class GetObjectsProduct implements JsonProduct
         $this->param=$param;
     }
 
-    public function getProperties($param)
+    public function getProperties()
     {
         include INCLUDES_PATH . 'db_connect.php';
 

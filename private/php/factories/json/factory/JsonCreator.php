@@ -16,7 +16,7 @@ include_once PRIVATE_PHP_PATH . '/factories/json/products/GetMainFolderProduct.p
 
 abstract class JsonCreator
 {
-    protected abstract function factoryMethod(JsonProduct $product, $param);
+    protected abstract function factoryMethod(JsonProduct $product);
 
     public function doFactory($prod, $param)
     {
@@ -43,7 +43,7 @@ abstract class JsonCreator
                 $jsonProduct = new GetMainFolderProduct($param);
                 break;
         }
-        $mfg = $this->factoryMethod($jsonProduct, $param);
+        $mfg = $this->factoryMethod($jsonProduct);
         return $mfg;
     }
 }

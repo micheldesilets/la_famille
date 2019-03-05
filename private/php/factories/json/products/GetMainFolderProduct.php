@@ -21,7 +21,7 @@ class GetMainFolderProduct implements JsonProduct
         $this->param = $param;
     }
 
-    public function getProperties($param)
+    public function getProperties()
     {
         include INCLUDES_PATH . 'db_connect.php';
         mysqli_set_charset($con, "utf8");
