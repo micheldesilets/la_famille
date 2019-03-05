@@ -13,24 +13,25 @@ class CreateZipFile
     public function __construct($list)
     {
         $this->zipList=$list;
+        $this->createZip();
     }
 
-    public function createZip()
+    private function createZip()
     {
         $curr = getcwd();
 
         $zip = new ZipArchive();
-        $zip_name =
+        $zip_name = PROJECT_PATH . '/' .
             'public/archives/lesnormandeaudesilets' . time() . ".zip";
-        $fname = $zip_name;
 
         if ($zip->open($zip_name, ZIPARCHIVE::CREATE) !== TRUE) {
             // Opening zip file to load files
             $error .= "* Sorry ZIP creation failed at this time";
         }
 
+        chdir(PROJECT_PATH . '/');
         foreach ($this->zipList as $key => $value) {
-            $path = $value["path"];
+            $path = 'photos_Normandeau_Desilets/';
             $file = $value["filename"];
             $filename = $path . $file;
             $zip->addFile($filename);

@@ -6,11 +6,10 @@
  * Time: 11:38
  */
 include_once '../../initialize.php';
-require_once PHP_PATH . '/classes/GetReadings.php';
 require_once CLASSES_PATH . '/business/cl_readings.php';
-include_once PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 $path = $_GET['path']; /* Reading path  */
 
-$db = new GetReadings($path);
-$db->getReadings();
+$worker = new JsonClientEcho(4, $path); /* Factory Method Design Pattern */

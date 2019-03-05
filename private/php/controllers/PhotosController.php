@@ -7,16 +7,16 @@
  */
 
 include_once '../../initialize.php';
-include_once CLASSES_PATH . '/returnJson.php';
-include_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-include_once CLASSES_PATH . '/business/cl_photos.php';
+include_once PRIVATE_PHP_PATH . '/misc/returnJson.php';
+include_once PRIVATE_PHP_PATH . '/classes/business/cl_photos.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . "role.php";
 include_once INCLUDES_PATH . "privilegedUser.php";
-include_once CLASSES_PATH . '/DbConnection.php';
-include_once PHP_PATH . '/classes/CreateJson.php';
-include_once PHP_PATH . '/classes/JsonClient.php';
-include_once PHP_PATH . '/classes/GetPhotoMetadata.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
+include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientReturn.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/products/GetPhotoMetadataProduct.php';
 
 if (isset($_POST['function'])) {
     $function = $_POST['function'];
@@ -24,89 +24,33 @@ if (isset($_POST['function'])) {
     $function = $_GET['function'];
 }
 
-//$db = new photosDB();
-
-/*switch ($function){
-    case 'getPhotos':
-        $path = $_GET['path']; /* Répertoire des photos */
-//     $worker=new JsonClient(1,$path);
-//      break;
-//}
-
 if ($function === 'zipAndDownload') {
-    include_once PHP_PATH . '/classes/GetSelectedDownloadPhotos.php';
-    include_once PHP_PATH . '/classes/CreateZipFile.php';
+    include_once PRIVATE_PHP_PATH . '/classes/CreateZipFile.php';
+    include_once PRIVATE_PHP_PATH . '/classes/CopyToTempFolder.php';
 
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
-        $db = new GetSelectedDownloadPhotos($listPids);
-        $photos = $db->getDownloadPhotos();
-        $listPhotos = json_decode($photos, true);
+        $photos = new JsonClientReturn(5, $listPids);
 
-        $zip=new CreateZipFile($listPhotos);
-        $zip->createZip();
-        /*
-// Checking files are selected
-        $curr = getcwd();
-
-        $zip = new ZipArchive();
-        $zip_name =
-            'public/archives/lesnormandeaudesilets' . time() . ".zip";
-        $fname = $zip_name;
-
-        if ($zip->open($zip_name, ZIPARCHIVE::CREATE) !== TRUE) {
-            // Opening zip file to load files
-            $error .= "* Sorry ZIP creation failed at this time";
-        }
-
-        foreach ($listPhotos as $key => $value) {
-            $path = $value["path"];
-            $file = $value["filename"];
-            $filename = $path . $file;
-            $zip->addFile($filename);
-        }
-
-        $zip->close();
-
-        if (file_exists($zip_name)) {
-            header("Cache-Control: public");
-            header("Content-Description: File Transfer");
-            header('Content-type: application/zip');
-            header("Content-Disposition: attachment; filename=$zip_name");
-            header("Content-Transfer-Encoding: binary");
-            readfile($zip_name);
-        }*/
+        $listPhotos = json_decode($photos->getJsonFactory(), true);
+        $zip = new CreateZipFile($listPhotos);
     }
 }
 
 if ($function === 'removeZipFile') {
-    $curr = getcwd();
-    chdir('../../');
-    $dir = "public/archives";
-    $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-    $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
-    foreach ($ri as $file) {
-        $file->isDir() ? rmdir($file) : unlink($file);
-    }
-
-    $dir = "photos_Normandeau_Desilets";
-    $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-    $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
-    foreach ($ri as $file) {
-        $file->isDir() ? rmdir($file) : unlink($file);
-    }
-    return true;
+    include_once PRIVATE_PHP_PATH . '/classes/RemoveZipFile.php';
+    $remove = new RemoveZipFile();
 }
 
 if ($function === 'getPhotos') {
     $path = $_GET['path'];
-    $worker = new JsonClient(1,$path); /* Factory Method Design Pattern */
+    $worker = new JsonClientEcho(1, $path); /* Factory Method Design Pattern */
 }
 
-if ($function == 'getInfo') {
+if ($function == 'getMetadata') {
     $pid = $_GET['pid'];
-    $db = new GetPhotoMetadata($pid);
-    $db->getPhotoInfo();
+    $worker = new JsonClientEcho(6, $pid);
+ //   echo $worker->getEcho();
 }
 
 if ($function == 'insertPhotoInfo') {
@@ -119,9 +63,8 @@ if ($function == 'insertPhotoInfo') {
 
     $infoData = array($photoId, $title, $keywords, $caption, $year, $geneologyIdxs);
 
-    include_once PHP_PATH . '/classes/AddPhotoMetadata.php';
+    include_once PRIVATE_PHP_PATH . '/classes/AddPhotoMetadata.php';
     $db = new AddPhotoMetadata($infoData);
-    //$db->insertPhotoInfo();
 }
 
 if ($function === 'getSearchPhotos') {
@@ -156,16 +99,17 @@ if ($function === 'getSearchPhotos') {
 
     $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-    include_once PHP_PATH . '/classes/GetSearchedPhotos.php';
-    $db = new GetSearchedPhotos();
-    $db->getSearchPhotos($searchData);
+    include_once PRIVATE_PHP_PATH . '/classes/GetSearchedPhotos.php';
+    $db = new GetSearchedPhotos($searchData);
+    echo $db->getJsonString();
     return;
 }
 
 if ($function === 'deletePhotos') {
+    include_once PRIVATE_PHP_PATH . '/classes/DeletePhotosFromFolder.php';
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
-        $db->deletePhotos($listPids);
+        $db = new DeletePhotosFromFolder($listPids);
     }
 }
 

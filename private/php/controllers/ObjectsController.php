@@ -5,11 +5,10 @@
  * Time: 11:38
  */
 include_once '../../initialize.php';
-include_once PHP_PATH . '/classes/GetObjects.php';
 include_once CLASSES_PATH . '/business/cl_objects.php';
-include_once PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 $path = $_GET['path'];
 
-$db = new GetObjects($path);
-$db->getObjects();
+$worker = new JsonClientEcho(3, $path); /* Factory Method Design Pattern */

@@ -14,9 +14,20 @@ class CreateJson
     public function __construct($arrayData)
     {
         $this->arrayData = $arrayData;
+        $this->setJson($this->createJsonMethod());
     }
 
-    public function createJsonMethod()
+    private function setJson($json): void
+    {
+        $this->json = $json;
+    }
+
+    public function getJson()
+    {
+        return $this->json;
+    }
+
+    private function createJsonMethod()
     {
         $this->json = json_encode($this->arrayData, JSON_PRETTY_PRINT |
             JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

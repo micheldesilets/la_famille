@@ -28,7 +28,7 @@ var getUserPerm = () => {
 var getFolderTree = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/FoldersController.php?function=getFoldersTree',
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=getFoldersTree',
         true);
     xhr.onload = () => {
         const folderData = JSON.parse(xhr.responseText);
@@ -262,7 +262,7 @@ var getSelectedInfoPhoto = () => {
         new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
-        selectedPhotoId + '&function=getInfo', true);
+        selectedPhotoId + '&function=getMetadata', true);
     xhr.onload = () => {
         const myInfoPhoto = JSON.parse(xhr.responseText);
         renderInfoPhoto(myInfoPhoto);
@@ -278,7 +278,7 @@ var getPhotoInfoPrevious = () => {
         const infoList = photoInfoList.getPhotoInfoList();
         xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
             infoList[idx].idpho +
-            '&function=getInfo', true);
+            '&function=getMetadata', true);
         xhr.onload = () => {
             const myInfoPhoto = JSON.parse(xhr.responseText);
             renderInfoPhoto(myInfoPhoto);
@@ -295,7 +295,7 @@ var getPhotoInfoNext = () => {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
             infoList[idx].idpho +
-            '&function=getInfo', true);
+            '&function=getMetadata', true);
         xhr.onload = () => {
             const myInfoPhoto = JSON.parse(xhr.responseText);
             renderInfoPhoto(myInfoPhoto);
@@ -491,8 +491,8 @@ var initSearchInputs = () => {
 var initAllYears = () => {
     'use strict';
     if (Object.keys(allYearsData).length === 0) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/YearsController.php?function=getAllYears', true);
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '../../private/php/controllers/YearsController.php?function=getAllYears', true);
         xhr.onload = () => {
             allYearsData = new listOfAllYears(JSON.parse(xhr.responseText));
             renderAllYears();
@@ -944,7 +944,7 @@ var deletePhotos = () => {
     'use strict';
     var path = folderTree.getFolderId();
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/PhotosController.php', true);
+    xhr.open('POST', '../../private/php/controllers/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.onreadystatechange = () => {
@@ -1302,7 +1302,7 @@ var addFolder = () => {
             folderData.decade + '&year=' + folderData.year +
             '&title=' + folderData.title + '&levels=' + folderData.levels +
             '&function=addFolder', true);*/
-    xhr.open('GET', '../../private/php/FoldersController.php' +
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php' +
         '?level0Id=' + folderData.idLevel0 +
         '&level0Name=' + folderData.level0 +
         '&level1Id=' + folderData.idLevel1 +
@@ -1435,7 +1435,7 @@ var GetFolderLevel0 = (member) => {
 var GetFolderLevel1 = (idmem) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/FoldersController.php?function=' +
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=' +
         'GetFoldersLevel1&idmem=' + idmem, true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
@@ -1459,7 +1459,7 @@ var GetFolderLevel2 = (idFo1) => {
             document.getElementsByClassName('data-box__id-value1');
         var idParent = lev1[0].value;*/
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/FoldersController.php?idParent=' + idFo1 +
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?idParent=' + idFo1 +
         '&function=GetFoldersLevel2', true);
     xhr.onload = () => {
         const level2 = JSON.parse(xhr.responseText);
@@ -1478,7 +1478,7 @@ var GetFolderLevel3 = (idFo2) => {
             document.getElementsByClassName('data-box__id-value2');
         var idParent = lev2[0].value;*/
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/FoldersController.php?idParent=' + idFo2 +
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?idParent=' + idFo2 +
         '&function=GetFoldersLevel3', true);
     xhr.onload = () => {
         const level3 = JSON.parse(xhr.responseText);
@@ -1654,7 +1654,7 @@ var getFolders = (fisrtYear) => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/FoldersController.php?year=' + year +
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?year=' + year +
         '&function=getFolders', true);
     xhr.onload = () => {
         console.log(xhr.responseText);
@@ -1854,7 +1854,7 @@ var getShiftingFolders = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../../private/php/FoldersController.php?function=getShiftingFolders');
+    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=getShiftingFolders');
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1927,7 +1927,7 @@ var downloadPhotos = () => {
             postDownload();
 
             const xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', '../../private/php/PhotosController.php?function=' +
+            xhr1.open('GET', '../../private/php/controllers/PhotosController.php?function=' +
                 'removeZipFile', true);
             xhr1.send();
         }

@@ -30,7 +30,7 @@ if (login_check($mysqli) == true) {
     <?php
     include_once 'private/initialize.php';
     //require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    require_once PHP_PATH . '/classes/SidebarPhoto.php';
+    require_once PRIVATE_PHP_PATH . '/classes/SidebarPhoto.php';
     require_once CLASSES_PATH . '/business/cl_photos.php';
   //  $dbSb = new photosDB();
     $dbSb = new SidebarPhoto();

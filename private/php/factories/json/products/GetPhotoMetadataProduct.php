@@ -2,13 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: User
- * Date: 2019-02-24
- * Time: 15:29
+ * Date: 2019-02-25
+ * Time: 10:58
  */
 
-class getMetadataPhoto
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+
+class GetPhotoMetadataProduct implements JsonProduct
 {
-    public function getMetadataPhoto($pid)
+    private $initClass;
+    private $param;
+    private $json;
+
+    public function __construct($param)
+    {
+        $this->param = $param;
+    }
+
+    public function getProperties($param)
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';
@@ -24,7 +35,7 @@ class getMetadataPhoto
                      WHERE pho.id_pho = ?";
 
             $stmt = $con->prepare($sql);
-            $stmt->bind_param("i", $pid);
+            $stmt->bind_param("i", $this->param);
             $stmt->execute();
             $stmt->bind_result($id, $titlePho, $keywords, $caption,
                 $full, $preview, $filename, $pdf, $idgen, $titleFol,
@@ -32,18 +43,27 @@ class getMetadataPhoto
 
             $listPhotos = [];
             $stmt->fetch();
-            $photo = $this->setToClass($id, $titlePho, $keywords, $caption,
+
+            $this->initClass = new InitPhotoClass();
+
+            $photo = $this->initClass->setToClass($id, $titlePho, $keywords, $caption,
                 $full, $preview, $filename, $pdf, $idgen, $titleFol,
                 $year);
             array_push($listPhotos, $photo);
 
             $stmt->close();
 
-            $this->returnJson($listPhotos);
+            return $this->createJson($listPhotos);
 
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
+    }
+
+    public function createJson($json)
+    {
+        $this->json = new CreateJson($json);
+        return $this->json->getJson();
     }
 }

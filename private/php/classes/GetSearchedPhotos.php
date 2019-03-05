@@ -9,23 +9,40 @@
 class GetSearchedPhotos
 {
     private $jsonString;
+    private $data;
 
-    public function getSearchPhotos($searchData)
+    public function __construct($searchData)
+    {
+        $this->data=$searchData;
+        $this->setJsonString($this->getSearchPhotos());
+    }
+
+    private function setJsonString($jsonString): void
+    {
+        $this->jsonString = $jsonString;
+    }
+
+    public function getJsonString()
+    {
+        return $this->jsonString;
+    }
+
+    private function getSearchPhotos()
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';
 
-            $kwords = $searchData[0];
-            $startYear = $searchData[1];
-            $endYear = $searchData[2];
-            $wExact = $searchData[3];
-            $wPart = $searchData[4];
-            $searchKw = $searchData[5];
-            $searchTitles = $searchData[6];
-            $searchComments = $searchData[7];
-            $photoPid = $searchData[8];
-            $idUnique = $searchData[9];
-            $idContext = $searchData[10];
+            $kwords = $this->data[0];
+            $startYear = $this->data[1];
+            $endYear = $this->data[2];
+            $wExact = $this->data[3];
+            $wPart = $this->data[4];
+            $searchKw = $this->data[5];
+            $searchTitles = $this->data[6];
+            $searchComments = $this->data[7];
+            $photoPid = $this->data[8];
+            $idUnique = $this->data[9];
+            $idContext = $this->data[10];
 
             if ($startYear == "debut") {
                 $startYear = "1900";
@@ -238,7 +255,7 @@ class GetSearchedPhotos
             $stmt->close();
 
             $this->jsonString = new CreateJson($listPhotos);
-            echo $this->jsonString;
+            return $this->jsonString->getJson();
          //  $this->returnJson($listPhotos);
 
         } catch (Exception $e) {
