@@ -10,6 +10,7 @@ require_once CLASSES_PATH . '/database/cl_foldersDB.php';
 require_once CLASSES_PATH . '/business/cl_folders.php';
 require_once CLASSES_PATH . '/business/FolderLevels.php';
 include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 header('content-type: text/javascript');
 
@@ -18,12 +19,12 @@ $function = $_GET['function'];
 $db = new foldersDB();
 
 if ($function === 'getFoldersTree') {
-    $db->getFoldersTree();
+    $worker = new JsonClientEcho(8, 2);
     exit;
 }
 
 if ($function === 'getShiftingFolders') {
-    $db->getShiftingFolders();
+    $worker = new JsonClientEcho(9, '');
     return;
 }
 

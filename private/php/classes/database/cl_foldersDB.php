@@ -10,7 +10,7 @@ class foldersDB
 {
     private $jsonString;
 
-    public function getFoldersTree()
+    /*public function getFoldersTree()
     {
         try {
             include INCLUDES_PATH . 'db_connect.php';
@@ -61,11 +61,11 @@ class foldersDB
             error_log($e->getMessage());
             exit();
         }
-    }
+    }*/
 
     public function getShiftingFolders()
     {
-        try {
+        /*try {
             include INCLUDES_PATH . 'db_connect.php';
 
             $folder = new folders();
@@ -115,7 +115,7 @@ class foldersDB
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
-        }
+        }*/
     }
 
     function addFolder($folderData)

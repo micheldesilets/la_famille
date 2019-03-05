@@ -6,11 +6,11 @@
  * Time: 18:46
  */
 include_once '../../initialize.php';
-require_once CLASSES_PATH . '/database/cl_geneologyDB.php';
+include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 $function = $_GET['function'];
 
 if ($function === 'getGeneologyList') {
-    $db = new cl_geneologyDB();
-    $db->getGeneologyList();
+    $worker = new JsonClientEcho(10, 2);
 }

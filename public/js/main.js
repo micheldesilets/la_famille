@@ -1777,7 +1777,7 @@ var validatePhotoInfoIndexes = (listOfIndexes) => {
 var getGeneologyList = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/GeneologyController.php?function=getGeneologyList', true);
+    xhr.open('GET', '../../private/php/controllers/GeneologyController.php?function=getGeneologyList', true);
     // xhr.responseType = 'JSON';
     xhr.onload = () => {
         if (xhr.readyState === 4) {

@@ -13,6 +13,9 @@ include_once PRIVATE_PHP_PATH . '/factories/json/products/GetReadingsProduct.php
 include_once PRIVATE_PHP_PATH . '/factories/json/products/GetSelectedDownloadPhotosProduct.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/products/GetPhotoMetadataProduct.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/products/GetMainFolderProduct.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/products/GetFoldersTreeProduct.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/products/GetShiftingFoldersProduct.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/products/GetGeneologyListProduct.php';
 
 abstract class JsonCreator
 {
@@ -41,6 +44,15 @@ abstract class JsonCreator
                 break;
             case 7:
                 $jsonProduct = new GetMainFolderProduct($param);
+                break;
+            case 8:
+                $jsonProduct = new GetFoldersTreeProduct($param);
+                break;
+            case 9:
+                $jsonProduct = new GetShiftingFoldersProduct($param);
+                break;
+            case 10:
+                $jsonProduct = new GetGeneologyListProduct($param);
                 break;
         }
         $mfg = $this->factoryMethod($jsonProduct);

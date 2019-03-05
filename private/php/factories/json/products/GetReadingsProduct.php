@@ -10,7 +10,6 @@ include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
 
 class GetReadingsProduct implements JsonProduct
 {
-    private $path;
     private $json;
     private $param;
 
