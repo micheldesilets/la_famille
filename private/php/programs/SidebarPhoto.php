@@ -2,22 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: User
- * Date: 2019-02-18
- * Time: 09:33
+ * Date: 2019-02-25
+ * Time: 10:50
  */
 
-include_once 'FormatHelper.php';
-include_once 'JsonProduct.php';
-include_once '../private/initialize.php';
-include_once CLASSES_PATH . '/business/cl_photos.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
-class GetSidebarPhotoProduct implements JsonProduct
+class SidebarPhoto
 {
-    private $mfgProduct;
+    private $connection;
 
-    public function getProperties()
+    public function getSidebarPhoto()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $this->connection = new DbConnection();
+        $con = $this->connection->Connect();
 
         try {
             $photoSb = new Photos();
@@ -42,12 +40,9 @@ class GetSidebarPhotoProduct implements JsonProduct
             $photoSb->set_Filename($fileName);
 
             return $photoSb;
-            //return $this->mfgProduct;
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit();
         }
-
-
     }
 }

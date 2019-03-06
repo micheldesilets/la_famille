@@ -6,7 +6,7 @@
  * Time: 11:41
  */
 
-class AddPhotoMetadata
+class UpdatePhotoMetadata
 {
     private $info;
 

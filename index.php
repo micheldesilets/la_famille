@@ -1,7 +1,6 @@
 <?php
 include_once 'private/initialize.php';
 include_once INCLUDES_PATH . 'psl-config.php';
-include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . 'register.inc.php';
 require_once INCLUDES_PATH . 'role.php';
@@ -30,7 +29,7 @@ if (login_check($mysqli) == true) {
     <?php
     include_once 'private/initialize.php';
     //require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    require_once PRIVATE_PHP_PATH . '/classes/SidebarPhoto.php';
+    require_once PRIVATE_PHP_PATH . '/programs/SidebarPhoto.php';
     require_once CLASSES_PATH . '/business/cl_photos.php';
   //  $dbSb = new photosDB();
     $dbSb = new SidebarPhoto();
@@ -56,7 +55,7 @@ if ($logged === "in") {
                id='login__form-switch'
                onclick="registerForm()">
         <form class='login__login-form'
-              action="private/php/includes/process_login.php"
+              action="private/php/authorisation/process_login.php"
               method='post'
               name="login_form">
             <input class="login__input"
@@ -138,7 +137,7 @@ if ($logged === "in") {
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">
         <form class="masthead__form-disconnect"
-              action="private/php/includes/logout.php"
+              action="private/php/authorisation/logout.php"
               method="post">
             <input type="submit"
                    class="masthead__disconnect"
@@ -214,7 +213,7 @@ if (login_check($mysqli) == true) {
     echo '<script>document.getElementsByClassName(\'masthead__form-disconnect\')[0].style.display = \'block\'</script>';
 //    echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
 
-//    echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
+//    echo '<p>Do you want to change user? <a href="authorisations/logout.php">Log out</a>.</p>';
 } else {
 //    echo '<p>Currently logged ' . $logged . '.</p>';
 //    echo "<p>If you don't have a login, please <a href='register.php'>register</a></p>";

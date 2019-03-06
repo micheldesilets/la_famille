@@ -7,11 +7,12 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
-include_once PRIVATE_PHP_PATH . '/misc/InitPhotoClass.php';
+include_once PRIVATE_PHP_PATH . '/programs/InitPhotoClass.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetPhotosProduct implements JsonProduct
 {
-    private $mfgProduct;
+    private $connection;
     private $initClass;
     private $param;
     private $json;
@@ -23,7 +24,9 @@ class GetPhotosProduct implements JsonProduct
 
     public function getProperties()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $this->connection = new DbConnection();
+        $con = $this->connection->Connect();
+
         try {
             $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
                            full_pfo, preview_pfo, filename_pho, pdf_pho, 

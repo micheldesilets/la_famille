@@ -7,11 +7,13 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetObjectsProduct implements JsonProduct
 {
     private $json;
     private $param;
+    private $connection;
 
     public function __construct($param)
     {
@@ -20,7 +22,8 @@ class GetObjectsProduct implements JsonProduct
 
     public function getProperties()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $this->connection = new DbConnection();
+        $con = $this->connection->Connect();
 
         try {
             $sql = "SELECT description_obj,preview_pfo,file_obj

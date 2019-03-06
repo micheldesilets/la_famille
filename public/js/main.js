@@ -276,7 +276,7 @@ var getPhotoInfoPrevious = () => {
         const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
         const infoList = photoInfoList.getPhotoInfoList();
-        xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
+        xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getMetadata', true);
         xhr.onload = () => {
@@ -293,7 +293,7 @@ var getPhotoInfoNext = () => {
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/PhotosController.php?pid=' +
+        xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getMetadata', true);
         xhr.onload = () => {
@@ -1417,7 +1417,7 @@ var SecondLevelOnChange = () => {
 var GetFolderLevel0 = (member) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/UsersController.php?function=getMainFolder' +
+    xhr.open('GET', '../../private/php/controllers/UsersController.php?function=getMainFolder' +
         '&member=' + member, true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {

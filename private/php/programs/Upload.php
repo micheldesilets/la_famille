@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink(PUBLIC_PATH . "/uploads/$file_name");
 
                 /*** Write info to mysql ***/
-                require_once PRIVATE_PHP_PATH . '/classes/AddPhotoMetadata.php';
+                require_once PRIVATE_PHP_PATH . '/programs/UpdatePhotoMetadata.php';
                 $db = new addMetadataToMysql($idRpt, $file_name);
                 //         $db->addMetadataToMysql($idRpt, $file_name);
             }

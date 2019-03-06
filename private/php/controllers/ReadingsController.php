@@ -7,7 +7,7 @@
  */
 include_once '../../initialize.php';
 require_once CLASSES_PATH . '/business/cl_readings.php';
-include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/programs/CreateJson.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 $path = $_GET['path']; /* Reading path  */

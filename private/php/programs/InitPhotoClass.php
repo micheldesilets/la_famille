@@ -6,8 +6,8 @@
  * Time: 14:42
  */
 
-include_once PRIVATE_PHP_PATH . '/misc/GeneologyNamesList.php';
-include_once PRIVATE_PHP_PATH . '/misc/GeneologyIndexesList.php';
+include_once PRIVATE_PHP_PATH . '/programs/GeneologyNamesList.php';
+include_once PRIVATE_PHP_PATH . '/programs/GeneologyIndexesList.php';
 
 class InitPhotoClass
 {

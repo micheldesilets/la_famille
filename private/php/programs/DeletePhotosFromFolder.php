@@ -6,7 +6,7 @@
  * Time: 11:34
  */
 
-include_once PRIVATE_PHP_PATH . '/classes/DeletePhotosFromDatabase.php';
+include_once PRIVATE_PHP_PATH . '/programs/DeletePhotosFromDatabase.php';
 
 class DeletePhotosFromFolder
 {

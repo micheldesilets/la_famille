@@ -7,13 +7,13 @@
  */
 
 include_once '../../initialize.php';
-include_once PRIVATE_PHP_PATH . '/misc/returnJson.php';
+include_once PRIVATE_PHP_PATH . '/programs/returnJson.php';
 include_once PRIVATE_PHP_PATH . '/classes/business/cl_photos.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . "role.php";
 include_once INCLUDES_PATH . "privilegedUser.php";
 include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
-include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/programs/CreateJson.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientReturn.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/products/GetPhotoMetadataProduct.php';
@@ -25,8 +25,8 @@ if (isset($_POST['function'])) {
 }
 
 if ($function === 'zipAndDownload') {
-    include_once PRIVATE_PHP_PATH . '/classes/CreateZipFile.php';
-    include_once PRIVATE_PHP_PATH . '/classes/CopyToTempFolder.php';
+    include_once PRIVATE_PHP_PATH . '/programs/CreateZipFile.php';
+    include_once PRIVATE_PHP_PATH . '/programs/CopyToTempFolder.php';
 
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
@@ -38,7 +38,7 @@ if ($function === 'zipAndDownload') {
 }
 
 if ($function === 'removeZipFile') {
-    include_once PRIVATE_PHP_PATH . '/classes/RemoveZipFile.php';
+    include_once PRIVATE_PHP_PATH . '/programs/RemoveZipFile.php';
     $remove = new RemoveZipFile();
 }
 
@@ -63,8 +63,8 @@ if ($function == 'insertPhotoInfo') {
 
     $infoData = array($photoId, $title, $keywords, $caption, $year, $geneologyIdxs);
 
-    include_once PRIVATE_PHP_PATH . '/classes/AddPhotoMetadata.php';
-    $db = new AddPhotoMetadata($infoData);
+    include_once PRIVATE_PHP_PATH . '/programs/UpdatePhotoMetadata.php';
+    $db = new UpdatePhotoMetadata($infoData);
 }
 
 if ($function === 'getSearchPhotos') {
@@ -99,14 +99,14 @@ if ($function === 'getSearchPhotos') {
 
     $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-    include_once PRIVATE_PHP_PATH . '/classes/GetSearchedPhotos.php';
+    include_once PRIVATE_PHP_PATH . '/programs/GetSearchedPhotos.php';
     $db = new GetSearchedPhotos($searchData);
     echo $db->getJsonString();
     return;
 }
 
 if ($function === 'deletePhotos') {
-    include_once PRIVATE_PHP_PATH . '/classes/DeletePhotosFromFolder.php';
+    include_once PRIVATE_PHP_PATH . '/programs/DeletePhotosFromFolder.php';
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
         $db = new DeletePhotosFromFolder($listPids);

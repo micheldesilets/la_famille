@@ -7,22 +7,24 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetAllYearsProduct implements JsonProduct
 {
-    private $jsonString;
     private $json;
     private $param;
+    private $connection;
 
     public function __construct($param)
     {
-        $this->param=$param;
+        $this->param = $param;
     }
 
     public function getProperties()
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+            $this->connection = new DbConnection();
+            $con = $this->connection->Connect();
 
             $sql = "SELECT id_yea,iddeca_yea,decade_deca,year_yea
                       FROM year_yea yy

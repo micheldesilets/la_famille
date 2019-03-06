@@ -7,7 +7,7 @@
  */
 include_once '../../initialize.php';
 include_once CLASSES_PATH . '/business/cl_year.php';
-include_once PRIVATE_PHP_PATH . '/classes/CreateJson.php';
+include_once PRIVATE_PHP_PATH . '/programs/CreateJson.php';
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
 
 $function = $_GET['function'];

@@ -7,11 +7,13 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetFoldersTreeProduct implements JsonProduct
 {
     private $param;
     private $json;
+    private $connection;
 
     public function __construct($param)
     {
@@ -21,7 +23,8 @@ class GetFoldersTreeProduct implements JsonProduct
     public function getProperties()
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+            $this->connection = new DbConnection();
+            $con = $this->connection->Connect();
 
             $sql = "SELECT fol.id_fol, typ.id_typ, mem.first_name_mem,
                            deca.decade_deca, yea.year_yea, fol.title_fol,

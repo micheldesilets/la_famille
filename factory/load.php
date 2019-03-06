@@ -5,7 +5,7 @@
  * Date: 2019-02-20
  * Time: 13:20
  */
-foreach (glob("misc/*.php") as $file) {
+foreach (glob("programs/*.php") as $file) {
     include $file;
 }
 

@@ -7,7 +7,9 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
-include_once PRIVATE_PHP_PATH . '/misc/GetUserRole.php';
+include_once PRIVATE_PHP_PATH . '/programs/GetUserRole.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
+include_once PRIVATE_PHP_PATH . '/programs/CreateJson.php';
 
 class GetMainFolderProduct implements JsonProduct
 {
@@ -15,6 +17,7 @@ class GetMainFolderProduct implements JsonProduct
     private $json;
     private $userIdRole;
     private $role;
+    private $connection;
 
     public function __construct($param)
     {
@@ -23,7 +26,9 @@ class GetMainFolderProduct implements JsonProduct
 
     public function getProperties()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $this->connection = new DbConnection();
+        $con = $this->connection->Connect();
+
         mysqli_set_charset($con, "utf8");
         try {
 

@@ -7,8 +7,9 @@
  */
 
 include_once '../../initialize.php';
-include_once PRIVATE_PHP_PATH . '/classes/database/cl_usersDB.php';
 require_once INCLUDES_PATH . 'privilegedUser.php';
+include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';
+include_once PRIVATE_PHP_PATH . '/classes/business/cl_users.php';
 
 $function = $_GET['function'];
 $member = $_GET['member'];

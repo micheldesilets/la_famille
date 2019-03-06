@@ -7,6 +7,7 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetSelectedDownloadPhotosProduct implements JsonProduct
 {
@@ -14,6 +15,7 @@ class GetSelectedDownloadPhotosProduct implements JsonProduct
     private $json;
     private $initClass;
     private $param;
+    private $connection;
 
     public function __construct($param)
     {
@@ -23,7 +25,9 @@ class GetSelectedDownloadPhotosProduct implements JsonProduct
     public function getProperties()
     {
         try {
-            include INCLUDES_PATH . 'db_connect.php';
+            $this->connection = new DbConnection();
+            $con = $this->connection->Connect();
+
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             mysqli_autocommit($con, FALSE);
 

@@ -7,11 +7,13 @@
  */
 
 include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonProduct.php';
+include_once PRIVATE_PHP_PATH . '/connection/DbConnection.php';
 
 class GetGeneologyListProduct implements JsonProduct
 {
     private $param;
     private $json;
+    private $connection;
 
     public function __construct($param)
     {
@@ -20,7 +22,9 @@ class GetGeneologyListProduct implements JsonProduct
 
     public function getProperties()
     {
-        include INCLUDES_PATH . 'db_connect.php';
+        $this->connection = new DbConnection();
+        $con = $this->connection->Connect();
+
         require_once CLASSES_PATH . '/business/cl_geneology.php';
 
         $sql = "SELECT id_gen,name_gen,index_gen
