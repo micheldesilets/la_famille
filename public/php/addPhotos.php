@@ -1,5 +1,5 @@
 <?php
-include_once '../../private/initialize.php';
+include_once '../../priv/initialize.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
 require_once INCLUDES_PATH . "role.php";

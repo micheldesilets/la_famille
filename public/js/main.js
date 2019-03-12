@@ -28,7 +28,7 @@ var getUserPerm = () => {
 var getFolderTree = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=getFoldersTree',
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getFoldersTree',
         true);
     xhr.onload = () => {
         const folderData = JSON.parse(xhr.responseText);
@@ -200,7 +200,7 @@ var getPhotos = (path, type) => {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../private/php/controllers/PhotosController.php?path=" + path +
+        xhr.open("GET", "../../priv/php/controllers/PhotosController.php?path=" + path +
             '&function=getPhotos', true);
         xhr.onload = () => {
             if (xhr.readyState === 4) {
@@ -230,7 +230,7 @@ var searchInputs = () => {
     const searchFormData = getSearchInputs();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "../../private/php/controllers/PhotosController.php?kwrd=" +
+    xhr.open("GET", "../../priv/php/controllers/PhotosController.php?kwrd=" +
         searchFormData.kwords + "&startYear=" + searchFormData.startYear +
         "&endYear=" + searchFormData.endYear + "&wExact=" +
         searchFormData.wExact.toString() + "&wPart=" +
@@ -261,7 +261,7 @@ var getSelectedInfoPhoto = () => {
     selectedPhotoIdx =
         new photoInfoIdxIncrementer(parseInt(url.searchParams.get('currIdx'), 10));
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
+    xhr.open('GET', '../../priv/php/controllers/PhotosController.php?pid=' +
         selectedPhotoId + '&function=getMetadata', true);
     xhr.onload = () => {
         const myInfoPhoto = JSON.parse(xhr.responseText);
@@ -276,7 +276,7 @@ var getPhotoInfoPrevious = () => {
         const idx = selectedPhotoIdx.subtract();
         const xhr = new XMLHttpRequest();
         const infoList = photoInfoList.getPhotoInfoList();
-        xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
+        xhr.open('GET', '../../priv/php/controllers/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getMetadata', true);
         xhr.onload = () => {
@@ -293,7 +293,7 @@ var getPhotoInfoNext = () => {
     if (selectedPhotoIdx.currentIdx() < infoList.length - 1) {
         const idx = selectedPhotoIdx.add();
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/controllers/PhotosController.php?pid=' +
+        xhr.open('GET', '../../priv/php/controllers/PhotosController.php?pid=' +
             infoList[idx].idpho +
             '&function=getMetadata', true);
         xhr.onload = () => {
@@ -492,7 +492,7 @@ var initAllYears = () => {
     'use strict';
     if (Object.keys(allYearsData).length === 0) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../private/php/controllers/YearsController.php?function=getAllYears', true);
+        xhr.open('GET', '../../priv/php/controllers/YearsController.php?function=getAllYears', true);
         xhr.onload = () => {
             allYearsData = new listOfAllYears(JSON.parse(xhr.responseText));
             renderAllYears();
@@ -944,7 +944,7 @@ var deletePhotos = () => {
     'use strict';
     var path = folderTree.getFolderId();
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/controllers/PhotosController.php', true);
+    xhr.open('POST', '../../priv/php/controllers/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.onreadystatechange = () => {
@@ -1072,7 +1072,7 @@ var rotatePhotoNegative = () => {
         infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/rotatePhoto.php?thumb=' + thumb +
+    xhr.open('GET', '../../priv/php/rotatePhoto.php?thumb=' + thumb +
         '&full=' + full + '&direction=90', true);
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
@@ -1093,7 +1093,7 @@ var rotatePhotoPositive = () => {
         infoList[selectedPhotoIdx.currentIdx()].filename;
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/rotatePhoto.php?thumb=' + thumb +
+    xhr.open('GET', '../../priv/php/rotatePhoto.php?thumb=' + thumb +
         '&full=' + full + '&direction=-90', true);
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
@@ -1158,7 +1158,7 @@ var getReadings = () => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/ReadingsController.php?path=' + path, true);
+    xhr.open('GET', '../../priv/php/controllers/ReadingsController.php?path=' + path, true);
     xhr.onload = () => {
         console.log(xhr.responseText);
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
@@ -1200,7 +1200,7 @@ var renderReadings = (data) => {
 var getObjects = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/Controllers/ObjectsController.php?path=' + 12, true);
+    xhr.open('GET', '../../priv/php/Controllers/ObjectsController.php?path=' + 12, true);
     xhr.onload = () => {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1297,12 +1297,12 @@ var addFolder = () => {
     var folderData = getFolderInputs();
     folderData = GetFolderValues(folderData);
     const xhr = new XMLHttpRequest();
-    /*    xhr.open('GET', '../../private/php/FoldersController.php?type=' +
+    /*    xhr.open('GET', '../../priv/php/FoldersController.php?type=' +
             folderData.type + '&member=' + folderData.member + '&decade=' +
             folderData.decade + '&year=' + folderData.year +
             '&title=' + folderData.title + '&levels=' + folderData.levels +
             '&function=addFolder', true);*/
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php' +
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php' +
         '?level0Id=' + folderData.idLevel0 +
         '&level0Name=' + folderData.level0 +
         '&level1Id=' + folderData.idLevel1 +
@@ -1315,12 +1315,12 @@ var addFolder = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 /*                const xhr1 = new XMLHttpRequest();
-                                /!*                xhr1.open('GET', '../../private/php/FoldersController.php?type=' +
+                                /!*                xhr1.open('GET', '../../priv/php/FoldersController.php?type=' +
                                                     folderData.type + '&member=' + folderData.member +
                                                     '&decade=' + folderData.decade + '&year=' + folderData.year +
                                                     '&title=' + folderData.title + '&levels=' +
                                                     folderData.levels + '&function=addFolderMysql', true);*!/
-                                /!*                xhr1.open('GET', '../../private/php/FoldersController.php +' +
+                                /!*                xhr1.open('GET', '../../priv/php/FoldersController.php +' +
                                                     '?level0Id=' + folderData.idLevel0 +
                                                     '&level1Id=' + folderData.idLevel1 +
                                                     '&level1Name=' + folderData.level1 +
@@ -1348,7 +1348,7 @@ var uploadPhotos = () => {
     'use strict';
     const folderData = getFolderInputsPhotos();
 
-    const url = '../../private/php/upload.php';
+    const url = '../../priv/php/upload.php';
     const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
@@ -1382,7 +1382,7 @@ var uploadPhotos = () => {
 var getDecades = () => {
     'use strict';
     const req = new XMLHttpRequest();
-    req.open('GET', '../../private/php/DecadesController.php?function=getDecades', true);
+    req.open('GET', '../../priv/php/DecadesController.php?function=getDecades', true);
     req.onload = () => {
         const decadesData = JSON.parse(req.responseText);
         renderDecades(decadesData);
@@ -1417,7 +1417,7 @@ var SecondLevelOnChange = () => {
 var GetFolderLevel0 = (member) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/UsersController.php?function=getMainFolder' +
+    xhr.open('GET', '../../priv/php/controllers/UsersController.php?function=getMainFolder' +
         '&member=' + member, true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
@@ -1435,7 +1435,7 @@ var GetFolderLevel0 = (member) => {
 var GetFolderLevel1 = (idmem) => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=' +
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=' +
         'GetFoldersLevel1&idmem=' + idmem, true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
@@ -1459,7 +1459,7 @@ var GetFolderLevel2 = (idFo1) => {
             document.getElementsByClassName('data-box__id-value1');
         var idParent = lev1[0].value;*/
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?idParent=' + idFo1 +
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' + idFo1 +
         '&function=GetFoldersLevel2', true);
     xhr.onload = () => {
         const level2 = JSON.parse(xhr.responseText);
@@ -1478,7 +1478,7 @@ var GetFolderLevel3 = (idFo2) => {
             document.getElementsByClassName('data-box__id-value2');
         var idParent = lev2[0].value;*/
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?idParent=' + idFo2 +
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' + idFo2 +
         '&function=GetFoldersLevel3', true);
     xhr.onload = () => {
         const level3 = JSON.parse(xhr.responseText);
@@ -1654,7 +1654,7 @@ var getFolders = (fisrtYear) => {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?year=' + year +
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?year=' + year +
         '&function=getFolders', true);
     xhr.onload = () => {
         console.log(xhr.responseText);
@@ -1714,7 +1714,7 @@ var insertPhotoInfo = () => {
     var req = new XMLHttpRequest();
     var inputs = getPhotoInfoInputs();
 
-    req.open('POST', '../../private/php/controllers/PhotosController.php?photoId=' +
+    req.open('POST', '../../priv/php/controllers/PhotosController.php?photoId=' +
         inputs.photoId + '&title=' + inputs.title + '&keyWords=' +
         inputs.keyWords + '&caption=' + inputs.caption + '&year=' + inputs.year +
         '&geneologyIdxs=' + inputs.geneologyIdxs +
@@ -1777,7 +1777,7 @@ var validatePhotoInfoIndexes = (listOfIndexes) => {
 var getGeneologyList = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../private/php/controllers/GeneologyController.php?function=getGeneologyList', true);
+    xhr.open('GET', '../../priv/php/controllers/GeneologyController.php?function=getGeneologyList', true);
     // xhr.responseType = 'JSON';
     xhr.onload = () => {
         if (xhr.readyState === 4) {
@@ -1854,7 +1854,7 @@ var getShiftingFolders = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../../private/php/controllers/FoldersController.php?function=getShiftingFolders');
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getShiftingFolders');
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1903,7 +1903,7 @@ var disableSubmitButton = () => {
 var downloadPhotos = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '../../private/php/controllers/PhotosController.php', true);
+    xhr.open('POST', '../../priv/php/controllers/PhotosController.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;' +
         ' charset=UTF-8');
     xhr.responseType = 'blob';
@@ -1927,7 +1927,7 @@ var downloadPhotos = () => {
             postDownload();
 
             const xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', '../../private/php/controllers/PhotosController.php?function=' +
+            xhr1.open('GET', '../../priv/php/controllers/PhotosController.php?function=' +
                 'removeZipFile', true);
             xhr1.send();
         }

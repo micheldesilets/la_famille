@@ -1,5 +1,9 @@
 <?php
-include_once 'private/initialize.php';
+
+include_once 'priv/initialize.php';
+include_once PROJECT_PATH . '/Autoload.php';
+use priv\php\programs as prog;
+
 include_once INCLUDES_PATH . 'psl-config.php';
 include_once INCLUDES_PATH . 'functions.php';
 include_once INCLUDES_PATH . 'register.inc.php';
@@ -27,12 +31,7 @@ if (login_check($mysqli) == true) {
     <script type="text/JavaScript" src="public/js/forms.js"></script>
     <script type="text/JavaScript" src="public/js/sha512.js"></script>
     <?php
-    include_once 'private/initialize.php';
-    //require_once CLASSES_PATH . '/database/cl_PhotosDB.php';
-    require_once PRIVATE_PHP_PATH . '/programs/SidebarPhoto.php';
-    require_once CLASSES_PATH . '/business/cl_photos.php';
-  //  $dbSb = new photosDB();
-    $dbSb = new SidebarPhoto();
+    $dbSb = new prog\SidebarPhoto();
     $photoSb = $dbSb->getSidebarPhoto();
     $fileSb = $photoSb->get_Filename();
     $pathSb = $photoSb->get_P_Path();
@@ -55,7 +54,7 @@ if ($logged === "in") {
                id='login__form-switch'
                onclick="registerForm()">
         <form class='login__login-form'
-              action="private/php/authorisation/process_login.php"
+              action="priv/php/authorisations/process_login.php"
               method='post'
               name="login_form">
             <input class="login__input"
@@ -137,7 +136,7 @@ if ($logged === "in") {
         <input type="button" class="masthead__connect" value="Se connecter"
                onclick="loginForm()">
         <form class="masthead__form-disconnect"
-              action="private/php/authorisation/logout.php"
+              action="priv/php/authorisations/logout.php"
               method="post">
             <input type="submit"
                    class="masthead__disconnect"
