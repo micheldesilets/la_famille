@@ -13,9 +13,8 @@ include_once INCLUDES_PATH . "privilegedUser.php";
 
 include_once PROJECT_PATH . '/Autoload.php';
 
-use priv\php\factories\json\factory as factory;
-use priv\php\programs as prog;
-use priv\php\factories\json\products as prod;
+use priv\php\{factories\json\factory as factory,programs as prog,
+    factories\json\products as prod};
 
 if (isset($_POST['function'])) {
     $function = $_POST['function'];
@@ -94,16 +93,14 @@ if ($function === 'getSearchPhotos') {
 
     $searchData = array($kwArr, $startYear, $endYear, $wExact, $wPart, $searchKw, $searchTitles, $searchComments, $photoPid, $idUnique, $idContext);
 
-    $db = new prod\GetSearchedPhotosProduct($searchData);
-    echo $db->getJsonString();
+    $worker = new factory\JsonClientEcho(11, $searchData);
     return;
 }
 
 if ($function === 'deletePhotos') {
-    include_once PRIVATE_PHP_PATH . '/programs/DeletePhotosFromFolder.php';
     if (isset($_POST['pids'])) {
         $listPids = json_decode($_POST['pids']);
-        $db = new DeletePhotosFromFolder($listPids);
+        $db = new prog\DeletePhotosFromFolder($listPids);
     }
 }
 

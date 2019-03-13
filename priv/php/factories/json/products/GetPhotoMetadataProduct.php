@@ -8,9 +8,8 @@
 
 namespace priv\php\factories\json\products;
 
-use priv\php\factories\json\factory as factory;
-use priv\php\connection as con;
-use priv\php\programs as prog;
+use priv\php\{factories\json\factory as factory,connection as con,
+    programs as prog};
 
 include_once '../../initialize.php';
 include_once PROJECT_PATH . '/Autoload.php';

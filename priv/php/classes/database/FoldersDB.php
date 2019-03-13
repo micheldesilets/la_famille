@@ -470,7 +470,7 @@ class FoldersDB
         }
     }
 
-    public
+  /*  public
     function GetFoldersLevel1($idmem)
     {
         include INCLUDES_PATH . 'db_connect.php';
@@ -497,9 +497,9 @@ class FoldersDB
             error_log($e->getMessage());
             exit;
         }
-    }
+    }*/
 
-    public
+/*    public
     function GetFoldersLevel2($idParent)
     {
         include INCLUDES_PATH . 'db_connect.php';
@@ -526,9 +526,9 @@ class FoldersDB
             error_log($e->getMessage());
             exit;
         }
-    }
+    }*/
 
-    public
+   /* public
     function GetFoldersLevel3($idParent)
     {
         include INCLUDES_PATH . 'db_connect.php';
@@ -555,7 +555,7 @@ class FoldersDB
             error_log($e->getMessage());
             exit;
         }
-    }
+    }*/
 
     private function returnJson($data)
     {

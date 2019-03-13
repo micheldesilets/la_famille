@@ -1310,7 +1310,7 @@ var addFolder = () => {
         '&level2Id=' + folderData.idLevel2 +
         '&level2Name=' + folderData.level2 +
         '&level3Name=' + folderData.level3 +
-        '&function=addFolder', true);
+        '&function=addFolderToSite', true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1436,7 +1436,7 @@ var GetFolderLevel1 = (idmem) => {
     'use strict';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=' +
-        'GetFoldersLevel1&idmem=' + idmem, true);
+        'GetFoldersLevelOne&idmem=' + idmem, true);
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -1460,7 +1460,7 @@ var GetFolderLevel2 = (idFo1) => {
         var idParent = lev1[0].value;*/
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' + idFo1 +
-        '&function=GetFoldersLevel2', true);
+        '&function=GetFoldersLevelTwo', true);
     xhr.onload = () => {
         const level2 = JSON.parse(xhr.responseText);
         if (level2.length !== 0) {
@@ -1479,7 +1479,7 @@ var GetFolderLevel3 = (idFo2) => {
         var idParent = lev2[0].value;*/
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' + idFo2 +
-        '&function=GetFoldersLevel3', true);
+        '&function=GetFoldersLevelThree', true);
     xhr.onload = () => {
         const level3 = JSON.parse(xhr.responseText);
         if (level3.length !== 0) {

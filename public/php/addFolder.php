@@ -134,7 +134,7 @@ sec_session_start();
 </div>
 <script>
     //var user = '<?php //echo $u->getUsername();?>//';
-    getDecades();
+  //  getDecades();
     GetFolderLevel0('Michel');
 </script>
 <?php /*else: */ ?><!--

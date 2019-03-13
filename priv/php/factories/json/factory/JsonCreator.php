@@ -50,6 +50,18 @@ abstract class JsonCreator
             case 10:
                 $jsonProduct = new product\GetGeneologyListProduct($param);
                 break;
+            case 11:
+                $jsonProduct = new product\GetSearchedPhotosProduct($param);
+                break;
+            case 12:
+                $jsonProduct = new product\GetFolderLevelOneProduct($param);
+                break;
+            case 13:
+                $jsonProduct = new product\GetFolderLevelTwoProduct($param);
+                break;
+            case 14:
+                $jsonProduct = new product\GetFolderLevelThreeProduct($param);
+                break;
         }
         $mfg = $this->factoryMethod($jsonProduct);
         return $mfg;

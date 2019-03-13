@@ -8,48 +8,39 @@
 
 namespace priv\php\factories\json\products;
 
-use priv\php\connection as con;
-use priv\php\programs as prog;
+use priv\php\{connection as con,programs as prog,
+    factories\json\factory as factory};
 
-class GetSearchedPhotosProduct
+class GetSearchedPhotosProduct implements factory\JsonProduct
 {
-    private $jsonString;
     private $data;
     private $connection;
+    private $param;
+    private $json;
+    private $initClass;
 
-    public function __construct($searchData)
+    public function __construct($param)
     {
-        $this->data=$searchData;
-        $this->setJsonString($this->getSearchPhotos());
+        $this->param=$param;
     }
 
-    private function setJsonString($jsonString): void
-    {
-        $this->jsonString = $jsonString;
-    }
-
-    public function getJsonString()
-    {
-        return $this->jsonString;
-    }
-
-    private function getSearchPhotos()
+    public function getProperties()
     {
         try {
             $this->connection = new con\DbConnection();
             $con = $this->connection->Connect();
 
-            $kwords = $this->data[0];
-            $startYear = $this->data[1];
-            $endYear = $this->data[2];
-            $wExact = $this->data[3];
-            $wPart = $this->data[4];
-            $searchKw = $this->data[5];
-            $searchTitles = $this->data[6];
-            $searchComments = $this->data[7];
-            $photoPid = $this->data[8];
-            $idUnique = $this->data[9];
-            $idContext = $this->data[10];
+            $kwords = $this->param[0];
+            $startYear = $this->param[1];
+            $endYear = $this->param[2];
+            $wExact = $this->param[3];
+            $wPart = $this->param[4];
+            $searchKw = $this->param[5];
+            $searchTitles = $this->param[6];
+            $searchComments = $this->param[7];
+            $photoPid = $this->param[8];
+            $idUnique = $this->param[9];
+            $idContext = $this->param[10];
 
             if ($startYear == "debut") {
                 $startYear = "1900";
@@ -250,25 +241,28 @@ class GetSearchedPhotosProduct
                 $year);
 
             $listPhotos = [];
+
             $this->initClass = new prog\InitPhotoClass();
 
             while ($stmt->fetch()) {
-                $photo = $this->initClass->setToClass($id, $titlePho, $keywords, $caption,
-                    $full, $preview, $filename, $pdf, $idgen, $titleFol,
+                $photo = $this->initClass->setToClass($id, $titlePho, $keywords,
+                    $caption, $full, $preview, $filename, $pdf, $idgen, $titleFol,
                     $year);
                 array_push($listPhotos, $photo);
             }
 
             $stmt->close();
 
-            $this->jsonString = new prog\CreateJson($listPhotos);
-            return $this->jsonString->getJson();
-         //  $this->returnJson($listPhotos);
-
-        } catch (\Exception $e) {
+            return $this->createJson($listPhotos);
+             } catch (\Exception $e) {
             error_log($e->getMessage());
             exit();
         }
     }
 
+    public function createJson($json)
+    {
+        $this->json = new prog\CreateJson($json);
+        return $this->json->getJson();
+    }
 }

@@ -8,15 +8,8 @@
 include_once '../../initialize.php';
 include_once PROJECT_PATH . '/Autoload.php';
 
-use priv\php\factories\json\factory as factory;
-use priv\php\classes\database as database;
-
-/*include_once '../../initialize.php';
-require_once CLASSES_PATH . '/database/FoldersDB.php';
-require_once CLASSES_PATH . '/business/Folders.php';
-require_once CLASSES_PATH . '/business/FolderLevels.php';
-include_once PRIVATE_PHP_PATH . '/programs/CreateJson.php';
-include_once PRIVATE_PHP_PATH . '/factories/json/factory/JsonClientEcho.php';*/
+use priv\php\{factories\json\factory as factory,classes\database as database,
+programs as prog};
 
 header('content-type: text/javascript');
 
@@ -34,23 +27,23 @@ if ($function === 'getShiftingFolders') {
     return;
 }
 
-if ($function === 'GetFoldersLevel1') {
+if ($function === 'GetFoldersLevelOne') {
     $member = $_GET['idmem'];
-    $db->GetFoldersLevel1($member);
+    $worker = new factory\JsonClientEcho(12, $member);
 }
 
-if ($function === 'GetFoldersLevel2') {
+if ($function === 'GetFoldersLevelTwo') {
     $idParent = $_GET['idParent'];
-    $db->GetFoldersLevel2($idParent);
+    $worker = new factory\JsonClientEcho(13, $idParent);
 }
 
-if ($function === 'GetFoldersLevel3') {
+if ($function === 'GetFoldersLevelThree') {
     $idParent = $_GET['idParent'];
-    $db->GetFoldersLevel3($idParent);
+    $worker = new factory\JsonClientEcho(14, $idParent);
 }
 
 // Add a folder for storing photos
-if ($function == 'addFolder') {
+if ($function == 'addFolderToSite') {
     $level0Id = $_GET['level0Id'];
     $level0Name = $_GET['level0Name'];
     $level1Id = $_GET['level1Id'];
@@ -62,11 +55,15 @@ if ($function == 'addFolder') {
     $folderData = array($level0Id, $level0Name, $level1Id, $level1Name,
         $level2Id, $level2Name, $level3Name);
 
-    $db->addFolder($folderData);
+    $worker = new prog\AddFolderToSite($folderData);
+    $worker->addFolder();
+
+    $worker= new prog\AddFolderToMysql($folderData);
+    $worker->addFolder();
     return;
 }
 
-if ($function == 'addFolderMysql') {
+/*if ($function == 'addFolderMysql') {
     $type = $_GET['type'];
     $member = $_GET['member'];
     $decade = $_GET['decade'];
@@ -79,7 +76,7 @@ if ($function == 'addFolderMysql') {
 
     $db->addFolderMysql($folderData);
     return;
-}
+}*/
 
 /*if ($function === 'getFolders') {
     $year = $_GET['year'];
