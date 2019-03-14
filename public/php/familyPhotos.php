@@ -20,7 +20,7 @@ sec_session_start();
 <?php if (login_check($mysqli) == true) :
     $u = PrivilegedUser::getByUsername($_SESSION["username"]);
     $canDelete = $u->hasPrivilege("write"); ?>
-<input type="hidden" id="userPerm" value="<?php echo $canDelete ?>">
+ <input type="hidden" id="userPerm" value="<?php echo $canDelete ?>">
     <div class="page ">
         <!-- ==== START MASTHEAD ==== -->
         <header class="masthead" role="banner">

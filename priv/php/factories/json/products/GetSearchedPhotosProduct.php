@@ -61,7 +61,7 @@ class GetSearchedPhotosProduct implements factory\JsonProduct
                                    ON pfo.idfol_pfo = pho.idfol_pho
                                  JOIN folders_fol rpt 
                                    ON pfo.idfol_pfo = rpt.id_fol
-                     WHERE";
+                     WHERE ";
 
             if ($photoPid != "") {
                 if ($idContext == "true") {

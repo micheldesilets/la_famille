@@ -92,7 +92,7 @@ var buildFolderTree = (data) => {
             "</div>\n" +
             "</div>\n");
     }
-
+    console.log(folderTree.getHtmlString());
     folderContainer.insertAdjacentHTML("beforeend",
         folderTree.getHtmlString());
 };
