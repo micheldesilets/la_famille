@@ -31,7 +31,7 @@ class GetFolderLevelTwoProduct implements JsonProduct
 
         try {
             $sql = "SELECT id_fo2,idfo1_fo2,name_fo2
-                      FROM folders_level2_fo2
+                      FROM folders_two_fo2
                      WHERE idfo1_fo2 = ?";
 
             $stmt = $con->prepare($sql);

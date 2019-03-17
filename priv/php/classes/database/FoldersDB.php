@@ -281,7 +281,7 @@ class FoldersDB
 
         try {
             if ($level1Id === "0") {
-                $sql = "INSERT INTO folders_level1_fo1 (
+                $sql = "INSERT INTO folders_one_fo1 (
                                 idmem_fo1, name_fo1)
                          VALUES (?,?)";
                 $stmt = $con->prepare($sql);
@@ -295,7 +295,7 @@ class FoldersDB
             }
 
             if ($level2Id === "0") {
-                $sql = "INSERT INTO folders_level2_fo2 (
+                $sql = "INSERT INTO folders_two_fo2 (
                                 idfo1_fo2, name_fo2)
                          VALUES (?,?)";
                 $stmt = $con->prepare($sql);
@@ -309,7 +309,7 @@ class FoldersDB
             }
 
             if ($level3Name != "") {
-                $sql = "INSERT INTO folders_level3_fo3 (
+                $sql = "INSERT INTO folders_three_fo3 (
                                 idfo2_fo3, name_fo3)
                          VALUES (?,?)";
                 $stmt = $con->prepare($sql);
@@ -478,7 +478,7 @@ class FoldersDB
 
         try {
             $sql = "SELECT id_fo1,idmem_fo1,name_fo1
-                      FROM folders_level1_fo1
+                      FROM folders_one_fo1
                      WHERE idmem_fo1 = ?";
 
             $stmt = $con->prepare($sql);
@@ -507,7 +507,7 @@ class FoldersDB
 
         try {
             $sql = "SELECT id_fo2,idfo1_fo2,name_fo2
-                      FROM folders_level2_fo2
+                      FROM folders_two_fo2
                      WHERE idfo1_fo2 = ?";
 
             $stmt = $con->prepare($sql);
@@ -536,7 +536,7 @@ class FoldersDB
 
         try {
             $sql = "SELECT id_fo3,idfo2_fo3,name_fo3
-                      FROM folders_level3_fo3
+                      FROM folders_three_fo3
                      WHERE idfo2_fo3 = ?";
 
             $stmt = $con->prepare($sql);

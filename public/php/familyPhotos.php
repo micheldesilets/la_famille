@@ -1,9 +1,13 @@
 <?php
 include_once '../../priv/initialize.php';
+include_once PROJECT_PATH . '/Autoload.php';
 include_once INCLUDES_PATH . 'db_connect.php';
 include_once INCLUDES_PATH . 'functions.php';
 require_once INCLUDES_PATH . 'role.php';
 require_once INCLUDES_PATH . 'privilegedUser.php';
+
+use priv\php\{factories\json\factory\JsonClientReturn,
+    programs\BuildFolderTree};
 
 sec_session_start();
 ?>
@@ -20,7 +24,7 @@ sec_session_start();
 <?php if (login_check($mysqli) == true) :
     $u = PrivilegedUser::getByUsername($_SESSION["username"]);
     $canDelete = $u->hasPrivilege("write"); ?>
- <input type="hidden" id="userPerm" value="<?php echo $canDelete ?>">
+<input type="hidden" id="userPerm" value="<?php echo $canDelete ?>">
     <div class="page ">
         <!-- ==== START MASTHEAD ==== -->
         <header class="masthead" role="banner">
@@ -180,7 +184,13 @@ sec_session_start();
         <!-- ==== MAIN ==== -->
         <div class="photos">
             <!--  Drop down menu is here  -->
-            <section class="folders__drop-down" id="photos__folders"></section>
+            <section class="folders__drop-down" id="photos__folders">
+                <?php
+                $jsonTree = new JsonClientReturn(15, '');
+                $tree = new BuildFolderTree($jsonTree->getJsonFactory());
+                echo $tree->buildTree();
+                ?>
+            </section>
 
             <!--  Thumbnails  -->
             <section class="photos__thumb-container">
@@ -219,7 +229,7 @@ sec_session_start();
     </div>
 
     <script src="../js/main.js"></script>
-    <script>getFolderTree();
+    <script>/*getFolderTree();*/
         getUserPerm();</script>
 
 <?php else : ?>

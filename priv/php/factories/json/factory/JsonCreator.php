@@ -62,6 +62,9 @@ abstract class JsonCreator
             case 14:
                 $jsonProduct = new product\GetFolderLevelThreeProduct($param);
                 break;
+            case 15:
+                $jsonProduct = new product\GetNewFoldersTreeProduct($param);
+                break;
         }
         $mfg = $this->factoryMethod($jsonProduct);
         return $mfg;

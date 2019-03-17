@@ -8,8 +8,6 @@
 
 namespace priv\php\connection;
 
-//include_once PRIVATE_PHP_PATH . '/connection/DbConParams.php';
-
 class DbConnection
 {
     private $params;
@@ -32,6 +30,7 @@ class DbConnection
         try {
             $con = new \mysqli($this->host, $this->user, $this->password,
                 $this->dbName);
+            mysqli_set_charset($con, "utf8");
             return $con;
         } catch (\Exception $e) {
             error_log($e->getMessage());

@@ -18,7 +18,7 @@ var FolderFirstLevel = new FolderLevel1();
 var FolderSecondLevel = new FolderLevel2();
 var FolderThirdLevel = new FolderLevel3();
 
-var getUserPerm = () => {
+    var getUserPerm = () => {
     'use strict';
     const perm = document.getElementById('userPerm').value;
     user.setPerm(perm);
