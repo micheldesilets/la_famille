@@ -8,37 +8,26 @@
 
 namespace priv\php\programs;
 
-use priv\php\connection\DbConnection;
+use priv\php\programs\FolderLevel;
 
-class GetFoldersLevelOne
+class GetFoldersLevelOne extends FolderLevel
 {
-    private $connection;
-    private $con;
-    private $idsOne = [];
-    private $param;
-
-    public function __construct($param)
-    {
-        $this->param = $param;
-        $this->connection = new DbConnection();
-        $this->con = $this->connection->Connect();
-    }
-
     public function getIdList()
     {
         $sql = "SELECT DISTINCT id_fo1
                            FROM folders_one_fo1 fo1 
                           WHERE fo1.idmem_fo1 = ?";
 
-        $stmt = $this->con->prepare($sql);
-        $stmt->bind_param("i", $this->param);
+        $p = $this->getParam();
+        $stmt = $this->getCon()->prepare($sql);
+        $stmt->bind_param("i", $p);
         $stmt->bind_result($idfo1);
         $stmt->execute();
 
         while ($stmt->fetch()) {
-            array_push($this->idsOne, $idfo1);
+            array_push($this->ids, $idfo1);
         }
-        return $this->idsOne;
+        return $this->ids;
     }
 
     public function getFolderName($id)
@@ -47,11 +36,23 @@ class GetFoldersLevelOne
                   FROM folders_one_fo1 
                  WHERE id_fo1 = ?";
 
-        $stmt = $this->con->prepare($sql);
+        $stmt = $this->getCon()->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->bind_result($name);
         $stmt->fetch();
         return $name;
+    }
+
+    public function hasNextLevel($val)
+    {
+        $sql = "SELECT id_fo2  
+                  FROM folders_two_fo2 
+                 WHERE idfo1_fo2 = ?";
+
+        $stmt = $this->getCon()->prepare($sql);
+        $stmt->bind_param("i", $val);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }

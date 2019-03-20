@@ -185,11 +185,6 @@ sec_session_start();
         <div class="photos">
             <!--  Drop down menu is here  -->
             <section class="folders__drop-down" id="photos__folders">
-                <?php
-                $jsonTree = new JsonClientReturn(15, '');
-                $tree = new BuildFolderTree($jsonTree->getJsonFactory());
-                echo $tree->buildTree();
-                ?>
             </section>
 
             <!--  Thumbnails  -->
@@ -225,11 +220,10 @@ sec_session_start();
                 </div>
             </section>
         </div>
-
     </div>
 
     <script src="../js/main.js"></script>
-    <script>/*getFolderTree();*/
+    <script>getFolderTree();
         getUserPerm();</script>
 
 <?php else : ?>

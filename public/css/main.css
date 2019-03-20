@@ -680,6 +680,14 @@ a {
   float: left;
   z-index: 0;
   margin: 8px .5em 0 10em; }
+.folders__hasPhoto {
+  position: relative;
+  left: 25px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0; }
 .folders__multi-level0, .folders__multi-level1, .folders__multi-level2, .folders__multi-level3, .folders__multi-level4, .folders__multi-level5, .folders__multi-level6, .folders__multi-level7, .folders__multi-level8, .folders__multi-level9 {
   display: none; }
 .folders__sub-item ul li:hover, .folders__itemL2 li:hover {
@@ -706,7 +714,6 @@ a {
   background-color: #fdfaf6; }
   .folders__drop-down label {
     width: 100%;
-    display: block;
     z-index: 3;
     position: relative; }
   .folders__drop-down ul {
@@ -726,7 +733,6 @@ a {
     font-weight: 100;
     width: 100%; }
 .folders__photofolder:before {
-  content: "-";
   margin-right: 0.5em; }
 .folders__drop-down .folders__photofolder.L2 {
   padding-left: 8em; }

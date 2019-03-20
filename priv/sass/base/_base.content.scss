@@ -608,6 +608,16 @@
     margin: 8px .5em 0 10em;
   }
 
+  &__hasPhoto {
+    position: relative;
+    left: 25px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+  }
+
   &__multi-level0, &__multi-level1, &__multi-level2, &__multi-level3,
   &__multi-level4, &__multi-level5, &__multi-level6, &__multi-level7,
   &__multi-level8, &__multi-level9 {
@@ -656,7 +666,7 @@
 
     & label {
       width: 100%;
-      display: block;
+      //display: block;
       z-index: 3;
       position: relative;
     }
@@ -683,7 +693,7 @@
   }
 
   &__photofolder:before {
-    content: "-";
+    //content: "-";
     margin-right: 0.5em;
   }
 

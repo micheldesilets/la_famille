@@ -31,7 +31,7 @@ class Photos implements \JsonSerializable
 
     public function set_Title($title)
     {
-        $this->m_title = utf8_encode($title);
+        $this->m_title =$title;
     }
 
     function get_Title()
@@ -41,7 +41,7 @@ class Photos implements \JsonSerializable
 
     public function set_Keywords($keywords)
     {
-        $this->m_keywords = utf8_encode($keywords);
+        $this->m_keywords = $keywords;
     }
 
     function get_keywords()
@@ -71,7 +71,7 @@ class Photos implements \JsonSerializable
 
     public function set_Caption($caption)
     {
-        $this->m_caption = utf8_encode($caption);
+        $this->m_caption = $caption;
     }
 
     function get_Caption()
@@ -81,7 +81,7 @@ class Photos implements \JsonSerializable
 
     public function set_F_Path($path)
     {
-        $this->m_f_path = utf8_encode($path);
+        $this->m_f_path = $path;
     }
 
     function get_F_Path()
@@ -91,7 +91,7 @@ class Photos implements \JsonSerializable
 
     public function set_P_Path($path)
     {
-        $this->m_p_path = utf8_encode($path);
+        $this->m_p_path = $path;
     }
 
     function get_P_Path()
@@ -104,7 +104,7 @@ class Photos implements \JsonSerializable
      */
     public function set_Filename($filename)
     {
-        $this->m_filename = str_replace(' ', '_', utf8_encode($filename));
+        $this->m_filename = str_replace(' ', '_', $filename);
     }
 
     function get_Filename()
@@ -157,7 +157,7 @@ class Photos implements \JsonSerializable
      */
     public function set_GeneolNames($m_geneolNames): void
     {
-        $this->m_geneolNames = utf8_encode($m_geneolNames);
+        $this->m_geneolNames = $m_geneolNames;
     }
 
     /**
@@ -165,7 +165,7 @@ class Photos implements \JsonSerializable
      */
     public function set_rptTitle($m_rptTitle): void
     {
-        $this->m_rptTitle = utf8_encode($m_rptTitle);
+        $this->m_rptTitle = $m_rptTitle;
     }
 
     /**

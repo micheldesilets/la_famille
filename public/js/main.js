@@ -18,7 +18,7 @@ var FolderFirstLevel = new FolderLevel1();
 var FolderSecondLevel = new FolderLevel2();
 var FolderThirdLevel = new FolderLevel3();
 
-    var getUserPerm = () => {
+var getUserPerm = () => {
     'use strict';
     const perm = document.getElementById('userPerm').value;
     user.setPerm(perm);
@@ -27,12 +27,14 @@ var FolderThirdLevel = new FolderLevel3();
 
 var getFolderTree = () => {
     'use strict';
+    var folderContainer = document.getElementById("photos__folders");
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getFoldersTree',
         true);
     xhr.onload = () => {
-        const folderData = JSON.parse(xhr.responseText);
-        buildFolderTree(folderData);
+         folderContainer.insertAdjacentHTML("beforeend", xhr.responseText);
+/*        const folderData = JSON.parse(xhr.responseText);
+        buildFolderTree(folderData);*/
     };
     xhr.send();
 };
@@ -184,14 +186,15 @@ var getFamilyPhotos = (obj, path, type) => {
     'use strict';
     folderTree.setFolderId(path);
     inFoldersState.setState(true);
-    const folders = listShiftingFolders.getShiftingFolders();
+/*    const folders = listShiftingFolders.getShiftingFolders();
     for (let i = 0; i < folders.length; ++i) {
         if (path === parseInt(folders[i].folder)) {
             currentShiftingFolder = new shiftingFoldersIdx(i);
             break;
         }
-    }
-    folderTitle.setTitle(obj.innerHTML);
+    }*/
+    //folderTitle.setTitle(obj.innerHTML);
+    folderTitle.setTitle(obj);
     getPhotos(path, type);
 };
 
@@ -200,13 +203,14 @@ var getPhotos = (path, type) => {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../priv/php/controllers/PhotosController.php?path=" + path +
-            '&function=getPhotos', true);
+        xhr.open("GET", "../../priv/php/controllers/PhotosController.php?path=" +
+            path + '&function=getPhotos', true);
         xhr.onload = () => {
             if (xhr.readyState === 4) {
                 selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
                 switch (type) {
                     case 4:
+                        console.log(xhr.responseText);
                         renderHomePhoto();
                         break;
                     case 2:
@@ -1851,7 +1855,7 @@ var currentWindow = () => {
 };
 
 var getShiftingFolders = () => {
-    'use strict';
+/*    'use strict';
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getShiftingFolders');
@@ -1862,7 +1866,7 @@ var getShiftingFolders = () => {
             }
         }
     };
-    xhr.send();
+    xhr.send();*/
 };
 
 var showNextFolder = () => {

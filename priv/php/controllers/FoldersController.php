@@ -8,8 +8,9 @@
 include_once '../../initialize.php';
 include_once PROJECT_PATH . '/Autoload.php';
 
-use priv\php\{factories\json\factory as factory,classes\database as database,
-programs as prog};
+use priv\php\{factories\json\factory as factory,
+    classes\database as database,
+    programs as prog};
 
 header('content-type: text/javascript');
 
@@ -18,7 +19,12 @@ $function = $_GET['function'];
 $db = new database\FoldersDB();
 
 if ($function === 'getFoldersTree') {
-    $worker = new factory\JsonClientEcho(8, 2);
+   $jsonTree = new factory\JsonClientReturn(15, '');
+    $tree = new prog\BuildFolderTree($jsonTree->getJsonFactory());
+    $tree->buildTree();
+    echo $tree->getHtmlString();
+
+ // $worker = new factory\JsonClientEcho(8, 2);
     exit;
 }
 
@@ -58,7 +64,7 @@ if ($function == 'addFolderToSite') {
     $worker = new prog\AddFolderToSite($folderData);
     $worker->addFolder();
 
-    $worker= new prog\AddFolderToMysql($folderData);
+    $worker = new prog\AddFolderToMysql($folderData);
     $worker->addFolder();
     return;
 }
