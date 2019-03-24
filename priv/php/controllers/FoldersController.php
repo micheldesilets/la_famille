@@ -19,8 +19,9 @@ $function = $_GET['function'];
 $db = new database\FoldersDB();
 
 if ($function === 'getFoldersTree') {
-   $jsonTree = new factory\JsonClientReturn(15, '');
-    $tree = new prog\BuildFolderTree($jsonTree->getJsonFactory());
+  // $jsonTree = new factory\JsonClientReturn(15, '');
+  //  $tree = new prog\BuildFolderTree($jsonTree->getJsonFactory());
+     $tree = new prog\BuildFolderTree();
     $tree->buildTree();
     echo $tree->getHtmlString();
 

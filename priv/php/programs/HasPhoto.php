@@ -12,12 +12,10 @@ use priv\php\connection\DbConnection;
 
 class HasPhoto
 {
-//    private $param;
     private $con;
 
     public function __construct()
     {
-//        $this->param = $param;
         $this->connection = new DbConnection();
         $this->con = $this->connection->Connect();
     }

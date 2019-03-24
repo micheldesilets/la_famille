@@ -37,10 +37,10 @@ class BuildFolderTree
     private $item = 1;
     private $subItem = 1;
 
-    public function __construct($jsonTree)
+    public function __construct()
     {
-        $this->jsonTree = $jsonTree;
-        $this->data = json_decode($this->jsonTree);
+        /*        $this->jsonTree = $jsonTree;
+               $this->data = json_decode($this->jsonTree);*/
         $this->membersClass = new GetMembers();
         $this->memberList = $this->membersClass->getIdList();
         $this->hasPhotoClass = new prog\HasPhoto();
@@ -51,9 +51,6 @@ class BuildFolderTree
         $this->htmlString = $htmlString;
     }
 
-    /**
-     * @return string
-     */
     public function getHtmlString(): string
     {
         return $this->htmlString;
@@ -247,3 +244,4 @@ class BuildFolderTree
         }
     }
 }
+
