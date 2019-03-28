@@ -16,27 +16,48 @@ class GetObjectsProduct implements factory\JsonProduct
     private $json;
     private $param;
     private $connection;
+    private $con;
 
     public function __construct($param)
     {
-        $this->param=$param;
+        $this->setParam($param);
+        $this->connection = new con\DbConnection();
+        $this->setCon($this->connection->Connect());
+    }
+
+    public function setCon($con): void
+    {
+        $this->con = $con;
+    }
+
+    public function getCon() :\mysqli
+    {
+        return $this->con;
+    }
+
+    public function setParam($param): void
+    {
+        $this->param = $param;
+    }
+
+    public function getParam()
+    {
+        return $this->param;
     }
 
     public function getProperties()
     {
-        $this->connection = new con\DbConnection();
-        $con = $this->connection->Connect();
-
         try {
-            $sql = "SELECT description_obj,preview_pfo,file_obj
+            $sql = "SELECT description_obj,preview_ofo,file_obj
                       FROM objects_obj obj
-                           JOIN photos_folders_pfo pfo
-                             ON pfo.idfol_pfo = obj.idfol_obj
-                     WHERE pfo.idfol_pfo = ?
+                           JOIN objects_folders_ofo ofo
+                             ON ofo.idfol_ofo = obj.idofo_obj
+                     WHERE ofo.idfol_ofo = ?
                   ORDER BY order_obj";
 
-            $stmt = $con->prepare($sql);
-            $stmt->bind_param("i", $this->param);
+            $obj=$this->getParam();
+            $stmt = $this->getCon()->prepare($sql);
+            $stmt->bind_param("s", $obj);
             $stmt->bind_result($description, $preview, $file);
             $stmt->execute();
 

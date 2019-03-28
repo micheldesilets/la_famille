@@ -28,7 +28,7 @@ class Readings implements \JsonSerializable
    */
   public function set_Title($m_title)
   {
-    $this->m_title = utf8_encode($m_title);
+    $this->m_title = $m_title;
   }
 
   /**
@@ -60,7 +60,7 @@ class Readings implements \JsonSerializable
    */
   public function set_Intro($m_intro): void
   {
-    $this->m_intro = utf8_encode($m_intro);
+    $this->m_intro = $m_intro;
   }
 
   /**
@@ -76,7 +76,7 @@ class Readings implements \JsonSerializable
    */
   public function set_sumary($m_sumary)
   {
-    $this->m_sumary = utf8_encode($m_sumary);
+    $this->m_sumary = $m_sumary;
   }
 
   /**

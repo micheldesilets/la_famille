@@ -55,4 +55,18 @@ class GetFoldersLevelOne extends FolderLevel
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getIdentifier($val)
+    {
+        $sql = "SELECT identifier_fo1  
+                  FROM folders_one_fo1 
+                 WHERE id_fo1 = ?";
+
+        $stmt = $this->getCon()->prepare($sql);
+        $stmt->bind_param("i", $val);
+        $stmt->bind_result($identifier);
+        $stmt->execute();
+        $stmt->fetch();
+        return $identifier;
+    }
 }

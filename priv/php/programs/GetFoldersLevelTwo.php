@@ -54,4 +54,17 @@ class GetFoldersLevelTwo extends FolderLevel
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getIdentifier($val){
+        $sql = "SELECT identifier_fo2  
+                  FROM folders_two_fo2 
+                 WHERE id_fo2 = ?";
+
+        $stmt = $this->getCon()->prepare($sql);
+        $stmt->bind_param("i", $val);
+        $stmt->execute();
+        $stmt->bind_result($identifier);
+        $stmt->fetch();
+        return $identifier;
+    }
 }

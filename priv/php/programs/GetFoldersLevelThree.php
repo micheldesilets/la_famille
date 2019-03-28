@@ -48,4 +48,17 @@ class GetFoldersLevelThree extends FolderLevel
     {
         return true;
     }
+
+    public function getIdentifier($val){
+        $sql = "SELECT identifier_fo3  
+                  FROM folders_three_fo3 
+                 WHERE id_fo3 = ?";
+
+        $stmt = $this->getCon()->prepare($sql);
+        $stmt->bind_param("i", $val);
+        $stmt->execute();
+        $stmt->bind_result($identifier);
+        $stmt->fetch();
+        return $identifier;
+    }
 }

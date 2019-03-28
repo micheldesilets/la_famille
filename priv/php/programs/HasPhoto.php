@@ -28,7 +28,7 @@ class HasPhoto
                           WHERE idfol_pho = ?";
 
             $stmt = $this->con->prepare($sql);
-            $stmt->bind_param("i", $param);
+            $stmt->bind_param("s", $param);
             $stmt->execute();
             return $stmt->fetch();
         }catch (\Exception $e) {

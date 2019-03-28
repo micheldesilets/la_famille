@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: User
- * Date: 2019-03-20
- * Time: 08:28
+ * Date: 2019-03-25
+ * Time: 14:11
  */
 
 namespace priv\php\programs;
 
 use priv\php\connection\DbConnection;
 
-abstract class FolderLevel
+abstract class GetFolderIdentifier
 {
     protected $connection;
     protected $con;
@@ -44,11 +44,5 @@ abstract class FolderLevel
         return $this->con;
     }
 
-    abstract protected function getIdList();
-
-    abstract protected function getFolderName($id);
-
-    abstract protected function hasNextLevel($val);
-
-    abstract protected function getIdentifier($val);
+    abstract protected function getIdentifier();
 }

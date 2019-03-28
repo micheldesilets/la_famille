@@ -17,13 +17,15 @@ abstract class InsertFolderRow
     protected $fatherId;
     protected $folderId;
     protected $folderName;
+    protected $identifier;
 
-    public function __construct($fatherId,$folderName)
+    public function __construct($fatherId,$folderName,$identifier)
     {
         $this->connection = new DbConnection();
         $this->setCon($this->connection->Connect());
         $this->setFolderName($folderName);
         $this->setFatherId($fatherId);
+        $this->setIdentifier($identifier);
     }
 
     public function setCon(\mysqli $con): void
@@ -64,6 +66,16 @@ abstract class InsertFolderRow
     public function getFolderName()
     {
         return $this->folderName;
+    }
+
+    public function setIdentifier($identifier): void
+    {
+        $this->identifier = $identifier;
+    }
+
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 
     abstract function insertRow();

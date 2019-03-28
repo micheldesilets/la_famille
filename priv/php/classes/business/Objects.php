@@ -25,7 +25,7 @@ class Objects implements \JsonSerializable
    */
   public function set_description($m_description)
   {
-    $this->m_description = utf8_encode($m_description);
+    $this->m_description = $m_description;
   }
 
   /**

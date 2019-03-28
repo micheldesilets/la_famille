@@ -8,7 +8,8 @@
 
 namespace priv\php\programs;
 
-use priv\php\{connection\DbConnection, programs\CreateFolderIdentifier};
+use priv\php\{connection\DbConnection, programs\CreateFolderIdentifier,
+factories\json\factory\JsonClientEcho};
 
 class AddFolderToMysql
 {
@@ -16,10 +17,13 @@ class AddFolderToMysql
     private $folderZeroId;
     private $folderOneId;
     private $folderOneName;
+    private $folderOneIdentifier;
     private $folderTwoId;
     private $folderTwoName;
+    private $folderTwoIdentifier;
     private $folderThreeId;
     private $folderThreeName;
+    private $folderThreeIdentifier;
 
     public function __construct($param)
     {
@@ -111,95 +115,95 @@ class AddFolderToMysql
         return $this->folderThreeName;
     }
 
+    public function setFolderOneIdentifier($folderOneIdentifier): void
+    {
+        $this->folderOneIdentifier = $folderOneIdentifier;
+    }
+
+    public function getFolderOneIdentifier()
+    {
+        return $this->folderOneIdentifier;
+    }
+
+    public function setFolderTwoIdentifier($folderTwoIdentifier): void
+    {
+        $this->folderTwoIdentifier = $folderTwoIdentifier;
+    }
+
+    public function getFolderTwoIdentifier()
+    {
+        return $this->folderTwoIdentifier;
+    }
+
+    public function setFolderThreeIdentifier($folderThreeIdentifier): void
+    {
+        $this->folderThreeIdentifier = $folderThreeIdentifier;
+    }
+
+    public function getFolderThreeIdentifier()
+    {
+        return $this->folderThreeIdentifier;
+    }
+
     public function addFolder()
     {
         try {
             //Folder Level One
             if ($this->getFolderOneId() === "0") {
-                $workerF1 = new InsertFolderOne($this->getFolderZeroId(),
-                    $this->getFolderOneName());
-                $this->setFolderOneId($workerF1->insertRow());
-            }
-            //If next level is empty then...
-            if (empty($this->getFolderTwoName())) {
                 //Create a unique identifier
                 $this->createIdentifier();
+
+                //Add row to folder One
+                $workerF1 = new InsertFolderOne($this->getFolderZeroId(),
+                    $this->getFolderOneName(), $this->getIdentifier());
+                $this->setFolderOneId($workerF1->insertRow());
 
                 //Add unique identifier to mysql table
                 $identifierClass = new InsertUniqueIdentifier
                 ($this->getIdentifier(), "One", $this->getFolderOneId());
                 $identifierClass->insertIdentifierRow();
+            }
 
-                //Update identifier folder one
-                $updateFolderClass=new UpdateFolderOne
-                ($this->getFolderOneId(),$this->getIdentifier
-                ());
-                $updateFolderClass->updateRow();
-
-                //Insert new row into folder_concat_fco
-/*                $type = 2;
-                $concatClass = new InsertConcatenatedFolder
-                ($type, $this->getFolderZeroId(), $this->getFolderOneId(),
-                   NULL,NULL);
-                $concatClass->insertFolder();*/
+            //   If next level is empty then...
+            if (empty($this->getFolderTwoName())) {
+                $worker = new JsonClientEcho(7, "Michel");
                 return;
             }
 
             //Folder Level Two
             if ($this->getFolderTwoId() === "0") {
-                $worker = new InsertFolderTwo($this->getFolderOneId(),
-                    $this->getFolderTwoName());
-                $this->setFolderTwoId($worker->insertRow());
-            }
-            //If next level is empty then...
-            if (empty($this->getFolderThreeName())) {
                 //Create a unique identifier
                 $this->createIdentifier();
+
+                $worker = new InsertFolderTwo($this->getFolderOneId(),
+                    $this->getFolderTwoName(), $this->getIdentifier());
+                $this->setFolderTwoId($worker->insertRow());
 
                 //Add unique identifier to mysql table
                 $identifierClass = new InsertUniqueIdentifier
                 ($this->getIdentifier(), "Two", $this->getFolderTwoId());
                 $identifierClass->insertIdentifierRow();
+            }
 
-                //Update identifier folder two
-                $updateFolderClass=new UpdateFolderTwo
-                ($this->getFolderTwoId(),$this->getIdentifier
-                ());
-                $updateFolderClass->updateRow();
-                //Insert new row into folder_concat_fco
-/*                $type = 2;
-                $concatClass = new InsertConcatenatedFolder
-                ($type, $this->getFolderZeroId(), $this->getFolderOneId(),
-                    $this->getFolderTwoId(),NULL);
-                $concatClass->insertFolder();*/
+            //If next level is empty then...
+            if (empty($this->getFolderThreeName())) {
                 return;
             }
 
-            //Folder Level Three
-            $worker = new InsertFolderThree($this->getFolderTwoId(),
-                $this->getFolderThreeName());
-            $this->setFolderThreeId($worker->insertRow());
-
             //Create a unique identifier
             $this->createIdentifier();
+
+            //Folder Level Three
+            $worker = new InsertFolderThree($this->getFolderTwoId(),
+                $this->getFolderThreeName(), $this->getIdentifier());
+            $this->setFolderThreeId($worker->insertRow());
 
             //Add unique identifier to mysql table
             $identifierClass = new InsertUniqueIdentifier
             ($this->getIdentifier(), "Three", $this->getFolderThreeId());
             $identifierClass->insertIdentifierRow();
 
-            //Update identifier folder three
-            $updateFolderClass=new UpdateFolderThree
-            ($this->getFolderThreeId(),$this->getIdentifier
-            ());
-            $updateFolderClass->updateRow();
-            //Insert new row into folder_concat_fco
-/*            $type = 2;
-            $concatClass = new InsertConcatenatedFolder
-            ($type, $this->getFolderZeroId(), $this->getFolderOneId(),
-                $this->getFolderTwoId(), $this->getFolderThreeId());
-            $concatClass->insertFolder();*/
-            return;
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
             exit();

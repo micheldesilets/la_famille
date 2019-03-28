@@ -39,32 +39,6 @@ sec_session_start();
                 <input type="submit"
                        value="Soumettre"
                        class="data-box__go-button"><br>
-
-                <!--                <div>
-                                    <label for="data-box__select--level"
-                                           class="data-box__label">Nombre de niveaux</label>
-                                    <select class=
-                                            "data-box__select data-box__select--add-folder-level"
-                                            id="data-box__select--level">
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4" selected>4</option>
-                                    </select>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="data-box__select--family"
-                                           class="data-box__label">Type de
-                                        regroupement</label>
-                                    <select class=
-                                            "data-box__select data-box__select--add-folder-family"
-                                            id="data-box__select--family">
-                                        <option value="2" selected>Famille</option>
-                                        <option value="3">Livres</option>
-                                        <option value="6">Objets</option>
-                                    </select>
-                                </div>
-                                <br>-->
                 <div>
                     <label for="data-box__select--level0"
                            class="data-box__label data-box__label--level0">
@@ -74,6 +48,7 @@ sec_session_start();
                                               data-box__input--level0" readonly>
                 </div>
                 <br>
+
                 <div>
                     <label for="data-box__select--level1"
                            class="data-box__label data-box__label--level1">
@@ -88,6 +63,7 @@ sec_session_start();
                                data-box__input--level1">
                 </div>
                 <br>
+
                 <div>
                     <label for="data-box__select--level2"
                            class="data-box__label data-box__label--level2">
@@ -107,23 +83,9 @@ sec_session_start();
                            class="data-box__label data-box__label--level3">
                         Sous-répertoire - niveau 3
                     </label>
-                    <!--              <select class="data-box__select
-                                                 data-box__select--level3"
-                                          id="data-box__select--level3">
-                                  </select>-->
                     <input type="text" class="data-box__input
                                data-box__input--level3">
                 </div>
-                <!--<div>
-                    <label for="data-box__select--title"
-                           class="data-box__label data-box__label--level3">
-                        Sous-répertoire - niveau 3
-                    </label>
-                    <input type="text"
-                           class="data-box__select data-box__select--title"
-                           id="data-box__select--title"
-                           >
-                </div>-->
             </form>
 
             <p class='data-box__message' hidden>Cliquer

@@ -19,13 +19,9 @@ $function = $_GET['function'];
 $db = new database\FoldersDB();
 
 if ($function === 'getFoldersTree') {
-  // $jsonTree = new factory\JsonClientReturn(15, '');
-  //  $tree = new prog\BuildFolderTree($jsonTree->getJsonFactory());
-     $tree = new prog\BuildFolderTree();
+    $tree = new prog\BuildFolderTree();
     $tree->buildTree();
     echo $tree->getHtmlString();
-
- // $worker = new factory\JsonClientEcho(8, 2);
     exit;
 }
 
@@ -62,12 +58,18 @@ if ($function == 'addFolderToSite') {
     $folderData = array($level0Id, $level0Name, $level1Id, $level1Name,
         $level2Id, $level2Name, $level3Name);
 
-    $worker = new prog\AddFolderToSite($folderData);
-    $worker->addFolder();
+    $folderExist = new prog\IsFolderExist($level0Name, $level1Name,
+        $level2Name, $level3Name);
+    if (!$folderExist->validate()) {
+        $worker = new prog\AddFolderToSite($folderData);
+        $worker->addFolder();
 
-    $worker = new prog\AddFolderToMysql($folderData);
-    $worker->addFolder();
-    return;
+        $worker = new prog\AddFolderToMysql($folderData);
+        $worker->addFolder();
+
+        $worker = new prog\CreateFolderStructures();
+        $worker->createStructures();
+        }
 }
 
 /*if ($function == 'addFolderMysql') {

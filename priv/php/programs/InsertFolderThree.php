@@ -16,11 +16,12 @@ class InsertFolderThree extends InsertFolderRow
     {
         $levelId=$this->getFatherId();
         $levelName=$this->getFolderName();
+        $identifier=$this->getIdentifier();
 
-        $sql = "INSERT INTO folders_three_fo3 (idfo2_fo3, name_fo3)
-                    VALUES (?,?)";
+        $sql = "INSERT INTO folders_three_fo3 (idfo2_fo3, name_fo3,identifier_fo3)
+                    VALUES (?,?,?)";
         $stmt = $this->getCon()->prepare($sql);
-        $stmt->bind_param("is", $levelId, $levelName);
+        $stmt->bind_param("iss", $levelId, $levelName,$identifier);
         $stmt->execute();
         $this->setFolderId($stmt->insert_id);
         $stmt->close();

@@ -13,8 +13,6 @@ use priv\php\{factories\json\products\GetFolderLevelOneProduct,
 
 class BuildFolderTree
 {
-    private $jsonTree;
-    private $data;
     private $htmlString = '';
     private $membersClass;
     private $memberList = array();
@@ -32,6 +30,9 @@ class BuildFolderTree
     private $folderThreeName;
     private $hasPhotoClass;
     private $hasPhoto;
+    private $identifierOne;
+    private $identifierTwo;
+    private $identifierThree;
 
     private $j = 0;
     private $item = 1;
@@ -39,8 +40,6 @@ class BuildFolderTree
 
     public function __construct()
     {
-        /*        $this->jsonTree = $jsonTree;
-               $this->data = json_decode($this->jsonTree);*/
         $this->membersClass = new GetMembers();
         $this->memberList = $this->membersClass->getIdList();
         $this->hasPhotoClass = new prog\HasPhoto();
@@ -54,6 +53,36 @@ class BuildFolderTree
     public function getHtmlString(): string
     {
         return $this->htmlString;
+    }
+
+    public function setIdentifierOne($identifierOne): void
+    {
+        $this->identifierOne = $identifierOne;
+    }
+
+    public function getIdentifierOne()
+    {
+        return $this->identifierOne;
+    }
+
+    public function setIdentifierTwo($identifierTwo): void
+    {
+        $this->identifierTwo = $identifierTwo;
+    }
+
+    public function getIdentifierTwo()
+    {
+        return $this->identifierTwo;
+    }
+
+    public function setIdentifierThree($identifierThree): void
+    {
+        $this->identifierThree = $identifierThree;
+    }
+
+    public function getIdentifierThree()
+    {
+        return $this->identifierThree;
     }
 
     public function buildTree()
@@ -81,9 +110,9 @@ class BuildFolderTree
 
             $this->j += 1;
         }
-        $this->htmlString = $this->htmlString .
-            "</div>\n" .
-            "</div>\n";
+        /*        $this->htmlString = $this->htmlString .
+                    "</div>\n" .
+                    "</div>\n";*/
 
         $this->setHtmlString($this->htmlString);
     }
@@ -95,8 +124,11 @@ class BuildFolderTree
 
         foreach ($this->folderOneList as $val) {
             $this->folderOneName = $this->folderOneClass->getFolderName($val);
+            $this->setIdentifierOne($this->folderOneClass->getIdentifier($val));
 
-            $this->hasPhoto = $this->hasPhotoClass->hasPhoto($val);
+            $this->hasPhoto =
+                $this->hasPhotoClass->hasPhoto($this->getIdentifierOne());
+
             $this->hasLevelTwo = $this->folderOneClass->hasNextLevel($val);
 
             $this->htmlString = $this->htmlString .
@@ -122,15 +154,16 @@ class BuildFolderTree
                 $this->folderOneName .
                 "</label>\n";
 
-            if ($this->hasPhoto) {
+            if ($this->hasPhoto === true) {
                 $this->htmlString = $this->htmlString .
                     "<img src=\"../../public/img/icons/icon_photo.png\"\n " .
                     "class=\"folders__hasPhoto\" \n" .
                     "onclick=\"getFamilyPhotos(" .
                     "'" .
                     $this->folderOneName .
-                    "'," .
-                    "13,2" .
+                    "','" .
+                    $this->getIdentifierOne() .
+                    "',2" .
                     ")\">\n";
             }
 
@@ -154,8 +187,11 @@ class BuildFolderTree
 
         foreach ($this->folderTwoList as $val) {
             $this->folderTwoName = $this->folderTwoClass->getFolderName($val);
+            $this->setIdentifierTwo($this->folderTwoClass->getIdentifier($val));
 
-            $this->hasPhoto = $this->hasPhotoClass->hasPhoto($val);
+            $this->hasPhoto =
+                $this->hasPhotoClass->hasPhoto($this->getIdentifierTwo());
+
             $this->hasLevelThree = $this->folderTwoClass->hasNextLevel($val);
 
             $this->htmlString = $this->htmlString .
@@ -186,7 +222,7 @@ class BuildFolderTree
                 $this->folderTwoName .
                 "</label>\n";
 
-            if ($this->hasPhoto) {
+            if ($this->hasPhoto === true) {
                 $this->htmlString = $this->htmlString .
                     "<img src=\"../../public/img/icons/icon_photo.png\"\n " .
                     "class=\"folders__hasPhoto\" \n" .
@@ -219,15 +255,17 @@ class BuildFolderTree
         foreach ($this->folderThreeList as $val) {
             $this->folderThreeName = $this->folderThreeClass->getFolderName
             ($val);
+            $this->setIdentifierThree($this->folderThreeClass->getIdentifier($val));
 
-            $this->hasPhoto = $this->hasPhotoClass->hasPhoto($val);
+            $this->hasPhoto =
+                $this->hasPhotoClass->hasPhoto($this->getIdentifierThree());
 
             $this->htmlString = $this->htmlString .
                 "<li class=\"folders__photofolder\" value=\"0\">" .
                 $this->folderThreeName .
                 "\n";
 
-            if ($this->hasPhoto) {
+            if ($this->hasPhoto === true) {
                 $this->htmlString = $this->htmlString .
                     "<img src=\"../../public/img/icons/icon_photo.png\"\n " .
                     "class=\"folders__hasPhoto\" \n" .

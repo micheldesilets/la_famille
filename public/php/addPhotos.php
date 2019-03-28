@@ -21,104 +21,170 @@ sec_session_start();
     <![endif]-->
 </head>
 <body>
-<?php if (login_check($mysqli) == true) :
-    $u = PrivilegedUser::getByUsername($_SESSION["username"]); ?>
-    <div class="page data-box">
+<?php /*if (login_check($mysqli) == true) :
+    $u = PrivilegedUser::getByUsername($_SESSION["username"]); */ ?>
+<div class="page data-box">
 
-        <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des
-            photos</h1>
-        <div>
-            <a href="../../index.php" class="data-box__exit">X</a>
-        </div>
-
-        <main role="main">
-            <fieldset class="data-box__fieldset data-box__fieldset--add-photo">
-                <form method="post"
-                      enctype="multipart/form-data"
-                      class="data-box__form data-box__form--add-photos"
-                      action="javascript:uploadPhotos()">
-                    <input type="submit"
-                           value="Soumettre"
-                           class="data-box__go-button"><br>
-
-                    <div>
-                        <label for="data-box__select--add-ph-type"
-                               class="data-box__label">Type de
-                            regroupement</label>
-                        <select class="data-box__select data-box__select--add-ph-type">
-                            <option value="2" selected>Famille</option>
-                            <option value="3">Livres</option>
-                            <option value="6">Objets</option>
-                        </select><br>
-                    </div>
-
-                    <div>
-                        <label for="data-box__select--add-ph-author"
-                             class="data-box__label">Membre</label>
-                        <select class="data-box__select"
-                                   id="data-box__select--add-ph-member">
-                        </select><br>
-                    </div>
-
-                    <div>
-                        <label for="data-box__select--add-folder-photo-decade"
-                               class="data-box__label">Décennie</label>
-                        <select class="data-box__select data-box__select--add-folder-photo-decade"
-                                onchange="getYearsSelected();">
-                        </select><br>
-                    </div>
-
-                    <div>
-                        <label for="data-box__select--add-folder-photo-year"
-                               class="data-box__label">Année</label>
-                        <select class="data-box__select data-box__select--add-folder-photo-year"
-                                onchange="getFolders()">
-                        </select><br>
-                    </div>
-
-                    <div>
-                        <label for="data-box__select--add-ph-title"
-                               class="data-box__label">Nom du répertoire</label>
-                        <select class="data-box__select data-box__select--add-ph-title">
-                        </select><br>
-                    </div>
-
-                    <div>
-                        <label for="data-box__input--photos"
-                               class="data-box__label">Sélection des
-                            photos</label>
-                        <input type="file"
-                               multiple
-                               class="data-box__input data-box__input--photos"
-                               id="data-box__input--photos"
-                               name="data-box__data[]"
-                               onchange="renderSelectedPhotos()"><br>
-                        <input type="text"
-                               id="data__box--text-input"
-                               class=" data-box__text data-box__text--photos"
-                               size="75"
-                               readonly>
-                    </div>
-                </form>
-                <p class="data-box__upload-done" hidden> Opération terminée.</p>
-                <p class='data-box__message' hidden>Svp sélectionner une ou
-                    plusieurs photos.</p>
-            </fieldset>
-        </main>
+    <h1 class="data-box__h1 data-box__h1--add-photos">Ajouter des
+        photos</h1>
+    <div>
+        <a href="../../index.php" class="data-box__exit">X</a>
     </div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        var user = '<?php echo $u->getUsername();?>';
-        getDecades();
-        getMembers(user);
-    </script>
-<?php else : ?>
+    <main role="main">
+        <fieldset class="data-box__fieldset data-box__fieldset--add-photo">
+            <form method="post"
+                  enctype="multipart/form-data"
+                  class="data-box__form data-box__form--add-photos"
+                  action="javascript:uploadPhotos()">
+                <input type="submit"
+                       value="Soumettre"
+                       class="data-box__go-button"><br>
+
+                <!--                    <div>
+                                        <label for="data-box__select--add-ph-type"
+                                               class="data-box__label">Type de
+                                            regroupement</label>
+                                        <select class="data-box__select data-box__select--add-ph-type">
+                                            <option value="2" selected>Famille</option>
+                                            <option value="3">Livres</option>
+                                            <option value="6">Objets</option>
+                                        </select><br>
+                                    </div>-->
+                <div>
+                    <label for="data-box__select--level0"
+                           class="data-box__label data-box__label--level0">
+                        Répertoire principal
+                    </label>
+                    <input type="text" class="data-box__input
+                                              data-box__input--level0" readonly>
+                </div>
+                <br>
+
+                <div>
+                    <label for="data-box__select--level1"
+                           class="data-box__label data-box__label--level1">
+                        Sous-répertoire - niveau 1
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--level1"
+                            id="data-box__select--level1"
+                            onchange="FirstLevelOnChange()">
+                    </select>
+                    <input type="text" class="data-box__input
+                               data-box__input--level1" readonly>
+                </div>
+                <br>
+
+                <div>
+                    <label for="data-box__select--level2"
+                           class="data-box__label data-box__label--level2">
+                        Sous-répertoire - niveau 2
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--level2"
+                            id="data-box__select--level2"
+                            onchange="SecondLevelOnChange()">
+                    </select>
+                    <input type="text" class="data-box__input
+                               data-box__input--level2" readonly>
+                </div>
+                <br>
+                <div>
+                    <label for="data-box__select--level3"
+                           class="data-box__label data-box__label--level3">
+                        Sous-répertoire - niveau 3
+                    </label>
+                    <select class="data-box__select
+                                   data-box__select--level3"
+                            id="data-box__select--level3"
+                            onchange="ThirdLevelOnChange()">
+                    </select>
+                    <input type="text" class="data-box__input
+                               data-box__input--level3" readonly>
+                </div>
+            <!--    <div>
+                    <label for="data-box__select--add-ph-author"
+                           class="data-box__label">Répertoire principal</label>
+                    <input type="text" class="data-box__input
+                                              data-box__input--level0" readonly>
+                    <select class="data-box__select"
+                            id="data-box__select--add-ph-member">
+                    </select><br>
+                </div>
+
+                <div>
+                    <label for="data-box__select--add-folder-photo-decade"
+                           class="data-box__label">
+                        Sous-répertoire - niveau 1</label>
+                    <select class="data-box__select
+                        data-box__select--add-folder-photo-decade"
+                            onchange="getYearsSelected();">
+                    </select><br>
+                </div>
+
+                <div>
+                    <label for="data-box__select--add-folder-photo-year"
+                           class="data-box__label">
+                        Sous-répertoire - niveau 2
+                    </label>
+                    <select class="data-box__select
+                    data-box__select--add-folder-photo-year"
+                            onchange="getFolders()">
+                    </select>
+                    <br>
+                </div>
+
+                <div>
+                    <label for="data-box__select--add-ph-title"
+                           class="data-box__label">
+                        Sous-répertoire - niveau 3
+                    </label>
+                    <select class="data-box__select
+                    data-box__select--add-ph-title">
+                    </select>
+                    <br>
+                </div>
+-->
+                <div>
+                    <label for="data-box__input--photos"
+                           class="data-box__label">
+                        Sélection des photos
+                    </label>
+                    <input type="file"
+                           multiple
+                           class="data-box__input data-box__input--photos"
+                           id="data-box__input--photos"
+                           name="data-box__data[]"
+                           onchange="renderSelectedPhotos()">
+                    <br>
+                    <input type="text"
+                           id="data__box--text-input"
+                           class=" data-box__text data-box__text--photos"
+                           size="75"
+                           readonly>
+                </div>
+            </form>
+            <p class="data-box__upload-done" hidden> Opération terminée.</p>
+            <p class='data-box__message' hidden>Svp sélectionner une ou
+                plusieurs photos.</p>
+        </fieldset>
+    </main>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+    //var user = '<?php //echo $u->getUsername();?>//';
+  //  getDecades();
+ //
+    GetFolderLevel0('Michel');
+</script>
+<?php /*else : */ ?><!--
     <p>
        <span class="error">Vous devez être connecté au site pour pouvoir
            voir le contenu de cette page.</span>
         Svp <a href="../../index.php">connectez-vous.</a>.
     </p>
-<?php endif; ?>
+--><?php /*endif; */ ?>
 </body>
 </html>

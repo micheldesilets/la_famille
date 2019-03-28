@@ -32,9 +32,9 @@ var getFolderTree = () => {
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getFoldersTree',
         true);
     xhr.onload = () => {
-         folderContainer.insertAdjacentHTML("beforeend", xhr.responseText);
-/*        const folderData = JSON.parse(xhr.responseText);
-        buildFolderTree(folderData);*/
+        folderContainer.insertAdjacentHTML("beforeend", xhr.responseText);
+        /*        const folderData = JSON.parse(xhr.responseText);
+                buildFolderTree(folderData);*/
     };
     xhr.send();
 };
@@ -182,23 +182,23 @@ var folderLevel4 = (branch) => {
     }
 };
 
-var getFamilyPhotos = (obj, path, type) => {
+var getFamilyPhotos = (obj, ident, type) => {
     'use strict';
-    folderTree.setFolderId(path);
+    folderTree.setFolderIdent(ident);
     inFoldersState.setState(true);
-/*    const folders = listShiftingFolders.getShiftingFolders();
-    for (let i = 0; i < folders.length; ++i) {
-        if (path === parseInt(folders[i].folder)) {
-            currentShiftingFolder = new shiftingFoldersIdx(i);
-            break;
-        }
-    }*/
+    /*    const folders = listShiftingFolders.getShiftingFolders();
+        for (let i = 0; i < folders.length; ++i) {
+            if (path === parseInt(folders[i].folder)) {
+                currentShiftingFolder = new shiftingFoldersIdx(i);
+                break;
+            }
+        }*/
     //folderTitle.setTitle(obj.innerHTML);
     folderTitle.setTitle(obj);
-    getPhotos(path, type);
+    getPhotos(ident, type);
 };
 
-var getPhotos = (path, type) => {
+var getPhotos = (ident, type) => {
     'use strict';
     searchChoice.setSearchPageStatus(false);
     try {
@@ -1152,12 +1152,12 @@ var getReadings = () => {
     var path;
 
     if (n !== -1) {
-        path = 11;
+        path = 'bybR5OjC';
         menu0.innerHTML = 'Lectures des Bernard-Normandeau';
         menu1.innerHTML = "Vers les <span style='font-weight:bold;'</span>" +
             "Normandeau-Desilets";
     } else {
-        path = 10;
+        path = 'pzHns6Ij';
         assignReadingTitle();
     }
 
@@ -1204,7 +1204,8 @@ var renderReadings = (data) => {
 var getObjects = () => {
     'use strict';
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../priv/php/Controllers/ObjectsController.php?path=' + 12, true);
+    xhr.open('GET', '../../priv/php/Controllers/ObjectsController.php?path=' +
+        'DcddbLQ1', true);
     xhr.onload = () => {
         selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
         const listPhotos = selectedPhotos.getPhotos();
@@ -1300,12 +1301,10 @@ var addFolder = () => {
     'use strict';
     var folderData = getFolderInputs();
     folderData = GetFolderValues(folderData);
+    FolderFirstLevel.setPrevious(folderData.level1);
+    FolderSecondLevel.setPrevious(folderData.level2);
+    FolderThirdLevel.setPrevious(folderData.level3);
     const xhr = new XMLHttpRequest();
-    /*    xhr.open('GET', '../../priv/php/FoldersController.php?type=' +
-            folderData.type + '&member=' + folderData.member + '&decade=' +
-            folderData.decade + '&year=' + folderData.year +
-            '&title=' + folderData.title + '&levels=' + folderData.levels +
-            '&function=addFolder', true);*/
     xhr.open('GET', '../../priv/php/controllers/FoldersController.php' +
         '?level0Id=' + folderData.idLevel0 +
         '&level0Name=' + folderData.level0 +
@@ -1318,6 +1317,7 @@ var addFolder = () => {
     xhr.onload = () => {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
+                GetFolderLevel0('Michel');
                 /*                const xhr1 = new XMLHttpRequest();
                                 /!*                xhr1.open('GET', '../../priv/php/FoldersController.php?type=' +
                                                     folderData.type + '&member=' + folderData.member +
@@ -1414,8 +1414,17 @@ var SecondLevelOnChange = () => {
     const inputLevel2 =
         document.getElementsByClassName('data-box__input--level2');
     inputLevel2[0].value = FolderSecondLevel.getName(selectIndex);
-    // const FirstLevelId = FolderFirstLevel.getId(selectIndex);
-    // GetFolderLevel2(FirstLevelId);
+    const SecondLevelId = FolderSecondLevel.getId(selectIndex);
+    GetFolderLevel3(SecondLevelId);
+};
+
+var ThirdLevelOnChange = () => {
+    'use strict';
+    const listIdx = document.getElementsByClassName('data-box__select--level3');
+    const selectIndex = listIdx[0].selectedIndex;
+    const inputLevel3 =
+        document.getElementsByClassName('data-box__input--level3');
+    inputLevel3[0].value = FolderThirdLevel.getName(selectIndex);
 };
 
 var GetFolderLevel0 = (member) => {
@@ -1447,8 +1456,9 @@ var GetFolderLevel1 = (idmem) => {
                 console.log(xhr.responseText);
                 const level1 = JSON.parse(xhr.responseText);
                 if (level1.length !== 0) {
-                    RenderFolderLevel1(level1);
-                    GetFolderLevel2(level1[0].id);
+                    const oneId = RenderFolderLevel1(level1);
+                    //     GetFolderLevel2(level1[0].id);
+                    GetFolderLevel2(oneId);
                 }
             }
         }
@@ -1468,8 +1478,19 @@ var GetFolderLevel2 = (idFo1) => {
     xhr.onload = () => {
         const level2 = JSON.parse(xhr.responseText);
         if (level2.length !== 0) {
-            RenderFolderLevel2(level2);
-            GetFolderLevel3(level2[0].id);
+            const twoId = RenderFolderLevel2(level2);
+            // GetFolderLevel3(level2[0].id);
+            GetFolderLevel3(twoId);
+        } else {
+            const inputAnchor =
+                document.getElementsByClassName('data-box__input--level2')[0];
+            inputAnchor.value = "";
+            inputAnchor.innerHTML = "";
+            inputAnchor.insertAdjacentHTML("beforeend", "");
+            const selectAnchor =
+                document.getElementsByClassName(' data-box__select--level2')[0];
+            selectAnchor.innerHTML = "";
+            selectAnchor.insertAdjacentHTML("beforeend", "");
         }
     };
     xhr.send();
@@ -1478,16 +1499,23 @@ var GetFolderLevel2 = (idFo1) => {
 var GetFolderLevel3 = (idFo2) => {
     'use strict';
     const url = currentWindow();
-    /*    var lev2 =
-            document.getElementsByClassName('data-box__id-value2');
-        var idParent = lev2[0].value;*/
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' + idFo2 +
-        '&function=GetFoldersLevelThree', true);
+    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?idParent=' +
+        idFo2 + '&function=GetFoldersLevelThree', true);
     xhr.onload = () => {
         const level3 = JSON.parse(xhr.responseText);
         if (level3.length !== 0) {
             RenderFolderLevel3(level3);
+        } else {
+            const inputAnchor =
+                document.getElementsByClassName('data-box__input--level3')[0];
+            inputAnchor.value = "";
+            inputAnchor.innerHTML = "";
+            inputAnchor.insertAdjacentHTML("beforeend", "");
+            const selectAnchor =
+                document.getElementsByClassName(' data-box__select--level3')[0];
+            selectAnchor.innerHTML = "";
+            selectAnchor.insertAdjacentHTML("beforeend", "");
         }
     };
     xhr.send();
@@ -1497,40 +1525,50 @@ var renderFolderLevel0 = (folderLevel0) => {
     'use strict';
     var htmlString = "";
     var inputAnchor;
-    var inputIdAnchor;
     var curr = currentWindow();
-    if (curr === 'addFolder.php') {
-        inputAnchor =
-            document.getElementsByClassName('data-box__input--level0')[0];
-        inputAnchor.value = folderLevel0[0].firstName;
-        memberInfo.setMemberId(folderLevel0[0].idmem);
-        memberInfo.setMemberName(folderLevel0[0].firstName);
-    } else if (curr === 'addPhotos.php') {
-        inputAnchor =
-            document.getElementById('data-box__select--add-ph-member');
-    }
+    //  if (curr === 'addFolder.php') {
+    inputAnchor =
+        document.getElementsByClassName('data-box__input--level0')[0];
+    inputAnchor.value = folderLevel0[0].firstName;
+    memberInfo.setMemberId(folderLevel0[0].idmem);
+    memberInfo.setMemberName(folderLevel0[0].firstName);
+    /* } else if (curr === 'addPhotos.php') {
+         inputAnchor =
+             document.getElementById('data-box__select--add-ph-member');
+     }*/
 };
 
 var RenderFolderLevel1 = (level1) => {
     'use strict';
+    var prev = FolderFirstLevel.getPrevious();
     var htmlString = "";
     var inputAnchor;
     var selectAnchor;
-    var idAnchor;
     var curr = currentWindow();
-    if (curr === 'addFolder.php') {
-        inputAnchor =
-            document.getElementsByClassName('data-box__input--level1')[0];
-        inputAnchor.value = level1[0].name;
-        selectAnchor = document.getElementsByClassName(' data-box__select--level1')[0];
-    } else if (curr === 'addPhotos.php') {
-        inputAnchor =
-            document.getElementById('data-box__select--add-ph-member');
+    var j = 0;
+    //   if (curr === 'addFolder.php') {
+    inputAnchor =
+        document.getElementsByClassName('data-box__input--level1')[0];
+    inputAnchor.innerHTML = "";
+    for (var k = 0; k < level1.length; k += 1) {
+        if (level1[k].name === prev) {
+            j = k;
+            break;
+        }
     }
+    inputAnchor.value = level1[j].name;
+    selectAnchor =
+        document.getElementsByClassName(' data-box__select--level1')[0];
+    selectAnchor.innerHTML = "";
+    /* } else if (curr === 'addPhotos.php') {
+         inputAnchor =
+             document.getElementById('data-box__select--add-ph-member');
+         inputAnchor.innerHTML = "";
+     }*/
     var i = 0;
     for (const obj of level1) {
         if (htmlString.length === 0) {
-            htmlString = '<option >' + obj.name +
+            htmlString = '<option value=>' + obj.name +
                 '</option>\n';
         } else {
             htmlString += '<option value=>' + obj.name +
@@ -1542,31 +1580,38 @@ var RenderFolderLevel1 = (level1) => {
         i += 1;
     }
     selectAnchor.insertAdjacentHTML("beforeend", htmlString);
+    return level1[j].id;
 };
 
 var RenderFolderLevel2 = (level2) => {
     'use strict';
+    var prev = FolderSecondLevel.getPrevious();
+    //var folderData = getFolderInputs();
     var htmlString = "";
     var inputAnchor;
     var selectAnchor;
-    var idAnchor;
+    //   var idAnchor;
     var curr = currentWindow();
-    if (curr === 'addFolder.php') {
-        inputAnchor =
-            document.getElementsByClassName('data-box__input--level2')[0];
-        inputAnchor.value = level2[0].name;
-        selectAnchor = document.getElementsByClassName(' data-box__select--level2')[0];
-    } else if (curr === 'addPhotos.php') {
-        inputAnchor =
-            document.getElementById('data-box__select--add-ph-member');
+    var j = 0;
+    inputAnchor =
+        document.getElementsByClassName('data-box__input--level2')[0];
+    inputAnchor.innerHTML = "";
+    for (var k = 0; k < level2.length; k += 1) {
+        if (level2[k].name === prev) {
+            j = k;
+            break;
+        }
     }
+    inputAnchor.value = level2[j].name;
+    selectAnchor =
+        document.getElementsByClassName(' data-box__select--level2')[0];
+    selectAnchor.innerHTML = "";
 
     var i = 0;
     FolderSecondLevel.init();
-    selectAnchor.innerHTML = "";
     for (const obj of level2) {
         if (htmlString.length === 0) {
-            htmlString = '<option >' + obj.name +
+            htmlString = '<option value=>' + obj.name +
                 '</option>\n';
         } else {
             htmlString += '<option value=>' + obj.name +
@@ -1578,31 +1623,37 @@ var RenderFolderLevel2 = (level2) => {
         i += 1;
     }
     selectAnchor.insertAdjacentHTML("beforeend", htmlString);
+    return level2[j].id;
 };
 
 var RenderFolderLevel3 = (level3) => {
     'use strict';
+    var prev = FolderSecondLevel.getPrevious();
     var htmlString = "";
     var inputAnchor;
     var selectAnchor;
-    var idAnchor;
     var curr = currentWindow();
-    if (curr === 'addFolder.php') {
-        /*        inputAnchor =
-                    document.getElementsByClassName('data-box__input--level3')[0];
-                inputAnchor.value = level3[0].name;
-                selectAnchor = document.getElementsByClassName(' data-box__select--level3')[0];
-                idAnchor=document.getElementsByClassName('data-box__id-value3')[0];
-                idAnchor.value = level3[0].id;*/
-    } else if (curr === 'addPhotos.php') {
+    if (curr === 'addPhotos.php') {
+        var j = 0;
         inputAnchor =
-            document.getElementById('data-box__select--add-ph-member');
+            document.getElementsByClassName('data-box__input--level3')[0];
+        inputAnchor.innerHTML = "";
+        for (var k = 0; k < level3.length; k += 1) {
+            if (level3[k].name === prev) {
+                j = k;
+                break;
+            }
+        }
+        inputAnchor.value = level3[j].name;
+        selectAnchor =
+            document.getElementsByClassName(' data-box__select--level3')[0];
+        selectAnchor.innerHTML = "";
     }
 
     var i = 0;
     for (const obj of level3) {
         if (htmlString.length === 0) {
-            htmlString = '<option >' + obj.name +
+            htmlString = '<option value=>' + obj.name +
                 '</option>\n';
         } else {
             htmlString += '<option value=>' + obj.name +
@@ -1614,7 +1665,8 @@ var RenderFolderLevel3 = (level3) => {
         i += 1;
     }
     if (curr === 'addPhotos.php') {
-        inputAnchor.insertAdjacentHTML("beforeend", htmlString);
+        selectAnchor.insertAdjacentHTML("beforeend", htmlString);
+        //inputAnchor.insertAdjacentHTML("beforeend", htmlString);
     }
 };
 
@@ -1855,18 +1907,18 @@ var currentWindow = () => {
 };
 
 var getShiftingFolders = () => {
-/*    'use strict';
-    const xhr = new XMLHttpRequest();
+    /*    'use strict';
+        const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getShiftingFolders');
-    xhr.onload = () => {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                listShiftingFolders.setShiftingFolders(JSON.parse(xhr.responseText));
+        xhr.open('GET', '../../priv/php/controllers/FoldersController.php?function=getShiftingFolders');
+        xhr.onload = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    listShiftingFolders.setShiftingFolders(JSON.parse(xhr.responseText));
+                }
             }
-        }
-    };
-    xhr.send();*/
+        };
+        xhr.send();*/
 };
 
 var showNextFolder = () => {
@@ -2124,9 +2176,13 @@ function FolderLevel1() {
     var _id = [];
     var _idParent = [];
     var _name = [];
+    var _previous;
 
     this.setId = (idx, id) => {
         _id[idx] = id;
+    };
+    this.setPrevious = (id) => {
+        _previous = id;
     };
     this.setIdParent = (idx, idParent) => {
         _idParent[idx] = idParent;
@@ -2137,6 +2193,10 @@ function FolderLevel1() {
     this.getId = (idx) => {
         return _id[idx];
     };
+    this.getPrevious = () => {
+        return _previous;
+    };
+
     this.getIdParent = (idx) => {
         return _idParent[idx];
     };
@@ -2158,9 +2218,13 @@ function FolderLevel2() {
     var _id = [];
     var _idParent = [];
     var _name = [];
+    var _previous;
 
     this.setId = (idx, id) => {
         _id[idx] = id;
+    };
+    this.setPrevious = (id) => {
+        _previous = id;
     };
     this.setIdParent = (idx, idParent) => {
         _idParent[idx] = idParent;
@@ -2177,6 +2241,9 @@ function FolderLevel2() {
     };
     this.getId = (idx) => {
         return _id[idx];
+    };
+    this.getPrevious = () => {
+        return _previous;
     };
     this.getIdParent = (idx) => {
         return _idParent[idx];
@@ -2199,9 +2266,13 @@ function FolderLevel3() {
     var _id = [];
     var _idParent = [];
     var _name = [];
+    var _previous;
 
     this.setId = (idx, id) => {
         _id[idx] = id;
+    };
+    this.setPrevious = (id) => {
+        _previous = id;
     };
     this.setIdParent = (idx, idParent) => {
         _idParent[idx] = idParent;
@@ -2211,6 +2282,9 @@ function FolderLevel3() {
     };
     this.getId = (idx) => {
         return _id[idx];
+    };
+    this.getPrevious = () => {
+        return _previous;
     };
     this.getIdParent = (idx) => {
         return _idParent[idx];
@@ -2239,6 +2313,7 @@ function folderHierarchy() {
     var _htmlString = '';
     var _j = -1;
     var _level = 0;
+    var _identifier = "";
 
     this.setMember = function (member) {
         _author = member;
@@ -2269,6 +2344,12 @@ function folderHierarchy() {
     };
     this.getFolderId = () => {
         return _folderId;
+    };
+    this.setFolderIdent = function (identifier) {
+        _identifier = identifier;
+    };
+    this.getFolderIdent = function () {
+        return _identifier;
     };
     this.addSubItem = () => {
         _sbitm += 1;
