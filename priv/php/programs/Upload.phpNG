@@ -6,7 +6,7 @@
  * Time: 14:07
  */
 
-include_once '../../priv/initialize.php';
+include_once '../../../priv/initialize.php';
 
 echo htmlspecialchars($_SERVER["PHP_SELF"]);
 
@@ -17,18 +17,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $all_files = count($_FILES['files']['tmp_name']);
 
-        $type = $_POST['type'];
-        $member = $_POST['member'];
-        $decade = $_POST['decade'];
-        $year = $_POST['year'];
-        $title = $_POST['title'];
+/*        $level1 = $_POST['level1'];
+        $level2 = $_POST['level2'];
+        $level3 = $_POST['level3'];
 
-        $folderData = array($type, $member, $decade, $year, $title);
-        require_once CLASSES_PATH . '/database/FoldersDB.php';
-        $db = new FoldersDB();
-        $pathSql = $db->getPath($folderData);
-        $path = $pathSql[0];
-        $idRpt = $pathSql[1];
+        if ($level3 !== "0") {
+            $worker = new GetPhysicalPathLevelThree($level3);
+        } else
+            if ($level2 !== "0") {
+                $worker = new GetPhysicalPathLevelTwo($level2);
+            } else {
+                $worker = new GetPhysicalPathLevelOne($level1);
+            }
+
+        $path = $worker->getPath();
+        $idRpt = substr(strrchr($path, '/'), 1);
+        $path = str_replace(strrchr($path, '/'), "", $path);*/
+
+        /*   //  $type = $_POST['type'];
+             $level0 = $_POST['level0'];
+             $level1 = $_POST['level1'];
+             $level2 = $_POST['level2'];
+             $level3 = $_POST['level3'];
+
+             $folderData = array($level0,$level1,$level2,$level3);
+             require_once CLASSES_PATH . '/database/FoldersDB.phpNG';
+             $db = new FoldersDB();
+             $pathSql = $db->getPath($folderData);*/
+        $path = PUBLIC_PATH . "/img/family/Michel/1900-1910/1901/test/";
+        $idRpt = "46960f8e";
+
+        //substr( strrchr( Text, '/' ), 1 );
+
         $curr = getcwd();
         for ($i = 0; $i < $all_files; $i++) {
             $file_name = $_FILES['files']['name'][$i];
@@ -36,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file_tmp = $_FILES['files']['tmp_name'][$i];
             $file_type = $_FILES['files']['type'][$i];
             $file_size = $_FILES['files']['size'][$i];
-            $file_ext = strtolower(end(explode('.', $_FILES['files']['name'][$i])));
+            $file_ext =
+                strtolower(end(explode('.', $_FILES['files']['name'][$i])));
 
 
             $file_name = str_replace(' ', '_', $file_name);
@@ -72,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 }
                 // Include the file that houses all of our custom image functions
-                include_once(PRIVATE_PATH . "/php/ImgLibrary.php");
+                include_once(PRIVATE_PATH . "/php/programs/ImgLibrary.php");
 // ---------- Start Universal Image Resizing Function --------
                 $target_file = PUBLIC_PATH . "/uploads/" . $file_name;
                 $file = $path . 'full/' . $file_name;
@@ -131,8 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink(PUBLIC_PATH . "/uploads/$file_name");
 
                 /*** Write info to mysql ***/
-                require_once PRIVATE_PHP_PATH . '/programs/UpdatePhotoMetadata.php';
-                $db = new addMetadataToMysql($idRpt, $file_name);
+                /*           require_once PRIVATE_PHP_PATH . '/programs/UpdatePhotoMetadata.php';
+                           $db = new addMetadataToMysql($idRpt, $file_name);*/
                 //         $db->addMetadataToMysql($idRpt, $file_name);
             }
         }

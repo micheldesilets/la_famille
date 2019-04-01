@@ -18,7 +18,7 @@ class InitPhotoClass
 
     public function setToClass($id, $titlePho, $keywords, $caption,
                                $full, $preview, $filename, $pdf, $idgen,
-                               $titleFol, $year)
+                               $year)
     {
         $this->namesList = new prog\GeneologyNamesList();
         $this->indexesList=new prog\GeneologyIndexesList();
@@ -65,11 +65,11 @@ class InitPhotoClass
             $gName = $this->namesList->buildNamesList($idgen);
             $photo->set_GeneolNames($gName);
         }
-        if ($titleFol == null) {
+/*        if ($titleFol == null) {
             $photo->set_rptTitle("");
         } else {
             $photo->set_rptTitle($titleFol);
-        }
+        }*/
         if ($year == null) {
             $photo->set_Year("");
         } else {

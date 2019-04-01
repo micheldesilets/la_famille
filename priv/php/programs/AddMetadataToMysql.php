@@ -12,23 +12,52 @@ use priv\php\connection as con;
 
 class AddMetadataToMysql
 {
-    private $rpt;
+    private $identifier;
     private $filename;
-    private $connection;
+    private $con;
 
-    public function __construct($idRpt,$file_name)
+    public function __construct($identifier, $fileName)
     {
-        $this->rpt=$idRpt;
-        $this->filename=$file_name;
-        $this->addToMysql();
+        $connection = new con\DbConnection();
+        $this->setCon($connection->Connect());
+
+        $this->setIdentifier($identifier);
+        $this->setFilename($fileName);
     }
 
-   private function addToMysql()
+    private function setCon($con): void
+    {
+        $this->con = $con;
+    }
+
+    private function getCon() :\mysqli
+    {
+        return $this->con;
+    }
+
+    private function setIdentifier($identifier): void
+    {
+        $this->identifier = $identifier;
+    }
+
+    private function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    private function setFilename($filename): void
+    {
+        $this->filename = $filename;
+    }
+
+    private function getFilename()
+    {
+        return $this->filename;
+    }
+
+    public function addToMysql()
     {
         try {
-            $this->connection = new con\DbConnection();
-            $con = $this->connection->Connect();
-
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
             $u = \PrivilegedUser::getByUsername($_SESSION["username"]);
@@ -38,12 +67,12 @@ class AddMetadataToMysql
                               idfol_pho, filename_pho,owner_pho)
                        VALUES (?,?,?)";
 
-            $stmt = $con->prepare($sql);
-            $stmt->bind_param("iss", $this->rpt, utf8_encode($this->filename),
-                $email);
+            $stmt = $this->getCon()->prepare($sql);
+            $email="michel@desilets.net";
+            $stmt->bind_param("sss", $this->getIdentifier(),
+                utf8_encode($this->filename), $email);
             $stmt->execute();
             $stmt->close();
-            return;
         } catch (\Exception $e) {
             error_log($e->getMessage());
             exit(); //Should be a message a typical user could understand

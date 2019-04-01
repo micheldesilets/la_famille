@@ -40,6 +40,7 @@ var getFolderTree = () => {
 };
 
 /*** Family Photos ***/
+/*
 var buildFolderTree = (data) => {
     'use strict';
     const folderContainer = document.getElementById("photos__folders");
@@ -181,6 +182,7 @@ var folderLevel4 = (branch) => {
             branch.type + ")\">" + branch.title + "</li>\n");
     }
 };
+*/
 
 var getFamilyPhotos = (obj, ident, type) => {
     'use strict';
@@ -203,8 +205,8 @@ var getPhotos = (ident, type) => {
     searchChoice.setSearchPageStatus(false);
     try {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../priv/php/controllers/PhotosController.php?path=" +
-            path + '&function=getPhotos', true);
+        xhr.open("GET", "../../priv/php/controllers/PhotosController.php?ident=" +
+            folderTree.getFolderIdent() + '&function=getPhotos', true);
         xhr.onload = () => {
             if (xhr.readyState === 4) {
                 selectedPhotos.setPhotos(JSON.parse(xhr.responseText));
@@ -369,7 +371,7 @@ var renderFamilyPhotos = () => {
     for (const obj of listPhotos) {
         const thumb = obj.prev_path + obj.filename;
         htmlString += "<div><img src=\"../../" + thumb + "\" alt=\"" +
-            obj.caption + "\" title=\"" + obj.title +
+            obj.caption + "\" title=\"" + folderTitle.getTitle() +
             "\" class=\"thumbimg\"></div>\n";
     }
     familyContainer.insertAdjacentHTML('beforeend', htmlString);
@@ -1282,6 +1284,7 @@ var GetFolderValues = (folders) => {
     folders.member = memberInfo.GetMemberName();
     folders.idLevel1 = FolderFirstLevel.searchName(folders.level1);
     folders.idLevel2 = FolderSecondLevel.searchName(folders.level2);
+    folders.idLevel3 = FolderThirdLevel.searchName(folders.level3);
     return folders;
 };
 
@@ -1350,9 +1353,13 @@ var addFolder = () => {
 
 var uploadPhotos = () => {
     'use strict';
-    const folderData = getFolderInputsPhotos();
+    //  const folderData = getFolderInputsPhotos();
+    var folderData = getFolderInputs();
+    folderData = GetFolderValues(folderData);
 
-    const url = '../../priv/php/upload.php';
+     //const url = '../../priv/php/programs/upload.php';
+    const url =
+        '../../priv/php/controllers/PhotosController.php?function=uploadPhotos';
     const files = document.getElementById('data-box__input--photos').files;
     const formData = new FormData();
 
@@ -1362,11 +1369,9 @@ var uploadPhotos = () => {
             formData.append('files[]', file);
         }
 
-        formData.append('type', folderData.type);
-        formData.append('member', folderData.member);
-        formData.append('decade', folderData.decade);
-        formData.append('year', folderData.year);
-        formData.append('title', folderData.title);
+        formData.append('level1', folderData.idLevel1);
+        formData.append('level2', folderData.idLevel2);
+        formData.append('level3', folderData.idLevel3);
 
         fetch(url, {
             method: 'POST',
@@ -1622,6 +1627,11 @@ var RenderFolderLevel2 = (level2) => {
         FolderSecondLevel.setName(i, obj.name);
         i += 1;
     }
+    htmlString += '<option value=></option>\n';
+    FolderSecondLevel.setId(i, 0);
+    FolderSecondLevel.setIdParent(i, 0);
+    FolderSecondLevel.setName(i, '');
+
     selectAnchor.insertAdjacentHTML("beforeend", htmlString);
     return level2[j].id;
 };
@@ -1665,8 +1675,12 @@ var RenderFolderLevel3 = (level3) => {
         i += 1;
     }
     if (curr === 'addPhotos.php') {
+        htmlString += '<option value=></option>\n';
+        FolderThirdLevel.setId(i, 0);
+        FolderThirdLevel.setIdParent(i, 0);
+        FolderThirdLevel.setName(i, '');
+
         selectAnchor.insertAdjacentHTML("beforeend", htmlString);
-        //inputAnchor.insertAdjacentHTML("beforeend", htmlString);
     }
 };
 

@@ -110,9 +110,6 @@ class BuildFolderTree
 
             $this->j += 1;
         }
-        /*        $this->htmlString = $this->htmlString .
-                    "</div>\n" .
-                    "</div>\n";*/
 
         $this->setHtmlString($this->htmlString);
     }
@@ -229,8 +226,9 @@ class BuildFolderTree
                     "onclick=\"getFamilyPhotos(" .
                     "'" .
                     $this->folderTwoName .
-                    "'," .
-                    "13,2" .
+                    "','" .
+                    $this->getIdentifierTwo() .
+                    "',2" .
                     ")\">\n";
             }
 
@@ -272,8 +270,9 @@ class BuildFolderTree
                     "onclick=\"getFamilyPhotos(" .
                     "'" .
                     $this->folderThreeName .
-                    "'," .
-                    "13,2" .
+                    "','" .
+                    $this->getIdentifierThree() .
+                    "',2" .
                     ")\">\n";
             }
 

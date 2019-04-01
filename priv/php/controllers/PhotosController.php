@@ -13,7 +13,8 @@ include_once INCLUDES_PATH . "privilegedUser.php";
 
 include_once PROJECT_PATH . '/Autoload.php';
 
-use priv\php\{factories\json\factory as factory,programs as prog,
+use priv\php\{factories\json\factory as factory,
+    programs as prog,
     factories\json\products as prod};
 
 if (isset($_POST['function'])) {
@@ -32,20 +33,44 @@ if ($function === 'zipAndDownload') {
     }
 }
 
+if ($function === "uploadPhotos") {
+    $level1 = $_POST['level1'];
+    $level2 = $_POST['level2'];
+    $level3 = $_POST['level3'];
+
+    if ($level3 !== "0") {
+        $worker = new prog\GetPhysicalPathLevelThree($level3);
+    } else
+        if ($level2 !== "0") {
+            $worker = new prog\GetPhysicalPathLevelTwo($level2);
+        } else {
+            $worker = new prog\GetPhysicalPathLevelOne($level1);
+        }
+
+    $path = $worker->getPath();
+    $identifier = substr(strrchr($path, '/'), 1);
+    $path = PUBLIC_PATH. '/img/family/' . str_replace(strrchr($path, '/'), "",
+        $path);
+
+    //Upload to physical folder and database
+    $worker = new prog\UploadPhotosToSite($path, $identifier, $_FILES);
+    $worker->upload();
+}
+
 if ($function === 'removeZipFile') {
     $remove = new prog\RemoveZipFile();
 }
 
 if ($function === 'getPhotos') {
-    $path = $_GET['path'];
-    $worker = new factory\JsonClientEcho(1, $path); /* Factory Method Design
+    $ident = $_GET['ident'];
+    $worker = new factory\JsonClientEcho(1, $ident); /* Factory Method Design
  Pattern */
 }
 
 if ($function == 'getMetadata') {
     $pid = $_GET['pid'];
     $worker = new factory\JsonClientEcho(6, $pid);
- //   echo $worker->getEcho();
+    //   echo $worker->getEcho();
 }
 
 if ($function == 'insertPhotoInfo') {

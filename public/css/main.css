@@ -336,6 +336,9 @@ a {
     top: -45px; }
   .data-box__input--level3 {
     position: relative;
+    top: -45px; }
+  .data-box__input--level3-photos {
+    position: relative;
     top: -67px; }
 .data-box__photo-container {
   margin: auto;

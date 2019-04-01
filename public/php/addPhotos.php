@@ -101,51 +101,52 @@ sec_session_start();
                             onchange="ThirdLevelOnChange()">
                     </select>
                     <input type="text" class="data-box__input
-                               data-box__input--level3" readonly>
+                               data-box__input--level3
+                               data-box__input--level3-photos" readonly>
                 </div>
-            <!--    <div>
-                    <label for="data-box__select--add-ph-author"
-                           class="data-box__label">Répertoire principal</label>
-                    <input type="text" class="data-box__input
-                                              data-box__input--level0" readonly>
-                    <select class="data-box__select"
-                            id="data-box__select--add-ph-member">
-                    </select><br>
-                </div>
+                <!--    <div>
+                        <label for="data-box__select--add-ph-author"
+                               class="data-box__label">Répertoire principal</label>
+                        <input type="text" class="data-box__input
+                                                  data-box__input--level0" readonly>
+                        <select class="data-box__select"
+                                id="data-box__select--add-ph-member">
+                        </select><br>
+                    </div>
 
-                <div>
-                    <label for="data-box__select--add-folder-photo-decade"
-                           class="data-box__label">
-                        Sous-répertoire - niveau 1</label>
-                    <select class="data-box__select
-                        data-box__select--add-folder-photo-decade"
-                            onchange="getYearsSelected();">
-                    </select><br>
-                </div>
+                    <div>
+                        <label for="data-box__select--add-folder-photo-decade"
+                               class="data-box__label">
+                            Sous-répertoire - niveau 1</label>
+                        <select class="data-box__select
+                            data-box__select--add-folder-photo-decade"
+                                onchange="getYearsSelected();">
+                        </select><br>
+                    </div>
 
-                <div>
-                    <label for="data-box__select--add-folder-photo-year"
-                           class="data-box__label">
-                        Sous-répertoire - niveau 2
-                    </label>
-                    <select class="data-box__select
-                    data-box__select--add-folder-photo-year"
-                            onchange="getFolders()">
-                    </select>
-                    <br>
-                </div>
+                    <div>
+                        <label for="data-box__select--add-folder-photo-year"
+                               class="data-box__label">
+                            Sous-répertoire - niveau 2
+                        </label>
+                        <select class="data-box__select
+                        data-box__select--add-folder-photo-year"
+                                onchange="getFolders()">
+                        </select>
+                        <br>
+                    </div>
 
-                <div>
-                    <label for="data-box__select--add-ph-title"
-                           class="data-box__label">
-                        Sous-répertoire - niveau 3
-                    </label>
-                    <select class="data-box__select
-                    data-box__select--add-ph-title">
-                    </select>
-                    <br>
-                </div>
--->
+                    <div>
+                        <label for="data-box__select--add-ph-title"
+                               class="data-box__label">
+                            Sous-répertoire - niveau 3
+                        </label>
+                        <select class="data-box__select
+                        data-box__select--add-ph-title">
+                        </select>
+                        <br>
+                    </div>
+    -->
                 <div>
                     <label for="data-box__input--photos"
                            class="data-box__label">
@@ -175,8 +176,8 @@ sec_session_start();
 <script src="../js/main.js"></script>
 <script>
     //var user = '<?php //echo $u->getUsername();?>//';
-  //  getDecades();
- //
+    //  getDecades();
+    //
     GetFolderLevel0('Michel');
 </script>
 <?php /*else : */ ?><!--

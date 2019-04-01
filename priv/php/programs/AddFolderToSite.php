@@ -35,21 +35,23 @@ class AddFolderToSite
             $path = $path . '/' . $level1Name;
             if (!file_exists($path)) {
                 mkdir($path);
-            };
-
-            if ($level2Name === "") {
                 chdir($path);
                 mkdir('full');
                 mkdir('preview');
+            };
+
+            if ($level2Name === "") {
+                return;
             } else {
                 $path = $path . '/' . $level2Name;
                 if (!file_exists($path)) {
                     mkdir($path);
-                }
-                if ($level3Name === "") {
                     chdir($path);
                     mkdir('full');
                     mkdir('preview');
+                }
+                if ($level3Name === "") {
+                    return;
                 } else {
                     $path = $path . '/' . $level3Name;
                     if (!file_exists($path)) {

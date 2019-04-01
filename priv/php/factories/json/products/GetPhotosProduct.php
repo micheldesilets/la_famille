@@ -8,7 +8,8 @@
 
 namespace priv\php\factories\json\products;
 
-use priv\php\{factories\json\factory as factory,connection as con,
+use priv\php\{factories\json\factory as factory,
+    connection as con,
     programs as prog};
 
 class GetPhotosProduct implements factory\JsonProduct
@@ -20,7 +21,7 @@ class GetPhotosProduct implements factory\JsonProduct
 
     public function __construct($param)
     {
-        $this->param=$param;
+        $this->param = $param;
     }
 
     public function getProperties()
@@ -31,12 +32,10 @@ class GetPhotosProduct implements factory\JsonProduct
         try {
             $sql = "SELECT id_pho, title_pho, keywords_pho, caption_pho, 
                            full_pfo, preview_pfo, filename_pho, pdf_pho, 
-                           idgen_pho, title_fol, year_pho
+                           idgen_pho, year_pho
                       FROM photos_folders_pfo pfo
                            INNER JOIN photos_pho pho
                                    ON pfo.idfol_pfo = pho.idfol_pho
-                                 JOIN folders_fol rpt
-                                   ON pfo.idfol_pfo = rpt.id_fol
                      WHERE pfo.idfol_pfo = ?
                   ORDER BY pho.year_pho";
 
@@ -45,7 +44,7 @@ class GetPhotosProduct implements factory\JsonProduct
             $stmt->bind_param($i, $this->param);
             $stmt->execute();
             $stmt->bind_result($id, $titlePho, $keywords, $caption,
-                $full, $preview, $filename, $pdf, $idgen, $titleFol,
+                $full, $preview, $filename, $pdf, $idgen,
                 $year);
 
             $listPhotos = [];
@@ -54,15 +53,15 @@ class GetPhotosProduct implements factory\JsonProduct
             while ($stmt->fetch()) {
                 $photo = $this->initClass->setToClass($id, $titlePho,
                     $keywords, $caption, $full, $preview, $filename, $pdf,
-                    $idgen, $titleFol, $year);
+                    $idgen, $year);
                 array_push($listPhotos, $photo);
             }
 
             $stmt->close();
 
-           return $this->createJson($listPhotos);
+            return $this->createJson($listPhotos);
 
-          } catch (\Exception $e) {
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             exit();
         }
